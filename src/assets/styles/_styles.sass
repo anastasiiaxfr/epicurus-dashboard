@@ -1,8 +1,26 @@
 body
 	overflow: hidden
 	overflow-y: auto
+	margin: 0
+	padding: 0
+
+	& > div
+		height: 100%
+		+theme(body)
 
 a
 	&:hover, &:focus, &:active
 		color: inherit
 
+$sidebar_w: 360px
+.pg
+	&__wrap
+		display: grid
+		grid-template-columns: $sidebar_w 1fr
+		height: 100%
+	&__sidebar
+		max-width: $sidebar_w
+		width: 100%
+		
+	//&__container
+		

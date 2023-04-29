@@ -14,11 +14,11 @@
 
 $fontSrc: '../fonts'
 
-$fontFamily: 'OpenSans'
+$fontFamilyPoppins: 'Poppins'
+$fontFamilyMontserrat: 'Montserrat'
 
-
-$fntName: (OpenSans-Black, 900), (OpenSans-ExtraBold, 800), (OpenSans-Bold, 700), (OpenSans-SemiBold, 600), (OpenSans-Regular, 400), (OpenSans-Light, 300)
-
+$fntNameMontserrat: (Montserrat-Regular, 400), (Montserrat-Medium, 500)
+$fntNamePoppins: (Poppins-SemiBold, 600), (Poppins-Medium, 500), (Poppins-Light, 300)
 
 =font($fntName, $fntSrc, $fontFamily)	
 	@each $fnt, $fntw in $fntName
@@ -31,6 +31,7 @@ $fntName: (OpenSans-Black, 900), (OpenSans-ExtraBold, 800), (OpenSans-Bold, 700)
 			src: local($fontFamily), local($fontFamily), url($fontSrc + '/' + $fntFldr + '/' +'#{$fnt}.woff') format('woff'), url($fontSrc + '/' + $fntFldr + '/' +'#{$fnt}.woff2') format('woff2'), url($fontSrc + '/' + $fntFldr + '/' +'#{$fnt}.ttf') format('ttf')
 
 
-// +font($fntName, $fontSrc, $fontFamily)
++font($fntNamePoppins, $fontSrc, $fontFamilyPoppins)
++font($fntNameMontserrat, $fontSrc, $fontFamilyMontserrat)
 
 	

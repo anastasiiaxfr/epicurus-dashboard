@@ -56,9 +56,17 @@ export default function App({ Component, pageProps }) {
               __html: JSON.stringify(schema)
             }}></script>
 
-            <header>header</header>
-            <Component {...pageProps}/>
-            <footer>footer</footer>
+            <div className="pg__wrap">
+                <aside className="pg__sidebar">
+                    sidebar
+                </aside>
+                <main className="pg__container">
+                    <header>header</header>
+                    <Component {...pageProps}/>
+                    <footer>footer</footer>
+                </main>
+            </div>
+            
         </>
     )
 }

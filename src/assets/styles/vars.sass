@@ -76,6 +76,12 @@ $trs: all 0.35s ease-in-out
 
 
 =theme($theme)
+	@if $theme == body
+		background-color: $dark
+		background-image: $grad1
+		background-repeat: no-repeat
+		color: $white
+
 	@if $theme == dark
 		background-color: $dark
 		color: $white
