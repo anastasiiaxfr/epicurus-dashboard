@@ -12,15 +12,77 @@ a
 	&:hover, &:focus, &:active
 		color: inherit
 
-$sidebar_w: 360px
 .pg
 	&__wrap
-		display: grid
-		grid-template-columns: $sidebar_w 1fr
+		+flex(flex, stretch, flex-start, nowrap,)
+		// display: grid
+		// grid-template-columns: var(--sidebar-width) 1fr
 		height: 100%
+
 	&__sidebar
-		max-width: $sidebar_w
+		+theme(dark)
+		+flex(flex, flex-start, flex-start, nowrap, column)
+		max-width: var(--sidebar-width)
+		+sz(100%, auto)
+		gap: 40px
+		padding: 30px 30px 30px
+
+		&.active
+			min-width: 280px
+			height: 100%
+			z-index: 100500 - 1
+			box-shadow: 0px 0px 20px -5px $black
+
+			.pg__nav span
+				display: block
+
+		+maw($xmd)
+			padding: 30px 15px
+			&.active
+				+ps(fixed, (t, 0), (l, 0))
+
+	&__container
+		+flex(flex, center, center, nowrap, column)
+		+sz(100%, auto)
+		//flex: 1 0 auto
+		
+	&__content
+		+flex(flex, center, flex-start, nowrap, column)
 		width: 100%
+		flex: 1
+		padding: 25px 20px
+		padding-top: 0
+		gap: 20px
+
+	&__section
+		width: 100%
+		margin: 0px auto
+
+		h1, h2, h3, h4, h5, h6
+			margin-top: 0
+			margin-bottom: 0
+			color: $text_2
+
+		&-header
+			+flex(flex, center, space-between, wrap)
+			width: 100%
+			margin-bottom: 10px
+
+
+.d
+	&-none
+		display: none
+	&-block
+		display: block
+
 		
-	//&__container
-		
+.table
+	&__cta
+		width: auto
+		+flex(flex, center, space-between, nowrap)
+		gap: 20px
+
+		+maw(320)
+			width: 100%
+			margin-top: 10px
+			margin-left: auto

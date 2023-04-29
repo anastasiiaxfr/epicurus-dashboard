@@ -1,9 +1,10 @@
 import Link from 'next/link'
-import Hero from '../components/Hero'
-import Table from '../components/Tables'
-import DownloadIcon from '../assets/icons/download.svg'
+import Hero from '../../components/Hero'
+import Table from '../../components/Tables'
+import DownloadIcon from '../../assets/icons/download.svg'
 
-function HomePage() {
+
+function DashboardPage() {
     return (
         <>
             {/* HERO */}
@@ -29,4 +30,4 @@ function HomePage() {
     )
 }
 
-export default HomePage
+export default DashboardPage

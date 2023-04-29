@@ -9,6 +9,7 @@ $red2: #DA1818
 
 
 $purple: #8C77ED
+$purple2: #7E49F3
 $purple3: #4E00F9
 $prurple100: #6530DA
 $prurple200: #763FBF
@@ -23,6 +24,7 @@ $dark2: #1F222D
 
 
 $grey: #ADADAD
+$grey1: #080610
 $grey2: #15171D
 $grey3: #141417
 $grey100: #2D2D49
@@ -40,13 +42,18 @@ $text_5: #89898D
 $text_6: #37383B
 $text_7: #B2B2B2
 
-	
+$brs1: 12px	
+$brs2: 15px	
 
 $grad1: linear-gradient(181.18deg, #0D0D0D 1.01%, #212A54 127.75%)
 $grad2: linear-gradient(92.63deg, #0F135A 0%, #6530DA 32.29%, #763FBF 70.31%, #7E49F3 100%), #8C77ED
 $gard3: linear-gradient(109.97deg, #0F135A 0%, #6530DA 31.92%, #763FBF 69.5%, #7E49F3 98.85%)
 $grda4: linear-gradient(115.41deg, #0F135A 7.44%, #6530DA 36.47%, #763FBF 70.66%, #7E49F3 97.36%)
 $grad5: linear-gradient(92.63deg, #0F135A 0%, #494FBF 28.65%, #4449A5 69.27%, #5D608B 100%)
+$grad6:  linear-gradient(269.92deg, rgba(255, 255, 255, 0.05) 35.53%, rgba(255, 255, 255, 0) 68.04%)
+$grad7: linear-gradient(180deg, rgba(13, 13, 13, 0) 4.78%, rgba(13, 13, 13, 0.97) 64.51%, rgba(13, 13, 13, 0.95) 73.12%, rgba(13, 13, 13, 0.98) 78.81%, rgba(13, 13, 13, 0.99) 88.9%, #0D0D0D 100%)
+
+$bxsd1: 0px 0px 40.1625px -11.1563px #4818B4
 
 
 $ffHeading: 'Poppins'
@@ -55,8 +62,10 @@ $ffBack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue"
 
 $xlg: 1400
 $lg: 1200
+$xmd: 1120
 $md: 991
 $sm: 768
+$xsm: 640
 $xs: 480
 $xxs: 360
 
@@ -89,6 +98,10 @@ $trs: all 0.35s ease-in-out
 		*::selection
 			background-color: rgba($white, 0.1)
 
+	@if $theme == dark2
+		background-color: $grey2
+		color: $white
+
 	@if $theme == white
 		background-color: $white
 		color: $balck
@@ -106,6 +119,8 @@ $trs: all 0.35s ease-in-out
 		justify-content: $jc
 	@if $fxw
 		flex-wrap: $fxw
+	@if $fxd
+		flex-direction: $fxd
 
 
 // +position(absolute, (t, 0), (r, 0))
@@ -204,6 +219,7 @@ $i: 0
 	@media only screen and (max-width: $brkp+"px")
 		@content
 
+
 =miw($brkp)
 	@media only screen and (min-width: $brkp+"px")
 		@content
@@ -238,3 +254,12 @@ $i: 0
 	
 // +rfz(1120, 320, 12, 40)
 
+%card
+	background-color: $dark
+	background-image: url(../img/card_bg.svg)
+	background-repeat: no-repeat
+	background-size: cover
+	border-radius: $brs1
+	box-shadow: $bxsd1
+	color: $white
+	overflow: hidden

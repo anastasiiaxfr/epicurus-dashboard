@@ -1,12 +1,14 @@
-h1
+h1, .h1
 	+ft(78, 72, 500, $ffHeading)
-h2
+h2, .h2
 	+ft(40, 60, 400, $ffHeading)
-
+h3, .h3
+	+ft(24, 36, 600, $ffHeading)
 p
 	+ft(14, 14*1.3, 400, $ffText)
 
-.title
+
+.text
 	&--head
 		+ft(36, 54, 700, $ffHeading)
 		color: $prurple200
@@ -33,6 +35,9 @@ p
 	&--link
 		+ft(14, 17, 400, $ffText)
 		color: $text_1
+		&-btn
+			+ft(14, 21, 300, $ffHeading)
+			color: $grey
 		&-text
 			+ft(12, 14, 300, $ffText)
 			color: $prurple100
@@ -46,12 +51,12 @@ p
 		+ft(14, 21, 500, $ffHeading)
 		//color: $white
 		&-secondary
-			+ft(14, 21, 5000, $ffHeading)
+			+ft(14, 21, 500, $ffHeading)
 			color: $text_3
 		&-link
 			+ft(20, 24, 400, $ffText)
 			color: $prurple100
-	&--subtile
+	&--subtile-sidebar
 		+ft(14, 21, 400, $ffHeading)
 		color: $text_2
 		&-sm

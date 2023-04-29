@@ -1,0 +1,50 @@
+@import 'src/assets/styles/vars.sass'
+
+$menu_w: 280px
+.notification
+    position: relative
+
+    &_icon
+        cursor: pointer
+
+        circle
+            display: none
+
+        &.active
+            circle
+                display: block
+
+    &_menu
+        +ps(absolute, (t, 55px), (r, 0))
+        z-index: 100500
+        +theme(dark2)
+        +flex(flex, center, center, nowrap, column)
+        width: $menu_w
+        gap: 15px
+        padding: 15px 15px
+
+        border-radius: $brs1
+        
+    &_item
+        +theme(dark)
+        +flex(flex, center, center, wrap)
+        width: 100%
+        padding: 15px
+        margin: 0 auto
+        border-radius: $brs1
+
+    &_content
+        width: 100%
+
+    &_title
+        +flex(flex, center, space-between, nowrap)
+        margin-bottom: 10px
+        +ft(14, 14*1.2, 600, $ffHeading)
+
+        svg
+            transform: scale(0.4) 
+            cursor: pointer
+
+    &_text
+        +ft(12, 12*1.3, 400, $ffText)
+
