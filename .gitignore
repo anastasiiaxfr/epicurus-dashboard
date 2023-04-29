@@ -1,0 +1,11 @@
+/node_modules
+.env
+
+# next.js
+/.next
+/out
+
+
+# sitemap
+sitemap*.xml
+robots.txt

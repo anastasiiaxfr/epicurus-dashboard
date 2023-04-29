@@ -1,0 +1,20 @@
+{
+  "name": "epicurus",
+  "version": "1.0.0",
+  "description": "dashboard",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "author": "ansatasiia_berest",
+  "license": "ISC",
+  "dependencies": {
+    "next": "^13.3.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sass": "^1.62.1"
+  }
+}

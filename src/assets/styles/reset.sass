@@ -1,0 +1,45 @@
+html, body 
+	height: 100%
+	min-height: 100vh
+	font-family: $ffText
+	scroll-behavior: smooth
+
+body
+	background-color: $white
+	&::-webkit-scrollbar
+		+sz(10px, 10px)
+
+	&::-webkit-scrollbar-track
+		background-color: $black
+
+	&::-webkit-scrollbar-thumb
+		background: $black
+
+
+*
+	//user-select: none
+	&::selection
+		background-color: $white
+
+
+a
+	text-decoration: none
+	color: inherit
+	&:hover, &:focus
+		text-decoration: none
+
+img
+	user-select: none
+
+button, a, input 
+	&:hover, &:active, &:focus
+		appearance: none
+		outline: none
+		box-shadow: none 
+
+.page
+	&__body
+		display: flex
+		flex-direction: column
+	&__wrapper
+		flex: 1 0 auto
