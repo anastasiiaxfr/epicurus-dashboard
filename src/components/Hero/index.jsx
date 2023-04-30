@@ -42,11 +42,9 @@ export default function Hero() {
 
                 <div className={styles.sidebar_head}>
                     <h2 className="h3">Assets</h2>
-                    <div className="table__cta">
                         <Link href="/" className="text--link-btn">
                             See All
                         </Link>
-                    </div>
                 </div>
 
                 <div className={styles.sidebar_row}>

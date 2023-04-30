@@ -1,5 +1,10 @@
+import Tabs from '../../components/Tabs'
+
+
 function CryptoBotPage() {
-    return <div> CryptoBot </div>
+    return (
+        <Tabs />
+    )
 }
 
 export default CryptoBotPage

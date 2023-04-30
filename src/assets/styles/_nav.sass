@@ -1,69 +1,70 @@
 .pg
-	&__header
-		+flex(flex, center, space-between, nowrap)
-		width: 100%
-		padding: 25px 20px
-		
-		&-cta
-			+flex(flex, center, space-between, nowrap)
-			gap: 100px
+    &__header
+        +flex(flex, center, space-between, nowrap)
+        width: 100%
+        padding: 25px 20px
+        
+        &-cta
+            +flex(flex, center, space-between, nowrap)
+            gap: 100px
 
-		h1
-			margin: 0
+        h1
+            margin: 0
 
-		+maw(600)
-			flex-wrap: wrap
+        +maw(600)
+            flex-wrap: wrap
 
-			h1
-				width: 100%
-				margin-bottom: 10px	
-				
-			&-cta
-				flex: 1
-				width: auto
-				gap: 20px
-	
-	&__footer
-		background-color: rgba($dark, 0.5)
-		width: 100%
-		padding: 25px 20px
-		text-align: center
-		
-	&__nav
-		list-style-type: none
-		width: 100%
-		padding: 0
-		margin: 0 
+            h1
+                width: 100%
+                margin-bottom: 10px	
+                
+            &-cta
+                flex: 1
+                width: auto
+                gap: 20px
+    
+    &__footer
+        background-color: rgba($dark, 0.5)
+        width: 100%
+        padding: 25px 20px
+        text-align: center
+        
+    &__nav
+        list-style-type: none
+        width: 100%
+        padding: 0
+        margin: 0 
 
-		// &:not(:last-of-type)
-		// 	margin-bottom: 50px
+        // &:not(:last-of-type)
+        // 	margin-bottom: 50px
 
-		li 
-			width: 100%
-			//min-height: 47px
-			+ft(18, 27, 500, $ffHeading)
+        li 
+            width: 100%
+            //min-height: 47px
+            +ft(18, 27, 500, $ffHeading)
 
-			&:not(:last-of-type)
-				margin-bottom: 5px
+            &:not(:last-of-type)
+                margin-bottom: 5px
 
-			&:hover, &:active, &:focus
-				background-image: $grad6
-			a
-				+flex(flex, center, center, nowrap)
-				width: 100%
-				padding: 10px 0
-				//white-space: nowrap
-				//gap: 20px
+            &:hover, &:active, &:focus
+                background-image: $grad6
+                border-radius: 5px
+            a
+                +flex(flex, center, center, nowrap)
+                width: 100%
+                padding: 10px 0
+                //white-space: nowrap
+                //gap: 20px
 
-			span
-				margin-left: 20px
-				display: inline-flex
-				width: calc(100% - 20px - 20px)
-				flex: 1
+            span
+                margin-left: 20px
+                display: inline-flex
+                width: calc(100% - 20px - 20px)
+                flex: 1
 
-			svg
-				+sz(20px, 20px)
-				
-			+maw($xmd)
-				span
-					display: none
+            svg
+                +sz(20px, 20px)
+                
+            +maw($xmd)
+                span
+                    display: none

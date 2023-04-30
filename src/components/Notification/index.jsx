@@ -32,7 +32,7 @@ export default function Notification() {
         <div className={
             styles.notification
         }>
-            <NotifiacationIcon className={`${styles.notification_icon} ${active ? styles.active : ''}`} width="20" height="20" onClick={() => { setShow(prev => !prev) }} />
+            <NotifiacationIcon className={`${styles.notification_icon} ${active ? styles.active : ''}`} width="25" height="25" onClick={() => { setShow(prev => !prev) }} />
 
             { show && active && <div className={
                 styles.notification_menu

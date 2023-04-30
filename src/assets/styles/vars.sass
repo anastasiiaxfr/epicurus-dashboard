@@ -44,6 +44,7 @@ $text_7: #B2B2B2
 
 $brs1: 12px	
 $brs2: 15px	
+$brs3: 20px	
 
 $grad1: linear-gradient(181.18deg, #0D0D0D 1.01%, #212A54 127.75%)
 $grad2: linear-gradient(92.63deg, #0F135A 0%, #6530DA 32.29%, #763FBF 70.31%, #7E49F3 100%), #8C77ED
@@ -52,6 +53,7 @@ $grda4: linear-gradient(115.41deg, #0F135A 7.44%, #6530DA 36.47%, #763FBF 70.66%
 $grad5: linear-gradient(92.63deg, #0F135A 0%, #494FBF 28.65%, #4449A5 69.27%, #5D608B 100%)
 $grad6:  linear-gradient(269.92deg, rgba(255, 255, 255, 0.05) 35.53%, rgba(255, 255, 255, 0) 68.04%)
 $grad7: linear-gradient(180deg, rgba(13, 13, 13, 0) 4.78%, rgba(13, 13, 13, 0.97) 64.51%, rgba(13, 13, 13, 0.95) 73.12%, rgba(13, 13, 13, 0.98) 78.81%, rgba(13, 13, 13, 0.99) 88.9%, #0D0D0D 100%)
+$grad8: linear-gradient(0deg, transparent, rgba($grey2, 0.3))
 
 $bxsd1: 0px 0px 40.1625px -11.1563px #4818B4
 
@@ -73,120 +75,128 @@ $trs: all 0.35s ease-in-out
 
 
 =ft($fz, $lh: 16, $fw: 400, $ff: null)
-	$lh: $lh/$fz
-	$fz: $fz/16 + rem
-	@if $ff
-		$ff: $ff, $ffBack
-		font: $fw $fz/$lh $ff 
-	@else 
-		font-size: $fz
-		font-weight: $fw
-		line-height: $lh
+    $lh: $lh/$fz
+    $fz: $fz/16 + rem
+    @if $ff
+        $ff: $ff, $ffBack
+        font: $fw $fz/$lh $ff 
+    @else 
+        font-size: $fz
+        font-weight: $fw
+        line-height: $lh
 
 
 =theme($theme)
-	@if $theme == body
-		background-color: $dark
-		background-image: $grad1
-		background-repeat: no-repeat
-		color: $white
+    @if $theme == body
+        background-color: $dark
+        background-image: $grad1
+        background-repeat: no-repeat
+        color: $white
 
-	@if $theme == dark
-		background-color: $dark
-		color: $white
+        a
+            color: $white
 
-		*::selection
-			background-color: rgba($white, 0.1)
+    @if $theme == dark
+        background-color: $dark
+        color: $white
 
-	@if $theme == dark2
-		background-color: $grey2
-		color: $white
+        *::selection
+            background-color: rgba($white, 0.1)
 
-	@if $theme == white
-		background-color: $white
-		color: $balck
+    @if $theme == dark2
+        background-color: $grey2
+        color: $white
+
+    @if $theme == dark3
+        background-color: $grey400
+        color: $text_1
+        
+
+    @if $theme == white
+        background-color: $white
+        color: $balck
 
 
 =sz($w, $h, $max: null, $mah: null)
-	width: $w
-	height: $h
+    width: $w
+    height: $h
 
 =flex($fx, $ai: null, $jc: null, $fxw: null, $fxd: null)
-	display: $fx
-	@if $ai
-		align-items: $ai
-	@if $jc
-		justify-content: $jc
-	@if $fxw
-		flex-wrap: $fxw
-	@if $fxd
-		flex-direction: $fxd
+    display: $fx
+    @if $ai
+        align-items: $ai
+    @if $jc
+        justify-content: $jc
+    @if $fxw
+        flex-wrap: $fxw
+    @if $fxd
+        flex-direction: $fxd
 
 
 // +position(absolute, (t, 0), (r, 0))
 =position($ps, $val)
-	@each $x in $ps
-		@if $x == t
-			top: $val
+    @each $x in $ps
+        @if $x == t
+            top: $val
 
-		@if $x == b
-			bottom: $val
+        @if $x == b
+            bottom: $val
 
-		@if $x == l
-			left: $val
+        @if $x == l
+            left: $val
 
-		@if $x == r
-			right: $val
+        @if $x == r
+            right: $val
 
 =ps($params...)
-	position: nth($params, 1)
-	@each $par, $val in $params
-		@if $par != null and $val != null
-			+position($par, $val)
+    position: nth($params, 1)
+    @each $par, $val in $params
+        @if $par != null and $val != null
+            +position($par, $val)
 
 // input +pd((t, 30px), (b, 40px))
 =padding($pd, $val)
-	@if $pd == t
-		padding-top: $val
+    @if $pd == t
+        padding-top: $val
 
-	@if $pd == b
-		padding-bottom: $val
+    @if $pd == b
+        padding-bottom: $val
 
-	@if $pd == l
-		padding-left: $val
+    @if $pd == l
+        padding-left: $val
 
-	@if $pd == r
-		padding-right: $val
+    @if $pd == r
+        padding-right: $val
 
-	@if $pd == all
-		padding: $val
+    @if $pd == all
+        padding: $val
 
 =pd($params...)
-	@each $par, $val in $params
-		@if $par != null and $val != null
-			+padding($par, $val)
+    @each $par, $val in $params
+        @if $par != null and $val != null
+            +padding($par, $val)
 
-	
+    
 =margin($mg, $val)
-	@if $mg == t
-		margin-top: $val
+    @if $mg == t
+        margin-top: $val
 
-	@if $mg == b
-		margin-bottom: $val
+    @if $mg == b
+        margin-bottom: $val
 
-	@if $mg == l
-		margin-left: $val
+    @if $mg == l
+        margin-left: $val
 
-	@if $mg == r
-		margin-right: $val
+    @if $mg == r
+        margin-right: $val
 
-	@if $mg == all
-		margin: $val
+    @if $mg == all
+        margin: $val
 
 =mg($params...)
-	@each $par, $val in $params
-		@if $par != null and $val != null
-			+margin($par, $val)
+    @each $par, $val in $params
+        @if $par != null and $val != null
+            +margin($par, $val)
 
 // =sp($prop, $params...)
 // 	@if $prop == mg
@@ -196,70 +206,70 @@ $trs: all 0.35s ease-in-out
 
 $i: 0
 =spacer($arr)
-	@for $val from 1 through length($arr) 
-		$spr: nth($arr, 1)
-	@if $spr == mg
-		@for $i from 2 through length($arr)
-			$props: nth($arr, $i)
-			+margin($props...)
-	@if $spr == pd
-		@for $i from 2 through length($arr)
-			$props: nth($arr, $i)
-			+padding($props...)
-	
+    @for $val from 1 through length($arr) 
+        $spr: nth($arr, 1)
+    @if $spr == mg
+        @for $i from 2 through length($arr)
+            $props: nth($arr, $i)
+            +margin($props...)
+    @if $spr == pd
+        @for $i from 2 through length($arr)
+            $props: nth($arr, $i)
+            +padding($props...)
+    
 =sp($x, $y)
-	+spacer($x)
-	+spacer($y)
-		
-	
+    +spacer($x)
+    +spacer($y)
+        
+    
 //+sp((mg, (l, 20px), (b, 15px)), (pd, (r, 10px)))
 
-	
+    
 =maw($brkp)
-	@media only screen and (max-width: $brkp+"px")
-		@content
+    @media only screen and (max-width: $brkp+"px")
+        @content
 
 
 =miw($brkp)
-	@media only screen and (min-width: $brkp+"px")
-		@content
+    @media only screen and (min-width: $brkp+"px")
+        @content
 
 =mw($min, $max)
-	@media only screen and (min-width: $min+"px") and (max-width: $max+"px")
-		@content
+    @media only screen and (min-width: $min+"px") and (max-width: $max+"px")
+        @content
 
 
 @function rem($val)
-	$res: $val/16 + rem
-	@return $res
+    $res: $val/16 + rem
+    @return $res
 
 @function em($val)
-	$res: $val/16 + em
-	@return $res 
+    $res: $val/16 + em
+    @return $res 
 
 
 
 //  font-size: calc([minfz] + ([maxfz] - [minfz]) * ((100vw - [miw]) / ([maw] - [miw])));
-	
+    
 =rfz($maw, $miw, $minfz, $maxfz)
-	$maw : $maw + px
-	$miw : $miw + px
-	$minfz : $minfz + px
-	$maxfz : $maxfz + px	
-	@media only screen and (min-width: $miw) 
-		font-size: calc(#{$minfz} + (#{$maxfz} - #{$minfz}) * ((100vw - #{$miw}) / (#{$maw} - #{$miw})))
+    $maw : $maw + px
+    $miw : $miw + px
+    $minfz : $minfz + px
+    $maxfz : $maxfz + px	
+    @media only screen and (min-width: $miw) 
+        font-size: calc(#{$minfz} + (#{$maxfz} - #{$minfz}) * ((100vw - #{$miw}) / (#{$maw} - #{$miw})))
 
-	@media only screen and (min-width: $maw)
-		font-size: $maxfz
-	
+    @media only screen and (min-width: $maw)
+        font-size: $maxfz
+    
 // +rfz(1120, 320, 12, 40)
 
 %card
-	background-color: $dark
-	background-image: url(../img/card_bg.svg)
-	background-repeat: no-repeat
-	background-size: cover
-	border-radius: $brs1
-	box-shadow: $bxsd1
-	color: $white
-	overflow: hidden
+    background-color: $dark
+    background-image: url(../img/card_bg.svg)
+    background-repeat: no-repeat
+    background-size: cover
+    border-radius: $brs1
+    box-shadow: $bxsd1
+    color: $white
+    overflow: hidden

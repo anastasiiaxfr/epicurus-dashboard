@@ -16,7 +16,6 @@ export default function Sidebar({getTitle}) {
 
     const [showMenu, setShowMenu] = useState(false)
 
-
     const onToggleMenu = (title) => {
         setShowMenu(!showMenu)
         getTitle(title)
