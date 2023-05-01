@@ -24,8 +24,7 @@
 
         &::-webkit-scrollbar 
             //display: none
-            width: 0
-            height: 0
+            +sz(0, 0)
 
     &_toggle
         +flex(flex, center, center, nowrap)
@@ -51,24 +50,12 @@
         //color: $text_2
         color: $purple
 
-    // +maw($xs)
-    //     &_header
-    //         gap: 15px
-    //     &_toggle, :global(.MuiTab-root.Mui-selected)
-    //         display: inline-flex
-    //         justify-content: flex-start
-    //         min-height: 0
-    //         padding: 0
-    //         margin: 0
-    //         text-align: left
-    //         text-transform: uppercase
-    //         +ft(12, 12, 500)
-    //         background: transparent
 
-    //     :global(.MuiTab-root.Mui-selected)
-    //         color: $purple
-    //         fill: $purple
-
-    //     &_content
-    //         margin-top: 15px
-    //         border-radius: $brs2
+.scrollable
+    @extend %scroll
+    &::-webkit-scrollbar 
+        +sz(10px, 10px)
+        
+    +maw($sm)
+        &::-webkit-scrollbar 
+            +sz(0, 0)

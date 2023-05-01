@@ -45,43 +45,43 @@ export default function Sidebar({getTitle}) {
 
             <ul className="pg__nav">
                 <li>
-                    <Link href="/dashboard" onClick={() => onSetTitle('Dashboard')}>
+                    <Link href="/dashboard" onClick={() => onSetTitle('Dashboard')} title="Dashboard">
                         <Icon1 with="20" height="20"/>
                         <span>Dashboard</span>
                     </Link>
                 </li>
                 <li>
-                    <Link href="/cryptobot" onClick={() => onSetTitle('CryptoBot')}>
+                    <Link href="/cryptobot" onClick={() => onSetTitle('CryptoBot')} title="CryptoBot">
                         <Icon2 with="20" height="20"/>
                         <span>CryptoBot</span>
                     </Link>
                 </li>
                 <li>
-                    <Link href="/deposit" onClick={() => onSetTitle('Deposit')}>
+                    <Link href="/deposit" onClick={() => onSetTitle('Deposit')} title="Deposit">
                         <Icon3 with="20" height="20"/>
                         <span>Deposit</span>
                     </Link>
                 </li>
                 <li>
-                    <Link href="/apis" onClick={() => onSetTitle('API')}>
+                    <Link href="/apis" onClick={() => onSetTitle('API')} title="API">
                         <Icon4 with="20" height="20"/>
                         <span>API</span>
                     </Link>
                 </li>
                 <li>
-                    <Link href="/news" onClick={() => onSetTitle('News Website')}>
+                    <Link href="/news" onClick={() => onSetTitle('News Website')} title="News Website">
                         <Icon5 with="20" height="20"/>
                         <span>News Website</span>
                     </Link>
                 </li>
                 <li>
-                    <Link href="/transactions" onClick={() => onSetTitle('Transactions')}>
+                    <Link href="/transactions" onClick={() => onSetTitle('Transactions')} title="Transactions">
                         <Icon5 with="20" height="20"/>
                         <span>Transactions</span>
                     </Link>
                 </li>
                 <li>
-                    <Link href="/academy" onClick={() => onSetTitle('Academy')}>
+                    <Link href="/academy" onClick={() => onSetTitle('Academy')} title="Academy">
                         <Icon5 with="20" height="20"/>
                         <span>Academy</span>
                     </Link>
@@ -90,13 +90,13 @@ export default function Sidebar({getTitle}) {
 
             <ul className="pg__nav">
                 <li>
-                    <Link href="/settings" onClick={() => onSetTitle('Settings')}>
+                    <Link href="/settings" onClick={() => onSetTitle('Settings')} title="Settings">
                         <Icon6 with="20" height="20"/>
                         <span>Settings</span>
                     </Link>
                 </li>
                 <li>
-                    <Link href="/support" onClick={() => onSetTitle('Support')}>
+                    <Link href="/support" onClick={() => onSetTitle('Support')} title="Support">
                         <Icon7 with="20" height="20"/>
                         <span>Support</span>
                     </Link>
