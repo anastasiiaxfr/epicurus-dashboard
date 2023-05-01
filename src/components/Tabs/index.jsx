@@ -1,5 +1,7 @@
 import * as React from 'react'
-import {  useEffect, useState, useRef } from 'react'
+import { useState, useRef } from 'react'
+
+import AddApiPage from '../AddApiPage'
 
 import Tabs from '@mui/base/Tabs'
 import TabsList from '@mui/base/TabsList'
@@ -64,7 +66,9 @@ export default function BasicTabs() {
 
             </TabsList>
             <div className={styles.tabs_content}>
-                <TabPanel value={1}>First page</TabPanel>
+                <TabPanel value={1}>
+                    <AddApiPage />
+                </TabPanel>
                 <TabPanel value={2}>Second page</TabPanel>
                 <TabPanel value={3}>Third page</TabPanel>
             </div>
