@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useState, useRef } from 'react'
 
-import AddApiPage from '../AddApiPage'
+import AddApiPage from '../Page/AddApiPage'
 
 import Tabs from '@mui/base/Tabs'
 import TabsList from '@mui/base/TabsList'
@@ -54,7 +54,7 @@ export default function BasicTabs() {
             />
         )
     }
-    // If Tab length > 10 add className={`${styles.tabs_header} ${styles.scrollable}`}
+    // Find count of tabs and their total width if width more then parent container width add className={`${styles.tabs_header} ${styles.scrollable}`}. Change index first tab to first position when tabs width more them container width
     return (
         <Tabs defaultValue={1} className={styles.tabs}>
             <TabsList className={`${styles.tabs_header}`} ref={tabsHeaderRef}>

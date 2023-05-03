@@ -1,0 +1,90 @@
+@import 'src/assets/styles/vars.sass'
+
+.checkbox
+    display: none
+    +sz(100%, 100%)
+    padding: 0
+    margin-bottom: 0
+    cursor: pointer
+
+    & + label 
+        position: relative
+        +flex(flex, center, flex-start, nowrap)
+        +ft(12, 14, 300)
+        color: $text_4
+        cursor: pointer
+
+        span
+            position: relative
+            +flex(inline-flex, center, center, nowrap)
+            +sz(13px, 13px)
+            min-width: 13px
+            margin-right: 10px
+            background-color: transparent
+            border: 1px solid $text_4
+            border-radius: 50%
+            cursor: pointer
+
+        a
+            color: $prurple100
+
+    &.checked + label b 
+        display: block
+        +ps(absolute, (t, 0), (b, 0), (l, 0), (r, 0))
+        +sz(5px, 5px)
+        border-radius: 50%
+        background-color: $prurple100
+        margin: auto
+        
+.error
+    +flex(flex, center, flex-start, nowrap)
+    margin-top: 10px
+    +ft(12, 14, 300, $ffText)
+    color: $red2
+
+    +maw($xxs)
+        +ft(10, 10*1.3, 300, $ffText)
+
+    svg
+        +sz(14px, 14px)
+        min-width: 14px
+        margin-right: 10px
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

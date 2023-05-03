@@ -1,0 +1,92 @@
+@import 'src/assets/styles/vars.sass'
+
+.label
+    display: block
+    margin-bottom: 8px
+    +ft(24, 36, 600, $ffHeading)
+    color: inherit
+
+    +maw($xs)
+        +ft(16, 16, 600)
+
+.input 
+    border-radius: $brs1
+    input
+        width: 100%
+        padding: 12px 20px
+        border: 1px solid transparent
+        border-radius: $brs1
+        background-color: $black
+        color: $text_3
+        +ft(14, 17, 400)
+
+        &:focus, &:active, &:focus-visible
+            //border-bottom: 1px solid $prurple100
+            outline: 1px solid $prurple100
+            color: $white
+
+    &.error input
+        outline: 1px solid $red2
+        color: $red2
+
+.note, .error
+    +flex(flex, center, flex-start, nowrap)
+    margin-top: 10px
+    +ft(12, 14, 300, $ffText)
+    color: $prurple100
+
+    +maw($xxs)
+        +ft(10, 10*1.3, 300, $ffText)
+
+    svg
+        +sz(14px, 14px)
+        min-width: 14px
+        margin-right: 10px
+
+.error
+    color: $red2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,73 @@
+@import 'src/assets/styles/vars.sass'
+
+.btn 
+    input
+        +flex(inline-flex, center, center, nowrap)
+        min-width: 158px
+        padding: 13px 20px
+        border-radius: 10px
+        border: none
+        background: $grad2
+        color: $white
+        cursor: pointer
+        text-align: center
+        +ft(14, 21, 500, $ffHeading)
+        letter-spacing: 0.1em
+        &:hover, &:active, &:focus
+            box-shadow: $bxsd1
+    
+    &_link
+        &, & input
+            +flex(inline-flex, center, center, nowrap)
+            //min-width: 145px
+            +ft(14, 21, 500, $ffHeading)
+            color: $text_4
+            background: transparent
+            border: none
+            cursor: pointer
+            &:hover, &:active, &:focus
+                color: $prurple100
+
+    +maw($xs)
+        &, & input, &_link
+            width: 100%
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
