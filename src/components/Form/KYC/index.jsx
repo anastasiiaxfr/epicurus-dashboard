@@ -23,21 +23,21 @@ export default function KYC() {
 
                 <div className={styles.form__fields_wrapper}>
                 <div className={styles.form__row}>
-                    <Input type='text' label='First name*' placeholder='Type your name...' id='bot_name' error='Only latin letters' required={true}/>
+                    <Input type='text' label='First name*' placeholder='Type your name...' id='kyc_first_name' error='Only latin letters' required={true}/>
 
-                    <Input type='text' label='Last name*' placeholder='Type your last name...' id='bot_name' error='Only latin letters' required={true}/>
+                    <Input type='text' label='Last name*' placeholder='Type your last name...' id='kyc_last_name' error='Only latin letters' required={true}/>
                 </div>
 
                 <div className={styles.form__row}>
-                    <Input type='text' label='Date of Birth*' placeholder='Choose your birthday...' id='bot_name' error='Required field' required={true}/>
+                    <Input type='text' label='Date of Birth*' placeholder='Choose your birthday...' id='kyc_bday' error='Required field' required={true}/>
 
                     <Input type='text' label='Gender*' placeholder='Choose your sex...' id='bot_name' error='Required field' required={true}/>
                 </div>
 
                 <div className={styles.form__row}>
-                    <Input type='text' label='Pasport*' placeholder='Attach photo...' id='bot_name' error='Only Jpg, Png less then 150kB' required={true}/>
+                    <Input type='text' label='Pasport*' placeholder='Attach photo...' id='kyc_password' error='Only Jpg, Png less then 150kB' required={true}/>
 
-                    <Input type='text' label='Persone photo*' placeholder='Attach photo...' id='bot_name' error='Only Jpg, Png less then 150kB' required={true}/>
+                    <Input type='text' label='Persone photo*' placeholder='Attach photo...' id='kyc_photo' error='Only Jpg, Png less then 150kB' required={true}/>
                 </div>
                 </div>
 

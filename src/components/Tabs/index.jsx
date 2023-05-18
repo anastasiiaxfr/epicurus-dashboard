@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { useState, useRef } from 'react'
 
-import AddApiPage from '../Page/AddApiPage'
+// import AddApiPage from '../Page/AddApiPage'
+import KycPage from '../Page/KycPage'
 
 import Tabs from '@mui/base/Tabs'
 import TabsList from '@mui/base/TabsList'
@@ -60,17 +61,19 @@ export default function BasicTabs() {
             <TabsList className={`${styles.tabs_header}`} ref={tabsHeaderRef}>
 
                 <CustomTab key={1} onFocus={onTabToggle} onBlur={onTabToggle} onTabToggle={onTabToggle} value={1} className={styles.tabs_toggle}><PlusIcon width="20" height="20" /></CustomTab>
-                <CustomTab key={2} onFocus={onTabToggle} onBlur={onTabToggle} onTabToggle={onTabToggle} value={2} className={styles.tabs_toggle}>Robot Evil Morty</CustomTab>
+                {/* <CustomTab key={2} onFocus={onTabToggle} onBlur={onTabToggle} onTabToggle={onTabToggle} value={2} className={styles.tabs_toggle}>Robot Evil Morty</CustomTab> */}
                 
                 {/* {tabs} */}
 
             </TabsList>
             <div className={styles.tabs_content}>
-                <TabPanel value={1}>
+                {/* <TabPanel value={1}>
                     <AddApiPage />
+                </TabPanel> */}
+                <TabPanel value={1}>
+                    <KycPage />
                 </TabPanel>
-                <TabPanel value={2}>Second page</TabPanel>
-                <TabPanel value={3}>Third page</TabPanel>
+                {/* <TabPanel value={3}>Third page</TabPanel> */}
             </div>
         </Tabs>
     )

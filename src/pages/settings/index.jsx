@@ -1,5 +1,10 @@
-function SettingsPage() {
-    return <div> Settings </div>
+import Tabs from '../../components/Tabs'
+
+
+function Settings() {
+    return (
+        <Tabs />
+    )
 }
 
-export default SettingsPage
+export default Settings

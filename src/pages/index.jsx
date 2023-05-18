@@ -1,7 +1,7 @@
-import Link from 'next/link'
+// import Link from 'next/link'
 import Hero from '../components/Hero'
-import Table from '../components/Tables'
-import DownloadIcon from '../assets/icons/download.svg'
+// import Table from '../components/Tables'
+// import DownloadIcon from '../assets/icons/download.svg'
 
 function HomePage() {
     return (
@@ -12,7 +12,7 @@ function HomePage() {
             </section>
 
             {/* TRANSACTION */}
-            <section className="pg__section">
+            {/* <section className="pg__section">
                 <div className="pg__section-header">
                     <h2 className="h3">Transaction</h2>
 
@@ -24,7 +24,7 @@ function HomePage() {
                     </div>
                 </div>
                 <Table />
-            </section>
+            </section> */}
         </>
     )
 }
