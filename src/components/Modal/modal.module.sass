@@ -1,0 +1,20 @@
+@import 'src/assets/styles/vars.sass'
+
+.modal
+	+ps(fixed, (t, 0), (b, 0), (l, 0), (r, 0))
+	z-index: 1300
+	+flex(flex, center, center)
+	background: rgba($black, 0.5)
+	backdrop-filter: blur(2px)
+
+	&__content
+		background-color: $grey2
+		color: $text_2
+		max-width: 500px
+		width: 90%
+		margin-left: auto
+		margin-right: auto
+		padding: 30px
+		border-radius: $brs2
+		animation: slideInUp 0.75s ease-in-out
+  

@@ -1,5 +1,9 @@
+import { useState } from 'react'
+
 import Link from 'next/link'
 import Card from '../Card'
+import Modal from '../Modal'
+import KYC from '../Form/KYC'
 
 import Image from 'next/image'
 import ImgAssets from '../../assets/img/img1.png'
@@ -10,19 +14,26 @@ import ImgSolution4 from '../../assets/img/solutions-4.png'
 
 import styles from './hero.module.sass'
 
+
 const solutions = [
-    { title: 'Роботизированная торговля', img: ImgSolution1, url: '#' },
-    { title: 'Управление API-ключами', img: ImgSolution2, url: '#' },
-    { title: 'Депозиты на основе смарт-контрактов', img: ImgSolution3, url: '#', label: 'В разработке' },
-    { title: 'Академия', img: ImgSolution4, url: '#' }
+    { title: 'Robotic trading', img: ImgSolution1, url: '#' },
+    { title: 'API key management', img: ImgSolution2, url: '#', label: 'Coming soon' },
+    { title: 'Deposits based on smart contracts', img: ImgSolution3, url: '#', label: 'Coming soon' },
+    { title: 'Academy', img: ImgSolution4, url: '#', label: 'Coming soon'}
 ]
 
 
 export default function Hero() {
+    const [open, setOpen] = useState(false)
+    const handleOpen = () => setOpen(true)
+
     return (
 
         <div className={styles.hero}>
             <div className={styles.main}>
+                <Modal openModal={open} setModalOpen={setOpen}>
+                    <KYC />
+                </Modal>
 
                 <h2 className="h3">Our Solutions</h2>
 
@@ -30,7 +41,7 @@ export default function Hero() {
 
                     {
                         solutions.map((i, ind) => (
-                            <Card key={ind} {...i} />
+                            <Card key={ind} {...i} onClick={handleOpen}/>
                         ))
                     }
 
@@ -68,7 +79,6 @@ export default function Hero() {
                 </div>
 
             </aside>
-
         </div>
 
     )

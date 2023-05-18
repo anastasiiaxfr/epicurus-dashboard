@@ -1,0 +1,45 @@
+@import 'src/assets/styles/vars.sass'
+
+.form
+    :global(label)
+        +ft(14, 14, 600)
+        color: $text_2
+
+
+    &__fields
+        margin: 30px auto 0
+
+        &_wrapper
+            margin-bottom: 20px
+            overflow: hidden
+            overflow-y: scroll
+            max-height: 160px
+            @extend %scroll
+
+       
+    &__row
+        width: 100%
+        display: grid
+        grid-template-columns: 1fr 1fr
+        gap: 20px
+        margin: 20px auto
+
+        &:first-child
+            margin-top: 0
+        &:last-child
+            margin-bottom: 0
+
+        +maw($xs)
+            grid-template-columns: 1fr
+
+    &__note
+        margin: 20px auto
+        +ft(11, 11*1.4, 400)
+
+    &__text
+        p
+            &:first-child
+                margin-top: 0
+            &:last-child
+                margin-bottom: 0
+
