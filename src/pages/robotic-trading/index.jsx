@@ -1,10 +1,18 @@
 import Tabs from '../../components/Tabs'
 
+import AddBotPage from '../../components/Page/AddBotPage'
 
-function CryptoBotPage() {
+import PlusIcon from '../../assets/icons/plus.svg'
+
+
+const TabsItems = [
+    { list: <PlusIcon/>, item: <AddBotPage /> }
+]
+
+function RoboticTradingPage() {
     return (
-        <Tabs />
+        <Tabs props={TabsItems} />
     )
 }
 
-export default CryptoBotPage
+export default RoboticTradingPage

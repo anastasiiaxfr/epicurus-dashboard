@@ -1,15 +1,12 @@
 import * as React from 'react'
 import { useState, useRef } from 'react'
 
-// import AddApiPage from '../Page/AddApiPage'
-import KycPage from '../Page/KycPage'
-
 import Tabs from '@mui/base/Tabs'
 import TabsList from '@mui/base/TabsList'
 import TabPanel from '@mui/base/TabPanel'
 import Tab from '@mui/base/Tab'
 
-import PlusIcon from '../../assets/icons/plus.svg'
+// import PlusIcon from '../../assets/icons/plus.svg'
 import styles from './tabs.module.sass'
 
 
@@ -28,7 +25,8 @@ const CustomTab = ({ label, value, onFocus, onBlur, children }) => {
 }
 
 
-export default function BasicTabs() {
+export default function BasicTabs({props}) {
+
     const tabsHeaderRef = useRef(null)
     const [isFocused, setIsFocused] = useState(false)
 
@@ -60,7 +58,13 @@ export default function BasicTabs() {
         <Tabs defaultValue={1} className={styles.tabs}>
             <TabsList className={`${styles.tabs_header}`} ref={tabsHeaderRef}>
 
-                <CustomTab key={1} onFocus={onTabToggle} onBlur={onTabToggle} onTabToggle={onTabToggle} value={1} className={styles.tabs_toggle}><PlusIcon width="20" height="20" /></CustomTab>
+                {/* <CustomTab key={1} onFocus={onTabToggle} onBlur={onTabToggle} onTabToggle={onTabToggle} value={1} className={styles.tabs_toggle}><PlusIcon width="20" height="20" /></CustomTab> */}
+                
+                { props?.map((i, ind) => 
+                    <CustomTab key={ind + 1} onFocus={onTabToggle} onBlur={onTabToggle} onTabToggle={onTabToggle} value={ind + 1} className={styles.tabs_toggle}>{i.list}</CustomTab>
+                ) } 
+                
+
                 {/* <CustomTab key={2} onFocus={onTabToggle} onBlur={onTabToggle} onTabToggle={onTabToggle} value={2} className={styles.tabs_toggle}>Robot Evil Morty</CustomTab> */}
                 
                 {/* {tabs} */}
@@ -70,9 +74,13 @@ export default function BasicTabs() {
                 {/* <TabPanel value={1}>
                     <AddApiPage />
                 </TabPanel> */}
-                <TabPanel value={1}>
-                    <KycPage />
+
+                { props?.map((i, ind) =>
+                <TabPanel value={ind + 1} key={ind + 1}>
+                    {i.item}
                 </TabPanel>
+                ) }
+
                 {/* <TabPanel value={3}>Third page</TabPanel> */}
             </div>
         </Tabs>

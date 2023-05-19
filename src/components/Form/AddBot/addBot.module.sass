@@ -1,0 +1,33 @@
+@import 'src/assets/styles/vars.sass'
+
+.form
+    &__row
+        margin: 20px auto
+
+        &_cols
+            display: grid
+            grid-template-columns: 2fr 215px
+            gap: 20px
+
+            .form__row
+                &:first-child
+                    margin-top: 0
+
+            +maw($sm)
+                grid-template-columns: 1fr
+
+    &__img
+        img
+            display: block
+            object-fit: contain
+            height: auto
+            border-radius: 10px
+            +maw($xxs)
+                max-width: 100%
+                width: 100%
+            
+
+    label
+        +ft(14, 14, 600)
+        color: $text_2
+

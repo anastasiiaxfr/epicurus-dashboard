@@ -13,11 +13,14 @@
 
         +maw($md)
             grid-template-columns: 1fr
-            gap: 40px
+            gap: 30px
        
     &_sidebar
         +ft(15, 18, 400, $ffText)
         overflow: hidden
+
+        h1, h2, h3, h4, h5, h6
+            margin-top: 0
 
         p
             &:first-of-type
@@ -33,7 +36,11 @@
 
         li
             +ft(14, 18, 400, $ffText)
-            
+            word-break: break-word
+
+            a
+                text-decoration: underline
+                color: inherit
 
             &:not(:last-of-type)
                 margin-bottom: 10px
