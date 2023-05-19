@@ -90,3 +90,24 @@ a
 			width: 100%
 			margin-top: 10px
 			margin-left: auto
+
+
+.tooltip
+	+flex(flex, flex-start, flex-start, nowrap)
+	gap: 10px
+
+	svg
+		min-width: 20px
+
+	p
+		//+ft(16, 16*1.5, 600, $ffHeading)
+		+ft(13, 13*1.5, 600, $ffHeading)
+		&:first-child
+			margin-top: 0
+		&:last-child
+			margin-bottom: 0
+
+	&--danger
+		color: $red2
+	
+

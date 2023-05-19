@@ -4,6 +4,9 @@
     &__row
         margin: 20px auto
 
+        &:first-child
+            margin-top: 0
+
         &_cols
             display: grid
             grid-template-columns: 2fr 215px
@@ -28,6 +31,6 @@
             
 
     label
-        +ft(14, 14, 600)
+        +ft(14, 14*1.4, 600)
         color: $text_2
 

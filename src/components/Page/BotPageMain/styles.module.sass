@@ -1,0 +1,62 @@
+@import 'src/assets/styles/vars.sass'
+
+.pg
+    &__row
+        display: grid
+        grid-template-columns: 1fr 1fr
+        gap: var(--gap)
+        margin-bottom: var(--gap)    
+        +maw($sm)
+            grid-template-columns: 1fr
+
+
+.box
+    width: 100%
+    padding: 20px 30px
+    margin: 0
+    border-radius: $brs2
+    background-color: $grey200
+    color: $white
+
+    *::selection
+        background-color: darken($grey200, 2%)
+
+    +maw($xs)
+        padding: 15px
+
+
+    &:last-child
+        grid-column: 2
+        grid-row-start: 1
+        grid-row-end: 3
+        +maw($sm)
+            grid-row: 3
+            grid-column: 1
+
+    &__title
+        margin-bottom: 10px
+        color: $prurple200
+        //+ft(36, 54, 700, $ffHeading)
+        +ft(28, 28*1.5, 700, $ffHeading)
+        letter-spacing: 0.05em
+        +maw($md)
+            +ft(22, 22, 700)
+        +maw($xs)
+            +ft(14, 14, 700)
+            letter-spacing: 0.1em
+            text-transform: uppercase
+
+    &__value
+        +ft(24, 36, 400, $ffHeading)
+        letter-spacing: 0.1em
+
+    &__row
+        display: grid
+        grid-template-columns: 1fr 1fr
+        gap: var(--gap)
+        +maw($md)
+            grid-template-columns: 1fr
+        +maw($sm)
+            grid-template-columns: 1fr 1fr
+        +maw($xs)
+            grid-template-columns: 1fr
