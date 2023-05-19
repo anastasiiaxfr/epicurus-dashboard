@@ -5,13 +5,13 @@ import KycPage from '../../components/Page/KycPage'
 import PlusIcon from '../../assets/icons/plus.svg'
 
 
-const TabsItems = [
+const tabsItems = [
     { list: <PlusIcon/>, item: <KycPage /> },
 ]
 
 function Settings() {
     return (
-        <Tabs props={TabsItems} />
+        <Tabs props={tabsItems} />
     )
 }
 

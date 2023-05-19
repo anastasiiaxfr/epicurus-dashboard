@@ -1,9 +1,8 @@
-// import { useState } from 'react'
+import { useState } from 'react'
 
 import Link from 'next/link'
 import Card from '../Card'
-// import Modal from '../Modal'
-// import KYC from '../Form/KYC'
+import ModalConfirmation from '../Modal/ModalConfirmation'
 
 import Image from 'next/image'
 import ImgAssets from '../../assets/img/img1.png'
@@ -16,24 +15,31 @@ import styles from './hero.module.sass'
 
 
 const solutions = [
-    { title: 'Robotic trading', img: ImgSolution1, url: '/settings' },
+    { title: 'Robotic trading', img: ImgSolution1, },
     { title: 'API key management', img: ImgSolution2, url: '/settings', label: 'Coming soon' },
     { title: 'Deposits based on smart contracts', img: ImgSolution3, url: '/settings', label: 'Coming soon' },
     { title: 'Academy', img: ImgSolution4, url: '/settings', label: 'Coming soon'}
 ]
 
+const modalInfo = {
+    title: 'Wait for confirmation',
+    text: 'It will take 12 hours',
+    btnText: 'Start',
+    btnUrl: '#'
+}
+
+
 
 export default function Hero() {
-    // const [open, setOpen] = useState(false)
-    // const handleOpen = () => setOpen(true)
+    const [open, setOpen] = useState(false)
+    const handleOpen = () => setOpen(true)
 
     return (
 
         <div className={styles.hero}>
             <div className={styles.main}>
-                {/* <Modal openModal={open} setModalOpen={setOpen}>
-                    <KYC />
-                </Modal> */}
+                <ModalConfirmation openModal={open} setModalOpen={setOpen} props={modalInfo}>
+                </ModalConfirmation>
 
                 <h2 className="h3">Our Solutions</h2>
 
@@ -41,7 +47,7 @@ export default function Hero() {
 
                     {
                         solutions.map((i, ind) => (
-                            <Card key={ind} {...i}/>
+                            <Card key={ind} {...i} onClick={handleOpen}/>
                         ))
                     }
 

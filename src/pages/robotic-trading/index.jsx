@@ -5,13 +5,13 @@ import AddBotPage from '../../components/Page/AddBotPage'
 import PlusIcon from '../../assets/icons/plus.svg'
 
 
-const TabsItems = [
+const tabsItems = [
     { list: <PlusIcon/>, item: <AddBotPage /> }
 ]
 
 function RoboticTradingPage() {
     return (
-        <Tabs props={TabsItems} />
+        <Tabs props={tabsItems} />
     )
 }
 
