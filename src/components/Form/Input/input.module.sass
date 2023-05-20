@@ -2,9 +2,13 @@
 
 .wrap
     position: relative
+    border-radius: $brs1
+    background-color: $black
+    color: $text_3
 
     .input + *
-        +ps(absolute, (t, 0), (b, 0), (r, 10px))
+        +ps(absolute, (t, 0), (b, 0), (r, 15px))
+        z-index: 0
         margin: auto
 
 .label
@@ -17,20 +21,39 @@
         +ft(16, 16, 600)
 
 .input 
+    position: relative
+    z-index: 1
     border-radius: $brs1
+
+    &__placeholder
+        +ps(absolute, (l, 15px), (t, 0), (b, 0))
+        margin: auto
+        +flex(flex, center, flex-start, nowrap)
+        +ft(14, 17, 400, $ffText)
+
     input
         width: 100%
         padding: 12px 20px
-        border: 1px solid transparent
         border-radius: $brs1
-        background-color: $black
-        color: $text_3
+        background: transparent
+        border: 1px solid transparent
+        color: inherit
+       
         +ft(14, 17, 400, $ffText)
 
         &:focus, &:active, &:focus-visible
             //border-bottom: 1px solid $prurple100
             border: 1px solid $prurple100
             color: $white
+        
+        &::file-selector-button
+            display: none
+        
+        &[type="file"]
+            opacity: 0
+
+        
+      
 
     &.error input
         outline: 1px solid $red2
@@ -51,7 +74,6 @@
         margin-right: 10px
 
 .error
-    display: none
     color: $red2
 
 

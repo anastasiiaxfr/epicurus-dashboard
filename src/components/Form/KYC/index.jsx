@@ -4,6 +4,9 @@ import Select from '../../Form/Select'
 import Checkbox from '../../Form/Checkbox'
 import Btn from '../../Form/Btn'
 
+
+import PlusIcon from '../../../assets/icons/plus-sm.svg'
+
 import styles from './kyc.module.sass'
 
 const gender = [
@@ -41,9 +44,9 @@ export default function KYC() {
                 </div>
 
                 <div className={styles.form__row}>
-                    <Input type='text' label='Pasport*' placeholder='Attach photo...' id='kyc_password' error='Only Jpg, Png less then 150kB' required={true}/>
+                    <Input type='file' label='Pasport*' placeholder='Attach photo...' id='kyc_password' error='Only Jpg, Png less then 150kB' required={true} icon={<PlusIcon width="15" height="15"/>}/>
 
-                    <Input type='text' label='Persone photo*' placeholder='Attach photo...' id='kyc_photo' error='Only Jpg, Png less then 150kB' required={true}/>
+                    <Input type='file' label='Persone photo*' placeholder='Attach photo...' id='kyc_photo' error='Only Jpg, Png less then 150kB' required={true} icon={<PlusIcon width="15" height="15"/>}/>
                 </div>
                 </div>
 

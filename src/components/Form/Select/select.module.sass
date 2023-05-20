@@ -3,32 +3,44 @@
 
 .select
     position: relative
+    border: 1px solid transparent
+    border-radius: $brs1
+    background-color: $black
+    color: $text_3
+
+    &:focus, &:active, &:focus-visible
+        //border-bottom: 1px solid $prurple100
+        color: $white
+    &.active
+        border: 1px solid $prurple100
+
+
     input, &__options
         position: relative
         width: 100%
         padding: 12px 20px
-        border: 1px solid transparent
         border-radius: $brs1
-        background-color: $black
-        color: $text_3
         +ft(14, 17, 400, $ffText)
         text-align: left
 
-        &:focus, &:active, &:focus-visible
-            //border-bottom: 1px solid $prurple100
-            border: 1px solid $prurple100
-            color: $white
+        
 
     input
+        position: relative
+        z-index: 1
+        background-color: transparent
+        border: none
         color: rgba($text_3, 0.7)
 
     &__icon
         display: block
         +ps(absolute, (r, 15px), (t, 0), (b, 0))
+        z-index: 0
         margin: auto
 
         &.active
             transform: rotate(180deg)
+            color: $purple2
 
     &__label
         display: block
@@ -45,6 +57,10 @@
         padding: 15px 20px
         list-style-type: none
         user-select: none
+        border: 1px solid transparent
+        border-radius: $brs1
+        background-color: $black
+        color: $text_3
 
         &_wrap
             +flex(flex, flex-start, flex-start, nowrap, column)

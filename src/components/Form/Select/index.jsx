@@ -21,7 +21,7 @@ export default function SelectField({ label, id, data }) {
         <div className={styles.select__wrapper}>
             <label className={styles.select__label} htmlFor={id}>{label}</label>
 
-            <div className={styles.select}>
+            <div className={`${styles.select} ${shown ? styles.active : null}`}>
             <Input name={id} id={id} type="text" value={newValue.charAt(0).toUpperCase() + newValue.slice(1)}  disabled onClick={onMenuToggle} />
             <ArrowIcon className={`${styles.select__icon} ${shown ? styles.active : null}`} width="15" height="15"/>
             </div>
