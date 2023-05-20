@@ -2,6 +2,7 @@
 import Input from '../../Form/Input'
 import Select from '../../Form/Select'
 import Checkbox from '../../Form/Checkbox'
+import Date from '../../Form/DateField'
 import Btn from '../../Form/Btn'
 
 
@@ -37,7 +38,8 @@ export default function KYC() {
                 </div>
 
                 <div className={styles.form__row}>
-                    <Input type='text' label='Date of Birth*' placeholder='Choose your birthday...' id='kyc_bday' error='Required field' required={true}/>
+                    {/* <Input type='text' label='Date of Birth*' placeholder='MM-DD-YYYY' id='kyc_bday' error='Required field' required={true}/> */}
+                    <Date label='Date of Birth*'/>
 
                     {/* <Input type='text' label='Gender*' placeholder='Choose your sex...' id='bot_name' error='Required field' required={true}/> */}
                     <Select label='Gender*' data={gender} id='kyc_gender'/>
