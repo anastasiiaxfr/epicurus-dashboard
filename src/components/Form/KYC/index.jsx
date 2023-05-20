@@ -39,7 +39,7 @@ export default function KYC() {
 
                 <div className={styles.form__row}>
                     {/* <Input type='text' label='Date of Birth*' placeholder='MM-DD-YYYY' id='kyc_bday' error='Required field' required={true}/> */}
-                    <Date label='Date of Birth*'/>
+                    <Date label='Date of Birth*' id='kyc_dbirth'/>
 
                     {/* <Input type='text' label='Gender*' placeholder='Choose your sex...' id='bot_name' error='Required field' required={true}/> */}
                     <Select label='Gender*' data={gender} id='kyc_gender'/>

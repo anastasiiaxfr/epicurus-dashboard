@@ -3,10 +3,9 @@ import { useState } from 'react'
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 
-import InfoIcon from '../../../assets/icons/info.svg'
 import styles from './date.module.sass'
 
-export default function InputField({ label, error, note, id }) {
+export default function DateField({ label, id }) {
     const [startDate, setStartDate] = useState(new Date())
 
     return (
@@ -16,16 +15,7 @@ export default function InputField({ label, error, note, id }) {
             </label>
 
             <div className={styles.wrap}>
-                <DatePicker className={styles.input} popperPlacement="bottom" selected={startDate} onChange={(date) => setStartDate(date)} />
-            </div>
-
-            <div>
-                {note && <div className={styles.note}>
-                    <InfoIcon width="12" height="12" /> <span>{note}</span>
-                </div>}
-                {error && <div className={styles.error}>
-                    <InfoIcon width="12" height="12" /> <span>{error}</span>
-                </div>}
+                <DatePicker className={styles.input} id={id}name={id} popperPlacement="bottom" selected={startDate} onChange={(date) => setStartDate(date)}  />
             </div>
         </div>
     )

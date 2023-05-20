@@ -1,6 +1,8 @@
-import styles from './styles.module.sass'
+import FormPeriod from '../../Form/FormPeriod'
 
 import InfoIcon from '../../../assets/icons/info.svg'
+
+import styles from './styles.module.sass'
 
 
 export default function BotPageMain() {
@@ -41,6 +43,9 @@ export default function BotPageMain() {
                                 <figcaption className={styles.box__title}>
                                     Period
                                 </figcaption>
+
+                               <FormPeriod />
+
                             </div>
                         </div>
                     </figure>
