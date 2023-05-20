@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 // import Link from 'next/link'
 import Input from '../../Form/Input'
 import Select from '../../Form/Select'
@@ -5,6 +6,7 @@ import Checkbox from '../../Form/Checkbox'
 import Date from '../../Form/DateField'
 import Btn from '../../Form/Btn'
 
+import { ref, database } from '../../../pages/_firebase'
 
 import PlusIcon from '../../../assets/icons/plus-sm.svg'
 
@@ -14,7 +16,40 @@ const gender = [
     'male', 'female', 'alien',
 ]
 
+
+// Reference to database
+const kycForm = ref(database, 'kycForm')
+
+
+
 export default function KYC() {
+    const form = useRef(null)
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        if(form.current){
+            const kyc_first_name = form.current.kyc_first_name.value
+            const kyc_last_name = form.current.kyc_last_name.value
+            const kyc_dbirth = form.current.kyc_dbirth.value
+            const kyc_gender = form.current.kyc_gender.value
+            const kyc_password = form.current.kyc_password.value
+            const kyc_photo = form.current.kyc_photo.value
+            const kyc_policy = form.current.kyc_policy.value
+      
+            saveMessages( kyc_first_name, kyc_last_name, kyc_dbirth, kyc_gender, kyc_password, kyc_photo, kyc_policy)
+
+            form.current.reset()
+        }
+    }
+
+    const saveMessages = (kyc_first_name, kyc_last_name, kyc_dbirth, kyc_gender, kyc_password, kyc_photo,  kyc_policy) => {
+        const newContactForm = kycForm.push()
+
+        newContactForm.set({ kyc_first_name: kyc_first_name, kyc_last_name: kyc_last_name, kyc_dbirth: kyc_dbirth, kyc_gender: kyc_gender, kyc_password: kyc_password, kyc_photo: kyc_photo, kyc_policy: kyc_policy })
+        console.log({ kyc_first_name, kyc_last_name, kyc_dbirth, kyc_gender, kyc_password, kyc_photo, kyc_policy, })
+    }
+
+
     return (
         <div className={styles.form__wrapper}>
             <div className={styles.form__text}>
@@ -28,7 +63,7 @@ export default function KYC() {
             </div>
             <div className={styles.form__fields}>
             
-            <form action="/" method="POST" className={styles.form} noValidate>
+            <form action="/" method="POST" className={styles.form} noValidate name="kycForm" id="kycForm" ref={form} onSubmit={handleSubmit}> 
 
                 <div className={styles.form__fields_wrapper}>
                 <div className={styles.form__row}>

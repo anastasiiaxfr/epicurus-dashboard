@@ -7,6 +7,8 @@ import Footer from '../components/Footer'
 import Sidebar from '../components/Sidebar'
 
 import '../assets/styles/main.sass'
+import './_firebase'
+
 
 const seo = {
     metaHeading: 'Epicurus',
@@ -54,6 +56,7 @@ const schema = {
 }
 
 
+
 export default function App({ Component, pageProps }) {
 
     const [loading, setLoading] = useState(true)
@@ -69,7 +72,7 @@ export default function App({ Component, pageProps }) {
     return (
         <>
             <Seo seo={seo} />
-         
+
             {loading ? <Preloader /> : (
                 <>
                    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}></script>

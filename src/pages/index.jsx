@@ -3,6 +3,7 @@ import Hero from '../components/Hero'
 // import Table from '../components/Tables'
 // import DownloadIcon from '../assets/icons/download.svg'
 
+
 function HomePage() {
     return (
         <>
