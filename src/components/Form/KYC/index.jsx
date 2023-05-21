@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useState, useRef } from 'react'
 // import Link from 'next/link'
 import Input from '../../Form/Input'
 import Select from '../../Form/Select'
@@ -6,7 +6,7 @@ import Checkbox from '../../Form/Checkbox'
 import Date from '../../Form/DateField'
 import Btn from '../../Form/Btn'
 
-import { ref, database } from '../../../pages/_firebase'
+import { ref, database, set } from '../../../pages/_firebase'
 
 import PlusIcon from '../../../assets/icons/plus-sm.svg'
 
@@ -17,36 +17,42 @@ const gender = [
 ]
 
 
-// Reference to database
-const kycForm = ref(database, 'kycForm')
-
-
-
 export default function KYC() {
     const form = useRef(null)
+    const [userId, setUserId] = useState(1)
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        
         if(form.current){
             const kyc_first_name = form.current.kyc_first_name.value
             const kyc_last_name = form.current.kyc_last_name.value
+            const kyc_email = form.current.kyc_email.value
             const kyc_dbirth = form.current.kyc_dbirth.value
             const kyc_gender = form.current.kyc_gender.value
-            const kyc_password = form.current.kyc_password.value
+            const kyc_pasport = form.current.kyc_pasport.value
             const kyc_photo = form.current.kyc_photo.value
-            const kyc_policy = form.current.kyc_policy.value
-      
-            saveMessages( kyc_first_name, kyc_last_name, kyc_dbirth, kyc_gender, kyc_password, kyc_photo, kyc_policy)
+            setUserId(prev => prev + 1)
+
+            saveMessages( userId, kyc_first_name, kyc_last_name, kyc_email, kyc_dbirth, kyc_gender, kyc_pasport, kyc_photo)
+            //console.log({ kyc_first_name, kyc_last_name, kyc_dbirth, kyc_gender, kyc_pasport, kyc_photo, kyc_policy, })
 
             form.current.reset()
+
         }
     }
 
-    const saveMessages = (kyc_first_name, kyc_last_name, kyc_dbirth, kyc_gender, kyc_password, kyc_photo,  kyc_policy) => {
-        const newContactForm = kycForm.push()
+    const saveMessages = (userId, kyc_first_name, kyc_last_name, kyc_email, kyc_dbirth, kyc_gender, kyc_pasport, kyc_photo) => {
 
-        newContactForm.set({ kyc_first_name: kyc_first_name, kyc_last_name: kyc_last_name, kyc_dbirth: kyc_dbirth, kyc_gender: kyc_gender, kyc_password: kyc_password, kyc_photo: kyc_photo, kyc_policy: kyc_policy })
-        console.log({ kyc_first_name, kyc_last_name, kyc_dbirth, kyc_gender, kyc_password, kyc_photo, kyc_policy, })
+        set(ref(database, 'kycForm/' + userId), {
+            kyc_first_name: kyc_first_name, 
+            kyc_last_name: kyc_last_name, 
+            kyc_email: kyc_email,
+            kyc_dbirth: kyc_dbirth, 
+            kyc_gender: kyc_gender, 
+            kyc_pasport: kyc_pasport, 
+            kyc_photo: kyc_photo, 
+        })
     }
 
 
@@ -63,7 +69,7 @@ export default function KYC() {
             </div>
             <div className={styles.form__fields}>
             
-            <form action="/" method="POST" className={styles.form} noValidate name="kycForm" id="kycForm" ref={form} onSubmit={handleSubmit}> 
+            <form action="/" method="POST" className={styles.form} noValidate name="kycForm" id="kycForm" ref={form}> 
 
                 <div className={styles.form__fields_wrapper}>
                 <div className={styles.form__row}>
@@ -81,9 +87,13 @@ export default function KYC() {
                 </div>
 
                 <div className={styles.form__row}>
-                    <Input type='file' label='Pasport*' placeholder='Attach photo...' id='kyc_password' error='Only Jpg, Png less then 150kB' required={true} icon={<PlusIcon width="15" height="15"/>}/>
+                    <Input type='file' label='Pasport*' placeholder='Attach photo...' id='kyc_pasport' error='Only Jpg, Png less then 150kB' required={true} icon={<PlusIcon width="15" height="15"/>}/>
 
                     <Input type='file' label='Persone photo*' placeholder='Attach photo...' id='kyc_photo' error='Only Jpg, Png less then 150kB' required={true} icon={<PlusIcon width="15" height="15"/>}/>
+                </div>
+
+                <div className={styles.form__row}>
+                    <Input type='email' label='Email*' placeholder='your@email.com' id='kyc_email' error='Wrang format' required={true} />
                 </div>
                 </div>
 
@@ -93,7 +103,7 @@ export default function KYC() {
                 We are pleased to present you our Public Offer - an important document that governs the relationship between us as a service provider and you as our client. We invite you to familiarize yourself with its content, as it determines the terms of use of our platform and the provision of our services to you.
                 </div>
 
-                <Btn label='Confirm' />
+                <Btn label='Confirm' onClick={handleSubmit} />
 
 
             </form>

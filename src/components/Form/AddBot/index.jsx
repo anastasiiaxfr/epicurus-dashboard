@@ -7,10 +7,18 @@ import Btn from '../../Form/Btn'
 import QrImg from '../../../assets/img/qr.jpg'
 import CopyIcon from '../../../assets/icons/copy.svg'
 
+import { useState, useRef } from 'react'
 
 import styles from './addBot.module.sass'
 
+import { ref, database, set } from '../../../pages/_firebase'
+
 export default function AddBot() {
+
+    const form = useRef(null)
+    const [userId, setUserId] = useState(1)
+    const [validation, setValidation] = useState(false)
+
 
     const wallet = 'TUadP2NaG8zTEupnFbAXp11uAEJbEafbiN'
     const copyTextToClipboard = async (text) => {
@@ -26,13 +34,40 @@ export default function AddBot() {
        copyTextToClipboard(wallet)
     }
 
+    const handleSubmit = (e) => {
+            e.preventDefault()
+            
+            if(form.current){
+                const add_bot_name = form.current.add_bot_name.value
+                const add_bot_sum = form.current.add_bot_amount.value
+                const add_bot_hash = form.current.add_bot_hash.value
+
+
+
+                setUserId(prev => prev + 1)
+
+                validation && saveMessages( userId, add_bot_name, add_bot_sum, add_bot_hash)
+
+                form.current.reset()
+
+            }
+        }
+
+        const saveMessages = (userId, add_bot_name, add_bot_sum, add_bot_hash) => {
+
+            set(ref(database, 'addBotForm/' + userId), {
+                add_bot_name: add_bot_name, 
+                add_bot_sum: add_bot_sum, 
+                add_bot_hash: add_bot_hash, 
+            })
+        }
 
 
     return (
         <div className={styles.form__wrapper}>
             <div className={styles.form__fields}>
 
-                <form action="/" method="POST" className={styles.form} noValidate>
+                <form action="/" method="POST" className={styles.form} noValidate  name="addBotForm" id="addBotForm" ref={form}>
 
                     <div className={styles.form__fields_wrapper}>
 
@@ -55,7 +90,7 @@ export default function AddBot() {
                                     <Input type='text' label='Specify hash or transaction number*' placeholder='' id='add_bot_hash' error='Required Field' required={true} />
                                 </div>
 
-                                <Btn label='Confirm' />
+                                <Btn label='Confirm' onClick={handleSubmit}/>
                             </div>
 
                             <div className={styles.form__img}>
