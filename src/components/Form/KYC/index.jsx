@@ -5,6 +5,7 @@ import Select from '../../Form/Select'
 import Checkbox from '../../Form/Checkbox'
 import Date from '../../Form/DateField'
 import Btn from '../../Form/Btn'
+import Nottification from '../Nottifications'
 
 import { ref, database, set } from '../../../pages/_firebase'
 
@@ -18,12 +19,35 @@ const gender = [
 
 
 export default function KYC() {
+    const field_text_exp = /[^a-zA-Z]+$/
+    const field_email_exp = /[^\sa-zA-Z0-9@.]+$/
+
+    const getRandomInteger = (min, max) => {
+        const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+        return randomNumber;
+    }
+
     const form = useRef(null)
-    const [userId, setUserId] = useState(1)
+    const [userId, setUserId] = useState(getRandomInteger(1, 10000))
+
+    const [validation, setValidation] = useState(false)
+    const [submit, setSubmit] = useState(false)
+    const [submitPressed, setSubmitPressed] = useState(false)
+    const [reset, setReset] = useState(true)
+
+
+
+    // console.log('reset', reset)
+    // console.log('validation', validation)
+    // console.log('submitPressed', submitPressed)
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        
+        setUserId(getRandomInteger(1, 10000))
+
+        setSubmit(prev => !prev)
+        setSubmitPressed(true)
+
         if(form.current){
             const kyc_first_name = form.current.kyc_first_name.value
             const kyc_last_name = form.current.kyc_last_name.value
@@ -32,13 +56,16 @@ export default function KYC() {
             const kyc_gender = form.current.kyc_gender.value
             const kyc_pasport = form.current.kyc_pasport.value
             const kyc_photo = form.current.kyc_photo.value
-            setUserId(prev => prev + 1)
+            const kyc_policy = form.current.kyc_policy.checked
 
-            saveMessages( userId, kyc_first_name, kyc_last_name, kyc_email, kyc_dbirth, kyc_gender, kyc_pasport, kyc_photo)
-            //console.log({ kyc_first_name, kyc_last_name, kyc_dbirth, kyc_gender, kyc_pasport, kyc_photo, kyc_policy, })
+            validation && saveMessages( userId, kyc_first_name, kyc_last_name, kyc_email, kyc_dbirth, kyc_gender, kyc_pasport, kyc_photo)
+        
 
             form.current.reset()
 
+            if(validation === false){
+                setSubmitPressed(false)
+            }
         }
     }
 
@@ -73,9 +100,9 @@ export default function KYC() {
 
                 <div className={styles.form__fields_wrapper}>
                 <div className={styles.form__row}>
-                    <Input type='text' label='First name*' placeholder='Type your name...' id='kyc_first_name' error='Only latin letters' required={true}/>
+                    <Input type='text' label='First name*' placeholder='Type your name...' id='kyc_first_name' error='Only latin letters' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} pattern={field_text_exp}/>
 
-                    <Input type='text' label='Last name*' placeholder='Type your last name...' id='kyc_last_name' error='Only latin letters' required={true}/>
+                    <Input type='text' label='Last name*' placeholder='Type your last name...' id='kyc_last_name' error='Only latin letters' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} pattern={field_text_exp}/>
                 </div>
 
                 <div className={styles.form__row}>
@@ -87,17 +114,17 @@ export default function KYC() {
                 </div>
 
                 <div className={styles.form__row}>
-                    <Input type='file' label='Pasport*' placeholder='Attach photo...' id='kyc_pasport' error='Only Jpg, Png less then 150kB' required={true} icon={<PlusIcon width="15" height="15"/>}/>
+                    <Input type='file' label='Pasport*' placeholder='Attach photo...' id='kyc_pasport' error='Only Jpg, Png less then 150kB' required={true} icon={<PlusIcon width="15" height="15"/>} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation}/>
 
-                    <Input type='file' label='Persone photo*' placeholder='Attach photo...' id='kyc_photo' error='Only Jpg, Png less then 150kB' required={true} icon={<PlusIcon width="15" height="15"/>}/>
+                    <Input type='file' label='Persone photo*' placeholder='Attach photo...' id='kyc_photo' error='Only Jpg, Png less then 150kB' required={true} icon={<PlusIcon width="15" height="15"/>} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation}/>
                 </div>
 
                 <div className={styles.form__row}>
-                    <Input type='email' label='Email*' placeholder='your@email.com' id='kyc_email' error='Wrang format' required={true} />
+                    <Input type='email' label='Email*' placeholder='your@email.com' id='kyc_email' error='Wrang format' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} pattern={field_email_exp}/>
                 </div>
                 </div>
 
-                <Checkbox label='Public offer' id='kyc_policy' error='Required field' />
+                <Checkbox label='Public offer' id='kyc_policy' error='Required field' submit={submit} setSubmit={setSubmit} validate={setValidation} reset={reset} setReset={setReset} />
 
                 <div className={styles.form__note}>
                 We are pleased to present you our Public Offer - an important document that governs the relationship between us as a service provider and you as our client. We invite you to familiarize yourself with its content, as it determines the terms of use of our platform and the provision of our services to you.
@@ -107,6 +134,8 @@ export default function KYC() {
 
 
             </form>
+
+            { reset && submitPressed && <Nottification type="success" label='Your data send!'/> }
 
             </div>
         </div>
