@@ -1,4 +1,6 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+
 // import Link from 'next/link'
 import Input from '../../Form/Input'
 import Select from '../../Form/Select'
@@ -34,8 +36,10 @@ export default function KYC() {
     const [submit, setSubmit] = useState(false)
     const [submitPressed, setSubmitPressed] = useState(false)
     const [reset, setReset] = useState(true)
+    const [send, setSend] = useState(false)
+    const formSend = localStorage.getItem('kyc_form_send')
 
-
+    const { push } = useRouter()
 
     // console.log('reset', reset)
     // console.log('validation', validation)
@@ -58,8 +62,9 @@ export default function KYC() {
             const kyc_photo = form.current.kyc_photo.value
             const kyc_policy = form.current.kyc_policy.checked
 
-            validation && saveMessages( userId, kyc_first_name, kyc_last_name, kyc_email, kyc_dbirth, kyc_gender, kyc_pasport, kyc_photo)
+            !formSend && validation && saveMessages(userId, kyc_first_name, kyc_last_name, kyc_email, kyc_dbirth, kyc_gender, kyc_pasport, kyc_photo)
         
+            validation && localStorage.setItem('kyc_email', kyc_email)
 
             form.current.reset()
 
@@ -68,6 +73,15 @@ export default function KYC() {
             }
         }
     }
+
+    useEffect(() => {
+
+        reset && submitPressed && localStorage.setItem('kyc_form_send', true)
+        reset && submitPressed && push('/robotic-trading')
+        setSend(formSend === 'true')
+
+    }, [reset, submitPressed])
+
 
     const saveMessages = (userId, kyc_first_name, kyc_last_name, kyc_email, kyc_dbirth, kyc_gender, kyc_pasport, kyc_photo) => {
 
@@ -96,7 +110,7 @@ export default function KYC() {
             </div>
             <div className={styles.form__fields}>
             
-            <form action="/" method="POST" className={styles.form} noValidate name="kycForm" id="kycForm" ref={form}> 
+            <form action="/" method="POST" className={`${styles.form} ${send && styles.disabled}`} noValidate name="kycForm" id="kycForm" ref={form}> 
 
                 <div className={styles.form__fields_wrapper}>
                 <div className={styles.form__row}>
@@ -130,12 +144,12 @@ export default function KYC() {
                 We are pleased to present you our Public Offer - an important document that governs the relationship between us as a service provider and you as our client. We invite you to familiarize yourself with its content, as it determines the terms of use of our platform and the provision of our services to you.
                 </div>
 
-                <Btn label='Confirm' onClick={handleSubmit} />
+                <Btn label='Confirm' onClick={handleSubmit} disabled={send}/>
 
 
             </form>
 
-            { reset && submitPressed && <Nottification type="success" label='Your data send!'/> }
+            { reset && submitPressed || send && <Nottification type="success" label='Your data send!'/> }
 
             </div>
         </div>

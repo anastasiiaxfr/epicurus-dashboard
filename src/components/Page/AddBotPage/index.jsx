@@ -1,4 +1,6 @@
+import Image from 'next/image'
 import AddBot from '../../Form/AddBot'
+import Banner from '../../../assets/img/banner.jpg'
 
 import styles from './styles.module.sass'
 
@@ -21,14 +23,14 @@ export default function AddApiPage() {
 
 
                     <main className={styles.api_content}>
-                        {/* <div className={styles.api_wrap_img}>
+                        <div className={styles.api_wrap_img}>
                             <Image
                                 src={Banner}
                                 alt="Animatio"
                                 width={1200}
                                 height={600}
                             />
-                        </div> */}
+                        </div>
 
                         <AddBot />
 

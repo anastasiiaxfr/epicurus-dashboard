@@ -1,7 +1,9 @@
 @import 'src/assets/styles/vars.sass'
 
 .form
-    margin-bottom: 15px
+
+    & + *
+        margin-top: 15px
     
     &__row
         margin: 20px auto
@@ -20,6 +22,10 @@
 
             +maw($sm)
                 grid-template-columns: 1fr
+    
+        &.copied
+            :global([class*='input_wrap']), :global([class*='input_wrap']) + svg
+                color: $purple2
 
     &__img
         img

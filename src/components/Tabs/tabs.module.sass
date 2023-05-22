@@ -1,8 +1,10 @@
 @import 'src/assets/styles/vars.sass'
     
 .tabs
+    display: flex
+    flex-direction: column
     max-width: calc(100vw - var(--sidebar-width) - 40px)
-    width: 100%
+    +sz(100%, 100%)
     margin: 0 
 
     &_content
@@ -10,6 +12,7 @@
         +theme(dark3)
         border-radius: 0 0 $brs2 $brs2 
         padding: 30px
+        flex: 1
 
         +maw($xs)
             padding: 15px

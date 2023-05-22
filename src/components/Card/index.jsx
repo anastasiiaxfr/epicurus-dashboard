@@ -5,7 +5,7 @@ import styles from './card.module.sass'
 
 export default function Card({ title, label, img, url, onClick }) {
     return (
-        url ? <Link href={url}>
+        url ? <Link href={url} className={styles.card_wrap}>
             <div className={`${styles.card} ${label ? styles.disable : ''}`}>
                 <div className={styles.card_img}>
                     <Image src={img} width={330} height={200} alt={title} />

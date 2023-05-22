@@ -8,7 +8,7 @@ function HomePage() {
     return (
         <>
             {/* HERO */}
-            <section className="pg__section">
+            <section className="pg__section pg__section--fh">
                 <Hero />
             </section>
 

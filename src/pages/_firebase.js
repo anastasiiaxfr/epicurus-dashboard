@@ -1,6 +1,7 @@
 //Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set } from 'firebase/database';
+import { getStorage } from "firebase/storage";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -19,7 +20,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const database = getDatabase();
-
+const storage = getStorage(app);
 
 // console.log(process.env.FIREBASE_API_KEY);
 // console.log(process.env.FIREBASE_AUTH_DOMAIN);
@@ -29,7 +30,7 @@ const database = getDatabase();
 // console.log(process.env.FIREBASE_MESSAGING_SENDER_ID);
 // console.log(process.env.FIREBASE_APP_ID);
 
-export { app, database, ref, set };
+export { app, database, storage, ref, set };
 export default function () {
     return <></>;
   }

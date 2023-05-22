@@ -4,6 +4,11 @@
 	display: grid
 	grid-template-columns: 2fr var(--hero-sidebar-width)
 	gap: 20px
+	height: 100%
+
+	.main
+		display: flex
+		flex-direction: column
 
 	.img
 		position: relative
@@ -39,9 +44,11 @@
 		display: grid
 		grid-template-columns: repeat(auto-fit, minmax(calc(50% - 20px), 1fr))
 		gap: 20px
+		flex: 1 0 auto
+		
 		margin-top: 20px
-		+miw($xmd)
-			grid-template-columns: repeat(auto-fit, minmax(var(--cardMaw), 1fr))
+		// +miw($xmd)
+		// 	grid-template-columns: repeat(auto-fit, minmax(var(--cardMaw), 1fr))
 
 
 	+maw($md)
