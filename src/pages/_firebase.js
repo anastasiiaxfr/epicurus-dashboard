@@ -1,8 +1,8 @@
 //Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set } from 'firebase/database';
-import { getStorage } from "firebase/storage";
-
+import { getStorage, uploadBytes } from "firebase/storage";
+import { ref as refStorage } from 'firebase/storage';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -30,7 +30,7 @@ const storage = getStorage(app);
 // console.log(process.env.FIREBASE_MESSAGING_SENDER_ID);
 // console.log(process.env.FIREBASE_APP_ID);
 
-export { app, database, storage, ref, set };
+export { app, database, storage, ref, set, uploadBytes, refStorage };
 export default function () {
     return <></>;
   }

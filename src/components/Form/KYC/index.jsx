@@ -9,7 +9,7 @@ import Date from '../../Form/DateField'
 import Btn from '../../Form/Btn'
 import Nottification from '../Nottifications'
 
-import { ref, database, set } from '../../../pages/_firebase'
+import { ref, database, storage, set, uploadBytes, refStorage } from '../../../pages/_firebase'
 
 import PlusIcon from '../../../assets/icons/plus-sm.svg'
 
@@ -94,7 +94,16 @@ export default function KYC() {
             kyc_pasport: kyc_pasport, 
             kyc_photo: kyc_photo, 
         })
-    }
+
+       
+      
+
+const storageRef = refStorage(storage, 'images/');
+
+uploadBytes(storageRef, kyc_pasport).then(() => {
+alert('Uploaded a blob or file!');
+});
+}
 
 
     return (
