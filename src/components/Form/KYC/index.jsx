@@ -38,12 +38,18 @@ export default function KYC() {
     const [reset, setReset] = useState(true)
     const [send, setSend] = useState(false)
     const formSend = localStorage.getItem('kyc_form_send')
+    
+    const [imgPasport, setImgPasport] = useState(null)
+    const [imgPhoto, setImgPhoto] = useState(null)
+    const [imgaeList, setImageList] = useState([])
 
     const { push } = useRouter()
 
     // console.log('reset', reset)
     // console.log('validation', validation)
     // console.log('submitPressed', submitPressed)
+
+   
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -58,11 +64,11 @@ export default function KYC() {
             const kyc_email = form.current.kyc_email.value
             const kyc_dbirth = form.current.kyc_dbirth.value
             const kyc_gender = form.current.kyc_gender.value
-            const kyc_pasport = form.current.kyc_pasport.value
-            const kyc_photo = form.current.kyc_photo.value
+            const kyc_pasport = imgPasport
+            const kyc_photo = imgPhoto
             const kyc_policy = form.current.kyc_policy.checked
 
-            !formSend && validation && saveMessages(userId, kyc_first_name, kyc_last_name, kyc_email, kyc_dbirth, kyc_gender, kyc_pasport, kyc_photo)
+            !formSend && validation && saveMessages(userId, kyc_first_name, kyc_last_name, kyc_email, kyc_dbirth, kyc_gender, kyc_pasport, kyc_photo, imgPasport, imgPhoto)
         
             validation && localStorage.setItem('kyc_email', kyc_email)
 
@@ -71,6 +77,9 @@ export default function KYC() {
             if(validation === false){
                 setSubmitPressed(false)
             }
+
+        //    alert(imgPasport?.name)
+        //    alert(imgPhoto?.name)
         }
     }
 
@@ -83,7 +92,7 @@ export default function KYC() {
     }, [reset, submitPressed])
 
 
-    const saveMessages = (userId, kyc_first_name, kyc_last_name, kyc_email, kyc_dbirth, kyc_gender, kyc_pasport, kyc_photo) => {
+    const saveMessages = (userId, kyc_first_name, kyc_last_name, kyc_email, kyc_dbirth, kyc_gender, kyc_pasport, kyc_photo, imgPasport, imgPhoto) => {
 
         set(ref(database, 'kycForm/' + userId), {
             kyc_first_name: kyc_first_name, 
@@ -95,15 +104,24 @@ export default function KYC() {
             kyc_photo: kyc_photo, 
         })
 
-       
-      
+        
 
-const storageRef = refStorage(storage, 'images/');
+    const storageRef1 = refStorage(storage, `images/${imgPasport?.name + getRandomInteger(1, 10000)}`)
+    const storageRef2 = refStorage(storage, `images/${imgPhoto?.name + getRandomInteger(1, 10000)}`)
 
-uploadBytes(storageRef, kyc_pasport).then(() => {
-alert('Uploaded a blob or file!');
-});
-}
+    uploadBytes(storageRef1, imgPasport).then(() => {
+        // alert('send')
+    })
+
+    uploadBytes(storageRef2, imgPhoto).then(() => {
+        // alert('send')
+    })
+
+    useEffect(() => {
+        
+    }, [])
+
+    }
 
 
     return (
@@ -137,9 +155,9 @@ alert('Uploaded a blob or file!');
                 </div>
 
                 <div className={styles.form__row}>
-                    <Input type='file' label='Pasport*' placeholder='Attach photo...' id='kyc_pasport' error='Only Jpg, Png less then 150kB' required={true} icon={<PlusIcon width="15" height="15"/>} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation}/>
+                    <Input type='file' label='Pasport*' placeholder='Attach photo...' id='kyc_pasport' error='Only Jpg, Png less then 150kB' required={true} icon={<PlusIcon width="15" height="15"/>} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} onImgSet={(e) => setImgPasport(e)}/>
 
-                    <Input type='file' label='Persone photo*' placeholder='Attach photo...' id='kyc_photo' error='Only Jpg, Png less then 150kB' required={true} icon={<PlusIcon width="15" height="15"/>} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation}/>
+                    <Input type='file' label='Persone photo*' placeholder='Attach photo...' id='kyc_photo' error='Only Jpg, Png less then 150kB' required={true} icon={<PlusIcon width="15" height="15"/>} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} onImgSet={(e) => setImgPhoto(e)}/>
                 </div>
 
                 <div className={styles.form__row}>

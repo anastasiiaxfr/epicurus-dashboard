@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import AddBot from '../../Form/AddBot'
-import Banner from '../../../assets/img/banner.jpg'
+import Banner from '../../../assets/img/banner.png'
 
 import styles from './styles.module.sass'
 

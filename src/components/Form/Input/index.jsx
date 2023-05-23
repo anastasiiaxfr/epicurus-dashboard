@@ -5,7 +5,7 @@ import InfoIcon from '../../../assets/icons/info.svg'
 import Nottification from '../Nottifications'
 import styles from './input.module.sass'
 
-export default function InputField({ type, label, placeholder, value, note, error, id, required, disabled, icon, onClick, pattern, validate, submit,  setSubmit, reset, setReset }) {
+export default function InputField({ type, label, placeholder, value, note, error, id, required, disabled, icon, onClick, pattern, validate, submit,  setSubmit, reset, setReset, onImgSet }) {
     const [newValue, setNewValue] = useState(value)
     const [showError, setShowError] = useState(false)
     const [fileAttached, setFileAttached] = useState(false)
@@ -15,12 +15,6 @@ export default function InputField({ type, label, placeholder, value, note, erro
 
     const onChange = () => {
         const currentInput = input.current
-
-        if (type === 'file') {
-            (currentInput?.files[0] && currentInput?.files[0].size / 1024)?.toFixed(1) > 150 ? setShowError(true) : setShowError(false)
-
-            showError &&  setFileAttached(true)
-        }
 
         if (currentInput?.disabled !== true) {
             if (currentInput?.value?.length === 0) {
@@ -39,10 +33,16 @@ export default function InputField({ type, label, placeholder, value, note, erro
             }
         }
 
+        if (type === 'file') {
+            if(currentInput?.files[0] && (currentInput?.files[0].size / 1024)?.toFixed(1) > 150){ setShowError(true); setFileAttached(false) } else if(currentInput?.files[0] === undefined || currentInput?.files[0].size === 0){ setFileAttached(false); setShowError(true) } else { setFileAttached(true) }
+            
+            
+            onImgSet(currentInput?.files[0])
+        }
+
         if(reset === false){
             setShowError(false)
         }
-
 
         const allInputs = Array.from(document.querySelectorAll('input'))
         const anyEmptyInput = allInputs.some((input) => input.value === '')
@@ -50,14 +50,9 @@ export default function InputField({ type, label, placeholder, value, note, erro
 
     }
 
-    
-
-
     useEffect(() => {
         if (submit === true) { onChange(); }
     }, [submit])
-
-
 
     return (
         <div className={styles.field}>
