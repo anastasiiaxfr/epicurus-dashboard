@@ -1,52 +1,57 @@
 html, body 
-	display: flex
-	//height: 100%
-	min-height: 100%
-	flex: 1
-	height: auto
-	font-family: $ffText
-	scroll-behavior: smooth
+    display: flex
+    //height: 100%
+    min-height: 100%
+    flex: 1
+    height: auto
+    font-family: $ffText
+    scroll-behavior: smooth
 
 body
-	display: flex
-	flex-direction: column
-	background-color: $white
-	&::-webkit-scrollbar
-		+sz(10px, 10px)
+    display: flex
+    flex-direction: column
+    background-color: $white
+    &::-webkit-scrollbar
+        +sz(10px, 10px)
 
-	&::-webkit-scrollbar-track
-		background-color: $black
+    &::-webkit-scrollbar-track
+        background-color: $black
 
-	&::-webkit-scrollbar-thumb
-		background: $black
+    &::-webkit-scrollbar-thumb
+        background: $black
 
 
 *
-	//user-select: none
-	box-sizing: border-box
-	transition: $trs
-	&::selection
-		background-color: $dark
+    //user-select: none
+    box-sizing: border-box
+    transition: $trs
+    &::selection
+        background-color: $dark
 
 
 a
-	text-decoration: none
-	color: inherit
-	&:hover, &:focus
-		text-decoration: none
+    text-decoration: none
+    color: inherit
+    &:hover, &:focus
+        text-decoration: none
 
 img
-	user-select: none
+    user-select: none
 
 svg
-	cursor: pointer	
+    cursor: pointer	
 
 button, a, input 
-	&:hover, &:active, &:focus
-		appearance: none
-		outline: none
-		box-shadow: none 
+    &:hover, &:active, &:focus, &:focus-within
+        appearance: none
+        outline: none
+        box-shadow: none 
 
 
-:global(.MuiTabs-indicator)
-	background: red
+
+
+input:-internal-autofill-selected 
+    background-color: initial !important
+    background-image: none !important
+    color: initial !important
+

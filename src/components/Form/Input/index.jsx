@@ -61,7 +61,7 @@ export default function InputField({ type, label, placeholder, value, note, erro
             </label>
 
             <div className={styles.wrap}>
-                <Input name={id} id={id} type={type} placeholder={placeholder} value={newValue} disabled={disabled} required={required} className={styles.input} autoComplete='off' onClick={onClick} onChange={onChange} slotProps={{ input: { pattern: pattern, ref: input, ...(type === 'file' && { accept: 'image/jpeg, image/png' }) } }} />
+                <Input name={id} id={id} type={type} placeholder={placeholder} value={newValue} disabled={disabled} required={required} className={styles.input} autoComplete='off' onClick={onClick} onChange={onChange} slotProps={{ input: { pattern: pattern,  ref: input, ...(type === 'file' && { accept: 'image/jpeg, image/png' }) } }} />
                 {icon}
                 {type === 'file' && <span className={styles.input__placeholder}>{fileAttached === true ? 'File added' : placeholder}</span>}
             </div>

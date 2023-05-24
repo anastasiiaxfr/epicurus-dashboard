@@ -1,11 +1,7 @@
 @import 'src/assets/styles/vars.sass'
 
 .btn 
-    &s
-        +flex(flex, center, center, nowrap)
-        gap: 20px
-
-    a, input, &_v1
+    input
         +flex(inline-flex, center, center, nowrap)
         min-width: 158px
         padding: 13px 20px
@@ -17,13 +13,12 @@
         text-align: center
         +ft(14, 21, 500, $ffHeading)
         letter-spacing: 0.1em
-
         &:hover, &:active, &:focus
             box-shadow: $bxsd1
 
         &[disabled]
             opacity: 0.5
-
+    
     &_link
         &, & input
             +flex(inline-flex, center, center, nowrap)
@@ -36,30 +31,9 @@
             &:hover, &:active, &:focus
                 color: $prurple100
 
-    &_v1 
-        min-width: 0
-        padding: 10px 25px
-        border-radius: 5px
-        background: $grad10
-
-        span
-            margin-right: 5px
-
-        &:hover, &:focus, &:active
-            background: $grad9
-
     +maw($xs)
         &, & input, &_link
             width: 100%
-        &_v1
-            span
-                display: none
-
-    +maw($xxs)
-        &s
-            gap: 10px
-        &_v1
-            padding: 2.5vmin 5vmin
 
 
 

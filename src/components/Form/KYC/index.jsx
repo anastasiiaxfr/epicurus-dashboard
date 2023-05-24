@@ -146,9 +146,9 @@ export default function KYC() {
 
                     <div className={styles.form__fields_wrapper}>
                         <div className={styles.form__row}>
-                            <Input type='text' label='First name*' placeholder='Type your name...' id='kyc_first_name' error='Only latin letters' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} pattern={field_text_exp} />
+                            <Input type='text' label='First name*' placeholder='Type your name...' id='kyc_first_name' error='Only latin letters' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} pattern={field_text_exp} disabled={send}/>
 
-                            <Input type='text' label='Last name*' placeholder='Type your last name...' id='kyc_last_name' error='Only latin letters' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} pattern={field_text_exp} />
+                            <Input type='text' label='Last name*' placeholder='Type your last name...' id='kyc_last_name' error='Only latin letters' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} pattern={field_text_exp} disabled={send}/>
                         </div>
 
                         <div className={styles.form__row}>
@@ -156,17 +156,17 @@ export default function KYC() {
                             <Date label='Date of Birth*' id='kyc_dbirth' />
 
                             {/* <Input type='text' label='Gender*' placeholder='Choose your sex...' id='bot_name' error='Required field' required={true}/> */}
-                            <Select label='Gender*' data={gender} id='kyc_gender' />
+                            <Select label='Gender*' data={gender} id='kyc_gender' disabled={send}/>
                         </div>
 
                         <div className={styles.form__row}>
-                            <Input type='file' label='Pasport*' placeholder='Attach photo...' id='kyc_pasport' error='Only Jpg, Png less then 1MB' required={true} icon={<PlusIcon width="15" height="15" />} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} onImgSet={(e) => setImgPasport(e)} />
+                            <Input type='file' label='Pasport*' placeholder='Attach photo...' id='kyc_pasport' error='Only Jpg, Png less then 1MB' required={true} icon={<PlusIcon width="15" height="15" />} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} onImgSet={(e) => setImgPasport(e)} disabled={send}/>
 
-                            <Input type='file' label='Persone photo*' placeholder='Attach photo...' id='kyc_photo' error='Only Jpg, Png less then 1MB' required={true} icon={<PlusIcon width="15" height="15" />} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} onImgSet={(e) => setImgPhoto(e)} />
+                            <Input type='file' label='Persone photo*' placeholder='Attach photo...' id='kyc_photo' error='Only Jpg, Png less then 1MB' required={true} icon={<PlusIcon width="15" height="15" />} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} onImgSet={(e) => setImgPhoto(e)} disabled={send}/>
                         </div>
 
                         <div className={styles.form__row}>
-                            <Input type='email' label='Email*' placeholder='your@email.com' id='kyc_email' error='Wrang format' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} pattern={field_email_exp} />
+                            <Input type='email' label='Email*' placeholder='your@email.com' id='kyc_email' error='Wrang format' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} pattern={field_email_exp} disabled={send}/>
                         </div>
                     </div>
 

@@ -1,5 +1,6 @@
 // import Link from 'next/link'
-import { useEffect } from 'react'
+import { useState, useRef, useEffect } from 'react'
+
 import Image from 'next/image'
 
 import Input from '../../Form/Input'
@@ -12,7 +13,6 @@ import ClickAwayListener from '@mui/base/ClickAwayListener'
 import QrImg from '../../../assets/img/qr.jpg'
 import CopyIcon from '../../../assets/icons/copy.svg'
 
-import { useState, useRef } from 'react'
 
 import styles from './addBot.module.sass'
 

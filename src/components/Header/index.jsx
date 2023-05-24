@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 
+import AuthBtns from '../Form/Auth'
 // import Ava from '../Ava'
 // import Notification from '../Notification'
 
@@ -21,6 +22,7 @@ export default function Header({ title, getTitle }) {
             <h1 className="h3">{ currentTitle }</h1>
 
             <div className="pg__header-cta">
+                <AuthBtns />
                 {/* <Ava onClick={() => getNewTitle('Settings')} /> */}
                 {/* <Notification /> */}
             </div>

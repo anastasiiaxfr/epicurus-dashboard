@@ -31,11 +31,11 @@ export default function BasicTabs({props}) {
     const [isFocused, setIsFocused] = useState(false)
 
     const onTabToggle = (e) => {
-        e.currentTarget.scrollIntoView({
-            behavior: "smooth",
-            inline: "center"
-        })
-        setIsFocused(true)
+        // e.currentTarget.scrollIntoView({
+        //     behavior: "smooth",
+        //     inline: "center"
+        // })
+        // setIsFocused(true)
     }
     
     const tabs = [];
