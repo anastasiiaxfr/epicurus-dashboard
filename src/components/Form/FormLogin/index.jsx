@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 
+import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, initFirebase } from '../../../pages/_firebase'
+
 import Input from '../../Form/Input'
 import Btn from '../../Form/Btn'
 
@@ -8,6 +10,23 @@ import styles from './styles.module.sass'
 
 
 export default function FormLogin() {
+    initFirebase()
+
+    const provider = new GoogleAuthProvider()
+    const auth = getAuth()
+
+    const email = 'xforealn2019@gmail.com';
+    const password = 'tg69xctg69x';
+
+    const signIn = async () => {
+        //const result = await signInWithEmailAndPassword(auth, email, password)
+
+        const result = await signInWithPopup(auth, provider)
+
+        console.log(result.user)
+    }
+
+
     const form = useRef(null)
     const [validation, setValidation] = useState(false)
     const [submit, setSubmit] = useState(false)
@@ -21,6 +40,8 @@ export default function FormLogin() {
 
         setSubmit(prev => !prev)
         setSubmitPressed(true)
+
+
 
 
     }
@@ -42,7 +63,7 @@ export default function FormLogin() {
                 <div className={styles.form__row}>
                     <Input type='password' label='Password*' placeholder='' id='login_password' error='Required field.' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
                 </div>
-                <Btn label='Send' onClick={handleSubmit} />
+                <Btn label='Send' onClick={signIn} />
 
             </form>
 
