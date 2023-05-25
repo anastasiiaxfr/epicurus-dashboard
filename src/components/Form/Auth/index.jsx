@@ -15,19 +15,25 @@ export default function AuthBtns() {
     const [openRegister, setOpenRegister] = useState(false)
     const [openReset, setOpenReset] = useState(false)
     
+    const [blockModalHide, setBlockModalHide] = useState(true)
+
     const handleOpenLogin = () => setOpenLogin(true)
     const handleOpenRegister = () => setOpenRegister(true)
-    const handleOpenReset = () => setOpenReset(true)
+
+    const handleCloseRegister = () => {
+        setOpenRegister(false)
+        setOpenReset(true)
+    }
 
     return (
        
         <>
-        <Modal openModal={openLogin} setModalOpen={setOpenLogin}>
+        <Modal openModal={openLogin} setModalOpen={setOpenLogin} blockModalHide={blockModalHide}>
             <FormLogin />
         </Modal>
 
         <Modal openModal={openRegister} setModalOpen={setOpenRegister}>
-            <FormRegistration />
+            <FormRegistration toggleModal={handleCloseRegister}/>
         </Modal>
 
         <Modal openModal={openReset} setModalOpen={setOpenReset}>
@@ -35,10 +41,10 @@ export default function AuthBtns() {
         </Modal>
 
         <div className={styles.btns}>
-            <div type='button' className={styles.btn_v1}onClick={handleOpenLogin} role="button">
+            <div type='button' className={styles.btn_v1} onClick={handleOpenLogin} role="button">
                 <span>Sign</span> In
             </div>
-            <div type='button' className={styles.btn_v1}onClick={handleOpenRegister} role="button">
+            <div type='button' className={styles.btn_v1} onClick={handleOpenRegister} role="button">
                 <span>Sign</span> Up
             </div>
         </div>

@@ -1,32 +1,52 @@
-import AddBot from '../AddBot'
+import { useState, useRef, useEffect } from 'react'
+
+import Input from '../../Form/Input'
+import Btn from '../../Form/Btn'
 
 import styles from './styles.module.sass'
 
 
 
-export default function AddApiPage() {
+export default function FormLogin() {
+    const form = useRef(null)
+    const [validation, setValidation] = useState(false)
+    const [submit, setSubmit] = useState(false)
+    const [submitPressed, setSubmitPressed] = useState(false)
+    const [reset, setReset] = useState(true)
+
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        //onInputField(e)
+
+        setSubmit(prev => !prev)
+        setSubmitPressed(true)
+
+
+    }
+
+
     return (
-        <>
-            <div className={styles.api}>
 
-                {/* <h1 className='h3'>
-                    Animation
-                </h1> */}
+        <div className={styles.form__wrap}>
 
-                
+            <h1>
+                Login
+            </h1>
 
+            <form action="/" methord="POST" noValidate name="FormLogin" id="FormLogin" className={styles.form} ref={form}>
 
-                    <main className={styles.api_content}>
+                <div className={styles.form__row}>
+                    <Input type='text' label='Your name*' placeholder='' id='login_name' error='Required. Only latin letters' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
+                </div>
+                <div className={styles.form__row}>
+                    <Input type='password' label='Password*' placeholder='' id='login_password' error='Required field.' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
+                </div>
+                <Btn label='Send' onClick={handleSubmit} />
 
-                        <div className="" style={{ maxWidth: '600px', margin: '0 auto' }}>
-                            <AddBot />  
-                        </div>
-                      
+            </form>
 
-                    </main>
-                 
-               
-            </div>
-        </>
+        </div>
+
     )
 }

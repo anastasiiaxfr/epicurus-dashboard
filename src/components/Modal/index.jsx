@@ -2,8 +2,8 @@ import ClickAwayListener from '@mui/base/ClickAwayListener'
 
 import styles from './modal.module.sass'
 
-export default function ModalPopup({ openModal, setModalOpen, children }) {
-    const handleClose = () => { setModalOpen(false) }
+export default function ModalPopup({ openModal, setModalOpen, children, blockModalHide }) {
+    const handleClose = () => { !blockModalHide && setModalOpen(false) }
 
     return (
         openModal && <section className={styles.modal}>
