@@ -9,7 +9,7 @@ import styles from './styles.module.sass'
 
 
 
-export default function FormRegistration({ toggleModal }) {
+export default function FormRegistration({ toggleModalLogin, toggleModalReset }) {
 
     const form = useRef(null)
     const [validation, setValidation] = useState(false)
@@ -17,7 +17,6 @@ export default function FormRegistration({ toggleModal }) {
     const [submitPressed, setSubmitPressed] = useState(false)
     const [reset, setReset] = useState(true)
 
-    const handleOpenReset = () => { toggleModal() }
 
 
     const handleSubmit = (e) => {
@@ -31,7 +30,7 @@ export default function FormRegistration({ toggleModal }) {
     return (
 
         <>
-            
+
 
             <div className={styles.form__wrap}>
 
@@ -51,9 +50,12 @@ export default function FormRegistration({ toggleModal }) {
 
                 </form>
 
-
-                <div className={styles.form__note} onClick={handleOpenReset}>
-                    Or Reset password
+                <div className={styles.form__cta}>
+                    <div onClick={() => toggleModalReset()} className={styles.btn__cta}> Reset <b>password</b> </div>
+                    <span>OR</span>
+                    <div onClick={() => toggleModalLogin()} className={styles.btn__cta}>
+                        Login
+                    </div>
                 </div>
 
             </div>

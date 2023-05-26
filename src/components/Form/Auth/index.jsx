@@ -20,24 +20,36 @@ export default function AuthBtns() {
     const handleOpenLogin = () => setOpenLogin(true)
     const handleOpenRegister = () => setOpenRegister(true)
 
-    const handleCloseRegister = () => {
+    const handleModalRegistration = () => {
         setOpenRegister(false)
         setOpenReset(true)
+    }
+
+    const handleModalLogin = () => {
+        setOpenRegister(false)
+        setOpenReset(false)
+        setOpenLogin(true)
+    }
+
+    const handleToggleRegistration = () => {
+        setOpenRegister(true)
+        setOpenLogin(false)
+        setOpenReset(false)
     }
 
     return (
        
         <>
         <Modal openModal={openLogin} setModalOpen={setOpenLogin} blockModalHide={blockModalHide}>
-            <FormLogin />
+            <FormLogin toggleModal={handleToggleRegistration}/>
         </Modal>
 
-        <Modal openModal={openRegister} setModalOpen={setOpenRegister}>
-            <FormRegistration toggleModal={handleCloseRegister}/>
+        <Modal openModal={openRegister} setModalOpen={setOpenRegister} blockModalHide={blockModalHide}>
+            <FormRegistration toggleModalReset={handleModalRegistration} toggleModalLogin={ handleModalLogin }/>
         </Modal>
 
-        <Modal openModal={openReset} setModalOpen={setOpenReset}>
-            <FormReset />
+        <Modal openModal={openReset} setModalOpen={setOpenReset} blockModalHide={blockModalHide}>
+            <FormReset toggleModalLogin={ handleModalLogin } toggleModalRegistration={ handleToggleRegistration }/>
         </Modal>
 
         <div className={styles.btns}>

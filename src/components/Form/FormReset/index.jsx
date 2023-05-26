@@ -9,7 +9,7 @@ import styles from './styles.module.sass'
 
 
 
-export default function FormReset() {
+export default function FormReset({ toggleModalRegistration, toggleModalLogin }) {
 
     const form = useRef(null)
     const [validation, setValidation] = useState(false)
@@ -49,6 +49,14 @@ export default function FormReset() {
                     <Btn label='Send' onClick={handleSubmit} />
 
                 </form>
+
+                <div className={styles.form__cta}>
+                    <div onClick={() => toggleModalRegistration()} className={styles.btn__cta}> Registration </div>
+                    <span>OR</span>
+                    <div onClick={() => toggleModalLogin()} className={styles.btn__cta}>
+                        Login
+                    </div>
+                </div>
                
             </div>
         </>
