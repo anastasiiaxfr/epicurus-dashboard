@@ -1,5 +1,9 @@
 import {useState, useEffect} from 'react'
 
+import { auth } from '../../pages/_firebase'
+import { useAuthState } from 'react-firebase-hooks/auth'
+
+
 import Link from 'next/link'
 import Logo from '../Logo'
 
@@ -13,6 +17,10 @@ import Icon7 from '../../assets/icons/i7.svg'
 
 
 export default function Sidebar({getTitle}) {
+    const [user] = useAuthState(auth)
+
+    let baseURL = '/dashboard'
+    const [newURL, setNewURL] = useState(baseURL)
 
     const [showMenu, setShowMenu] = useState(false)
 
@@ -25,6 +33,14 @@ export default function Sidebar({getTitle}) {
         getTitle(title)
         setShowMenu(false)
     }
+
+    useEffect(() => {
+        if (user !== null) {
+            //alert(user.displayName)
+            setNewURL()
+        } 
+    }, [user])
+
 
     useEffect(() => {
         const onAwaySidebarClick = (event) => {
@@ -51,37 +67,37 @@ export default function Sidebar({getTitle}) {
                     </Link>
                 </li>
                 <li>
-                    <Link href="/robotic-trading" onClick={() => onSetTitle('Robotic trading')} title="Robotic trading">
+                    <Link href={newURL || '/robotic-trading'} onClick={() => onSetTitle('Robotic trading')} title="Robotic trading">
                         <Icon2 with="20" height="20"/>
                         <span>Robotic trading</span>
                     </Link>
                 </li>
                 <li>
-                    <Link href="/settings" onClick={() => onSetTitle('Deposit')} title="Deposit">
+                    <Link href={newURL || '/'} onClick={() => onSetTitle('Deposit')} title="Deposit">
                         <Icon3 with="20" height="20"/>
                         <span>Deposit</span>
                     </Link>
                 </li>
                 <li>
-                    <Link href="/settings" onClick={() => onSetTitle('API')} title="API">
+                    <Link href={newURL || '/'} onClick={() => onSetTitle('API')} title="API">
                         <Icon4 with="20" height="20"/>
                         <span>API</span>
                     </Link>
                 </li>
                 <li>
-                    <Link href="/settings" onClick={() => onSetTitle('News Website')} title="News Website">
+                    <Link href={newURL || '/'} onClick={() => onSetTitle('News Website')} title="News Website">
                         <Icon5 with="20" height="20"/>
                         <span>News Website</span>
                     </Link>
                 </li>
                 <li>
-                    <Link href="/settings" onClick={() => onSetTitle('Transactions')} title="Transactions">
+                    <Link href={newURL || '/'} onClick={() => onSetTitle('Transactions')} title="Transactions">
                         <Icon5 with="20" height="20"/>
                         <span>Transactions</span>
                     </Link>
                 </li>
                 <li>
-                    <Link href="/settings" onClick={() => onSetTitle('Academy')} title="Academy">
+                    <Link href={newURL || '/'} onClick={() => onSetTitle('Academy')} title="Academy">
                         <Icon5 with="20" height="20"/>
                         <span>Academy</span>
                     </Link>
@@ -90,13 +106,13 @@ export default function Sidebar({getTitle}) {
 
             <ul className="pg__nav">
                 <li>
-                    <Link href="/settings" onClick={() => onSetTitle('Settings')} title="Settings">
+                    <Link href={newURL || '/settings'} onClick={() => onSetTitle('Settings')} title="Settings">
                         <Icon6 with="20" height="20"/>
                         <span>Settings</span>
                     </Link>
                 </li>
                 <li>
-                    <Link href="/settings" onClick={() => onSetTitle('Support')} title="Support">
+                    <Link href={newURL || '/'} onClick={() => onSetTitle('Support')} title="Support">
                         <Icon7 with="20" height="20"/>
                         <span>Support</span>
                     </Link>

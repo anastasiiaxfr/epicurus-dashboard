@@ -8,7 +8,7 @@ import PlusIcon from '../../assets/icons/plus.svg'
 
 const tabsItems = [
     { list: <PlusIcon/>, item: <AddBotPage /> },
-    // { list: 'Bot name', item: <BotPageMain /> }
+    { list: 'Bot name', item: <BotPageMain /> }
 ]
 
 function RoboticTradingPage() {

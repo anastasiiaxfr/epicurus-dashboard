@@ -1,6 +1,10 @@
 // import Link from 'next/link'
 import { useState, useRef, useEffect } from 'react'
 
+import { auth } from '../../../pages/_firebase'
+import { useAuthState } from 'react-firebase-hooks/auth'
+
+
 import Image from 'next/image'
 
 import Input from '../../Form/Input'
@@ -27,6 +31,8 @@ const modalInfo = {
 }
 
 export default function AddBot() {
+    const [user] = useAuthState(auth)
+
     const field_sum_exp = /[^0-9.,]|(?<=([.,])\d*)[.,]/g
     const field_text_exp = /[^a-zA-Z0-9\w]/g
 

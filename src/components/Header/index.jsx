@@ -39,10 +39,10 @@ export default function Header({ title, getTitle }) {
             <h1 className="h3">{ currentTitle }</h1>
 
             <div className="pg__header-cta">
-               
                 {show && (
                     <>
-                        <Ava onClick={() => getNewTitle('Settings')} name={user?.displayName}/> <Notification />
+                        <Ava onClick={() => getNewTitle('Settings')} name={user?.displayName}/>
+                        {/* <Notification /> */}
                     </>
                 )}
                 <AuthBtns toggleShow = {setShow}/>

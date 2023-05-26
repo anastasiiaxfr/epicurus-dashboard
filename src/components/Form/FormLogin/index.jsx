@@ -50,6 +50,8 @@ export default function FormLogin({ toggleModal, setOpenLogin }) {
         try {
           const result = await signInWithPopup(auth, provider)
           const user = result.user
+
+         
           
           setOpenLogin(false)
           // Handle successful sign-in
@@ -67,6 +69,7 @@ export default function FormLogin({ toggleModal, setOpenLogin }) {
             const result = await signInWithEmailAndPassword(auth, email, password)
             const user = result.user
             setOpenLogin(false)
+            
             //alert('Success')
           } catch (error) {
             // Handle sign-in error
@@ -114,10 +117,10 @@ export default function FormLogin({ toggleModal, setOpenLogin }) {
             <form action="/" methord="POST" noValidate name="FormLogin" id="FormLogin" className={styles.form} ref={form}>
 
                 <div className={styles.form__row}>
-                    <Input type='email' label='Your email*' placeholder='' id='login_email' error='Required. Only latin letters' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} pattern={field_email_exp} />
+                    <Input type='email' label='Your email*' placeholder='' id='login_email' error='Required field' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} pattern={field_email_exp} />
                 </div>
                 <div className={styles.form__row}>
-                    <Input type='password' label='Password*' placeholder='' id='login_password' error='Required field.' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
+                    <Input type='password' label='Password*' placeholder='' id='login_password' error='Required field' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
                 </div>
                 <Btn label='Send' onClick={signIn} />
 
