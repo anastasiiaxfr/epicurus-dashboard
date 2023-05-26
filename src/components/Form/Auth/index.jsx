@@ -1,4 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+
+import { auth } from '../../../pages/_firebase'
+import { useAuthState } from 'react-firebase-hooks/auth'
 
 import Modal from '../../Modal'
 
@@ -10,11 +13,14 @@ import FormReset from '../FormReset'
 import styles from '../Btn/btn.module.sass'
 
 
-export default function AuthBtns() {
-    const [openLogin, setOpenLogin] = useState(true)
+export default function AuthBtns({ toggleShow }) {
+    const [user] = useAuthState(auth)
+
+    const [show, setShow] = useState(false)
+    const [openLogin, setOpenLogin] = useState(false)
     const [openRegister, setOpenRegister] = useState(false)
     const [openReset, setOpenReset] = useState(false)
-    
+
     const [blockModalHide, setBlockModalHide] = useState(true)
 
     const handleOpenLogin = () => setOpenLogin(true)
@@ -37,29 +43,54 @@ export default function AuthBtns() {
         setOpenReset(false)
     }
 
+    const signOut = () => {
+        setShow(false)
+        setBlockModalHide(true)
+        toggleShow(false)
+        auth.signOut()
+    }
+
+    useEffect(() => {
+        if (user !== null) {
+            //alert(user.displayName)
+            setOpenLogin(false)
+            setShow(true)
+            setBlockModalHide(false)
+        } 
+    }, [user])
+
+    //alert(user.displayName)
+
     return (
-       
+
         <>
-        <Modal openModal={openLogin} setModalOpen={setOpenLogin} blockModalHide={blockModalHide}>
-            <FormLogin toggleModal={handleToggleRegistration}/>
-        </Modal>
+            { !show && <Modal openModal={openLogin} setModalOpen={setOpenLogin} blockModalHide={blockModalHide}>
+                <FormLogin toggleModal={handleToggleRegistration} setOpenLogin={setOpenLogin} />
+            </Modal>}
 
-        <Modal openModal={openRegister} setModalOpen={setOpenRegister} blockModalHide={blockModalHide}>
-            <FormRegistration toggleModalReset={handleModalRegistration} toggleModalLogin={ handleModalLogin }/>
-        </Modal>
+            <Modal openModal={openRegister} setModalOpen={setOpenRegister} blockModalHide={blockModalHide}>
+                <FormRegistration toggleModalReset={handleModalRegistration} toggleModalLogin={handleModalLogin} />
+            </Modal>
 
-        <Modal openModal={openReset} setModalOpen={setOpenReset} blockModalHide={blockModalHide}>
-            <FormReset toggleModalLogin={ handleModalLogin } toggleModalRegistration={ handleToggleRegistration }/>
-        </Modal>
+            <Modal openModal={openReset} setModalOpen={setOpenReset} blockModalHide={blockModalHide}>
+                <FormReset toggleModalLogin={handleModalLogin} toggleModalRegistration={handleToggleRegistration} />
+            </Modal>
 
-        <div className={styles.btns}>
-            <div type='button' className={styles.btn_v1} onClick={handleOpenLogin} role="button">
-                <span>Sign</span> In
+            <div>
+                { show ? <div type='button' className={styles.btn_v1} role="button" onClick={signOut}>
+                    <span>Sign</span> Out 
+                </div> :
+                    <div className={styles.btns}>
+                        <div type='button' className={styles.btn_v1} onClick={handleOpenLogin} role="button">
+                            <span>Sign</span> In
+                        </div>
+                        <div type='button' className={styles.btn_v1} onClick={handleOpenRegister} role="button">
+                            <span>Sign</span> Up
+                        </div>
+                    </div>
+                }
+
             </div>
-            <div type='button' className={styles.btn_v1} onClick={handleOpenRegister} role="button">
-                <span>Sign</span> Up
-            </div>
-        </div>
 
         </>
 

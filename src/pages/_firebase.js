@@ -3,6 +3,8 @@ import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set } from 'firebase/database';
 import { getStorage, uploadBytes, getDownloadURL } from "firebase/storage";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword } from "firebase/auth";
+
+
 import { ref as refStorage } from 'firebase/storage';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -23,6 +25,9 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase();
 const storage = getStorage(app);
 const initFirebase = () => { return app };
+const auth = getAuth();
+
+
 // console.log(process.env.FIREBASE_API_KEY);
 // console.log(process.env.FIREBASE_AUTH_DOMAIN);
 // console.log(process.env.FIREBASE_DATABASE_URL);
@@ -31,7 +36,7 @@ const initFirebase = () => { return app };
 // console.log(process.env.FIREBASE_MESSAGING_SENDER_ID);
 // console.log(process.env.FIREBASE_APP_ID);
 
-export { app, database, storage, ref, set, uploadBytes, refStorage, getDownloadURL, getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, initFirebase };
+export { app, database, storage, ref, set, uploadBytes, refStorage, getDownloadURL, getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, initFirebase, auth};
 export default function () {
     return <></>;
   }

@@ -1,6 +1,10 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
+import { useRouter } from 'next/navigation'
 
-import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, initFirebase } from '../../../pages/_firebase'
+import { signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, initFirebase, auth} from '../../../pages/_firebase'
+
+import { useAuthState } from 'react-firebase-hooks/auth'
+
 
 import ModalAuthError from '../../Modal/ModalAuthError'
 
@@ -17,21 +21,37 @@ const modalInfo = {
     btnUrl: '#'
 }
 
-export default function FormLogin({ toggleModal }) {
+export default function FormLogin({ toggleModal, setOpenLogin }) {
+    const field_email_exp = /[^\sa-zA-Z0-9@.]+$/
+    
+    const { push } = useRouter()
+
     const [openModalError, setOpenModalError] = useState(false)
 
     initFirebase()
+    //const auth = getAuth()
+
+    const [user, loading] = useAuthState(auth)
 
     const provider = new GoogleAuthProvider()
-    const auth = getAuth()
 
-    const email = 'xforealn2019@gmail.com';
-    const password = 'tg69xctg69x';
+    // if (loading){
+    //     return <div>Loading...</div>
+    // }
+
+    if (user){
+        //alert(user.displayName)
+        push('/settings')
+        //return <div>Welcome {user.displayName}</div>
+        return user
+    }
 
     const signInGoogle = async () => {
         try {
           const result = await signInWithPopup(auth, provider)
           const user = result.user
+          
+          setOpenLogin(false)
           // Handle successful sign-in
         } catch (error) {
           // Handle sign-in error
@@ -42,30 +62,41 @@ export default function FormLogin({ toggleModal }) {
         }
     }
 
-    const signInEmailAndPassword = async () => {
-        const result = await signInWithEmailAndPassword(auth, email, password)
-        //console.log(result.user)
+    const signInEmailAndPassword = async (email, password) => {
+        try {
+            const result = await signInWithEmailAndPassword(auth, email, password)
+            const user = result.user
+            setOpenLogin(false)
+            //alert('Success')
+          } catch (error) {
+            // Handle sign-in error
+            const errorCode = error.code
+            const errorMessage = error.message
+            const email = error.email
+            setOpenModalError(true)
+          }
     }
 
-
+    
     const form = useRef(null)
     const [validation, setValidation] = useState(false)
     const [submit, setSubmit] = useState(false)
-    const [submitPressed, setSubmitPressed] = useState(false)
     const [reset, setReset] = useState(true)
 
-
-    const handleSubmit = (e) => {
+    const signIn = (e) => {
         e.preventDefault()
-        //onInputField(e)
-
         setSubmit(prev => !prev)
-        setSubmitPressed(true)
 
-
-
-
+        if (form.current) {
+            const login_email = form.current.login_email.value
+            const login_password = form.current.login_password.value
+            
+            validation && signInEmailAndPassword(login_email, login_password)
+            
+            form.current.reset()
+        }
     }
+
 
 
     return (
@@ -83,12 +114,12 @@ export default function FormLogin({ toggleModal }) {
             <form action="/" methord="POST" noValidate name="FormLogin" id="FormLogin" className={styles.form} ref={form}>
 
                 <div className={styles.form__row}>
-                    <Input type='text' label='Your name*' placeholder='' id='login_name' error='Required. Only latin letters' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
+                    <Input type='email' label='Your email*' placeholder='' id='login_email' error='Required. Only latin letters' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} pattern={field_email_exp} />
                 </div>
                 <div className={styles.form__row}>
                     <Input type='password' label='Password*' placeholder='' id='login_password' error='Required field.' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
                 </div>
-                <Btn label='Send' onClick={signInEmailAndPassword} />
+                <Btn label='Send' onClick={signIn} />
 
             </form>
 
