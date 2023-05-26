@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 
 import { auth } from '../../../pages/_firebase'
 import { useAuthState } from 'react-firebase-hooks/auth'
+import { useRouter } from 'next/navigation'
 
 import Modal from '../../Modal'
 
@@ -15,6 +16,7 @@ import styles from '../Btn/btn.module.sass'
 
 export default function AuthBtns({ toggleShow }) {
     const [user] = useAuthState(auth)
+    const { push } = useRouter()
 
     const [show, setShow] = useState(false)
     const [openLogin, setOpenLogin] = useState(false)
@@ -48,6 +50,7 @@ export default function AuthBtns({ toggleShow }) {
         setBlockModalHide(true)
         toggleShow(false)
         auth.signOut()
+        push('/')
     }
 
     useEffect(() => {
@@ -56,7 +59,9 @@ export default function AuthBtns({ toggleShow }) {
             setOpenLogin(false)
             setShow(true)
             setBlockModalHide(false)
-        } 
+        } else {
+            setOpenLogin(true)
+        }
     }, [user])
 
     //alert(user.displayName)
@@ -64,9 +69,9 @@ export default function AuthBtns({ toggleShow }) {
     return (
 
         <>
-            { !show && <Modal openModal={openLogin} setModalOpen={setOpenLogin} blockModalHide={blockModalHide}>
+            <Modal openModal={openLogin} setModalOpen={setOpenLogin} blockModalHide={blockModalHide}>
                 <FormLogin toggleModal={handleToggleRegistration} setOpenLogin={setOpenLogin} />
-            </Modal>}
+            </Modal>
 
             <Modal openModal={openRegister} setModalOpen={setOpenRegister} blockModalHide={blockModalHide}>
                 <FormRegistration toggleModalReset={handleModalRegistration} toggleModalLogin={handleModalLogin} />

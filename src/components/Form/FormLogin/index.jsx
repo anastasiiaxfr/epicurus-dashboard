@@ -22,7 +22,7 @@ const modalInfo = {
 }
 
 export default function FormLogin({ toggleModal, setOpenLogin }) {
-    const field_email_exp = /[^\sa-zA-Z0-9@.]+$/
+    const reg_email = /^[^\s@#$%]+@[^\s@#$%]+\.[^\s@#$%]+$/
     
     const { push } = useRouter()
 
@@ -31,7 +31,7 @@ export default function FormLogin({ toggleModal, setOpenLogin }) {
     initFirebase()
     //const auth = getAuth()
 
-    const [user, loading] = useAuthState(auth)
+    const [user] = useAuthState(auth)
 
     const provider = new GoogleAuthProvider()
 
@@ -50,9 +50,7 @@ export default function FormLogin({ toggleModal, setOpenLogin }) {
         try {
           const result = await signInWithPopup(auth, provider)
           const user = result.user
-
-         
-          
+          //console.log(result.user)
           setOpenLogin(false)
           // Handle successful sign-in
         } catch (error) {
@@ -69,8 +67,7 @@ export default function FormLogin({ toggleModal, setOpenLogin }) {
             const result = await signInWithEmailAndPassword(auth, email, password)
             const user = result.user
             setOpenLogin(false)
-            
-            //alert('Success')
+            //console.log(result.user)
           } catch (error) {
             // Handle sign-in error
             const errorCode = error.code
@@ -117,7 +114,7 @@ export default function FormLogin({ toggleModal, setOpenLogin }) {
             <form action="/" methord="POST" noValidate name="FormLogin" id="FormLogin" className={styles.form} ref={form}>
 
                 <div className={styles.form__row}>
-                    <Input type='email' label='Your email*' placeholder='' id='login_email' error='Required field' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} pattern={field_email_exp} />
+                    <Input type='email' label='Your email*' placeholder='' id='login_email' error='Required field' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} pattern={reg_email} />
                 </div>
                 <div className={styles.form__row}>
                     <Input type='password' label='Password*' placeholder='' id='login_password' error='Required field' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />

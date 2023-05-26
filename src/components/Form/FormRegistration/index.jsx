@@ -10,7 +10,7 @@ import styles from './styles.module.sass'
 
 
 export default function FormRegistration({ toggleModalLogin, toggleModalReset }) {
-
+    const reg_email = /^[^\s@#$%]+@[^\s@#$%]+\.[^\s@#$%]+$/
     const form = useRef(null)
     const [validation, setValidation] = useState(false)
     const [submit, setSubmit] = useState(false)
@@ -42,6 +42,9 @@ export default function FormRegistration({ toggleModalLogin, toggleModalReset })
 
                     <div className={styles.form__row}>
                         <Input type='text' label='Your name*' placeholder='' id='reg_name' error='Required. Only latin letters' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
+                    </div>
+                    <div className={styles.form__row}>
+                        <Input type='email' label='Your email*' placeholder='' id='reg_email' error='Required field' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} pattern={reg_email} />
                     </div>
                     <div className={styles.form__row}>
                         <Input type='password' label='Password*' placeholder='' id='reg_password' error='Required field' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />

@@ -32,6 +32,8 @@ const modalInfo = {
 
 export default function AddBot() {
     const [user] = useAuthState(auth)
+    const userID = user.uid
+    const userEmail = user.email
 
     const field_sum_exp = /[^0-9.,]|(?<=([.,])\d*)[.,]/g
     const field_text_exp = /[^a-zA-Z0-9\w]/g
@@ -45,7 +47,6 @@ export default function AddBot() {
     const handleOpen = () => setOpen(true)
 
     const form = useRef(null)
-    const [userId, setUserId] = useState(getRandomInteger(1, 10000))
 
     const [validation, setValidation] = useState(false)
     const [submit, setSubmit] = useState(false)
@@ -76,17 +77,15 @@ export default function AddBot() {
     const handleSubmit = (e) => {
         e.preventDefault()
         //onInputField(e)
-        setUserId(getRandomInteger(1, 10000))
 
         setSubmit(prev => !prev)
         setSubmitPressed(true)
 
-        const email = localStorage.getItem('kyc_email')
         if (form.current) {
             const add_bot_name = form.current.add_bot_name.value.trim().replaceAll(/\s+/g, ' ')
             const add_bot_sum = form.current.add_bot_amount.value
             const add_bot_hash = form.current.add_bot_hash.value
-            validation && saveMessages(userId, add_bot_name, add_bot_sum, add_bot_hash, email)
+            validation && saveMessages(userID, add_bot_name, add_bot_sum, add_bot_hash, userEmail)
 
             form.current.reset()
 
@@ -97,13 +96,14 @@ export default function AddBot() {
         }
     }
 
-    const saveMessages = (userId, add_bot_name, add_bot_sum, add_bot_hash, email) => {
+    const saveMessages = (userID, add_bot_name, add_bot_sum, add_bot_hash, userEmail) => {
 
-        set(ref(database, 'addBotForm/' + userId), {
+        set(ref(database, 'addBotForm/' + userID), {
             add_bot_name: add_bot_name,
             add_bot_sum: add_bot_sum,
             add_bot_hash: add_bot_hash,
-            kyc_email: email,
+            kyc_email: userEmail,
+            kyc_uid: userID,
         })
     }
 

@@ -19,7 +19,7 @@ export default function InputField({ type, label, placeholder, value, note, erro
         if (currentInput?.disabled !== true) {
             if (currentInput?.value?.length === 0) {
                 setShowError(true)
-            } else if (pattern && currentInput.value.match(pattern)) {
+            } else if (type !== 'email' && pattern && currentInput.value.match(pattern)) {
                 setShowError(true)
                 setNewValue('')
                 setCheckPattern(false)
@@ -33,10 +33,17 @@ export default function InputField({ type, label, placeholder, value, note, erro
             }
         }
 
+        if (type === 'email') {
+            if(pattern){
+               if (pattern.test(currentInput.value) !== true) { setShowError(true); setCheckPattern(false) } else {
+                setShowError(false);  setCheckPattern(true)
+               }
+            }
+        }
+
+
         if (type === 'file') {
             if(currentInput?.files[0] && (currentInput?.files[0].size / 1024 / 1024)?.toFixed(1) > 1){ setShowError(true); setFileAttached(false) } else if(currentInput?.files[0] === undefined || currentInput?.files[0].size === 0){ setFileAttached(false); setShowError(true) } else { setFileAttached(true) }
-            
-            
             onImgSet(currentInput?.files[0])
         }
 

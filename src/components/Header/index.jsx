@@ -37,14 +37,15 @@ export default function Header({ title, getTitle }) {
     return (
         <header className="pg__header">
             <h1 className="h3">{ currentTitle }</h1>
-
-            <div className="pg__header-cta">
-                {show && (
+            
+            {show && (
                     <>
-                        <Ava onClick={() => getNewTitle('Settings')} name={user?.displayName}/>
+                        <Ava onClick={() => getNewTitle('Settings')} img={user?.photoURL}  name={user?.displayName}/>
                         {/* <Notification /> */}
                     </>
-                )}
+            )}
+            
+            <div className="pg__header-cta">
                 <AuthBtns toggleShow = {setShow}/>
             </div>
         </header>

@@ -1,8 +1,11 @@
 @import 'src/assets/styles/vars.sass'
 
 .ava
-    +flex(flex, center, center, nowrap)
+    +flex(flex, center, flex-start, nowrap)
     gap: 20px
+
+    & > *
+        transition: none
 
     &_logo
         +flex(flex, center, center, nowrap)
@@ -10,6 +13,13 @@
         min-width: 52px
         border-radius: 50%
         background-color: $grey
+        overflow: hidden
+
+        & > img
+            +sz(52px, 52px)
+            border-radius: 50%
+            object-fit: cover
+
 
     &_title
         +ft(18, 27, 500, $ffHeading)

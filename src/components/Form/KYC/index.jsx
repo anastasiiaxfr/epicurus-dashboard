@@ -11,6 +11,9 @@ import Nottification from '../Nottifications'
 
 import { ref, database, storage, set, uploadBytes, refStorage,  getDownloadURL } from '../../../pages/_firebase'
 
+import { auth } from '../../../pages/_firebase'
+import { useAuthState } from 'react-firebase-hooks/auth'
+
 import PlusIcon from '../../../assets/icons/plus-sm.svg'
 
 import styles from './kyc.module.sass'
@@ -21,16 +24,13 @@ const gender = [
 
 
 export default function KYC() {
-    const field_text_exp = /[^a-zA-Z]+$/
-    const field_email_exp = /[^\sa-zA-Z0-9@.]+$/
+    const [user] = useAuthState(auth)
+    const userID = user?.uid
+    const userEmail = user?.email
 
-    const getRandomInteger = (min, max) => {
-        const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-        return randomNumber;
-    }
+    const field_text_exp = /[^a-zA-Z]+$/
 
     const form = useRef(null)
-    const [userId, setUserId] = useState(getRandomInteger(1, 10000))
 
     const [validation, setValidation] = useState(false)
     const [submit, setSubmit] = useState(false)
@@ -51,11 +51,12 @@ export default function KYC() {
     // console.log('submitPressed', submitPressed)
 
     const getImgUrl = (val) => {
-        const storageRef1 = refStorage(storage, `images/${val}/pasport-${imgPasport?.name + getRandomInteger(1, 10000)}`)
-        const storageRef2 = refStorage(storage, `images/${val}/photo-${imgPhoto?.name + getRandomInteger(1, 10000)}`)
+        const storageRef1 = refStorage(storage, `images/${val}/pasport-${imgPasport?.name}`)
+        const storageRef2 = refStorage(storage, `images/${val}/photo-${imgPhoto?.name}`)
 
         uploadBytes(storageRef1, imgPasport).then((snapshot) => {
             getDownloadURL(snapshot.ref).then((url) => {
+                //alert(url)
                 setImgPasportURL((prev) => [...prev, url])
             })
         })
@@ -69,42 +70,51 @@ export default function KYC() {
     }
 
     useEffect(() => {
-        if (send !== true && form.current && imgPasport !== undefined && imgPasport !== null && imgPhoto !== undefined && imgPhoto !== null) {
-            getImgUrl(userId)
-        }
-    }, [form.current, imgPasport, imgPhoto, send])
+        if (send !== true && form.current && submitPressed === true && imgPasport !== undefined && imgPasport !== null && imgPhoto !== undefined && imgPhoto !== null) {
+            getImgUrl(userID)
 
-    
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        setUserId(getRandomInteger(1, 10000))
+            // console.log(imgPasportURL)
+            // console.log(imgPhotoURL)
+        }
+    }, [form.current, imgPasport, imgPhoto, send, submitPressed])
+
+
+   
+    console.log(imgPasportURL)
+    console.log(imgPhotoURL)
+
+    const handleSubmit = () => {
 
         setSubmit(prev => !prev)
         setSubmitPressed(true)
 
         if (form.current) {
+            
             const kyc_first_name = form.current.kyc_first_name.value
             const kyc_last_name = form.current.kyc_last_name.value
-            const kyc_email = form.current.kyc_email.value
             const kyc_dbirth = form.current.kyc_dbirth.value
             const kyc_gender = form.current.kyc_gender.value
             const kyc_policy = form.current.kyc_policy.checked
 
-            validation && localStorage.setItem('kyc_email', kyc_email)
-
-            !formSend && validation && saveMessages(userId, kyc_first_name, kyc_last_name, kyc_email, kyc_dbirth, kyc_gender, imgPasportURL, imgPhotoURL)
-
-
-            form.current.reset()
+            if (!formSend && validation && imgPasportURL.length > 0 && imgPhotoURL.length > 0){
+                saveMessages(userID, kyc_first_name, kyc_last_name, userEmail, kyc_dbirth, kyc_gender, imgPasportURL, imgPhotoURL)
+                
+            }  form.current.reset()
 
             if (validation === false) {
                 setSubmitPressed(false)
             }
-
+            
             //    alert(imgPasport?.name)
             //    alert(imgPhoto?.name)
         }
     }
+
+    useEffect(() => {
+        if (imgPhotoURL.length > 0 && imgPasportURL.length > 0 ) {
+            handleSubmit()
+        }
+    }, [imgPasportURL, imgPhotoURL])
 
     useEffect(() => {
 
@@ -115,13 +125,13 @@ export default function KYC() {
     }, [reset, submitPressed])
 
 
-    const saveMessages = (userId, kyc_first_name, kyc_last_name, kyc_email, kyc_dbirth, kyc_gender, imgPasportURL, imgPhotoURL) => {
+    const saveMessages = (userID, kyc_first_name, kyc_last_name, userEmail, kyc_dbirth, kyc_gender, imgPasportURL, imgPhotoURL) => {
 
 
-        set(ref(database, 'kycForm/' + userId), {
+        set(ref(database, 'kycForm/' + userID), {
             kyc_first_name: kyc_first_name,
             kyc_last_name: kyc_last_name,
-            kyc_email: kyc_email,
+            kyc_email: userEmail,
             kyc_dbirth: kyc_dbirth,
             kyc_gender: kyc_gender,
             kyc_pasport: imgPasportURL,
@@ -163,10 +173,6 @@ export default function KYC() {
                             <Input type='file' label='Pasport*' placeholder='Attach photo...' id='kyc_pasport' error='Only Jpg, Png less then 1MB' required={true} icon={<PlusIcon width="15" height="15" />} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} onImgSet={(e) => setImgPasport(e)} disabled={send}/>
 
                             <Input type='file' label='Persone photo*' placeholder='Attach photo...' id='kyc_photo' error='Only Jpg, Png less then 1MB' required={true} icon={<PlusIcon width="15" height="15" />} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} onImgSet={(e) => setImgPhoto(e)} disabled={send}/>
-                        </div>
-
-                        <div className={styles.form__row}>
-                            <Input type='email' label='Email*' placeholder='your@email.com' id='kyc_email' error='Wrang format' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} pattern={field_email_exp} disabled={send}/>
                         </div>
                     </div>
 

@@ -3,6 +3,10 @@
         +flex(flex, center, space-between, nowrap)
         width: 100%
         padding: 25px 20px
+        gap: 20px
+
+        a
+            margin-left: auto
         
         &-cta
             +flex(flex, center, space-between, nowrap)
@@ -12,10 +16,15 @@
             margin: 0
 
         +maw(600)
-            //flex-wrap: wrap
-            flex-wrap: nowrap
+            flex-wrap: wrap
+            gap: 15px
+
+            a
+                width: 100%
+                order: 1
 
             h1
+                flex: 1
                 //width: 100%
                 //margin-bottom: 10px	
                 

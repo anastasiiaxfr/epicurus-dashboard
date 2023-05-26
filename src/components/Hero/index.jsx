@@ -1,5 +1,8 @@
 import { useState } from 'react'
 
+import { auth } from '../../pages/_firebase'
+import { useAuthState } from 'react-firebase-hooks/auth'
+
 import Link from 'next/link'
 import Card from '../Card'
 
@@ -13,17 +16,23 @@ import ImgSolution4 from '../../assets/img/solutions-4.png'
 
 import styles from './hero.module.sass'
 
-const redirectURL = '/settings'
 
-const solutions = [
-    { title: 'Robotic trading', img: ImgSolution1, url: redirectURL },
-    { title: 'API key management', img: ImgSolution2, url: redirectURL, label: 'Coming soon' },
-    { title: 'Deposits based on smart contracts', img: ImgSolution3, url: redirectURL, label: 'Coming soon' },
-    { title: 'Academy', img: ImgSolution4, url: redirectURL, label: 'Coming soon'}
-]
 
 
 export default function Hero() {
+    const [user] = useAuthState(auth)
+
+
+    const redirectURL = !user ? '/' : '/settings'
+
+    const solutions = [
+        { title: 'Robotic trading', img: ImgSolution1, url: redirectURL },
+        { title: 'API key management', img: ImgSolution2, url: redirectURL, label: 'Coming soon' },
+        { title: 'Deposits based on smart contracts', img: ImgSolution3, url: redirectURL, label: 'Coming soon' },
+        { title: 'Academy', img: ImgSolution4, url: redirectURL, label: 'Coming soon'}
+    ]
+
+
     return (
 
         <div className={styles.hero}>
