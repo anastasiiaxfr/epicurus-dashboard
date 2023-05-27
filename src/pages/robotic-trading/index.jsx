@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { auth, ref, database, onValue } from '../../pages/_firebase'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
@@ -10,27 +11,37 @@ import BotPageMain from '../../components/Page/BotPageMain'
 import PlusIcon from '../../assets/icons/plus.svg'
 
 
-const tabsItems = [
-    { list: <PlusIcon/>, item: <AddBotPage /> },
-    // { list: 'Bot name', item: <BotPageMain /> }
-]
-
 function RoboticTradingPage() {
-    const [user] = useAuthState(auth)
+    const [user, loading] = useAuthState(auth)
     const userID = user?.uid
-    
-    onValue(ref(database, 'addBotForm/' + userID), (snapshot) => {
-        // Handle the snapshot and extract the data
-        const data = snapshot.val()
-        console.log(data)
-        }, (error) => {
-        // Handle any errors
-        console.error('Error reading data:', error)
-    })
-   
+    const [newData, setNewData] = useState()
+    const tabsItems = [{ list: <PlusIcon />, item: <AddBotPage /> }]
+  
+    useEffect(() => {
+        if (user) {
+          const db = ref(database, 'addBotForm/' + userID)
+      
+          const handleDataChange = (snapshot) => {
+            const data = snapshot.val()
+            const items = Object.values(data).map(i => ({ name: i.add_bot_name, sum: i.add_bot_sum }))
+            setNewData(items)
+          }
+      
+          const handleError = (error) => {
+            console.error('Error reading data:', error)
+          }
+      
+          onValue(db, handleDataChange, handleError)
+        }
+      }, [user])
+      
+      if (newData?.length > 0) {
+        const tabslist = [...new Set(newData)]
+        tabslist.map(i => tabsItems.push({ list: i.name, item: <BotPageMain sum={i.sum} /> }))
+      }
 
     return (
-        <Tabs props={tabsItems} />
+        !loading && <Tabs props={tabsItems} />
     )
 }
 
