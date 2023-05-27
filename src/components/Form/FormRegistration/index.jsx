@@ -1,15 +1,22 @@
 import { useState, useRef, useEffect } from 'react'
+import { auth, createUserWithEmailAndPassword, updateProfile } from '../../../pages/_firebase'
+
+import ModalAuthError from '../../Modal/ModalAuthError'
 
 import Input from '../../Form/Input'
 import Btn from '../../Form/Btn'
 
 
-
 import styles from './styles.module.sass'
 
+const modalInfo = {
+    title: 'Something Wrong',
+    text: 'Try again',
+    btnText: 'Okay',
+    btnUrl: '#'
+}
 
-
-export default function FormRegistration({ toggleModalLogin, toggleModalReset }) {
+export default function FormRegistration({ toggleModalLogin, toggleModalReset, setOpenRegister }) {
     const reg_email = /^[^\s@#$%]+@[^\s@#$%]+\.[^\s@#$%]+$/
     const form = useRef(null)
     const [validation, setValidation] = useState(false)
@@ -17,20 +24,46 @@ export default function FormRegistration({ toggleModalLogin, toggleModalReset })
     const [submitPressed, setSubmitPressed] = useState(false)
     const [reset, setReset] = useState(true)
 
+    const [openModalError, setOpenModalError] = useState(false)
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         //onInputField(e)
 
         setSubmit(prev => !prev)
         setSubmitPressed(true)
+
+        if (form.current) {
+
+            const reg_email = form.current.reg_email.value
+            const reg_password = form.current.reg_password.value
+            const reg_name = form.current.reg_name.value
+            
+            if(validation === true){
+                try {
+                    const userCredential = await createUserWithEmailAndPassword(auth, reg_email, reg_password)
+                    const user = userCredential.user
+              
+                    await updateProfile(user, {
+                        displayName: reg_name,
+                   })
+                    //alert('User registered successfully!')
+                    setOpenRegister(false)
+                  } catch (error) {
+                    //alert('Error')
+                    console.error('Error registering user:', error)
+                    setOpenModalError(true)
+                }
+            }
+        }
+       
     }
 
     return (
 
         <>
-
+            <ModalAuthError openModal={openModalError} setModalOpen={setOpenModalError} props={modalInfo}/>
 
             <div className={styles.form__wrap}>
 
@@ -38,7 +71,7 @@ export default function FormRegistration({ toggleModalLogin, toggleModalReset })
                     Registration
                 </h1>
 
-                <form action="/" methord="POST" noValidate name="FormRegistration" id="FormRegistration" className={styles.form} ref={form}>
+                <form action="/" methord="POST" noValidate name="FormRegistration" id="FormRegistration" className={styles.form} ref={form} autoComplete='off'>
 
                     <div className={styles.form__row}>
                         <Input type='text' label='Your name*' placeholder='' id='reg_name' error='Required. Only latin letters' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
@@ -54,7 +87,7 @@ export default function FormRegistration({ toggleModalLogin, toggleModalReset })
                 </form>
 
                 <div className={styles.form__cta}>
-                    <div onClick={() => toggleModalReset()} className={styles.btn__cta}> Reset <b>password</b> </div>
+                    {/* <div onClick={() => toggleModalReset()} className={styles.btn__cta}> Reset <b>password</b> </div> */}
                     <span>OR</span>
                     <div onClick={() => toggleModalLogin()} className={styles.btn__cta}>
                         Login

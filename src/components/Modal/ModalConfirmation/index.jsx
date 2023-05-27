@@ -25,7 +25,7 @@ export default function ModalPopup({ openModal, setModalOpen, props }) {
                     <div className={styles.modal__text}>
                         { text }
                     </div>
-                    <Btn label={ btnText } />
+                    <Btn label={ btnText } onClick={handleClose} />
 
                 </div>
             </ClickAwayListener>

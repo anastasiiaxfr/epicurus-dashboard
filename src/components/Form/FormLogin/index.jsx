@@ -90,10 +90,11 @@ export default function FormLogin({ toggleModal, setOpenLogin }) {
         if (form.current) {
             const login_email = form.current.login_email.value
             const login_password = form.current.login_password.value
-            
-            validation && signInEmailAndPassword(login_email, login_password)
-            
-            form.current.reset()
+
+            if(validation){
+                signInEmailAndPassword(login_email, login_password)
+                form.current.reset()
+            } 
         }
     }
 
@@ -109,9 +110,7 @@ export default function FormLogin({ toggleModal, setOpenLogin }) {
                 Login
             </h1>
 
-           
-
-            <form action="/" methord="POST" noValidate name="FormLogin" id="FormLogin" className={styles.form} ref={form}>
+            <form action="/" methord="POST" noValidate name="FormLogin" id="FormLogin" className={styles.form} ref={form} autoComplete='off'>
 
                 <div className={styles.form__row}>
                     <Input type='email' label='Your email*' placeholder='' id='login_email' error='Required field' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} pattern={reg_email} />

@@ -72,16 +72,13 @@ export default function KYC() {
     useEffect(() => {
         if (send !== true && form.current && submitPressed === true && imgPasport !== undefined && imgPasport !== null && imgPhoto !== undefined && imgPhoto !== null) {
             getImgUrl(userID)
-
-            // console.log(imgPasportURL)
-            // console.log(imgPhotoURL)
         }
     }, [form.current, imgPasport, imgPhoto, send, submitPressed])
 
 
    
-    console.log(imgPasportURL)
-    console.log(imgPhotoURL)
+    // console.log(imgPasportURL)
+    // console.log(imgPhotoURL)
 
     const handleSubmit = () => {
 
@@ -98,8 +95,14 @@ export default function KYC() {
 
             if (!formSend && validation && imgPasportURL.length > 0 && imgPhotoURL.length > 0){
                 saveMessages(userID, kyc_first_name, kyc_last_name, userEmail, kyc_dbirth, kyc_gender, imgPasportURL, imgPhotoURL)
-                
-            }  form.current.reset()
+                setSend(true)
+            }  
+            
+            if(send === true){
+                form.current.reset()
+                setReset(true)
+                submitPressed(true)
+            }
 
             if (validation === false) {
                 setSubmitPressed(false)
@@ -117,13 +120,11 @@ export default function KYC() {
     }, [imgPasportURL, imgPhotoURL])
 
     useEffect(() => {
-
-        reset && submitPressed && localStorage.setItem('kyc_form_send', true)
-        reset && submitPressed && push('/robotic-trading')
-        setSend(formSend === 'true')
-
-    }, [reset, submitPressed])
-
+        if (send === true) {
+            push('/robotic-trading')
+            localStorage.setItem('kyc_form_send', true)
+        }
+    }, [send])
 
     const saveMessages = (userID, kyc_first_name, kyc_last_name, userEmail, kyc_dbirth, kyc_gender, imgPasportURL, imgPhotoURL) => {
 
@@ -152,13 +153,13 @@ export default function KYC() {
             </div>
             <div className={styles.form__fields}>
 
-                <form action="/" method="POST" className={`${styles.form} ${send && styles.disabled}`} noValidate name="kycForm" id="kycForm" ref={form}>
+                <form action="/" method="POST" className={`${styles.form} ${formSend && styles.disabled}`} noValidate name="kycForm" id="kycForm" ref={form} autoComplete='off'>
 
                     <div className={styles.form__fields_wrapper}>
                         <div className={styles.form__row}>
-                            <Input type='text' label='First name*' placeholder='Type your name...' id='kyc_first_name' error='Only latin letters' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} pattern={field_text_exp} disabled={send}/>
+                            <Input type='text' label='First name*' placeholder='Type your name...' id='kyc_first_name' error='Only latin letters' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} pattern={field_text_exp} disabled={formSend}/>
 
-                            <Input type='text' label='Last name*' placeholder='Type your last name...' id='kyc_last_name' error='Only latin letters' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} pattern={field_text_exp} disabled={send}/>
+                            <Input type='text' label='Last name*' placeholder='Type your last name...' id='kyc_last_name' error='Only latin letters' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} pattern={field_text_exp} disabled={formSend}/>
                         </div>
 
                         <div className={styles.form__row}>
@@ -166,13 +167,13 @@ export default function KYC() {
                             <Date label='Date of Birth*' id='kyc_dbirth' />
 
                             {/* <Input type='text' label='Gender*' placeholder='Choose your sex...' id='bot_name' error='Required field' required={true}/> */}
-                            <Select label='Gender*' data={gender} id='kyc_gender' disabled={send}/>
+                            <Select label='Gender*' data={gender} id='kyc_gender' disabled={formSend}/>
                         </div>
 
                         <div className={styles.form__row}>
-                            <Input type='file' label='Pasport*' placeholder='Attach photo...' id='kyc_pasport' error='Only Jpg, Png less then 1MB' required={true} icon={<PlusIcon width="15" height="15" />} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} onImgSet={(e) => setImgPasport(e)} disabled={send}/>
+                            <Input type='file' label='Pasport*' placeholder='Attach photo...' id='kyc_pasport' error='Only Jpg, Png less then 1MB' required={true} icon={<PlusIcon width="15" height="15" />} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} onImgSet={(e) => setImgPasport(e)} disabled={formSend}/>
 
-                            <Input type='file' label='Persone photo*' placeholder='Attach photo...' id='kyc_photo' error='Only Jpg, Png less then 1MB' required={true} icon={<PlusIcon width="15" height="15" />} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} onImgSet={(e) => setImgPhoto(e)} disabled={send}/>
+                            <Input type='file' label='Persone photo*' placeholder='Attach photo...' id='kyc_photo' error='Only Jpg, Png less then 1MB' required={true} icon={<PlusIcon width="15" height="15" />} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} onImgSet={(e) => setImgPhoto(e)} disabled={formSend}/>
                         </div>
                     </div>
 
@@ -182,12 +183,12 @@ export default function KYC() {
                         We are pleased to present you our Public Offer - an important document that governs the relationship between us as a service provider and you as our client. We invite you to familiarize yourself with its content, as it determines the terms of use of our platform and the provision of our services to you.
                     </div>
 
-                    <Btn label='Confirm' onClick={handleSubmit} disabled={send} />
+                    <Btn label='Confirm' onClick={handleSubmit} disabled={formSend} />
 
 
                 </form>
 
-                {reset && submitPressed || send && <Nottification type="success" label='Your data send!' />}
+                {reset && submitPressed || formSend && <Nottification type="success" label='Your data send!' />}
 
             </div>
         </div>

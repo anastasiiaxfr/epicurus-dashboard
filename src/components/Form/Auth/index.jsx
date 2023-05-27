@@ -74,7 +74,7 @@ export default function AuthBtns({ toggleShow }) {
             </Modal>
 
             <Modal openModal={openRegister} setModalOpen={setOpenRegister} blockModalHide={blockModalHide}>
-                <FormRegistration toggleModalReset={handleModalRegistration} toggleModalLogin={handleModalLogin} />
+                <FormRegistration toggleModalReset={handleModalRegistration} toggleModalLogin={handleModalLogin} setOpenRegister={setOpenRegister} />
             </Modal>
 
             <Modal openModal={openReset} setModalOpen={setOpenReset} blockModalHide={blockModalHide}>

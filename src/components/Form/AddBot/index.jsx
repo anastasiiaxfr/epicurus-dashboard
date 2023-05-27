@@ -1,7 +1,7 @@
 // import Link from 'next/link'
 import { useState, useRef, useEffect } from 'react'
 
-import { auth } from '../../../pages/_firebase'
+import { ref, database, set, auth } from '../../../pages/_firebase'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
 
@@ -20,28 +20,28 @@ import CopyIcon from '../../../assets/icons/copy.svg'
 
 import styles from './addBot.module.sass'
 
-import { ref, database, set } from '../../../pages/_firebase'
+function getRandom(min, max) {
+    const range = max - min + 1
+    const randomValue = Math.floor(Math.random() * range) + min
+    return randomValue
+}
 
 
 const modalInfo = {
     title: 'Wait for confirmation',
-    text: 'It will take 12 hours',
+    text: 'It will take 24 hours',
     btnText: 'Okay',
     btnUrl: '#'
 }
 
 export default function AddBot() {
     const [user] = useAuthState(auth)
-    const userID = user.uid
-    const userEmail = user.email
+    const userID = user?.uid
+    const userEmail = user?.email
 
     const field_sum_exp = /[^0-9.,]|(?<=([.,])\d*)[.,]/g
     const field_text_exp = /[^a-zA-Z0-9\w]/g
 
-    const getRandomInteger = (min, max) => {
-        const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-        return randomNumber;
-    }
 
     const [open, setOpen] = useState(false)
     const handleOpen = () => setOpen(true)
@@ -98,7 +98,7 @@ export default function AddBot() {
 
     const saveMessages = (userID, add_bot_name, add_bot_sum, add_bot_hash, userEmail) => {
 
-        set(ref(database, 'addBotForm/' + userID), {
+        set(ref(database, 'addBotForm/' + userID + '/' + getRandom(1, 1000)), {
             add_bot_name: add_bot_name,
             add_bot_sum: add_bot_sum,
             add_bot_hash: add_bot_hash,
@@ -120,7 +120,7 @@ export default function AddBot() {
 
             <div className={styles.form__fields}>
 
-                <form action="/" method="POST" className={styles.form} noValidate name="addBotForm" id="addBotForm" ref={form}>
+                <form action="/" method="POST" className={styles.form} noValidate name="addBotForm" id="addBotForm" ref={form} autoComplete='off'>
 
                     <div className={styles.form__fields_wrapper}>
 

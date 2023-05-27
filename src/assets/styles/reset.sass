@@ -49,9 +49,25 @@ button, a, input
 
 
 
+/* Change the white to any color */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active
+    -webkit-box-shadow: 0 0 0 30pc rgba($dark, 0.5) inset !important
+    -webkit-background-clip: text !important
+    //-webkit-text-fill-color: yellow !important
+    transition: none
 
-input:-internal-autofill-selected 
-    background-color: initial !important
-    background-image: none !important
-    color: initial !important
+input:-webkit-autofill 
+    -webkit-box-shadow:0 0 0 50pc rgba($dark, 0.5) inset 
+    -webkit-text-fill-color: $white
+    transition: none
+    font-family: $ffText
 
+input:-webkit-autofill:focus 
+    -webkit-box-shadow: 0 0 0 50pc rgba($dark, 0.5) inset
+    -webkit-text-fill-color: $white
+    transition: none
+    font-family: $ffText
+  

@@ -43,7 +43,7 @@ export default function AddApiPage() {
                             />
                         </div>
 
-                        <form action="/" method="POST" className={styles.form} noValidate>
+                        <form action="/" method="POST" className={styles.form} noValidate autoComplete='off'>
 
                             <Input type='text' label='Bot name' placeholder='Введите название...' id='bot_name' error='Only latin letters' />
 
