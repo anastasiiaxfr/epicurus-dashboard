@@ -17,6 +17,8 @@ function RoboticTradingPage() {
     const [newData, setNewData] = useState()
     const tabsItems = [{ list: <PlusIcon />, item: <AddBotPage /> }]
   
+    //console.log(user)
+
     useEffect(() => {
         if (user) {
           const db = ref(database, 'addBotForm/' + userID)

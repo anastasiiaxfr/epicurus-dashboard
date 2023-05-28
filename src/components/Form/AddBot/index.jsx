@@ -1,7 +1,7 @@
 // import Link from 'next/link'
 import { useState, useRef, useEffect } from 'react'
 
-import { ref, database, set, auth } from '../../../pages/_firebase'
+import { ref, database, set, auth, onValue, firestore, collection, doc, setDoc } from '../../../pages/_firebase'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
 
@@ -69,6 +69,19 @@ export default function AddBot() {
         setCopy(true)
     }
 
+    const addBotToFirestore = async (data) => {
+        try {
+          const collectionRef = collection(firestore, 'NewBot')
+          const db = doc(collectionRef)
+      
+          // Set the data in Firestore
+          await setDoc(db, data)
+      
+          console.log('Data written to Firestore successfully.')
+        } catch (error) {
+          console.error('Error writing data to Firestore:', error)
+        }
+    }
 
     //console.log('reset', reset)
     //console.log('validation', validation)
@@ -85,7 +98,11 @@ export default function AddBot() {
             const add_bot_name = form.current.add_bot_name.value.trim().replaceAll(/\s+/g, ' ')
             const add_bot_sum = form.current.add_bot_amount.value
             const add_bot_hash = form.current.add_bot_hash.value
-            validation && saveMessages(userID, add_bot_name, add_bot_sum, add_bot_hash, userEmail)
+            if(validation){ saveMessages(userID, add_bot_name, add_bot_sum, add_bot_hash, userEmail); addBotToFirestore({
+                user_id: userID, 
+                user_email: userEmail, 
+                bot_name: add_bot_name
+            })}
 
             form.current.reset()
 

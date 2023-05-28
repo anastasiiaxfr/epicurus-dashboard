@@ -2,7 +2,8 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set, onValue } from 'firebase/database';
 import { getStorage, uploadBytes, getDownloadURL } from "firebase/storage";
-import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, sendEmailVerification, onIdTokenChanged, onAuthStateChanged, sendPasswordResetEmail } from "firebase/auth";
+import { getFirestore, collection, doc, setDoc } from 'firebase/firestore';
 
 
 import { ref as refStorage } from 'firebase/storage';
@@ -23,9 +24,33 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const database = getDatabase();
+const firestore = getFirestore();
 const storage = getStorage(app);
 const initFirebase = () => { return app };
 const auth = getAuth();
+
+
+
+onIdTokenChanged(auth, async (user) => {
+  if (user) {
+    try {
+      const token = await user.getIdToken(true)
+      // Use the refreshed token for API calls or update it in your app's state.
+    } catch (error) {
+      // Handle the token refresh error.
+    }
+  }
+})
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // User is signed in.
+    const uid = user.uid;
+  } else {
+    // User is signed out.
+  }
+})
+
 
 
 // console.log(process.env.FIREBASE_API_KEY);
@@ -36,7 +61,7 @@ const auth = getAuth();
 // console.log(process.env.FIREBASE_MESSAGING_SENDER_ID);
 // console.log(process.env.FIREBASE_APP_ID);
 
-export { app, database, storage, ref, set, uploadBytes, refStorage, getDownloadURL, getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, initFirebase, auth, createUserWithEmailAndPassword, updateProfile, onValue};
+export { app, database, storage, ref, set, uploadBytes, refStorage, getDownloadURL, getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, initFirebase, auth, createUserWithEmailAndPassword, updateProfile, onValue, sendEmailVerification, onIdTokenChanged, sendPasswordResetEmail, firestore, collection, doc, setDoc};
 export default function () {
     return <></>;
   }

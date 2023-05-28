@@ -5,12 +5,17 @@
         padding: 25px 20px
         gap: 20px
 
+        & > *
+            transition: none
+            user-select: none
+
         a
             margin-left: auto
         
         &-cta
             +flex(flex, center, space-between, nowrap)
             gap: 30px
+           
 
         h1
             margin: 0
@@ -18,20 +23,31 @@
         +maw(600)
             flex-wrap: wrap
             gap: 15px
+            display: grid
+            grid-template-columns: 1fr 1fr
+
 
             a
                 width: 100%
                 order: 1
+                flex: 1
+                grid-column: 1/-1
 
             h1
                 flex: 1
+                order: 2
+                grid-column: 1/-1
                 //width: 100%
                 //margin-bottom: 10px	
                 
             &-cta
-                //flex: 1
-                width: auto
-                gap: 20px
+                gap: 10px
+                flex: 1
+                justify-content: flex-end
+                //display: grid
+                //grid-template-columns: 1fr
+                grid-column: 1/-1
+
     
     &__footer
         background-color: rgba($dark, 0.5)

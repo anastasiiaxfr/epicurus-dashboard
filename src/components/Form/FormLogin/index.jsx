@@ -1,10 +1,9 @@
 import { useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 
-import { signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, initFirebase, auth} from '../../../pages/_firebase'
+import { signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, initFirebase, auth, sendPasswordResetEmail } from '../../../pages/_firebase'
 
 import { useAuthState } from 'react-firebase-hooks/auth'
-
 
 import ModalAuthError from '../../Modal/ModalAuthError'
 
@@ -16,15 +15,18 @@ import styles from './styles.module.sass'
 
 const modalInfo = {
     title: 'Something Wrong',
-    text: 'Try again',
+    text: 'Reset password from link on your email',
     btnText: 'Okay',
     btnUrl: '#'
 }
 
+
 export default function FormLogin({ toggleModal, setOpenLogin }) {
     const reg_email = /^[^\s@#$%]+@[^\s@#$%]+\.[^\s@#$%]+$/
-    
+
     const { push } = useRouter()
+
+    const form = useRef(null)
 
     const [openModalError, setOpenModalError] = useState(false)
 
@@ -39,7 +41,7 @@ export default function FormLogin({ toggleModal, setOpenLogin }) {
     //     return <div>Loading...</div>
     // }
 
-    if (user){
+    if (user) {
         //alert(user.displayName)
         push('/settings')
         //return <div>Welcome {user.displayName}</div>
@@ -48,37 +50,39 @@ export default function FormLogin({ toggleModal, setOpenLogin }) {
 
     const signInGoogle = async () => {
         try {
-          const result = await signInWithPopup(auth, provider)
-          const user = result.user
-          //console.log(result.user)
-          setOpenLogin(false)
-          // Handle successful sign-in
-        } catch (error) {
-          // Handle sign-in error
-          const errorCode = error.code
-          const errorMessage = error.message
-          const email = error.email
-          setOpenModalError(true)
-        }
-    }
-
-    const signInEmailAndPassword = async (email, password) => {
-        try {
-            const result = await signInWithEmailAndPassword(auth, email, password)
+            const result = await signInWithPopup(auth, provider)
             const user = result.user
-            setOpenLogin(false)
             //console.log(result.user)
-          } catch (error) {
+            setOpenLogin(false)
+            // Handle successful sign-in
+        } catch (error) {
             // Handle sign-in error
             const errorCode = error.code
             const errorMessage = error.message
             const email = error.email
             setOpenModalError(true)
-          }
+        }
     }
 
-    
-    const form = useRef(null)
+    // const signInEmailAndPassword = async (email, password) => {
+    //     try {
+    //         const result = await signInWithEmailAndPassword(auth, email, password)
+    //         const user = result.user
+    //         const secureToken = user.getIdToken()
+    //         setOpenLogin(false)
+    //         //console.log(result.user)
+    //       } catch (error) {
+    //         // Handle sign-in error
+    //         const errorCode = error.code
+    //         const errorMessage = error.message
+    //         const email = error.email
+    //         setOpenModalError(true)
+
+    //       }
+    // }
+
+
+
     const [validation, setValidation] = useState(false)
     const [submit, setSubmit] = useState(false)
     const [reset, setReset] = useState(true)
@@ -91,10 +95,31 @@ export default function FormLogin({ toggleModal, setOpenLogin }) {
             const login_email = form.current.login_email.value
             const login_password = form.current.login_password.value
 
-            if(validation){
-                signInEmailAndPassword(login_email, login_password)
+            if (validation) {
+                signInWithEmailAndPassword(auth, login_email, login_password).then((userCredential) => {
+                    // Signed in 
+                    const user = userCredential.user
+                    setOpenLogin(false)
+                    // ...
+                })
+                    .catch((error) => {
+                        const errorCode = error.code
+                        const errorMessage = error.message
+                        setOpenModalError(true)
+                        email && sendPasswordResetEmail(auth, email)
+                            .then(() => {
+                                // Password reset email sent!
+
+                            })
+                            .catch((error) => {
+                                const errorCode = error.code;
+                                const errorMessage = error.message;
+
+                            })
+                    })
+
                 form.current.reset()
-            } 
+            }
         }
     }
 
@@ -102,35 +127,34 @@ export default function FormLogin({ toggleModal, setOpenLogin }) {
 
     return (
         <>
-        <ModalAuthError openModal={openModalError} setModalOpen={setOpenModalError} props={modalInfo}/>
-       
-        <div className={styles.form__wrap}>
+            <ModalAuthError openModal={openModalError} setModalOpen={setOpenModalError} props={modalInfo} />
 
-            <h1>
-                Login
-            </h1>
+            <div className={styles.form__wrap}>
 
-            <form action="/" methord="POST" noValidate name="FormLogin" id="FormLogin" className={styles.form} ref={form} autoComplete='off'>
+                <h1>
+                    Login
+                </h1>
 
-                <div className={styles.form__row}>
-                    <Input type='email' label='Your email*' placeholder='' id='login_email' error='Required field' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} pattern={reg_email} />
-                </div>
-                <div className={styles.form__row}>
-                    <Input type='password' label='Password*' placeholder='' id='login_password' error='Required field' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
-                </div>
-                <Btn label='Send' onClick={signIn} />
+                <form action="/" methord="POST" noValidate name="FormLogin" id="FormLogin" className={styles.form} ref={form} autoComplete='off'>
 
-            </form>
+                    <div className={styles.form__row}>
+                        <Input type='email' label='Your email*' placeholder='' id='login_email' error='Required field' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} pattern={reg_email} />
+                    </div>
+                    <div className={styles.form__row}>
+                        <Input type='password' label='Password*' placeholder='' id='login_password' error='Required field' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
+                    </div>
+                    <Btn label='Send' onClick={signIn} />
+                </form>
 
-            <div className={styles.form__cta}>
-                <div onClick={signInGoogle} className={styles.btn__cta}> <b>Sign in with</b> Google </div>
+                <div className={styles.form__cta}>
+                    <div onClick={signInGoogle} className={styles.btn__cta}> <b>Sign in with</b> Google </div>
                     <span>OR</span>
-                <div onClick={() => toggleModal()} className={styles.btn__cta}>
-                    Registration
+                    <div onClick={() => toggleModal()} className={styles.btn__cta}>
+                        Registration
+                    </div>
                 </div>
-            </div>
 
-        </div>
+            </div>
         </>
     )
 }

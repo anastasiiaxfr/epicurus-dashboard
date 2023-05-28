@@ -66,6 +66,7 @@ export default function AuthBtns({ toggleShow }) {
 
     //alert(user.displayName)
 
+
     return (
 
         <>
@@ -81,21 +82,24 @@ export default function AuthBtns({ toggleShow }) {
                 <FormReset toggleModalLogin={handleModalLogin} toggleModalRegistration={handleToggleRegistration} />
             </Modal>
 
-            <div>
-                { show ? <div type='button' className={styles.btn_v1} role="button" onClick={signOut}>
-                    <span>Sign</span> Out 
-                </div> :
-                    <div className={styles.btns}>
-                        <div type='button' className={styles.btn_v1} onClick={handleOpenLogin} role="button">
-                            <span>Sign</span> In
-                        </div>
-                        <div type='button' className={styles.btn_v1} onClick={handleOpenRegister} role="button">
-                            <span>Sign</span> Up
-                        </div>
-                    </div>
-                }
 
-            </div>
+            {show && <div type='button' className={styles.btn_v1} role="button" onClick={signOut}>
+                <span>Sign</span> Out
+            </div>}
+            {!show &&
+                <div type='button' className={styles.btn_v1} onClick={handleOpenLogin} role="button">
+                    <span>Sign</span> In
+                </div>
+            }
+            {!show &&
+                <div type='button' className={styles.btn_v1} onClick={handleOpenRegister} role="button">
+                    <span>Sign</span> Up
+                </div>
+
+
+            }
+
+
 
         </>
 

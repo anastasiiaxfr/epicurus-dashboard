@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { auth, createUserWithEmailAndPassword, updateProfile } from '../../../pages/_firebase'
+import { auth, createUserWithEmailAndPassword, updateProfile, sendEmailVerification, firestore, collection, doc, setDoc } from '../../../pages/_firebase'
 
 import ModalAuthError from '../../Modal/ModalAuthError'
 
@@ -17,6 +17,8 @@ const modalInfo = {
 }
 
 export default function FormRegistration({ toggleModalLogin, toggleModalReset, setOpenRegister }) {
+    const user = auth.currentUser
+
     const reg_email = /^[^\s@#$%]+@[^\s@#$%]+\.[^\s@#$%]+$/
     const form = useRef(null)
     const [validation, setValidation] = useState(false)
@@ -26,6 +28,19 @@ export default function FormRegistration({ toggleModalLogin, toggleModalReset, s
 
     const [openModalError, setOpenModalError] = useState(false)
 
+    const addUserToFirestore = async (data) => {
+        try {
+          const collectionRef = collection(firestore, 'NewUser')
+          const db = doc(collectionRef)
+      
+          // Set the data in Firestore
+          await setDoc(db, data)
+      
+          console.log('Data written to Firestore successfully.')
+        } catch (error) {
+          console.error('Error writing data to Firestore:', error)
+        }
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -39,31 +54,43 @@ export default function FormRegistration({ toggleModalLogin, toggleModalReset, s
             const reg_email = form.current.reg_email.value
             const reg_password = form.current.reg_password.value
             const reg_name = form.current.reg_name.value
-            
-            if(validation === true){
+
+            if (validation === true) {
                 try {
                     const userCredential = await createUserWithEmailAndPassword(auth, reg_email, reg_password)
                     const user = userCredential.user
-              
+
                     await updateProfile(user, {
                         displayName: reg_name,
-                   })
+                    })
+                    // sendEmailVerification(user)
+                    //     .then(() => {
+                    //         console.log('Email verification sent successfully.')
+                    //     })
+                    //     .catch((error) => {
+                    //         console.error('Error sending verification email:', error)
+                    //     })
                     //alert('User registered successfully!')
+                    addUserToFirestore({
+                        new_user_email: reg_email, new_user_name: reg_name
+                    })
                     setOpenRegister(false)
-                  } catch (error) {
+                } catch (error) {
                     //alert('Error')
                     console.error('Error registering user:', error)
                     setOpenModalError(true)
                 }
             }
         }
-       
+
     }
+
+
 
     return (
 
         <>
-            <ModalAuthError openModal={openModalError} setModalOpen={setOpenModalError} props={modalInfo}/>
+            <ModalAuthError openModal={openModalError} setModalOpen={setOpenModalError} props={modalInfo} />
 
             <div className={styles.form__wrap}>
 

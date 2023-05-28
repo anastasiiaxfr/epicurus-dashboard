@@ -38,7 +38,7 @@ export default function Header({ title, getTitle }) {
         <header className="pg__header">
             <h1 className="h3">{ currentTitle }</h1>
             
-            {show && (
+            {user && (
                     <>
                         <Ava onClick={() => getNewTitle('Settings')} img={user?.photoURL}  name={user?.displayName}/>
                         {/* <Notification /> */}
