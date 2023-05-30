@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react'
 import { ref, database, set, auth, onValue, firestore, collection, doc, setDoc } from '../../../pages/_firebase'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
+import { getSPKey } from '../../../pages/_send-pulse'
 
 import Image from 'next/image'
 
@@ -71,15 +72,15 @@ export default function AddBot() {
 
     const addBotToFirestore = async (data) => {
         try {
-          const collectionRef = collection(firestore, 'NewBot')
-          const db = doc(collectionRef)
-      
-          // Set the data in Firestore
-          await setDoc(db, data)
-      
-          console.log('Data written to Firestore successfully.')
+            const collectionRef = collection(firestore, 'NewBot')
+            const db = doc(collectionRef)
+
+            // Set the data in Firestore
+            await setDoc(db, data)
+
+            console.log('Data written to Firestore successfully.')
         } catch (error) {
-          console.error('Error writing data to Firestore:', error)
+            console.error('Error writing data to Firestore:', error)
         }
     }
 
@@ -98,11 +99,29 @@ export default function AddBot() {
             const add_bot_name = form.current.add_bot_name.value.trim().replaceAll(/\s+/g, ' ')
             const add_bot_sum = form.current.add_bot_amount.value
             const add_bot_hash = form.current.add_bot_hash.value
-            if(validation){ saveMessages(userID, add_bot_name, add_bot_sum, add_bot_hash, userEmail); addBotToFirestore({
-                user_id: userID, 
-                user_email: userEmail, 
-                bot_name: add_bot_name
-            })}
+            if (validation) {
+                saveMessages(userID, add_bot_name, add_bot_sum, add_bot_hash, userEmail)
+
+                addBotToFirestore({
+                    user_id: userID,
+                    user_email: userEmail,
+                    bot_name: add_bot_name
+                })
+
+                const variableData = {
+                    "email": userEmail,
+                    "variables": [
+                      {
+                        "name": 'new_bot',
+                        "value": add_bot_name
+                      }
+                    ]
+                }
+
+                //alert(variableData.email)
+
+                getSPKey('new-bot', variableData)
+            }
 
             form.current.reset()
 

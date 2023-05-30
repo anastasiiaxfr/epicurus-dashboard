@@ -1,5 +1,5 @@
 //GET KEY
-function getSPKey(emailData) {
+function getSPKey(type, SPdata) {
   const accessData = {
     "grant_type": "client_credentials",
     "client_id": process.env.SENDPULSE_ID,
@@ -16,13 +16,17 @@ function getSPKey(emailData) {
 
   fetch('https://api.sendpulse.com/oauth/access_token', requestOptions)
     .then(response => response.json())
-    .then(data => 
-      {
+    .then(data => {
       //setCookie("access_token", data.access_token, 1 / 4)
       //alert(data.access_token)
       //console.log('SP_key', data.access_token)
-      addUserToSP(emailData, data.access_token)
+      if (type === 'new-user') {
+        addUserToSP(SPdata, data.access_token)
       }
+      if (type === 'new-bot') {
+        changeVarSP(SPdata, data.access_token)
+      }
+    }
     )
     .catch(error => {
       //alert('ERROR get SP Key')
@@ -32,8 +36,10 @@ function getSPKey(emailData) {
 
 
 //let access_token = getCookie("access_token");
+const addressBook = process.env.SENDPULSE_ADDRESS_BOOK_ID;
 
-const apiUrl = `https://api.sendpulse.com/addressbooks/${process.env.SENDPULSE_ADDRESS_BOOK_ID}/emails`;
+const apiUrl = `https://api.sendpulse.com/addressbooks/${addressBook}/emails`;
+
 //ADD_USER_SENDPULSE
 function addUserToSP(emailData, access_token) {
   fetch(apiUrl, {
@@ -55,4 +61,28 @@ function addUserToSP(emailData, access_token) {
     });
 }
 
+//CHANGE_VARIABLE_BY_EMAIL_SENDPULSE
+function changeVarSP(variableData, access_token){
+  fetch(`https://api.sendpulse.com/addressbooks/${addressBook}/emails/variable`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${access_token}`
+    },
+    body: JSON.stringify(variableData)
+  })
+  .then((response) => response.json())
+  .then((data) => {
+    //alert(data);
+  })
+  .catch((error) => {
+    //alert('ERROR send user to SP')
+    console.error(error)
+  });
+}
+
+
 export { getSPKey }
+export default function () {
+    return <></>
+}

@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from 'react'
 import { auth, createUserWithEmailAndPassword, updateProfile, sendEmailVerification, firestore, collection, doc, setDoc } from '../../../pages/_firebase'
 
-
 import { getSPKey } from '../../../pages/_send-pulse'
+
 import ModalAuthError from '../../Modal/ModalAuthError'
 import ModalAuthSuccess from '../../Modal/ModalConfirmation'
 
@@ -96,7 +96,7 @@ export default function FormRegistration({ toggleModalLogin, toggleModalReset, s
                         }]
                     }
                     
-                    getSPKey(emailData)
+                    getSPKey('new-user', emailData)
 
                     addUserToFirestore({
                         new_user_email: reg_email, new_user_name: reg_name

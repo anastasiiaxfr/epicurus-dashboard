@@ -8,7 +8,9 @@ import styles from './modalSuccess.module.sass'
 
 export default function ModalPopup({ openModal, setModalOpen, props, toggleModal }) {
     const { title, text, btnText, btnUrl } = props
-    const handleClose = () => { setModalOpen(false); toggleModal(false) }
+    const handleClose = () => { setModalOpen(false); if(toggleModal){
+        toggleModal(false)
+    }}
 
     return (
         openModal && <section className={styles.modal}>
