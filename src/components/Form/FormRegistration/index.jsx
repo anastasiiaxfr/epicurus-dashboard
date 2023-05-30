@@ -1,7 +1,10 @@
 import { useState, useRef, useEffect } from 'react'
 import { auth, createUserWithEmailAndPassword, updateProfile, sendEmailVerification, firestore, collection, doc, setDoc } from '../../../pages/_firebase'
 
+
+import { getSPKey } from '../../../pages/_send-pulse'
 import ModalAuthError from '../../Modal/ModalAuthError'
+import ModalAuthSuccess from '../../Modal/ModalConfirmation'
 
 import Input from '../../Form/Input'
 import Btn from '../../Form/Btn'
@@ -11,10 +14,18 @@ import styles from './styles.module.sass'
 
 const modalInfo = {
     title: 'Something Wrong',
-    text: 'Try again',
+    text: 'It seems you have already been registered. Please try to log in',
     btnText: 'Okay',
     btnUrl: '#'
 }
+
+const modalInfoSuccess = {
+    title: 'The data send',
+    text: 'To confirm your registration, please follow the link that has been sent to the email address you provided.',
+    btnText: 'Okay',
+    btnUrl: '#'
+}
+
 
 export default function FormRegistration({ toggleModalLogin, toggleModalReset, setOpenRegister }) {
     const user = auth.currentUser
@@ -27,6 +38,7 @@ export default function FormRegistration({ toggleModalLogin, toggleModalReset, s
     const [reset, setReset] = useState(true)
 
     const [openModalError, setOpenModalError] = useState(false)
+    const [openModalSuccess, setOpenModalSuccess] = useState(false)
 
     const addUserToFirestore = async (data) => {
         try {
@@ -63,6 +75,7 @@ export default function FormRegistration({ toggleModalLogin, toggleModalReset, s
                     await updateProfile(user, {
                         displayName: reg_name,
                     })
+
                     // sendEmailVerification(user)
                     //     .then(() => {
                     //         console.log('Email verification sent successfully.')
@@ -71,14 +84,34 @@ export default function FormRegistration({ toggleModalLogin, toggleModalReset, s
                     //         console.error('Error sending verification email:', error)
                     //     })
                     //alert('User registered successfully!')
+                 
+                    const emailData = {
+                        emails: [{
+                            email: reg_email,
+
+                            variables: {
+                                name: reg_name,
+                                referrer: 'Epicurus_Dashboard'
+                            },
+                        }]
+                    }
+                    
+                    getSPKey(emailData)
+
                     addUserToFirestore({
                         new_user_email: reg_email, new_user_name: reg_name
                     })
-                    setOpenRegister(false)
+
+                    setOpenModalSuccess(true)
+
+                    // openModalSuccess !== true && setOpenRegister(false)
+
                 } catch (error) {
-                    //alert('Error')
+                    //alert('Error Register')
                     console.error('Error registering user:', error)
+                    form.current.reset()
                     setOpenModalError(true)
+                    
                 }
             }
         }
@@ -91,6 +124,8 @@ export default function FormRegistration({ toggleModalLogin, toggleModalReset, s
 
         <>
             <ModalAuthError openModal={openModalError} setModalOpen={setOpenModalError} props={modalInfo} />
+
+            <ModalAuthSuccess openModal={openModalSuccess} setModalOpen={setOpenModalSuccess} props={modalInfoSuccess} toggleModal={setOpenRegister}/>
 
             <div className={styles.form__wrap}>
 

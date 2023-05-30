@@ -8,6 +8,10 @@ module.exports = {
     FIREBASE_STORAGE_BUCKET: process.env.FIREBASE_STORAGE_BUCKET,
     FIREBASE_MESSAGING_SENDER_ID: process.env.FIREBASE_MESSAGING_SENDER_ID,
     FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
+    SENDPULSE_ADDRESS_BOOK_ID: process.env.SENDPULSE_ADDRESS_BOOK_ID,
+    SENDPULSE_ID: process.env.SENDPULSE_ID,
+    SENDPULSE_SECRET: process.env.SENDPULSE_SECRET
+
   },
   images: {
     domains: ['lh3.googleusercontent.com'],

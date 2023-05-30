@@ -95,8 +95,6 @@ export default function AuthBtns({ toggleShow }) {
                 <div type='button' className={styles.btn_v1} onClick={handleOpenRegister} role="button">
                     <span>Sign</span> Up
                 </div>
-
-
             }
 
 

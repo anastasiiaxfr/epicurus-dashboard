@@ -25,8 +25,10 @@ function RoboticTradingPage() {
       
           const handleDataChange = (snapshot) => {
             const data = snapshot.val()
-            const items = Object.values(data).map(i => ({ name: i.add_bot_name, sum: i.add_bot_sum }))
-            setNewData(items)
+            if(data){
+              const items = Object.values(data).map(i => ({ name: i.add_bot_name, sum: i.add_bot_sum }))
+              setNewData(items)
+            }
           }
       
           const handleError = (error) => {
