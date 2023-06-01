@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app";
 
 import { getDatabase, ref, set, onValue } from 'firebase/database';
 import { getStorage, uploadBytes, getDownloadURL } from "firebase/storage";
-import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, sendEmailVerification, onIdTokenChanged, onAuthStateChanged, sendPasswordResetEmail, getIdToken, } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, sendEmailVerification, onIdTokenChanged, onAuthStateChanged, sendPasswordResetEmail, getIdToken, signInAnonymously} from "firebase/auth";
 import { getFirestore, collection, doc, setDoc } from 'firebase/firestore';
 
 
@@ -62,7 +62,7 @@ onAuthStateChanged(auth, (user) => {
 // console.log(process.env.FIREBASE_MESSAGING_SENDER_ID);
 // console.log(process.env.FIREBASE_APP_ID);
 
-export { initFirebase, database, storage, ref, set, uploadBytes, refStorage, getDownloadURL, getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, auth, createUserWithEmailAndPassword, updateProfile, onValue, sendEmailVerification, onIdTokenChanged, sendPasswordResetEmail, firestore, collection, doc, setDoc, getIdToken, };
+export { initFirebase, database, storage, ref, set, uploadBytes, refStorage, getDownloadURL, getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, auth, createUserWithEmailAndPassword, updateProfile, onValue, sendEmailVerification, onIdTokenChanged, sendPasswordResetEmail, firestore, collection, doc, setDoc, getIdToken, onAuthStateChanged, signInAnonymously};
 export default function () {
     return <></>;
   }
