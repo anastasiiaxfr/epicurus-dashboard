@@ -21,12 +21,15 @@ const firebaseConfig = {
   appId: process.env.FIREBASE_APP_ID,
 };
 
-// Initialize Firebase
+
+
+
 const app = initializeApp(firebaseConfig);
+const initFirebase = () => { return app };
+
 const database = getDatabase();
 const firestore = getFirestore();
 const storage = getStorage(app);
-const initFirebase = () => { return app };
 const auth = getAuth();
 
 
@@ -61,7 +64,7 @@ onAuthStateChanged(auth, (user) => {
 // console.log(process.env.FIREBASE_MESSAGING_SENDER_ID);
 // console.log(process.env.FIREBASE_APP_ID);
 
-export { app, database, storage, ref, set, uploadBytes, refStorage, getDownloadURL, getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, initFirebase, auth, createUserWithEmailAndPassword, updateProfile, onValue, sendEmailVerification, onIdTokenChanged, sendPasswordResetEmail, firestore, collection, doc, setDoc};
+export { initFirebase, database, storage, ref, set, uploadBytes, refStorage, getDownloadURL, getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, auth, createUserWithEmailAndPassword, updateProfile, onValue, sendEmailVerification, onIdTokenChanged, sendPasswordResetEmail, firestore, collection, doc, setDoc};
 export default function () {
     return <></>;
   }

@@ -20,8 +20,14 @@ import Icon7 from '../../assets/icons/i7.svg'
 export default function Sidebar({getTitle}) {
     const [user] = useAuthState(auth)
     const { push } = useRouter()
+    const router = useRouter()
 
-    let baseURL = '/dashboard'
+    console.log(router.query)
+    
+    const { token } = router.query || ''
+    
+
+    let baseURL = `/dashboard`
     const [showURL, setShowURL] = useState(false)
 
     const [showMenu, setShowMenu] = useState(false)
@@ -41,7 +47,7 @@ export default function Sidebar({getTitle}) {
             //alert(user.displayName)
             setShowURL(true)
         } else {
-            push('/')
+            //push(`/?token=${token}`)
         }
     }, [user])
 
