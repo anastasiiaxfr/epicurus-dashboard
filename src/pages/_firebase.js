@@ -1,8 +1,9 @@
 //Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+
 import { getDatabase, ref, set, onValue } from 'firebase/database';
 import { getStorage, uploadBytes, getDownloadURL } from "firebase/storage";
-import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, sendEmailVerification, onIdTokenChanged, onAuthStateChanged, sendPasswordResetEmail } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, sendEmailVerification, onIdTokenChanged, onAuthStateChanged, sendPasswordResetEmail, getIdToken, } from "firebase/auth";
 import { getFirestore, collection, doc, setDoc } from 'firebase/firestore';
 
 
@@ -21,16 +22,13 @@ const firebaseConfig = {
   appId: process.env.FIREBASE_APP_ID,
 };
 
-
-
-
 const app = initializeApp(firebaseConfig);
 const initFirebase = () => { return app };
 
 const database = getDatabase();
 const firestore = getFirestore();
 const storage = getStorage(app);
-const auth = getAuth();
+const auth = getAuth(app);
 
 
 
@@ -64,7 +62,7 @@ onAuthStateChanged(auth, (user) => {
 // console.log(process.env.FIREBASE_MESSAGING_SENDER_ID);
 // console.log(process.env.FIREBASE_APP_ID);
 
-export { initFirebase, database, storage, ref, set, uploadBytes, refStorage, getDownloadURL, getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, auth, createUserWithEmailAndPassword, updateProfile, onValue, sendEmailVerification, onIdTokenChanged, sendPasswordResetEmail, firestore, collection, doc, setDoc};
+export { initFirebase, database, storage, ref, set, uploadBytes, refStorage, getDownloadURL, getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, auth, createUserWithEmailAndPassword, updateProfile, onValue, sendEmailVerification, onIdTokenChanged, sendPasswordResetEmail, firestore, collection, doc, setDoc, getIdToken, };
 export default function () {
     return <></>;
   }
