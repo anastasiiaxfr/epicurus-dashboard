@@ -106,7 +106,7 @@ export default function FormLogin({ toggleModal, setOpenLogin }) {
                         const errorCode = error.code
                         const errorMessage = error.message
                         setOpenModalError(true)
-                        email && sendPasswordResetEmail(auth, email)
+                        login_email && sendPasswordResetEmail(auth, login_email)
                             .then(() => {
                                 // Password reset email sent!
 
