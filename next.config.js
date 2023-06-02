@@ -10,8 +10,9 @@ module.exports = {
     FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
     SENDPULSE_ADDRESS_BOOK_ID: process.env.SENDPULSE_ADDRESS_BOOK_ID,
     SENDPULSE_ID: process.env.SENDPULSE_ID,
-    SENDPULSE_SECRET: process.env.SENDPULSE_SECRET
-
+    SENDPULSE_SECRET: process.env.SENDPULSE_SECRET,
+    REFERRER: process.env.REFERRER,
+    DB: process.env.DB
   },
   images: {
     domains: ['lh3.googleusercontent.com'],

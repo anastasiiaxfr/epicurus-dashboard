@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { auth, ref, database, onValue } from '../../pages/_firebase'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
+import GetBotData from './_get-data'
 
 import Tabs from '../../components/Tabs'
 
@@ -22,11 +23,16 @@ function RoboticTradingPage() {
     useEffect(() => {
         if (user) {
           const db = ref(database, 'addBotForm/' + userID)
-      
+          GetBotData()
           const handleDataChange = (snapshot) => {
             const data = snapshot.val()
             if(data){
-              const items = Object.values(data).map(i => ({ name: i.add_bot_name, sum: i.add_bot_sum }))
+              //console.log(data)
+
+              const items = Object.values(data).map(i => ({ name: i.add_bot_name, sum: i.add_bot_sum, apy: i.add_bot_sum, time: new Date() }))
+
+
+
               setNewData(items)
             }
           }
@@ -41,7 +47,7 @@ function RoboticTradingPage() {
       
       if (newData?.length > 0) {
         const tabslist = [...new Set(newData)]
-        tabslist.map(i => tabsItems.push({ list: i.name, item: <BotPageMain sum={i.sum} /> }))
+        tabslist.map(i => tabsItems.push({ list: i.name, item: <BotPageMain dataDB={i}/> }))
       }
 
     return (

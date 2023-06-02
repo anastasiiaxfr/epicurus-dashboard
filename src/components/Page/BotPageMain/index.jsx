@@ -7,17 +7,18 @@ import InfoIcon from '../../../assets/icons/info.svg'
 import styles from './styles.module.sass'
 
 
-export default function BotPageMain({ sum }) {
+export default function BotPageMain({ dataDB }) {
+    const { sum, apy, time } = dataDB
     const currency = 'USDT'
     const nottificationTimeout = 1 // day
     const [show, setShow] = useState(true)
 
     useEffect(() => {
-        const targetTime = new Date()
+        const targetTime = time //new Date()
         targetTime.setDate(targetTime.getDate() + nottificationTimeout)
     
         const checkTime = () => {
-          const currentTime = new Date()
+          const currentTime = time //new Date()
           if (currentTime >= targetTime) {
             setShow(false)
           } else {
@@ -60,7 +61,7 @@ export default function BotPageMain({ sum }) {
                                     APY
                                 </figcaption>
                                 <div className={styles.box__value}>
-                                    00.00 <small className={styles.box__cur}>{currency}</small>  
+                                    {apy} <small className={styles.box__cur}>{currency}</small>  
                                 </div>
                             </div>
                             <div>

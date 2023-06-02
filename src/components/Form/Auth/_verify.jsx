@@ -13,7 +13,7 @@ const Verify = () => {
   useEffect(() => {
     const verifyToken = async () => {
       const { token } = router.query;
-      console.log(token)
+      //console.log(token)
 
       if(token !== undefined){
         try {
@@ -42,7 +42,7 @@ const Verify = () => {
 
     };
 
-    verifyToken();
+    //verifyToken();
   }, [router.query]);
 
 };
