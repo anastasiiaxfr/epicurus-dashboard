@@ -92,7 +92,7 @@ export default function BotPageMain({ dataDB }) {
                 </main>
 
                 {/* TRANSACTION */}
-                <section className="pg__section">
+                { dataDB.length > 1 ? <section className="pg__section">
                     <div className="pg__section-header">
                         <h2 className="h3">Transaction</h2>
 
@@ -104,9 +104,8 @@ export default function BotPageMain({ dataDB }) {
                         </div> */}
                     </div>
                     <Table heading={heading} data={dataDB}/>
-                </section>
-
-                { show && <div className={styles.pg__footer}>
+                </section> :
+                <div className={styles.pg__footer}>
                     <div className="tooltip tooltip--danger">
                         <InfoIcon width="20" height="20" />
                         <div>
