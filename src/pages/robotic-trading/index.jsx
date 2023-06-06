@@ -14,14 +14,15 @@ function RoboticTradingPage() {
     const [user, loading] = useAuthState(auth)
     const userID = user?.uid
     const [newData, setNewData] = useState()
+    const [newBot, setNewBot] = useState(false)
     const url = process.env.DB
-    const tabsItems = [{ list: <PlusIcon />, item: <AddBotPage /> }]
+    const tabsItems = [{ list: <PlusIcon />, item: <AddBotPage setNewBot={setNewBot} /> }]
 
     //console.log(user)
 
     useEffect(() => {
         if (user) {
-            const db = ref(database, 'addBotForm/' + userID)
+            //const db = ref(database, 'addBotForm/' + userID)
 
             const payload = {
                 uid: userID,
@@ -45,7 +46,9 @@ function RoboticTradingPage() {
                     console.error('Error:', error)
                 })
         }
-    }, [user])
+    }, [user, newBot])
+
+    //console.log('setNewBot', newBot)
 
     if (newData !== undefined) {
         //console.log('newData', newData)
@@ -55,6 +58,8 @@ function RoboticTradingPage() {
 
         ))
     }
+
+
 
     return (
         !loading && <Tabs props={tabsItems} />

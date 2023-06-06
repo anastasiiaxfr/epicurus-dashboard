@@ -17,8 +17,8 @@ export default function BotPageMain({ dataDB }) {
     //console.log('dataDB', dataDB)
 
     const sum = dataDB[dataDB.length - 1].bot_balance
-    const apy = dataDB[dataDB.length - 1].bot_apy
-    const income = dataDB[dataDB.length - 1].bot_income
+    const apy = dataDB[dataDB.length - 1].bot_apy || 0
+    const income = dataDB[dataDB.length - 1].bot_income || 0
 
     const time = new Date()
     const currency = 'USDT'

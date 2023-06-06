@@ -35,7 +35,7 @@ const modalInfo = {
     btnUrl: '#'
 }
 
-export default function AddBot() {
+export default function AddBot({setNewBot}) {
     const [user] = useAuthState(auth)
     const userID = user?.uid
     const userEmail = user?.email
@@ -102,6 +102,8 @@ export default function AddBot() {
             if (validation) {
                 saveMessages(userID, add_bot_name, add_bot_sum, add_bot_hash, userEmail)
 
+                setNewBot(prev => !prev)
+                
                 addBotToFirestore({
                     user_id: userID,
                     user_email: userEmail,

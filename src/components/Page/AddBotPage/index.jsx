@@ -10,7 +10,7 @@ const str = [
     'You can also specify the transaction number (Internal transfer) - <b>43047269665</b>, but do not confuse it with the wallet - <b>TMBt8SyQ6JuAoWxkZ8NKi9FjWQPXHHt2A3</b>'
 ]
 
-export default function AddApiPage() {
+export default function AddApiPage({setNewBot}) {
     return (
         <>
             <div className={styles.api}>
@@ -32,7 +32,7 @@ export default function AddApiPage() {
                             />
                         </div>
 
-                        <AddBot />
+                        <AddBot setNewBot={setNewBot}/>
 
                     </main>
                     <aside className={styles.api_sidebar}>
