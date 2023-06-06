@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react'
 import { auth, ref, database, onValue } from '../../pages/_firebase'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
-import GetBotData from './_get-data'
-
 import Tabs from '../../components/Tabs'
 
 import AddBotPage from '../../components/Page/AddBotPage'
@@ -16,39 +14,47 @@ function RoboticTradingPage() {
     const [user, loading] = useAuthState(auth)
     const userID = user?.uid
     const [newData, setNewData] = useState()
+    const url = process.env.DB
     const tabsItems = [{ list: <PlusIcon />, item: <AddBotPage /> }]
-  
+
     //console.log(user)
 
     useEffect(() => {
         if (user) {
-          const db = ref(database, 'addBotForm/' + userID)
-          GetBotData()
-          const handleDataChange = (snapshot) => {
-            const data = snapshot.val()
-            if(data){
-              //console.log(data)
+            const db = ref(database, 'addBotForm/' + userID)
 
-              const items = Object.values(data).map(i => ({ name: i.add_bot_name, sum: i.add_bot_sum, apy: i.add_bot_sum, time: new Date() }))
-
-
-
-              setNewData(items)
+            const payload = {
+                uid: userID,
             }
-          }
-      
-          const handleError = (error) => {
-            console.error('Error reading data:', error)
-          }
-      
-          onValue(db, handleDataChange, handleError)
+
+            const queryParams = new URLSearchParams(payload).toString();
+            const newUrl = `${url}?${queryParams}`
+
+            fetch(newUrl)
+                .then(response => response.json())
+                .then(data => {
+                    // Handle the response data
+                    //console.log('data', data)
+                    Object.values(data).map(i => (
+                        //Object.values(i).map(el => console.log(el[el.length - 1]))
+                        setNewData(i)
+                    ))
+                })
+                .catch(error => {
+                    // Handle any errors
+                    console.error('Error:', error)
+                })
         }
-      }, [user])
-      
-      if (newData?.length > 0) {
-        const tabslist = [...new Set(newData)]
-        tabslist.map(i => tabsItems.push({ list: i.name, item: <BotPageMain dataDB={i}/> }))
-      }
+    }, [user])
+
+    if (newData !== undefined) {
+        //console.log('newData', newData)
+
+        Object.values(newData).map(el => (
+            tabsItems.push({ list: el[el.length - 1].bot_name, item: <BotPageMain dataDB={el} /> })
+
+        ))
+    }
 
     return (
         !loading && <Tabs props={tabsItems} />

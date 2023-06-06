@@ -138,6 +138,7 @@ export default function AddBot() {
             add_bot_name: add_bot_name,
             add_bot_sum: add_bot_sum,
             add_bot_hash: add_bot_hash,
+            add_bot_time: new Date(),
             kyc_email: userEmail,
             kyc_uid: userID,
         })

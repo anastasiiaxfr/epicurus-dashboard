@@ -22,7 +22,7 @@ export default function Sidebar({getTitle}) {
     const { push } = useRouter()
     const router = useRouter()
 
-    console.log(router.query)
+    //console.log(router.query)
     
     const { token } = router.query || ''
     

@@ -1,17 +1,31 @@
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 
-import FormPeriod from '../../Form/FormPeriod'
+//import FormPeriod from '../../Form/FormPeriod'
 
+import Table from '../../Tables/_transaction'
+
+import DownloadIcon from '../../../assets/icons/download.svg'
 import InfoIcon from '../../../assets/icons/info.svg'
 
 import styles from './styles.module.sass'
 
 
+
 export default function BotPageMain({ dataDB }) {
-    const { sum, apy, time } = dataDB
+
+    //console.log('dataDB', dataDB)
+
+    const sum = dataDB[dataDB.length - 1].bot_balance
+    const apy = dataDB[dataDB.length - 1].bot_apy
+    const income = dataDB[dataDB.length - 1].bot_income
+
+    const time = new Date()
     const currency = 'USDT'
     const nottificationTimeout = 1 // day
-    const [show, setShow] = useState(true)
+    const [show, setShow] = useState(false)
+
+    const heading = ['Symbol', 'Open Time', 'Enter', 'Close Time', 'Exit', 'Side', 'Profit']
 
     useEffect(() => {
         const targetTime = time //new Date()
@@ -50,7 +64,7 @@ export default function BotPageMain({ dataDB }) {
                             Сurrent income
                         </figcaption>
                         <div className={styles.box__value}>
-                            00.00 <small className={styles.box__cur}>{currency}</small>  
+                            {income} <small className={styles.box__cur}>{currency}</small>  
                         </div>
                     </figure>
 
@@ -64,18 +78,34 @@ export default function BotPageMain({ dataDB }) {
                                     {apy} <small className={styles.box__cur}>{currency}</small>  
                                 </div>
                             </div>
-                            <div>
+                            {/* <div>
                                 <figcaption className={styles.box__title}>
                                     Period
                                 </figcaption>
 
                                <FormPeriod />
 
-                            </div>
+                            </div> */}
                         </div>
                     </figure>
 
                 </main>
+
+                {/* TRANSACTION */}
+                <section className="pg__section">
+                    <div className="pg__section-header">
+                        <h2 className="h3">Transaction</h2>
+
+                        {/* <div className="table__cta">
+                            <DownloadIcon width="15" height="15" />
+                            <Link href="/" className="text--link-btn">
+                                See All
+                            </Link>
+                        </div> */}
+                    </div>
+                    <Table heading={heading} data={dataDB}/>
+                </section>
+
                 { show && <div className={styles.pg__footer}>
                     <div className="tooltip tooltip--danger">
                         <InfoIcon width="20" height="20" />
