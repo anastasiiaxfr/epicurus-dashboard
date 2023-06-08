@@ -9,6 +9,9 @@ import Link from 'next/link'
 //import FormPeriod from '../../Form/FormPeriod'
 
 import Table from '../../Tables/_transaction'
+import Btn from '../../Form/Btn'
+import ModalWithdrawal from '../../Modal/ModalWithdrawal'
+
 
 import DownloadIcon from '../../../assets/icons/download.svg'
 import InfoIcon from '../../../assets/icons/info.svg'
@@ -27,18 +30,28 @@ export default function BotPageMain({ bot_id, bot_balance}) {
     const [tableData, setTableData] = useState([])
     const [botApy, setBotApy] = useState(0)
     const [botIncome, setBotIncome] = useState(0)
-
+    const [botTotalBalance, setBotTotalBalance] = useState(botBalance)
     const currency = 'USDT'
 
     const heading = ['Symbol', 'Open Time', 'Enter', 'Close Time', 'Exit', 'Side', 'Profit']
 
+    const [openModal, setOpenModal] = useState(false)
+    const handleOpenModal = () => setOpenModal(true)
+
+    const [withdrawal, setWithdrawal] = useState(0)
+
     //console.log('bot_id', bot_id)
+
+    const toggleModal = (value) => {
+        setWithdrawal(value)
+    }
 
    useEffect(() => {
         if (user) {
 
             const payload = {
                 uid: userID,
+                bot_id: botID
             }
 
             const queryParams = new URLSearchParams(payload).toString();
@@ -50,11 +63,16 @@ export default function BotPageMain({ bot_id, bot_balance}) {
                     //console.log('data', data)
                     const botData = data[userID][botID]
                     //console.log('botData', botData)
-                    setTableData(botData)
+                  
                     const totalBotProfit = botData.reduce((sum, item) => sum + item.total_profit, 0)
-                    //console.log('totalBotApy', totalBotApy)
-                    setBotApy(totalBotProfit.toFixed(2))
-                    setBotIncome(totalBotProfit.toFixed(2))
+
+                    if(!isNaN(totalBotProfit)){
+                        setTableData(botData)
+                        setBotApy(totalBotProfit.toFixed(2))
+                        setBotIncome(totalBotProfit.toFixed(2))
+                        setBotTotalBalance(+botBalance + +totalBotProfit)
+                    }
+                    
                 })
                 .catch(error => {
                     // Handle any errors
@@ -64,10 +82,11 @@ export default function BotPageMain({ bot_id, bot_balance}) {
     }, [user])
 
     //console.log('tableData', tableData)
-
+    //console.log('botTotalBalance', botTotalBalance)
     
     return (
         <>
+            <ModalWithdrawal openModal={openModal} setModalOpen={setOpenModal} totalBalance={botTotalBalance} botID={botID} toggleModal={toggleModal}/>
             <div className={styles.pg}>
                 <main className={styles.pg__row}>
 
@@ -90,7 +109,7 @@ export default function BotPageMain({ bot_id, bot_balance}) {
                     </figure>
 
                     <figure className={styles.box}>
-                        <div className={styles.box__row}>
+                       
                             <div>
                                 <figcaption className={styles.box__title}>
                                     APY
@@ -98,6 +117,13 @@ export default function BotPageMain({ bot_id, bot_balance}) {
                                 <div className={styles.box__value}>
                                     {botApy} <small className={styles.box__cur}>{currency}</small>  
                                 </div>
+                               
+                                { botTotalBalance > botBalance && <Btn label='Withdraw' onClick={handleOpenModal}/> }
+
+                                { withdrawal !== 0 && <div className={styles.box__info}>
+                                {`Your withdrawal request of ${withdrawal} USDT has been submitted.`}
+                                </div> }
+                            
                             </div>
                             {/* <div>
                                 <figcaption className={styles.box__title}>
@@ -107,7 +133,7 @@ export default function BotPageMain({ bot_id, bot_balance}) {
                                <FormPeriod />
 
                             </div> */}
-                        </div>
+                       
                     </figure>
 
                 </main>

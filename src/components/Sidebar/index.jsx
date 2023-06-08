@@ -78,7 +78,7 @@ export default function Sidebar({getTitle}) {
                     </Link>
                 </li>
                 <li>
-                    <Link href={showURL ? '/robotic-trading' : baseURL } onClick={() => onSetTitle('Robotic trading')} title="Robotic trading">
+                    <Link href={'/robotic-trading'} onClick={() => onSetTitle('Robotic trading')} title="Robotic trading">
                         <Icon2 with="20" height="20"/>
                         <span>Robotic trading</span>
                     </Link>

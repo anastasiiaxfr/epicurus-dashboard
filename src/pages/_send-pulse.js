@@ -26,6 +26,10 @@ function getSPKey(type, SPdata) {
       if (type === 'new-bot') {
         changeVarSP(SPdata, data.access_token)
       }
+
+      if(type === 'withdrawal') {
+        sendEmail(SPdata, data.access_token)
+      }
     }
     )
     .catch(error => {
@@ -33,7 +37,7 @@ function getSPKey(type, SPdata) {
       console.error(error)
     });
 }
-
+//getSPKey()
 
 //let access_token = getCookie("access_token");
 const addressBook = process.env.SENDPULSE_ADDRESS_BOOK_ID;
@@ -80,6 +84,57 @@ function changeVarSP(variableData, access_token){
     console.error(error)
   });
 }
+
+//SEND SMTP EMAIL
+const recipientEmail = 'joht.galt.777@gmail.com';
+const senderEmail = 'office@itg-investments.com';
+
+const subject = 'New Bot Withdrawal';
+
+const smtpUrl = 'https://api.sendpulse.com/smtp/emails';
+
+function sendEmail(SPdata, token) {
+  alert(SPdata.user_id)
+  const message = `User want Withdrawal:
+  user_id: ${SPdata.user_id}
+  user_email: ${SPdata.user_email}
+  bot_id: ${SPdata.bot_id}
+  bot_balance: ${SPdata.bot_balance}
+  bot_withdrawal: ${SPdata.bot_withdrawal}
+  user_wallet: ${SPdata.user_wallet}
+  `;
+
+  const emailData = {
+    subject: subject,
+    from: {
+      name: 'Epicurus Dashboard',
+      email: senderEmail
+    },
+    to: [
+      {
+        email: recipientEmail
+      }
+    ],
+    html: message
+  };
+
+  fetch(smtpUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify(emailData)
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('Email sent successfully:', data);
+  })
+  .catch(error => {
+    console.error('Error sending email:', error);
+  });
+}
+
 
 
 export { getSPKey }

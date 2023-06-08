@@ -52,6 +52,9 @@
     &__value
         +ft(24, 36, 400, $ffHeading)
         letter-spacing: 0.1em
+        
+        & + *
+            margin-top: 20px
 
     &__row
         display: grid
@@ -63,3 +66,8 @@
             grid-template-columns: 1fr 2fr
         +maw($xs)
             grid-template-columns: 1fr
+
+    &__info
+        margin-top: 20px
+        +ft(12, 12, 400)
+        color: $prurple200

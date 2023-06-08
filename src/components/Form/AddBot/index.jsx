@@ -55,7 +55,7 @@ export default function AddBot({setNewBot}) {
     const [reset, setReset] = useState(true)
     const [copy, setCopy] = useState(false)
 
-    const wallet = 'TXLbP1LtvV6pjRfFJVeJU67EssCTH5d1P2' //FIXME
+    const wallet = 'TXt1VYrWHLn4Yp6TKmZeQd4VWXjYQiiRgL' //FIXME
     const copyTextToClipboard = async (text) => {
         try {
             await navigator.clipboard.writeText(text)
