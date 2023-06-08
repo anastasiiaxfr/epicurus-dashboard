@@ -16,9 +16,9 @@ export default function Seo({ seo }) {
             <link rel="mask-icon" href="fav/safari-pinned-tab.svg" color="#fff" />
 
             <link rel="manifest" href="fav/site.webmanifest" />
-            <link rel="mask-icon" href="fav/safari-pinned-tab.svg" color="#3a1b70" />
-            <meta name="msapplication-TileColor" content="#3a1b70" />
-            <meta name="theme-color" content="#3a1b70" />
+            <link rel="mask-icon" href="fav/safari-pinned-tab.svg" color="#0F1014" />
+            <meta name="msapplication-TileColor" content="#0F1014" />
+            <meta name="theme-color" content="#0F1014" />
 
             {/* Canonical link tag */}
             <link rel="canonical" href={seo.metaURL} />

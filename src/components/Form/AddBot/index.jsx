@@ -40,8 +40,12 @@ export default function AddBot({setNewBot}) {
     const userID = user?.uid
     const userEmail = user?.email
 
-    const field_sum_exp = /[^0-9.,]|(?<=([.,])\d*)[.,]/g
-    const field_text_exp = /[^a-zA-Z0-9\w]/g
+    //const field_sum_exp = /[^0-9.,]|(?<=([.,])\d*)[.,]/g
+    const field_sum_exp = /[^0-9.,]|([.,](?!\d))/g
+    const field_text_exp = /[^a-zA-Z0-9]/g
+
+    // const field_sum_exp = ''
+    // const field_text_exp = ''
 
 
     const [open, setOpen] = useState(false)
@@ -53,6 +57,7 @@ export default function AddBot({setNewBot}) {
     const [submit, setSubmit] = useState(false)
     const [submitPressed, setSubmitPressed] = useState(false)
     const [reset, setReset] = useState(true)
+    const [disabled, setDisabled] = useState(false)
     const [copy, setCopy] = useState(false)
 
     const wallet = 'TXt1VYrWHLn4Yp6TKmZeQd4VWXjYQiiRgL' //FIXME
@@ -164,11 +169,11 @@ export default function AddBot({setNewBot}) {
                     <div className={styles.form__fields_wrapper}>
 
                         <div className={styles.form__row}>
-                            <Input type='text' label='Bot name*' placeholder='' id='add_bot_name' pattern={field_text_exp} error='Required. Only latin letters' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
+                            <Input type='text' label='Bot name*' placeholder='' id='add_bot_name' pattern={field_text_exp} error='Required. Only latin letters' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} setDisabled={setDisabled}/>
                         </div>
 
                         <div className={styles.form__row}>
-                            <Input type='text' label='Enter the replenishment amount*' placeholder='' id='add_bot_amount' error='Required. Only numbers. Wrong format' pattern={field_sum_exp} required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
+                            <Input type='text' label='Enter the replenishment amount*' placeholder='' id='add_bot_amount' error='Required. Only numbers. Wrong format' pattern={field_sum_exp} required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} setDisabled={setDisabled}/>
                         </div>
 
                         <div className={styles.form__row_cols}>
@@ -182,10 +187,10 @@ export default function AddBot({setNewBot}) {
 
 
                                 <div className={styles.form__row}>
-                                    <Input type='text' label='Specify hash or transaction number*' placeholder='' id='add_bot_hash' error='Required Field' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
+                                    <Input type='text' label='Specify hash or transaction number*' placeholder='' id='add_bot_hash' error='Required Field' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} setDisabled={setDisabled}/>
                                 </div>
 
-                                <Btn label='Confirm' onClick={handleSubmit} />
+                                <Btn label='Confirm' onClick={handleSubmit} disabled={disabled}/>
                             </div>
 
                             <div className={styles.form__img}>

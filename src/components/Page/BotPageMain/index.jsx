@@ -61,10 +61,10 @@ export default function BotPageMain({ bot_id, bot_balance}) {
                 .then(response => response.json())
                 .then(data => {
                     //console.log('data', data)
-                    const botData = data[userID][botID]
+                    const botData = data.data
                     //console.log('botData', botData)
                   
-                    const totalBotProfit = botData.reduce((sum, item) => sum + item.total_profit, 0)
+                    const totalBotProfit = data.data.reduce((sum, item) => sum + item.total_profit, 0)
 
                     if(!isNaN(totalBotProfit)){
                         setTableData(botData)

@@ -5,30 +5,26 @@ import InfoIcon from '../../../assets/icons/info.svg'
 import Nottification from '../Nottifications'
 import styles from './input.module.sass'
 
-export default function InputField({ type, label, placeholder, value, note, error, id, required, disabled, icon, onClick, pattern, validate, submit,  setSubmit, reset, setReset, onImgSet }) {
+export default function InputField({ type, label, placeholder, value, note, error, id, required, disabled, setDisabled, icon, onClick, pattern, validate, submit,  setSubmit, reset, setReset, onImgSet }) {
     const [newValue, setNewValue] = useState(value)
     const [showError, setShowError] = useState(false)
     const [fileAttached, setFileAttached] = useState(false)
-    const [checkPattern, setCheckPattern] = useState(true)
+    const [errorPattern, setErrorPattern] = useState(false)
 
     const input = useRef(null)
 
     const onChange = () => {
         const currentInput = input.current
 
-      
-
         if (currentInput?.disabled !== true) {
             if (currentInput?.value?.length === 0) {
                 setShowError(true)
             } else if (type !== 'email' && pattern && currentInput.value.match(pattern)) {
                 setShowError(true)
-                setNewValue('')
-                setCheckPattern(false)
+                // setNewValue('')
             } else if (pattern && !currentInput.value.match(pattern)) {
                 setNewValue(value)
                 setShowError(false)
-                setCheckPattern(true)
             }
             else {
                 setShowError(false)
@@ -37,8 +33,8 @@ export default function InputField({ type, label, placeholder, value, note, erro
 
         if (type === 'email') {
             if(pattern){
-               if (pattern.test(currentInput.value) !== true) { setShowError(true); setCheckPattern(false) } else {
-                setShowError(false);  setCheckPattern(true)
+               if (pattern.test(currentInput.value) !== true) { setShowError(true); } else {
+                setShowError(false);  
                }
             }
         }
@@ -55,7 +51,7 @@ export default function InputField({ type, label, placeholder, value, note, erro
 
         const allInputs = Array.from(document.querySelectorAll('input'))
         const anyEmptyInput = allInputs.some((input) => input.value === '')
-        if (anyEmptyInput === false && checkPattern) { validate(true); setReset(false);  } else { validate(false); setSubmit(false); setReset(true); }
+        if (anyEmptyInput === false) { validate(true); setReset(false);  } else { validate(false); setSubmit(false); setReset(true); }
 
     }
 
@@ -63,7 +59,13 @@ export default function InputField({ type, label, placeholder, value, note, erro
         if (submit === true) { onChange(); }
     }, [submit])
 
-    
+    useEffect(() => {
+        if(setDisabled){
+            showError === true ? setDisabled(true) : setDisabled(false) 
+        }
+    }, [showError])
+
+
     return (
         <div className={styles.field}>
             <label htmlFor={id} className={styles.label}>

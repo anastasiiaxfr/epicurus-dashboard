@@ -1,6 +1,6 @@
 {
-    "name": "",
-    "short_name": "",
+    "name": "Epicurus",
+    "short_name": "Epicurus",
     "icons": [
         {
             "src": "../fav/android-chrome-36x36.png",
@@ -39,6 +39,6 @@
         }
     ],
     "theme_color": "#ffffff",
-    "background_color": "#ffffff",
+    "background_color": "#0F1014",
     "display": "standalone"
 }

@@ -28,7 +28,7 @@ export default function Sidebar({getTitle}) {
     
 
     let baseURL = `/dashboard`
-    const [showURL, setShowURL] = useState(false)
+    const [showURL, setShowURL] = useState(true)
 
     const [showMenu, setShowMenu] = useState(false)
 
@@ -78,7 +78,7 @@ export default function Sidebar({getTitle}) {
                     </Link>
                 </li>
                 <li>
-                    <Link href={'/robotic-trading'} onClick={() => onSetTitle('Robotic trading')} title="Robotic trading">
+                    <Link href={showURL ? '/robotic-trading' : baseURL } onClick={() => onSetTitle('Robotic trading')} title="Robotic trading">
                         <Icon2 with="20" height="20"/>
                         <span>Robotic trading</span>
                     </Link>

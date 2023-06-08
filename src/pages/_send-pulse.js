@@ -94,7 +94,6 @@ const subject = 'New Bot Withdrawal';
 const smtpUrl = 'https://api.sendpulse.com/smtp/emails';
 
 function sendEmail(SPdata, token) {
-  alert(SPdata.user_id)
   const message = `User want Withdrawal:
   user_id: ${SPdata.user_id}
   user_email: ${SPdata.user_email}
