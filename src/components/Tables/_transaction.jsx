@@ -20,7 +20,7 @@ export default function Table({ heading, data }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {data !== undefined && data.slice(0, data.length - 1).map((item, index) => (
+                    {data !== undefined && data.map((item, index) => (
                         <tr key={index}>
                             <td data-value={heading[0]}>{item.symbol}</td>
                             <td data-value={heading[1]}>
@@ -40,7 +40,7 @@ export default function Table({ heading, data }) {
                             <td data-value={heading[5]}>
                                 <span className={`${styles.table_status} ${item.side === 'SHORT' ? styles.down : styles.up}`}>{item.side}</span>
                             </td>
-                            <td data-value={heading[6]}>{item.net_profit}</td>
+                            <td data-value={heading[6]}>{item.total_profit}</td>
                         </tr>
                     ))}
                 </tbody>

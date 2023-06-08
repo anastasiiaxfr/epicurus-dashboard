@@ -1,4 +1,9 @@
 import { useState, useEffect } from 'react'
+
+import { auth } from '../../../pages/_firebase'
+import { useAuthState } from 'react-firebase-hooks/auth'
+
+
 import Link from 'next/link'
 
 //import FormPeriod from '../../Form/FormPeriod'
@@ -11,40 +16,56 @@ import InfoIcon from '../../../assets/icons/info.svg'
 import styles from './styles.module.sass'
 
 
+export default function BotPageMain({ bot_id, bot_balance}) {
+    const [user] = useAuthState(auth)
+    const userID = user?.uid
+    const botID = bot_id
+    const botBalance = bot_balance || 0
 
-export default function BotPageMain({ dataDB }) {
+    const url = process.env.DB
 
-    //console.log('dataDB', dataDB)
+    const [tableData, setTableData] = useState([])
+    const [botApy, setBotApy] = useState(0)
+    const [botIncome, setBotIncome] = useState(0)
 
-    const sum = dataDB[dataDB.length - 1].bot_balance
-    const apy = dataDB[dataDB.length - 1].bot_apy || 0
-    const income = dataDB[dataDB.length - 1].bot_income || 0
-
-    const time = new Date()
     const currency = 'USDT'
-    const nottificationTimeout = 1 // day
-    const [show, setShow] = useState(false)
 
     const heading = ['Symbol', 'Open Time', 'Enter', 'Close Time', 'Exit', 'Side', 'Profit']
 
-    useEffect(() => {
-        const targetTime = time //new Date()
-        targetTime.setDate(targetTime.getDate() + nottificationTimeout)
-    
-        const checkTime = () => {
-          const currentTime = time //new Date()
-          if (currentTime >= targetTime) {
-            setShow(false)
-          } else {
-            setShow(true)
-            const timeRemaining = targetTime - currentTime
-            setTimeout(checkTime, timeRemaining)
-          }
-        }
-    
-        checkTime()
-      }, [])
+    //console.log('bot_id', bot_id)
 
+   useEffect(() => {
+        if (user) {
+
+            const payload = {
+                uid: userID,
+            }
+
+            const queryParams = new URLSearchParams(payload).toString();
+            const newUrl = `${url}?${queryParams}`
+
+            fetch(newUrl)
+                .then(response => response.json())
+                .then(data => {
+                    //console.log('data', data)
+                    const botData = data[userID][botID]
+                    //console.log('botData', botData)
+                    setTableData(botData)
+                    const totalBotProfit = botData.reduce((sum, item) => sum + item.total_profit, 0)
+                    //console.log('totalBotApy', totalBotApy)
+                    setBotApy(totalBotProfit.toFixed(2))
+                    setBotIncome(totalBotProfit.toFixed(2))
+                })
+                .catch(error => {
+                    // Handle any errors
+                    console.error('Error:', error)
+                })
+        }
+    }, [user])
+
+    //console.log('tableData', tableData)
+
+    
     return (
         <>
             <div className={styles.pg}>
@@ -55,7 +76,7 @@ export default function BotPageMain({ dataDB }) {
                             Balance
                         </figcaption>
                         <div className={styles.box__value}>
-                            {sum} <small className={styles.box__cur}>{currency}</small>  
+                            {botBalance} <small className={styles.box__cur}>{currency}</small>  
                         </div>
                     </figure>
 
@@ -64,7 +85,7 @@ export default function BotPageMain({ dataDB }) {
                             Сurrent income
                         </figcaption>
                         <div className={styles.box__value}>
-                            {income} <small className={styles.box__cur}>{currency}</small>  
+                            {botIncome} <small className={styles.box__cur}>{currency}</small>  
                         </div>
                     </figure>
 
@@ -75,7 +96,7 @@ export default function BotPageMain({ dataDB }) {
                                     APY
                                 </figcaption>
                                 <div className={styles.box__value}>
-                                    {apy} <small className={styles.box__cur}>{currency}</small>  
+                                    {botApy} <small className={styles.box__cur}>{currency}</small>  
                                 </div>
                             </div>
                             {/* <div>
@@ -92,7 +113,7 @@ export default function BotPageMain({ dataDB }) {
                 </main>
 
                 {/* TRANSACTION */}
-                { dataDB.length > 1 ? <section className="pg__section">
+                { tableData.length > 0 ? <section className="pg__section">
                     <div className="pg__section-header">
                         <h2 className="h3">Transaction</h2>
 
@@ -102,8 +123,9 @@ export default function BotPageMain({ dataDB }) {
                                 See All
                             </Link>
                         </div> */}
+
                     </div>
-                    <Table heading={heading} data={dataDB}/>
+                    <Table heading={heading} data={tableData}/>
                 </section> :
                 <div className={styles.pg__footer}>
                     <div className="tooltip tooltip--danger">

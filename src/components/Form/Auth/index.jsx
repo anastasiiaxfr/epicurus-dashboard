@@ -4,7 +4,7 @@ import { auth } from '../../../pages/_firebase'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useRouter } from 'next/navigation'
 
-import Verify from './_verify'
+// import Verify from './_verify'
 
 import Modal from '../../Modal'
 
@@ -72,7 +72,7 @@ export default function AuthBtns({ toggleShow }) {
     return (
 
         <>
-            <Verify />
+            {/* <Verify /> */}
             <Modal openModal={openLogin} setModalOpen={setOpenLogin} blockModalHide={blockModalHide}>
                 <FormLogin toggleModal={handleToggleRegistration} setOpenLogin={setOpenLogin} />
             </Modal>

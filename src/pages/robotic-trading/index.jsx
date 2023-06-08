@@ -15,48 +15,33 @@ function RoboticTradingPage() {
     const userID = user?.uid
     const [newData, setNewData] = useState()
     const [newBot, setNewBot] = useState(false)
-    const url = process.env.DB
     const tabsItems = [{ list: <PlusIcon />, item: <AddBotPage setNewBot={setNewBot} /> }]
 
     //console.log(user)
 
     useEffect(() => {
         if (user) {
-            //const db = ref(database, 'addBotForm/' + userID)
+            const db = ref(database, 'addBotForm/' + userID)
 
-            const payload = {
-                uid: userID,
+            const handleDataChange = (snapshot) => {
+                const data = snapshot.val()
+                if(data){
+                  const items = Object.entries(data).map(([id, item]) => ({ id, name: item.add_bot_name, balance: item.add_bot_sum }))
+                  setNewData(items)
+                }
             }
-
-            const queryParams = new URLSearchParams(payload).toString();
-            const newUrl = `${url}?${queryParams}`
-
-            fetch(newUrl)
-                .then(response => response.json())
-                .then(data => {
-                    // Handle the response data
-                    //console.log('data', data)
-                    Object.values(data).map(i => (
-                        //Object.values(i).map(el => console.log(el[el.length - 1]))
-                        setNewData(i)
-                    ))
-                })
-                .catch(error => {
-                    // Handle any errors
-                    console.error('Error:', error)
-                })
+            const handleError = (error) => {
+                console.error('Error reading data:', error)
+            }
+            onValue(db, handleDataChange, handleError)
         }
     }, [user, newBot])
 
     //console.log('setNewBot', newBot)
 
-    if (newData !== undefined) {
-        //console.log('newData', newData)
-
-        Object.values(newData).map(el => (
-            tabsItems.push({ list: el[el.length - 1].bot_name, item: <BotPageMain dataDB={el} /> })
-
-        ))
+    if (newData?.length > 0) {
+        const tabslist = [...new Set(newData)]
+        tabslist.map(i => tabsItems.push({ list: i.name, item: <BotPageMain bot_id={i.id} bot_balance={i.balance}/> }))
     }
 
 
