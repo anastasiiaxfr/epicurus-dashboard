@@ -63,6 +63,7 @@ export default function AuthBtns({ toggleShow }) {
             setBlockModalHide(false)
         } else {
             setOpenLogin(true)
+            signOut()
         }
     }, [user])
 

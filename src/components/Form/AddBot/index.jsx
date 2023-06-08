@@ -173,7 +173,7 @@ export default function AddBot({setNewBot}) {
                         </div>
 
                         <div className={styles.form__row}>
-                            <Input type='text' label='Enter the replenishment amount*' placeholder='' id='add_bot_amount' error='Required. Only numbers. Wrong format' pattern={field_sum_exp} required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} setDisabled={setDisabled}/>
+                            <Input type='text' label='Amount*' placeholder='' id='add_bot_amount' error='Required. Only numbers. Wrong format' pattern={field_sum_exp} required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} setDisabled={setDisabled}/>
                         </div>
 
                         <div className={styles.form__row_cols}>

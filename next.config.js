@@ -12,7 +12,9 @@ module.exports = {
     SENDPULSE_ID: process.env.SENDPULSE_ID,
     SENDPULSE_SECRET: process.env.SENDPULSE_SECRET,
     REFERRER: process.env.REFERRER,
-    DB: process.env.DB
+    REFFERAL: process.env.REFFERAL,
+    DB: process.env.DB,
+    JWT_SECRET: process.env.JWT_SECRET
   },
   images: {
     domains: ['lh3.googleusercontent.com'],

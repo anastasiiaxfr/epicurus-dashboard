@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react'
 
+import { auth } from './_firebase'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { encodeJWT } from './_jwt'
+
 import Seo from '../components/Seo'
 import Preloader from '../components/Preloader'
 import Header from '../components/Header'
@@ -58,6 +62,28 @@ const schema = {
 
 
 export default function App({ Component, pageProps }) {
+    const [user] = useAuthState(auth)
+    const userID = user?.uid
+
+    const [token, setToken] = useState(userID)
+
+   
+
+
+    useEffect(() => {
+        if (user) {
+            const payload = userID
+
+            const encodedToken = encodeJWT(payload)
+            //console.log('Encoded JWT:', encodedToken)
+
+            //console.log(secretKey)
+
+            setToken(encodedToken)
+        }
+    }, [user])
+
+
 
     const [loading, setLoading] = useState(true)
     const [title, setTitle] = useState('Home')
@@ -68,6 +94,8 @@ export default function App({ Component, pageProps }) {
     useEffect(() => {
         setTimeout(() => setLoading(false), 1500)
     }, [])
+
+
 
     return (
         <>
@@ -84,7 +112,7 @@ export default function App({ Component, pageProps }) {
                             <article className="pg__content">
                                 <Component {...pageProps} />
                             </article>
-                            <Footer />
+                            <Footer token={token}/>
                         </main>
                     </div>
                 </>

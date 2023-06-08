@@ -62,18 +62,23 @@ export default function BotPageMain({ bot_id, bot_balance, setDelBot}) {
                 .then(data => {
                     //console.log('data', data)
                     const botData = data.data
+                    //const botData = data[userID][botID]
                     //console.log('botData', botData)
-                  
                    
-                    const totalBotProfit = data.data.reduce((sum, item) => sum + item.total_profit, 0)
+                    // const totalBotProfit = data?.data?.reduce((sum, item) => sum + item.total_profit, 0)
+
+                    if(Array.isArray(botData)){
+                        const totalBotProfit = botData?.reduce((sum, item) => sum + item.total_profit, 0)
                    
 
-                    if(!isNaN(totalBotProfit)){
-                        setTableData(botData)
-                        setBotApy(totalBotProfit.toFixed(2))
-                        setBotIncome(totalBotProfit.toFixed(2))
-                        setBotTotalBalance(+botBalance + +totalBotProfit)
+                        if(!isNaN(totalBotProfit)){
+                            setTableData(botData)
+                            setBotApy(totalBotProfit.toFixed(2))
+                            setBotIncome(totalBotProfit.toFixed(2))
+                            setBotTotalBalance(+botBalance + +totalBotProfit)
+                        }
                     }
+                    
                     
                 })
                 .catch(error => {

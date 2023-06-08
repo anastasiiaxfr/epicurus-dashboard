@@ -51,7 +51,7 @@ export default function Hero() {
 
             </div>
 
-            <aside className={styles.sidebar}>
+            {/* <aside className={styles.sidebar}>
 
                 <div className={styles.sidebar_head}>
                     <h2 className="h3">Assets</h2>
@@ -80,7 +80,7 @@ export default function Hero() {
                     </Link>
                 </div>
 
-            </aside>
+            </aside> */}
         </div>
 
     )
