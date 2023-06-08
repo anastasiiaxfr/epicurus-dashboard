@@ -19,7 +19,7 @@ import InfoIcon from '../../../assets/icons/info.svg'
 import styles from './styles.module.sass'
 
 
-export default function BotPageMain({ bot_id, bot_balance}) {
+export default function BotPageMain({ bot_id, bot_balance, setDelBot}) {
     const [user] = useAuthState(auth)
     const userID = user?.uid
     const botID = bot_id
@@ -64,7 +64,9 @@ export default function BotPageMain({ bot_id, bot_balance}) {
                     const botData = data.data
                     //console.log('botData', botData)
                   
+                   
                     const totalBotProfit = data.data.reduce((sum, item) => sum + item.total_profit, 0)
+                   
 
                     if(!isNaN(totalBotProfit)){
                         setTableData(botData)
@@ -86,7 +88,7 @@ export default function BotPageMain({ bot_id, bot_balance}) {
     
     return (
         <>
-            <ModalWithdrawal openModal={openModal} setModalOpen={setOpenModal} totalBalance={botTotalBalance} botID={botID} toggleModal={toggleModal}/>
+            <ModalWithdrawal openModal={openModal} setModalOpen={setOpenModal} totalBalance={botTotalBalance} botID={botID} toggleModal={toggleModal} setDelBot={setDelBot} setWithdrawal={setWithdrawal}/>
             <div className={styles.pg}>
                 <main className={styles.pg__row}>
 
@@ -118,7 +120,7 @@ export default function BotPageMain({ bot_id, bot_balance}) {
                                     {botApy} <small className={styles.box__cur}>{currency}</small>  
                                 </div>
                                
-                                { botTotalBalance > botBalance && <Btn label='Withdraw' onClick={handleOpenModal}/> }
+                                { botTotalBalance > botBalance && <Btn label='Withdraw' onClick={handleOpenModal} disabled={true}/> }
 
                                 { withdrawal !== 0 && <div className={styles.box__info}>
                                 {`Your withdrawal request of ${withdrawal} USDT has been submitted.`}

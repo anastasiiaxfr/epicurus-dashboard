@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 
-import { ref, database, set, auth, onValue, firestore, collection, doc, setDoc } from '../../../pages/_firebase'
+import { ref, database, set, auth, remove, firestore, collection, doc, setDoc } from '../../../pages/_firebase'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
 import { getSPKey } from '../../../pages/_send-pulse'
@@ -20,7 +20,7 @@ function getRandom(min, max) {
     return randomValue
 }
 
-export default function ModalWithdrawal({ openModal, setModalOpen, toggleModal, totalBalance, botID }) {
+export default function ModalWithdrawal({ openModal, setModalOpen, toggleModal, totalBalance, botID, setDelBot, setWithdrawal }) {
     const [user] = useAuthState(auth)
     const userID = user?.uid
     const userEmail = user?.email
@@ -31,7 +31,7 @@ export default function ModalWithdrawal({ openModal, setModalOpen, toggleModal, 
     const [balance, setBalance] = useState(totalBalance || 0)
 
     //console.log('totalBalance', totalBalance)
-    
+
     const form = useRef(null)
 
     const [validation, setValidation] = useState(false)
@@ -39,6 +39,26 @@ export default function ModalWithdrawal({ openModal, setModalOpen, toggleModal, 
     const [submitPressed, setSubmitPressed] = useState(false)
     const [reset, setReset] = useState(true)
     const [error, setError] = useState(false)
+
+
+    //DELETE FROM FIREBASE RTDB
+    const botRef = ref(database, 'addBotForm/' + userID + '/' + botID);
+
+    const delBot = () => {
+        remove(botRef)
+            .then(() => {
+                console.log('Node successfully deleted!');
+            })
+            .catch((error) => {
+                console.error('Error removing node:', error);
+            });
+    }
+
+    useEffect(() => {
+        if (totalBalance !== undefined) {
+            setBalance(totalBalance)
+        }
+    }, [totalBalance])
 
 
     //SEND TO FIRESTORE
@@ -68,13 +88,13 @@ export default function ModalWithdrawal({ openModal, setModalOpen, toggleModal, 
             bot_balance: bot_balance,
             bot_time: Date.now()
         })
-    }
 
-    useEffect(() => {
-        if(totalBalance !== undefined){
-            setBalance(totalBalance)
+        if (bot_withdrawal.replace(',', '.') >= totalBalance) {
+            delBot()
+            setDelBot(prev => !prev)
+            setWithdrawal(0)
         }
-    }, [totalBalance])
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -87,13 +107,13 @@ export default function ModalWithdrawal({ openModal, setModalOpen, toggleModal, 
             const withdrawal_wallet = form.current.withdrawal_wallet.value.trim().replaceAll(/\s+/g, ' ')
             const withdrawal_sum = form.current.withdrawal_sum.value
 
-            if(withdrawal_sum > totalBalance){
+            if (withdrawal_sum > totalBalance) {
                 setValidation(false)
                 setError(true)
                 //form.current.reset()
-            } else if(validation) {
+            } else if (validation) {
                 setError(false)
-                
+
                 toggleModal(withdrawal_sum)
 
                 addBotToFirestore({
@@ -115,7 +135,7 @@ export default function ModalWithdrawal({ openModal, setModalOpen, toggleModal, 
                 }
                 // getSPKey('withdrawal', SPdata)
 
-                saveMessages(withdrawal_sum, totalBalance, withdrawal_wallet) 
+                saveMessages(withdrawal_sum, totalBalance, withdrawal_wallet)
 
                 form.current.reset()
                 setModalOpen(false)
@@ -127,29 +147,29 @@ export default function ModalWithdrawal({ openModal, setModalOpen, toggleModal, 
         openModal && <section className={styles.modal}>
             <ClickAwayListener onClickAway={handleClose}>
                 <div className={styles.modal__content}>
-                    
-                    <CloseIcon className={styles.modal__close} width="25" height="25" onClick={handleClose}/>
-                   
+
+                    <CloseIcon className={styles.modal__close} width="25" height="25" onClick={handleClose} />
+
                     <div className={styles.modal__text}>
-                    Our terms allow for withdrawal of earned funds once a month. This means that you can request a withdrawal of funds earned on our platform once during each calendar month.
+                        Our terms allow for withdrawal of earned funds once a month. This means that you can request a withdrawal of funds earned on our platform once during each calendar month.
                     </div>
 
                     <form action="/" methord="POST" noValidate name="FormWithdrawal" id="FormWithdrawal" className={styles.form} ref={form} autoComplete='off'>
-                    <div className={styles.form__row}>
-                        <Input type='text' label='TRC20 Wallet Address*' placeholder='' id='withdrawal_wallet' error='Required field' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
-                    </div>
-                    <div className={styles.form__row}>
-                        <Input type='text' label='Sum*' placeholder='' id='withdrawal_sum' error={`It should be less than the ${balance} USDT.`} required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
-                    </div>
+                        <div className={styles.form__row}>
+                            <Input type='text' label='TRC20 Wallet Address*' placeholder='' id='withdrawal_wallet' error='Required field' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
+                        </div>
+                        <div className={styles.form__row}>
+                            <Input type='text' label='Sum*' placeholder='' id='withdrawal_sum' error={`It should be less than the ${balance} USDT.`} required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
+                        </div>
 
-                    { error && <div className={styles.form__note}>
-                        {`It should be less than the ${balance} USDT`}
-                    </div> }
+                        {error && <div className={styles.form__note}>
+                            {`It should be less than the ${balance} USDT`}
+                        </div>}
 
-                    <div className={styles.modal__note}>
-                    *We guarantee that the funds transfer will be processed within 24 hours upon receiving your withdrawal request. We make every effort to ensure fast and reliable processing of your transactions and transfers.
-                    </div>
-                    <Btn label='Send' onClick={handleSubmit} />
+                        <div className={styles.modal__note}>
+                            *We guarantee that the funds transfer will be processed within 24 hours upon receiving your withdrawal request. We make every effort to ensure fast and reliable processing of your transactions and transfers.
+                        </div>
+                        <Btn label='Send' onClick={handleSubmit} />
                     </form>
                 </div>
             </ClickAwayListener>

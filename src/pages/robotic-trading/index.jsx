@@ -14,6 +14,7 @@ function RoboticTradingPage() {
     const [user, loading] = useAuthState(auth)
     const userID = user?.uid
     const [newData, setNewData] = useState()
+    const [delBot, setDelBot] = useState(false)
     const [newBot, setNewBot] = useState(false)
     const tabsItems = [{ list: <PlusIcon />, item: <AddBotPage setNewBot={setNewBot} /> }]
 
@@ -35,13 +36,13 @@ function RoboticTradingPage() {
             }
             onValue(db, handleDataChange, handleError)
         }
-    }, [user, newBot])
+    }, [user, newBot, delBot])
 
     //console.log('setNewBot', newBot)
 
     if (newData?.length > 0) {
         const tabslist = [...new Set(newData)]
-        tabslist.map(i => tabsItems.push({ list: i.name, item: <BotPageMain bot_id={i.id} bot_balance={i.balance}/> }))
+        tabslist.map(i => tabsItems.push({ list: i.name, item: <BotPageMain bot_id={i.id} bot_balance={i.balance} setDelBot={setDelBot} /> }))
     }
 
 
