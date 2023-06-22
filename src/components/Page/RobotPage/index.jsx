@@ -60,7 +60,7 @@ export default function AddApiPage() {
 
                             </div>
 
-                            <Checkbox label={<div dangerouslySetInnerHTML={{ __html: `ознакомлен с <a href="#">политикой использования</a>*` }} />} id='bot_policy' error='Required field' />
+                            <Checkbox label={<div dangerouslySetInnerHTML={{ __html: `ознакомлен с <a href="#">политикой использования</a>*` }} />} id='bot_policy' error='Обязательное поле' />
 
                             <div className={styles.form_row_flex}>
                                 <Btn label='Accept' />

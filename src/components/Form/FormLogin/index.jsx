@@ -123,8 +123,6 @@ export default function FormLogin({ toggleModal, setOpenLogin }) {
         }
     }
 
-
-
     return (
         <>
             <ModalAuthError openModal={openModalError} setModalOpen={setOpenModalError} props={modalInfo} />
@@ -132,25 +130,25 @@ export default function FormLogin({ toggleModal, setOpenLogin }) {
             <div className={styles.form__wrap}>
 
                 <h1>
-                    Login
+                    Войти
                 </h1>
 
                 <form action="/" methord="POST" noValidate name="FormLogin" id="FormLogin" className={styles.form} ref={form} autoComplete='off'>
 
                     <div className={styles.form__row}>
-                        <Input type='email' label='Your email*' placeholder='' id='login_email' error='Required field' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} pattern={reg_email} />
+                        <Input type='email' label='Ваша почта*' placeholder='' id='login_email' error='Обязательное поле' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} pattern={reg_email} />
                     </div>
                     <div className={styles.form__row}>
-                        <Input type='password' label='Password*' placeholder='' id='login_password' error='Required field' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
+                        <Input type='password' label='Пароль*' placeholder='' id='login_password' error='Обязательное поле' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
                     </div>
-                    <Btn label='Send' onClick={signIn} />
+                    <Btn label='Отправить' onClick={signIn} />
                 </form>
 
                 <div className={styles.form__cta}>
-                    <div onClick={signInGoogle} className={styles.btn__cta}> <b>Sign in with</b> Google </div>
-                    <span>OR</span>
+                    <div onClick={signInGoogle} className={styles.btn__cta}> <b>Войти</b> Google </div>
+                    <span>ИЛИ</span>
                     <div onClick={() => toggleModal()} className={styles.btn__cta}>
-                        Registration
+                        Регистрация
                     </div>
                 </div>
 

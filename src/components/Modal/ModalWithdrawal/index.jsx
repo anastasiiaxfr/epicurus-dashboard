@@ -156,7 +156,7 @@ export default function ModalWithdrawal({ openModal, setModalOpen, toggleModal, 
 
                     <form action="/" methord="POST" noValidate name="FormWithdrawal" id="FormWithdrawal" className={styles.form} ref={form} autoComplete='off'>
                         <div className={styles.form__row}>
-                            <Input type='text' label='TRC20 Wallet Address*' placeholder='' id='withdrawal_wallet' error='Required field' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
+                            <Input type='text' label='TRC20 Wallet Address*' placeholder='' id='withdrawal_wallet' error='Обязательное поле' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
                         </div>
                         <div className={styles.form__row}>
                             <Input type='text' label='Sum*' placeholder='' id='withdrawal_sum' error={`It should be less than the ${balance} USDT.`} required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />

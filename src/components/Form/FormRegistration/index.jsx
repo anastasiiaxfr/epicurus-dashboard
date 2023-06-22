@@ -118,8 +118,6 @@ export default function FormRegistration({ toggleModalLogin, toggleModalReset, s
 
     }
 
-
-
     return (
 
         <>
@@ -130,29 +128,29 @@ export default function FormRegistration({ toggleModalLogin, toggleModalReset, s
             <div className={styles.form__wrap}>
 
                 <h1>
-                    Registration
+                    Регистрация
                 </h1>
 
                 <form action="/" methord="POST" noValidate name="FormRegistration" id="FormRegistration" className={styles.form} ref={form} autoComplete='off'>
 
                     <div className={styles.form__row}>
-                        <Input type='text' label='Your name*' placeholder='' id='reg_name' error='Required. Only latin letters' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
+                        <Input type='text' label='Ваше имя*' placeholder='' id='reg_name' error='Обязательно. Только латинские буквы.' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
                     </div>
                     <div className={styles.form__row}>
-                        <Input type='email' label='Your email*' placeholder='' id='reg_email' error='Required field' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} pattern={reg_email} />
+                        <Input type='email' label='Ваш email*' placeholder='' id='reg_email' error='Обязательное поле' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} pattern={reg_email} />
                     </div>
                     <div className={styles.form__row}>
-                        <Input type='password' label='Password*' placeholder='' id='reg_password' error='Required field' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
+                        <Input type='password' label='Пароль*' placeholder='' id='reg_password' error='Обязательное поле' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
                     </div>
-                    <Btn label='Send' onClick={handleSubmit} />
+                    <Btn label='Отправить' onClick={handleSubmit} />
 
                 </form>
 
                 <div className={styles.form__cta}>
                     {/* <div onClick={() => toggleModalReset()} className={styles.btn__cta}> Reset <b>password</b> </div> */}
-                    <span>OR</span>
+                    <span>ИЛИ</span>
                     <div onClick={() => toggleModalLogin()} className={styles.btn__cta}>
-                        Login
+                        Войти
                     </div>
                 </div>
 

@@ -72,21 +72,21 @@ export default function Sidebar({getTitle}) {
 
             <ul className="pg__nav">
                 <li>
-                    <Link href="/dashboard" onClick={() => onSetTitle('Dashboard')} title="Dashboard">
+                    <Link href="/dashboard" onClick={() => onSetTitle('Панель управления')} title="Панель управления">
                         <Icon1 with="20" height="20"/>
-                        <span>Dashboard</span>
+                        <span>Панель управления</span>
                     </Link>
                 </li>
                 <li>
-                    <Link href={showURL ? '/robotic-trading' : baseURL } onClick={() => onSetTitle('Robotic trading')} title="Robotic trading">
+                    <Link href={showURL ? '/robotic-trading' : baseURL } onClick={() => onSetTitle('Роботизированная торговля')} title="Роботизированная торговля">
                         <Icon2 with="20" height="20"/>
-                        <span>Robotic trading</span>
+                        <span>Роботизированная торговля</span>
                     </Link>
                 </li>
                 <li>
-                    <Link href={showURL ? '/' :  baseURL } onClick={() => onSetTitle('Deposit')} title="Deposit">
+                    <Link href={showURL ? '/' :  baseURL } onClick={() => onSetTitle('Пополнение')} title="Пополнение">
                         <Icon3 with="20" height="20"/>
-                        <span>Deposit</span>
+                        <span>Пополнение</span>
                     </Link>
                 </li>
                 <li>
@@ -96,36 +96,36 @@ export default function Sidebar({getTitle}) {
                     </Link>
                 </li>
                 <li>
-                    <Link href={showURL ?'/' :  baseURL} onClick={() => onSetTitle('News Website')} title="News Website">
+                    <Link href={showURL ?'/' :  baseURL} onClick={() => onSetTitle('Новостной сайт')} title="Новостной сайт">
                         <Icon5 with="20" height="20"/>
-                        <span>News Website</span>
+                        <span>Новостной сайт</span>
                     </Link>
                 </li>
                 <li>
-                    <Link href={showURL ?'/' :  baseURL} onClick={() => onSetTitle('Transactions')} title="Transactions">
+                    <Link href={showURL ?'/' :  baseURL} onClick={() => onSetTitle('Транзакции')} title="Транзакции">
                         <Icon5 with="20" height="20"/>
-                        <span>Transactions</span>
+                        <span>Транзакции</span>
                     </Link>
                 </li>
                 <li>
-                    <Link href={showURL ? '/' :  baseURL} onClick={() => onSetTitle('Academy')} title="Academy">
+                    <Link href={showURL ? '/' :  baseURL} onClick={() => onSetTitle('Академия')} title="Академия">
                         <Icon5 with="20" height="20"/>
-                        <span>Academy</span>
+                        <span>Академия</span>
                     </Link>
                 </li>
             </ul>
 
             <ul className="pg__nav">
                 <li>
-                    <Link href={showURL ? '/settings' :  baseURL } onClick={() => onSetTitle('Settings')} title="Settings">
+                    <Link href={showURL ? '/settings' :  baseURL } onClick={() => onSetTitle('Настройки')} title="Настройки">
                         <Icon6 with="20" height="20"/>
-                        <span>Settings</span>
+                        <span>Настройки</span>
                     </Link>
                 </li>
                 <li>
-                    <Link href={showURL ? '/' :  baseURL} onClick={() => onSetTitle('Support')} title="Support">
+                    <Link href={showURL ? '/' :  baseURL} onClick={() => onSetTitle('Поддержка')} title="Поддержка">
                         <Icon7 with="20" height="20"/>
-                        <span>Support</span>
+                        <span>Поддержка</span>
                     </Link>
                 </li>
             </ul>

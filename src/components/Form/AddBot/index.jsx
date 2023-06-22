@@ -169,11 +169,11 @@ export default function AddBot({setNewBot}) {
                     <div className={styles.form__fields_wrapper}>
 
                         <div className={styles.form__row}>
-                            <Input type='text' label='Bot name*' placeholder='' id='add_bot_name' pattern={field_text_exp} error='Required. Only latin letters' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} setDisabled={setDisabled}/>
+                            <Input type='text' label='Название бота*' placeholder='' id='add_bot_name' pattern={field_text_exp} error='Обязательно. Только латинские буквы' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} setDisabled={setDisabled}/>
                         </div>
 
                         <div className={styles.form__row}>
-                            <Input type='text' label='Amount*' placeholder='' id='add_bot_amount' error='Required. Only numbers. Wrong format' pattern={field_sum_exp} required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} setDisabled={setDisabled}/>
+                            <Input type='text' label='Сумма*' placeholder='' id='add_bot_amount' error='Обязательно. Только цифры. Неверный формат' pattern={field_sum_exp} required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} setDisabled={setDisabled}/>
                         </div>
 
                         <div className={styles.form__row_cols}>
@@ -181,16 +181,16 @@ export default function AddBot({setNewBot}) {
                             <div>
                                 <ClickAwayListener onClickAway={() => setCopy(false)}>
                                     <div className={`${styles.form__row} ${copy && styles.copied}`} onClick={handleCopyClick}>
-                                        <Input type='text' label='TRC-20 Address:' placeholder={wallet} value={wallet} id='add_bot_wallet' disabled={true} icon={<CopyIcon width='20' height='20' />} />
+                                        <Input type='text' label='TRC-20 адрес:' placeholder={wallet} value={wallet} id='add_bot_wallet' disabled={true} icon={<CopyIcon width='20' height='20' />} />
                                     </div>
                                 </ClickAwayListener>
 
 
                                 <div className={styles.form__row}>
-                                    <Input type='text' label='Specify hash or transaction number*' placeholder='' id='add_bot_hash' error='Required Field' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} setDisabled={setDisabled}/>
+                                    <Input type='text' label='Укажите хэш или номер транзакции*' placeholder='' id='add_bot_hash' error='Обязательное поле' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} setDisabled={setDisabled}/>
                                 </div>
 
-                                <Btn label='Confirm' onClick={handleSubmit} disabled={disabled}/>
+                                <Btn label='Подтверждать' onClick={handleSubmit} disabled={disabled}/>
                             </div>
 
                             <div className={styles.form__img}>

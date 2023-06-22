@@ -5,7 +5,7 @@ export default function Footer({ token }) {
         <footer className="pg__footer">
             <p className="text--label">
                 Epicurus.
-                All Rights Reserved. &copy; 2023. Your <Link href={`${process.env.REFFERAL}?referral=${token}`}>Referral link</Link>
+                Все права защищены. &copy; 2023. Ваша <Link href={`${process.env.REFFERAL}?referral=${token}`}>реферальная ссылка</Link>
             </p>
         </footer>
 

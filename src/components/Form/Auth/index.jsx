@@ -88,16 +88,16 @@ export default function AuthBtns({ toggleShow }) {
 
 
             {show && <div type='button' className={styles.btn_v1} role="button" onClick={signOut}>
-                <span>Sign</span> Out
+                <span>Выйти</span> 
             </div>}
             {!show &&
                 <div type='button' className={styles.btn_v1} onClick={handleOpenLogin} role="button">
-                    <span>Sign</span> In
+                    <span>Войти</span> 
                 </div>
             }
             {!show &&
                 <div type='button' className={styles.btn_v1} onClick={handleOpenRegister} role="button">
-                    <span>Sign</span> Up
+                    <span>Выйти</span> 
                 </div>
             }
 

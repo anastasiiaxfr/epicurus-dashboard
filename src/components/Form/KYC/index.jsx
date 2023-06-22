@@ -147,11 +147,11 @@ export default function KYC() {
         <div className={styles.form__wrapper}>
             <div className={styles.form__text}>
                 <p>
-                    Dear Customer,
+                    Уважаемый клиент,
                 </p>
 
                 <p>
-                    We would like to share with you information about the KYC (Know Your Customer) process and the security system that we apply on our platform. These measures are taken to ensure the security of your financial transactions and to protect you from possible fraudulent activities.
+                    Мы хотели бы поделиться с вами информацией о процессе KYC (Know Your Customer) и системе безопасности, которую мы применяем на нашей платформе. Эти меры предпринимаются для обеспечения безопасности ваших финансовых операций и защиты от возможных мошеннических действий.
                 </p>
             </div>
             <div className={styles.form__fields}>
@@ -160,33 +160,33 @@ export default function KYC() {
 
                     <div className={styles.form__fields_wrapper}>
                         <div className={styles.form__row}>
-                            <Input type='text' label='First name*' placeholder='Type your name...' id='kyc_first_name' error='Only latin letters' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} pattern={field_text_exp} disabled={formSend}/>
+                            <Input type='text' label='Имя*' placeholder='Введите ваше имя...' id='kyc_first_name' error='Только латинские буквы' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} pattern={field_text_exp} disabled={formSend}/>
 
-                            <Input type='text' label='Last name*' placeholder='Type your last name...' id='kyc_last_name' error='Only latin letters' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} pattern={field_text_exp} disabled={formSend}/>
+                            <Input type='text' label='Фамилия*' placeholder='Введите вашу фамилию...' id='kyc_last_name' error='Только латинские буквы' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} pattern={field_text_exp} disabled={formSend}/>
                         </div>
 
                         <div className={styles.form__row}>
-                            {/* <Input type='text' label='Date of Birth*' placeholder='MM-DD-YYYY' id='kyc_bday' error='Required field' required={true}/> */}
-                            <Date label='Date of Birth*' id='kyc_dbirth' />
+                            {/* <Input type='text' label='Date of Birth*' placeholder='MM-DD-YYYY' id='kyc_bday' error='Обязательное поле' required={true}/> */}
+                            <Date label='Дата рождения*' id='kyc_dbirth' />
 
-                            {/* <Input type='text' label='Gender*' placeholder='Choose your sex...' id='bot_name' error='Required field' required={true}/> */}
-                            <Select label='Gender*' data={gender} id='kyc_gender' disabled={formSend}/>
+                            {/* <Input type='text' label='Gender*' placeholder='Choose your sex...' id='bot_name' error='Обязательное поле' required={true}/> */}
+                            <Select label='Пол*' data={gender} id='kyc_gender' disabled={formSend}/>
                         </div>
 
                         <div className={styles.form__row}>
-                            <Input type='file' label='Pasport*' placeholder='Attach photo...' id='kyc_pasport' error='Only Jpg, Png less then 1MB' required={true} icon={<PlusIcon width="15" height="15" />} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} onImgSet={(e) => setImgPasport(e)} disabled={formSend}/>
+                            <Input type='file' label='Паспорт*' placeholder='Прикрепите фотографию...' id='kyc_pasport' error='Только Jpg, Png меньше чем 1MB' required={true} icon={<PlusIcon width="15" height="15" />} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} onImgSet={(e) => setImgPasport(e)} disabled={formSend}/>
 
-                            <Input type='file' label='Persone photo*' placeholder='Attach photo...' id='kyc_photo' error='Only Jpg, Png less then 1MB' required={true} icon={<PlusIcon width="15" height="15" />} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} onImgSet={(e) => setImgPhoto(e)} disabled={formSend}/>
+                            <Input type='file' label='Ваша фотография*' placeholder='Прикрепите фотографию...' id='kyc_photo' error='Только Jpg, Png меньше чем 1MB' required={true} icon={<PlusIcon width="15" height="15" />} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} onImgSet={(e) => setImgPhoto(e)} disabled={formSend}/>
                         </div>
                     </div>
 
-                    <Checkbox label='Public offer' id='kyc_policy' error='Required field' submit={submit} setSubmit={setSubmit} validate={setValidation} reset={reset} setReset={setReset} />
+                    <Checkbox label='Публичная оферта' id='kyc_policy' error='Обязательное поле' submit={submit} setSubmit={setSubmit} validate={setValidation} reset={reset} setReset={setReset} />
 
                     <div className={styles.form__note}>
-                        We are pleased to present you our Public Offer - an important document that governs the relationship between us as a service provider and you as our client. We invite you to familiarize yourself with its content, as it determines the terms of use of our platform and the provision of our services to you.
+                        Мы рады представить вам наше Публичное предложение - важный документ, который регулирует отношения между нами в качестве поставщика услуг и вами в качестве нашего клиента. Мы приглашаем вас ознакомиться с его содержанием, поскольку он определяет условия использования нашей платформы и предоставления наших услуг вам.
                     </div>
 
-                    <Btn label='Confirm' onClick={handleSubmit} disabled={formSend} />
+                    <Btn label='Подтвердить' onClick={handleSubmit} disabled={formSend} />
 
 
                 </form>

@@ -26,19 +26,18 @@ export default function Hero() {
     const redirectURL = !user ? '/' : '/settings'
 
     const solutions = [
-        { title: 'Robotic trading', img: ImgSolution1, url: redirectURL },
-        { title: 'API key management', img: ImgSolution2, url: redirectURL, label: 'Coming soon' },
-        { title: 'Deposits based on smart contracts', img: ImgSolution3, url: redirectURL, label: 'Coming soon' },
-        { title: 'Academy', img: ImgSolution4, url: redirectURL, label: 'Coming soon'}
+        { title: 'Роботизированная торговля', img: ImgSolution1, url: redirectURL },
+        { title: 'Управление ключами API', img: ImgSolution2, url: redirectURL, label: 'Скоро будет доступно' },
+        { title: 'Депозиты на основе смарт-контрактов', img: ImgSolution3, url: redirectURL, label: 'Скоро будет доступно' },
+        { title: 'Академия', img: ImgSolution4, url: redirectURL, label: 'Скоро будет доступно'}
     ]
-
 
     return (
 
         <div className={styles.hero}>
             <div className={styles.main}>
 
-                <h2 className="h3">Our Solutions</h2>
+                <h2 className="h3"> Наши решения </h2>
 
                 <div className={styles.row}>
                     {

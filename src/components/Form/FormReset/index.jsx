@@ -41,10 +41,10 @@ export default function FormReset({ toggleModalRegistration, toggleModalLogin })
                 <form action="/" methord="POST" noValidate name="FormReset" id="FormReset" className={styles.form} ref={form} autoComplete='off'>
 
                     <div className={styles.form__row}>
-                        <Input type='password' label='New password*' placeholder='' id='reset_new_password' error='Required field' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
+                        <Input type='password' label='New password*' placeholder='' id='reset_new_password' error='Обязательное поле' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
                     </div>
                     <div className={styles.form__row}>
-                        <Input type='password' label='Confirm password*' placeholder='' id='reset_confirm_password' error='Required field' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
+                        <Input type='password' label='Confirm password*' placeholder='' id='reset_confirm_password' error='Обязательное поле' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
                     </div>
                     <Btn label='Send' onClick={handleSubmit} />
 
