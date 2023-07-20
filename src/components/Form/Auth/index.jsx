@@ -86,23 +86,6 @@ export default function AuthBtns({ toggleShow }) {
                 <FormReset toggleModalLogin={handleModalLogin} toggleModalRegistration={handleToggleRegistration} />
             </Modal>
 
-
-            {show && <div type='button' className={styles.btn_v1} role="button" onClick={signOut}>
-                <span>Выйти</span> 
-            </div>}
-            {!show &&
-                <div type='button' className={styles.btn_v1} onClick={handleOpenLogin} role="button">
-                    <span>Войти</span> 
-                </div>
-            }
-            {!show &&
-                <div type='button' className={styles.btn_v1} onClick={handleOpenRegister} role="button">
-                    <span>Выйти</span> 
-                </div>
-            }
-
-
-
         </>
 
     )

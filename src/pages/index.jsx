@@ -8,8 +8,8 @@ function HomePage() {
     return (
         <>
             {/* HERO */}
-          
-
+            <Hero />
+            
             {/* TRANSACTION */}
             <section className="pg__section">
                 <div className="pg__section-header">

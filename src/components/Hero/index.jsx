@@ -7,16 +7,10 @@ import Link from 'next/link'
 import Card from '../Card'
 
 
-import Image from 'next/image'
-import ImgAssets from '../../assets/img/img1.png'
-import ImgSolution1 from '../../assets/img/solutions-1.png'
-import ImgSolution2 from '../../assets/img/solutions-2.png'
-import ImgSolution3 from '../../assets/img/solutions-3.png'
-import ImgSolution4 from '../../assets/img/solutions-4.png'
-
 import styles from './hero.module.sass'
+import stylesCard from '../Card/card.module.sass'
 
-
+import IconArr from "../../assets/icons/arr-t-rt.svg";
 
 
 export default function Hero() {
@@ -25,61 +19,133 @@ export default function Hero() {
 
     const redirectURL = !user ? '/' : '/settings'
 
-    const solutions = [
-        { title: 'Роботизированная торговля', img: ImgSolution1, url: redirectURL },
-        { title: 'Управление ключами API', img: ImgSolution2, url: redirectURL, label: 'Скоро будет доступно' },
-        { title: 'Депозиты на основе смарт-контрактов', img: ImgSolution3, url: redirectURL, label: 'Скоро будет доступно' },
-        { title: 'Академия', img: ImgSolution4, url: redirectURL, label: 'Скоро будет доступно'}
-    ]
+    
 
     return (
 
         <div className={styles.hero}>
             <div className={styles.main}>
 
-                <h2 className="h3"> Наши решения </h2>
+            <Card>
+                <div className={stylesCard.card_header}>
+                    <div className={stylesCard.card_hgroup}>
+                    <div className={stylesCard.card_title}>
+                        Robotic Trading
+                    </div>
+                    <div className={stylesCard.card_status}>
+                        Status:
+                        <span>
+                        Active
+                        </span>
+                    </div>
+                    </div>
 
-                <div className={styles.row}>
-                    {
-                        solutions.map((i, ind) => (
-                            <Card key={ind} {...i} />
-                        ))
-                    }
-
+                    <IconArr with="16" height="16" />
                 </div>
+                <div className={stylesCard.card_body}>
+                    <div className={stylesCard.card_row}>
+                        <div className={stylesCard.card_col}>
+                        Balance
+                        <span>
+                        $ 100 342
+                        </span>
+                        </div>
+                        <div className={stylesCard.card_col}>
+                        PNL за день
+                        <span>
+                        +1434,75 $
+                        </span>
+                        </div>
+                        <div className={stylesCard.card_col}>
+                        Total PNL
+                        <span>
+                        +1434,75 $
+                        </span>
+                        </div>
+                    </div>
+                </div>
+            </Card>
+
+
+            <Card>
+                <div className={stylesCard.card_header}>
+                    <div className={stylesCard.card_hgroup}>
+                    <div className={stylesCard.card_title}>
+                    Deposit
+                    </div>
+                    </div>
+
+                    <IconArr with="16" height="16" />
+                </div>
+                <div className={stylesCard.card_body}>
+                    <div className={stylesCard.card_row}>
+                        <div className={stylesCard.card_col}>
+                        Balance
+                        <span>
+                        $ 100 342
+                        </span>
+                        </div>
+                        <div className={stylesCard.card_col}>
+                        Total PNL
+                        <span>
+                        +1434,75 $
+                        </span>
+                        </div>
+                    </div>
+                    <div className={stylesCard.card_cta}>
+                        <Link href="#">CTA</Link>
+                    </div>
+                </div>
+            </Card>
+               
+            <Card>
+                <div className={stylesCard.card_header}>
+                    <div className={stylesCard.card_hgroup}>
+                    <div className={stylesCard.card_title}>
+                        Trust Management
+                    </div>
+                    <div className={stylesCard.card_status}>
+                        Status:
+                        <span>
+                        Active
+                        </span>
+                    </div>
+                    </div>
+
+                    <IconArr with="16" height="16" />
+                </div>
+                <div className={stylesCard.card_body}>
+                    <div className={stylesCard.card_row}>
+                        <div className={stylesCard.card_col}>
+                        Balance
+                        <span>
+                        $ 100 342
+                        </span>
+                        </div>
+                        <div className={stylesCard.card_col}>
+                        Total PNL
+                        <span>
+                        +1434,75 $
+                        </span>
+                        </div>
+                    </div>
+                </div>
+            </Card>
+         
 
             </div>
 
-            {/* <aside className={styles.sidebar}>
+            <aside className={styles.sidebar}>
 
                 <div className={styles.sidebar_head}>
-                    <h2 className="h3">Assets</h2>
-                        <Link href="/" className="text--link-btn">
-                            See All
-                        </Link>
+                   
                 </div>
 
                 <div className={styles.sidebar_row}>
-                    <Link href="/" className={styles.img}>
-                        <Image
-                            src={ImgAssets}
-                            width={330}
-                            height={178}
-                            alt="ALT"
-                        />
-                    </Link>
-
-                    <Link href="/" className={styles.img}>
-                        <Image
-                            src={ImgAssets}
-                            width={330}
-                            height={178}
-                            alt="ALT"
-                        />
-                    </Link>
+                   
                 </div>
 
-            </aside> */}
+            </aside>
         </div>
 
     )

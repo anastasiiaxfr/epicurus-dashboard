@@ -45,9 +45,7 @@ export default function Header({ title, getTitle }) {
                     </>
             )}
             
-            <div className="pg__header-cta">
-                <AuthBtns toggleShow = {setShow}/>
-            </div>
+            
         </header>
     )
 }

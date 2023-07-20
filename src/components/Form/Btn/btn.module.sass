@@ -5,7 +5,7 @@
         +flex(flex, center, center, nowrap)
         gap: 20px
 
-    a, input, &_v1
+    a, input, &_grad
         +flex(inline-flex, center, center, nowrap)
         min-width: 158px
         padding: 13px 20px
@@ -17,6 +17,7 @@
         text-align: center
         +ft(14, 21, 500, $ffHeading)
         letter-spacing: 0.1em
+        transition: $trs
 
         &:hover, &:active, &:focus
             background-color: darken($main, 10%)
@@ -38,17 +39,19 @@
             cursor: pointer
             &:hover, &:active, &:focus
 
-    &_v1 
-        min-width: 0
-        padding: 10px 25px
+    &_grad 
+        min-width: 122px
+        height: 40px
+        padding: 14px 32px
         transition: none
-        flex: 1
+        background: $grad0
+        +ft(16, 16, 700)
 
         span
             margin-right: 5px
 
         &:hover, &:focus, &:active
-            box-shadow: none
+            box-shadow: $bxsd3
 
     +maw($xs)
         &, & input, &_link
@@ -62,7 +65,7 @@
             grid-template-columns: 1fr 1fr
             flex: 1
 
-        &_v1
+        &_grad
             padding: 2.5vmin 5vmin
 
 

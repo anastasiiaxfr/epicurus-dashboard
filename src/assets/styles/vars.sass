@@ -30,6 +30,7 @@ $dark14: #1A1D25
 $stroke1: #4D4D4D
 $stroke2: #DC3434
 $stroke3: #2E2E2E
+$stroke4: #2C2C2C
 
 
 $text_0: #5F5F5F
@@ -43,8 +44,10 @@ $text_7: #727272
 $text_8: #484848
 $text_9: #767676
 $text_10: #808080
+$text_11: #D7D7D7
 
 
+$grad0: linear-gradient(#464DBE, #6530DA, #7136F1)
 $grad1: linear-gradient(#0F135A, #6530DA, #763FBF, #7E49F3)
 $grad2: linear-gradient(125deg, #464DBE, #6530DA, #7136F1)
 $grad3: linear-gradient(#FDE02A, #F24072)
@@ -62,6 +65,8 @@ $grad13: linear-gradient(#7B46E5, #9F46E5)
 
 $bxsd1: 0 0 0 2px #0F135A, 1px 1px 0 2px $main, 1px 0 0 2px #6530DA, 0 1px 0 2px #763FBF, 1px 0 0 2px #7E49F3
 $bxsd2: 0 0 2px 2px rgba($white, 0.2)
+$bxsd3: 0 0 10px 2px rgba($main, 0.4)
+
 
 $brs10: 10px	
 $brs15: 15px	
@@ -280,7 +285,12 @@ $i: 0
         
 
 %card
+    width: 100%
+    margin: 10px auto
+    padding: var(--gapMd)
     +theme(dark)
+    border-radius: $brs20
+    box-shadow: $bxsd1
     background-repeat: no-repeat
     background-size: cover
     color: $white

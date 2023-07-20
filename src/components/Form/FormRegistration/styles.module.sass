@@ -60,10 +60,16 @@
     +ft(14, 14, 700)
     text-align: center
     cursor: pointer
-    
+    border: 1px solid rgba($white, 0.2)
+
+    &:hover, &:active, &:focus
+        border-color: $main
+        color: $main
+
     b
-        margin-left: 5px
+        margin-right: 5px
 
     +maw($xsm)
         b
             display: none
+

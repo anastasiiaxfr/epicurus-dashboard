@@ -1,0 +1,49 @@
+@import 'src/assets/styles/vars.sass'
+
+.card
+    position: relative
+    z-index: 1
+    +flex(flex, flex-start, space-between, nowrap, column)
+    height: 100%
+    padding: 0
+    padding-top: 50%
+    @extend %card
+    cursor: pointer
+
+    &::after
+        content: ''
+        +ps(absolute, (t, 0), (l, 0))
+        z-index: 0
+        display: block
+        +sz(100%, 100%)
+
+    &_wrap
+        display: block
+
+    &_title
+        z-index: 1
+        margin-top: auto
+        padding: 16px
+        +ft(14, 14*1.3, 400, $ffText)
+
+    &_label
+        +ps(absolute, (t, 18px), (r, 16px))
+        +flex(flex, center, center, nowrap)
+        //padding: 4px 14px
+        padding: 8px 16px
+        border-radius: 4px
+        +ft(8, 8, 500, $ffHeading)
+
+    &_img
+        +ps(absolute, (r, 0), (t, 0))
+        +sz(100%, 100%)
+        img
+            +ps(absolute, (r, 0), (t, 0))
+            +sz(100%, 100%)
+            object-fit: contain
+            object-position: right top
+            
+.disable
+    opacity: 0.3
+
+    
