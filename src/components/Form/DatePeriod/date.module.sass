@@ -14,7 +14,7 @@
         display: none
 
     :global(.react-datepicker)
-        border-radius: $brs1
+        border-radius: $brs10
         background-color: $black
         border: 1px solid transparent
 
@@ -22,18 +22,17 @@
         background-color: $black
 
     :global(.react-datepicker__header *), :global(.react-datepicker__day)
-        color: $text_3
         font-family: $ffText
 
     :global(.react-datepicker__day--selected), :global(.react-datepicker__day--keyboard-selected), :global(.react-datepicker__day):hover
         background-color: $purple3
         color: $white
 
-    :global(.react-datepicker__current-month)
-        color: $text_2
+    // :global(.react-datepicker__current-month)
+    //     color: $text_2
 
-    :global(.react-datepicker__close-icon::after)
-        background-color: $purple2
+    // :global(.react-datepicker__close-icon::after)
+    //     background-color: $purple2
 
 
 .field
@@ -46,14 +45,12 @@
 .input
     width: 100%
     padding: 12px 20px
-    border-radius: $brs1
+    border-radius: $brs10
     background-color: $black
     border: 1px solid transparent
-    color: $text_3
     
     +ft(14, 17, 400, $ffText)
 
     &:focus, &:active, &:focus-visible
         //border-bottom: 1px solid $prurple100
-        border: 1px solid $prurple100
         color: $white

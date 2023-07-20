@@ -8,10 +8,11 @@
     padding: 20px 20px
     //border-spacing: 15px
     border-collapse: collapse
-    border-radius: $brs2
+    border-radius: $brs20
     text-align: left
 
     overflow: hidden
+    box-shadow: $bxsd1
 
     &:last-of-type
         margin-bottom: 0
@@ -29,8 +30,8 @@
         text-transform: uppercase
         background-color: darken($dark, 5%)
 
-        // &:last-of-type
-        //     text-align: center
+        &:last-of-type
+            text-align: center
 
     td
         +ft(14, 21, 500, $ffHeading)
@@ -40,8 +41,9 @@
         +flex(inline-flex, center, center, nowrap)
         +sz(33px, 33px)
         min-width: 33px
+        margin-right: 12px
+        background-color: $main
         border-radius: 50%
-        background-color: $purple2
 
     &_title
         +flex(flex, center, flex-start, nowrap)
@@ -54,25 +56,29 @@
 
     &_date, &_crypto, &_info
         +ft(14, 21, 500, $ffHeading)
-        color: $grey
+    
+    &_crypto
+        opacity: 0.5
 
     &_date
         font-size: 80%
+        opacity: 0.5
 
     &_hash
         +ft(12, 18, 500, $ffHeading)
-        color: $grey
+        opacity: 0.5
     
     &_info
         text-align: center
+    
 
     &_status
         &.completed, &.up
             color: $green
         &.in-progress
-            color: $yellow2
+            color: $yellow
         &.declined, &.down
-            color: $red2 
+            color: $red
 
     +maw($md)
         tr
@@ -105,7 +111,6 @@
                 position: relative
                 margin-bottom: 5px
                 text-transform: uppercase
-                color: $purple
               
             &, &:last-child, & > *
                 text-align: left
@@ -137,14 +142,14 @@
 
         &_row
             display: flex
-            //gap: 10px
+            gap: 10px
 
         
         tr
             grid-template-columns: 1fr
             padding: 15px
             margin: 20px auto
-            border-radius: $brs1
+            border-radius: $brs10
             background-color: rgba($black, 0.3)
             color: $white
             +theme(body)

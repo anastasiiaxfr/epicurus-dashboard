@@ -16,9 +16,11 @@ $fontSrc: '../fonts'
 
 $fontFamilyPoppins: 'Poppins'
 $fontFamilyMontserrat: 'Montserrat'
+$fontFamilyInter: 'Inter'
 
 $fntNameMontserrat: (Montserrat-Regular, 400), (Montserrat-Medium, 500)
 $fntNamePoppins: (Poppins-SemiBold, 600), (Poppins-Medium, 500), (Poppins-Light, 300)
+$fntNameInter: (Inter-ExtraBold, 800), (Inter-Bold, 700),(Inter-SemiBold, 600), (Inter-Medium, 500)
 
 =font($fntName, $fntSrc, $fontFamily)	
 	@each $fnt, $fntw in $fntName
@@ -31,7 +33,8 @@ $fntNamePoppins: (Poppins-SemiBold, 600), (Poppins-Medium, 500), (Poppins-Light,
 			src: local($fontFamily), local($fontFamily), url($fontSrc + '/' + $fntFldr + '/' +'#{$fnt}.woff') format('woff'), url($fontSrc + '/' + $fntFldr + '/' +'#{$fnt}.woff2') format('woff2'), url($fontSrc + '/' + $fntFldr + '/' +'#{$fnt}.ttf') format('ttf')
 
 
-+font($fntNamePoppins, $fontSrc, $fontFamilyPoppins)
-+font($fntNameMontserrat, $fontSrc, $fontFamilyMontserrat)
+//+font($fntNamePoppins, $fontSrc, $fontFamilyPoppins)
+//+font($fntNameMontserrat, $fontSrc, $fontFamilyMontserrat)
++font($fntNameInter, $fontSrc, $fontFamilyInter)
 
 	

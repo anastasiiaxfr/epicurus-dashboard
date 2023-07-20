@@ -112,7 +112,7 @@ export default function App({ Component, pageProps }) {
                             <article className="pg__content">
                                 <Component {...pageProps} />
                             </article>
-                            <Footer token={token}/>
+                            {/* <Footer token={token}/> */}
                         </main>
                     </div>
                 </>

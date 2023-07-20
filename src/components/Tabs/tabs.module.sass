@@ -9,8 +9,8 @@
 
     &_content
         //max-width: var(--mawTab)
-        +theme(dark3)
-        border-radius: 0 0 $brs2 $brs2 
+        +theme(dark)
+        border-radius: 0 0 $brs20 $brs20 
         padding: 30px
         flex: 1
 
@@ -42,21 +42,15 @@
         text-transform: uppercase
         letter-spacing: 0.1em
         white-space: nowrap
-        border-radius: $brs2/2 $brs2/2 0 0
-        //background-color: $purple3
-        //background: $grad8
-        background: rgba($grey2, 0.3)
-        color: $text_1
+        border-radius: $brs20/2 $brs20/2 0 0
         cursor: pointer
         outline: none
         border: none
 
     :global(.MuiTab-root.Mui-selected)
         opacity: 1
-        +theme(dark3)
-        //color: $text_2
-        color: $purple
-
+        +theme(dark)
+       
 
 .scrollable
     @extend %scroll

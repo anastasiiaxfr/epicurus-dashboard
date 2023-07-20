@@ -14,7 +14,7 @@
         display: inline-block;
         @include sz(10px, 10px);
         margin: 2px;
-        background: $purple;
+        background-color: $main;
         border-radius: 50%;
         animation: moveit 1.8s infinite;
     }

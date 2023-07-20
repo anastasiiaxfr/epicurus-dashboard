@@ -22,7 +22,6 @@
             +ft(20, 20, 700, $ffHeading)
             text-transform: uppercase
             letter-spacing: 0.05em
-            color: $grey100
             user-select: none
 
     &__row
@@ -51,11 +50,14 @@
     +flex(flex, center, center, nowrap)
     padding: 10px 20px
     border-radius: 4px
-    border: 1px solid lighten($grey100, 5%)
-    color: lighten($grey100, 5%)
     +ft(14, 14, 700)
     text-align: center
     cursor: pointer
+    border: 1px solid rgba($white, 0.2)
+
+    &:hover, &:active, &:focus
+        border-color: $main
+        color: $main
 
     b
         margin-right: 5px

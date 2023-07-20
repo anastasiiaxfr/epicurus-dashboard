@@ -9,9 +9,9 @@
         +flex(inline-flex, center, center, nowrap)
         min-width: 158px
         padding: 13px 20px
-        border-radius: 10px
+        background-color: $main
+        border-radius: $brs10
         border: none
-        background: $grad2
         color: $white
         cursor: pointer
         text-align: center
@@ -19,28 +19,28 @@
         letter-spacing: 0.1em
 
         &:hover, &:active, &:focus
-            box-shadow: $bxsd1
+            background-color: darken($main, 10%)
 
         &[disabled]
             opacity: 0.5
+
+    &_bd
+        border-color: $main
+        color: $main
 
     &_link
         &, & input
             +flex(inline-flex, center, center, nowrap)
             //min-width: 145px
             +ft(14, 21, 500, $ffHeading)
-            color: $text_4
             background: transparent
             border: none
             cursor: pointer
             &:hover, &:active, &:focus
-                color: $prurple100
 
     &_v1 
         min-width: 0
         padding: 10px 25px
-        border-radius: 5px
-        background: $grad10
         transition: none
         flex: 1
 
@@ -48,15 +48,12 @@
             margin-right: 5px
 
         &:hover, &:focus, &:active
-            background: $grad9
             box-shadow: none
 
     +maw($xs)
         &, & input, &_link
             width: 100%
-        &_v1
-            span
-                display: none
+       
 
     +maw($xxs)
         &s

@@ -2,9 +2,8 @@
 
 .wrap
     position: relative
-    border-radius: $brs1
+    border-radius: $brs10
     background-color: $black
-    color: rgba($text_3, 0.6)
 
     .input + *
         +ps(absolute, (t, 0), (b, 0), (r, 15px))
@@ -23,7 +22,7 @@
 .input 
     position: relative
     z-index: 1
-    border-radius: $brs1
+    border-radius: $brs10
 
     &__placeholder
         +ps(absolute, (l, 15px), (t, 0), (b, 0))
@@ -35,7 +34,7 @@
         width: 100%
         height: 45px
         padding: 12px 20px
-        border-radius: $brs1
+        border-radius: $brs10
         background: transparent
         border: 1px solid transparent
         color: inherit
@@ -44,7 +43,6 @@
 
         &:focus, &:active, &:focus-visible
             //border-bottom: 1px solid $prurple100
-            border: 1px solid $prurple100
             color: $white
         
         &::file-selector-button
@@ -57,9 +55,7 @@
             cursor: pointer
 
 
-    &.error input
-        outline: 1px solid $red2
-        color: $red2
+  
 
 .info
     margin-top: 10px

@@ -1,0 +1,60 @@
+@import 'src/assets/styles/vars.sass'
+
+.sidebar_nav
+    +flex(flex, center, center, nowrap)
+    flex-direction: column
+    gap: var(--gapSm)
+    width: 100%
+    padding: 0
+    margin: 0 
+    list-style-type: none
+
+
+    &_btm
+        margin-top: 20%
+
+    &_caption
+        color: rgba($white, 0.8)
+        
+    li 
+        width: 100%
+        //min-height: 47px
+        +ft(12, 12, 500)
+
+        a, div
+            +flex(flex, center, center, nowrap)
+            gap: 12px
+            width: 100%
+            //white-space: nowrap
+            //gap: 20px
+
+            padding: 14px 16px
+            +ft(14, 14, 600)
+            letter-spacing: 0.02em
+            color: $text_0
+            transition: background 0.3s ease-in-out
+            border-radius: $brs10
+
+            &:hover, &:active, &:focus
+                +theme(main)
+
+        div
+            color: $main
+            &:hover, &:active, &:focus
+                background: transparent
+
+        span
+            display: inline-flex
+            //width: calc(100% - 20px - 20px)
+            flex: 1
+
+        svg
+            +sz(16px, 16px)
+            
+        
+        +maw($xmd)
+            a, div
+                padding: 8px 4px
+
+            span
+                display: none

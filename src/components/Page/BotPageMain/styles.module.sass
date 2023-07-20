@@ -14,12 +14,10 @@
     width: 100%
     padding: 20px 30px
     margin: 0
-    border-radius: $brs2
-    background-color: $grey200
+    border-radius: $brs20
     color: $white
 
-    *::selection
-        background-color: darken($grey200, 2%)
+    //*::selection
 
     +maw($xs)
         padding: 15px
@@ -38,7 +36,6 @@
 
     &__title
         margin-bottom: 10px
-        color: $prurple200
         //+ft(36, 54, 700, $ffHeading)
         +ft(28, 28*1.5, 700, $ffHeading)
         letter-spacing: 0.05em
@@ -70,4 +67,3 @@
     &__info
         margin-top: 20px
         +ft(12, 12, 400)
-        color: $prurple200

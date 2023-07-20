@@ -1,69 +1,77 @@
 $black: #000
 $white: #fff
+$main: #7B46E5
 
-$green: #099818
+$green: #1DC74C
+$green2: #11B617
+
 $yellow: #EDC240
-$yellow2: #FFC501
+
 $red: #EA3943
-$red2: #DA1818
+$red2: #E03535
+$red3: #DA3030
+
+$magenta: #6833D4
 
 
-$purple: #8C77ED
-$purple2: #7E49F3
-$purple3: #4E00F9
-$prurple100: #6530DA
-$prurple200: #763FBF
-$prurple300: #4B447A
-$prurple400: #3F2A6D
-$prurple500: #210B56
-$prurple600: #39235A
+$dark: #12121A
+$dark2: #0C0C0E
+$dark3: #25252C
+$dark5: #14161D
+$dark7: #1A1C23
+$dark8: #101117
+$dark9: #20232C
+$dark10: #4C4B5D
+$dark11: #0D0E11
+$dark12: #22242B
+$dark14: #1A1D25
 
 
-$dark: #0F1014
-$dark2: #1F222D
+$stroke1: #4D4D4D
+$stroke2: #DC3434
+$stroke3: #2E2E2E
 
 
-$grey: #ADADAD
-$grey1: #080610
-$grey2: #15171D
-$grey3: #141417
-$grey100: #2D2D49
-$grey200: #1F222D
-$grey300: #1A1C25
-$grey400: #15171D
-$grey500: #0D0E11
+$text_0: #5F5F5F
+$text_1: #686868
+$text_2: #636363
+$text_3: #696969
+$text_4: #5D5D5D
+$text_5: #4D4D4D
+$text_6: #CCCCCC
+$text_7: #727272
+$text_8: #484848
+$text_9: #767676
+$text_10: #808080
 
 
-$text_1: #949494
-$text_2: #D9D9D9
-$text_3: #A6A6A6
-$text_4: #777777
-$text_5: #89898D
-$text_6: #37383B
-$text_7: #B2B2B2
-
-$brs1: 12px	
-$brs2: 15px	
-$brs3: 20px	
-
-$grad1: linear-gradient(181.18deg, #0D0D0D 1.01%, #212A54 127.75%)
-$grad2: linear-gradient(92.63deg, #0F135A 0%, #6530DA 32.29%, #763FBF 70.31%, #7E49F3 100%), #8C77ED
-$grad3: linear-gradient(109.97deg, #0F135A 0%, #6530DA 31.92%, #763FBF 69.5%, #7E49F3 98.85%)
-$grad4: linear-gradient(115.41deg, #0F135A 7.44%, #6530DA 36.47%, #763FBF 70.66%, #7E49F3 97.36%)
-$grad5: linear-gradient(92.63deg, #0F135A 0%, #494FBF 28.65%, #4449A5 69.27%, #5D608B 100%)
-$grad6:  linear-gradient(269.92deg, rgba(255, 255, 255, 0.05) 35.53%, rgba(255, 255, 255, 0) 68.04%)
-$grad7: linear-gradient(180deg, rgba(13, 13, 13, 0) 4.78%, rgba(13, 13, 13, 0.97) 64.51%, rgba(13, 13, 13, 0.95) 73.12%, rgba(13, 13, 13, 0.98) 78.81%, rgba(13, 13, 13, 0.99) 88.9%, #0D0D0D 100%)
-$grad8: linear-gradient(0deg, transparent, rgba($grey2, 0.3))
-$grad9: linear-gradient(181.18deg, rgba(#4818B4, 1) 1.01%, #212A54 127.75%)
-$grad10: linear-gradient(181.18deg, #151929 1.01%, #212A54 127.75%)
+$grad1: linear-gradient(#0F135A, #6530DA, #763FBF, #7E49F3)
+$grad2: linear-gradient(125deg, #464DBE, #6530DA, #7136F1)
+$grad3: linear-gradient(#FDE02A, #F24072)
+$grad4: linear-gradient(#00ECFA, #1101FF)
+$grad5: linear-gradient(#0302DF, #F53AED)
+$grad6: linear-gradient(#2F2DE8, #F539E5)
+$grad7: linear-gradient(125deg, #312DE7, #8A32E6)
+$grad8: linear-gradient(#FB4CDF, #9E56FA)
+$grad9: linear-gradient(#E409C1, #6909E4)
+$grad10: linear-gradient(#CC09C8, #8809DB)
+$grad11: linear-gradient(#BE4646, #DA3059, #E03535)
+$grad12: linear-gradient(45deg, #FD9C38, #FD9C38)
+$grad13: linear-gradient(#7B46E5, #9F46E5)
 
 
-$bxsd1: 0px 0px 40.1625px -11.1563px #4818B4
+$bxsd1: 0 0 0 2px #0F135A, 1px 1px 0 2px $main, 1px 0 0 2px #6530DA, 0 1px 0 2px #763FBF, 1px 0 0 2px #7E49F3
+$bxsd2: 0 0 2px 2px rgba($white, 0.2)
+
+$brs10: 10px	
+$brs15: 15px	
+$brs20: 20px	
 
 
-$ffHeading: 'Poppins'
-$ffText: 'Montserrat'
+$ffHeading: 'Inter'
+$ffText: 'Inter'
 $ffBack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"
+
 
 $xlg: 1400
 $lg: 1200
@@ -92,7 +100,6 @@ $trs: all 0.35s ease-in-out
 =theme($theme)
     @if $theme == body
         background-color: $dark
-        background-image: $grad1
         background-repeat: no-repeat
         color: $white
 
@@ -100,24 +107,19 @@ $trs: all 0.35s ease-in-out
             color: $white
 
     @if $theme == dark
-        background-color: $dark
+        background-color: $dark2
         color: $white
 
         *::selection
             background-color: rgba($white, 0.1)
 
-    @if $theme == dark2
-        background-color: $grey2
-        color: $white
-
-    @if $theme == dark3
-        background-color: $grey400
-        color: $text_1
-        
-
     @if $theme == white
         background-color: $white
         color: $balck
+
+    @if $theme == main
+        background-color: $main
+        color: $white
 
 
 =sz($w, $h, $max: null, $mah: null)
@@ -272,20 +274,15 @@ $i: 0
         +sz(10px, 10px)
 
     &::-webkit-scrollbar-track
-        background-color: $grey2
 
     &::-webkit-scrollbar-thumb
-        background: $dark2
         border-radius: 20pc
         
 
 %card
-    background-color: $dark
-    background-image: url(../img/card_bg.svg)
+    +theme(dark)
     background-repeat: no-repeat
     background-size: cover
-    border-radius: $brs1
-    box-shadow: $bxsd1
     color: $white
     overflow: hidden
 

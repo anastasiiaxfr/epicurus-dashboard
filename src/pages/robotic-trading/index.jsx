@@ -48,7 +48,7 @@ function RoboticTradingPage() {
 
 
     return (
-        !loading && <Tabs props={tabsItems} />
+      <></>
     )
 }
 

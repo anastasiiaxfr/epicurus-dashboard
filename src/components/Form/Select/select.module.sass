@@ -4,15 +4,12 @@
 .select
     position: relative
     border: 1px solid transparent
-    border-radius: $brs1
     background-color: $black
-    color: $text_3
 
     &:focus, &:active, &:focus-visible
         //border-bottom: 1px solid $prurple100
         color: $white
-    &.active
-        border: 1px solid $prurple100
+    
 
 
     input, &__options
@@ -20,7 +17,6 @@
         width: 100%
         min-height: 45px
         padding: 12px 20px
-        border-radius: $brs1
         +ft(14, 17, 400, $ffText)
         text-align: left
 
@@ -31,7 +27,6 @@
         z-index: 1
         background-color: transparent
         border: none
-        color: rgba($text_3, 0.7)
 
     &__icon
         display: block
@@ -41,7 +36,6 @@
 
         &.active
             transform: rotate(180deg)
-            color: $purple2
 
     &__label
         display: block
@@ -60,9 +54,8 @@
         list-style-type: none
         user-select: none
         border: 1px solid transparent
-        border-radius: $brs1
+        border-radius: $brs10
         background-color: $black
-        color: $text_3
 
         &_wrap
             +flex(flex, flex-start, flex-start, nowrap, column)
@@ -84,6 +77,5 @@
             &::first-letter
                 text-transform: uppercase
 
-            &:active, &:focus, &:hover
-                color: $purple2
+            
       
