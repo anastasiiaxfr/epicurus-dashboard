@@ -1,5 +1,6 @@
 @import 'src/components/Form/Btn/btn.module.sass' 
 @import 'src/assets/styles/vars.sass'
+@import 'src/assets/styles/text.sass'
 
 .card
     @extend %card
@@ -54,18 +55,18 @@
 
     &_title
         position: relative
-        +ft(22, 22*1.2, 700)
-        letter-spacing: 0.02em
-        color: $main
+        @extend %h4
 
     span
         color: $green
 
-    
+    +maw($md)
+        &_status
+            &::before
+                display: none
     +maw($xs)
         &_title
             +ft(18, 18*1.2, 700)
-            &::after
-                display: none
+            
         &_col
             +ft(14, 14*1.2, 700)

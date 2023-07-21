@@ -1,66 +1,77 @@
 @import 'src/assets/styles/vars.sass'
+@import 'src/assets/styles/text.sass'
 
 .hero
-	display: grid
-	//grid-template-columns: 2fr var(--hero-sidebar-width)
-	gap: var(--gap)
-	width: 100%
-	
+    display: grid
+    grid-template-columns: 2fr var(--hero-sidebar-width)
+    gap: var(--gap)
+    width: 100%
+    
 
-	.main
-		display: flex
-		flex-direction: column
+    .main
+        display: flex
+        flex-direction: column
 
-	.img
-		position: relative
-		width: 100%
+    .img
+        position: relative
+        width: 100%
 
-		&:hover, &:focus, &:active
-			img
-				filter: brightness(1.2)
+        &:hover, &:focus, &:active
+            img
+                filter: brightness(1.2)
 
-		img
-			+sz(100%, 100%)
-			object-fit: contain
-
-
-	.sidebar
-		+flex(flex, center, flex-start, nowrap, column)
-		max-width: var(--hero-sidebar-width)
-
-		&_head
-			+flex(flex, center, space-between, nowrap)
-			width: 100%
-			margin-bottom: 0 
-
-		&_row
-			display: grid
-			grid-template-columns: repeat(auto-fit, minmax(320px, 1fr))
-			width: 100%
-			gap: 20px	
-			margin-top: 20px
-	
-	
-	.row
-		display: grid
-		grid-template-columns: repeat(auto-fit, minmax(calc(50% - 20px), 1fr))
-		gap: 20px
-		flex: 1 0 auto
-		
-		margin-top: 20px
-		// +miw($xmd)
-		// 	grid-template-columns: repeat(auto-fit, minmax(var(--cardMaw), 1fr))
+        img
+            +sz(100%, 100%)
+            object-fit: contain
 
 
-	+maw($md)
-		grid-template-columns: 1fr
+    .sidebar
+        @extend %card
+        +flex(flex, center, center, nowrap, column)
+        max-width: var(--hero-sidebar-width)
+        &_card
+            width: 100%
+            flex: 1
+            +flex(flex, center, center, nowrap, column)
+        &_title
+            margin-bottom: var(--gapLg)
+            @extend %h4
+            text-align: center
+        &_chart
+            position: relative
+            +flex(flex, center, center, nowrap)
+            gap: var(--gapLg)
+            flex: 1 
+            width: 100%
+            margin: var(--gap) auto
 
-		.sidebar_row
-			grid-template-columns: 1fr 1fr
-			
-	+maw($xs)
-		.sidebar_row, .row
-			grid-template-columns: 1fr
+            &_val
+                +ft(32, 32, 700)
+                color: $green
+
+                +maw($xs)
+                    +ft(28, 28, 700)
+    
+    .row
+        display: grid
+        grid-template-columns: repeat(auto-fit, minmax(calc(50% - 20px), 1fr))
+        gap: 20px
+        flex: 1 0 auto
+        
+        margin-top: 20px
+        // +miw($xmd)
+        // 	grid-template-columns: repeat(auto-fit, minmax(var(--cardMaw), 1fr))
+
+
+    +maw($md)
+        grid-template-columns: 1fr
+
+        .sidebar_row
+            grid-template-columns: 1fr 1fr
+            
+    +maw($xs)
+        .sidebar_row, .row
+            grid-template-columns: 1fr
 
 
 

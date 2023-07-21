@@ -5,6 +5,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 
 import Link from "next/link";
 import Card from "../Card";
+import Chart from "../Chart";
 
 import styles from "./hero.module.sass";
 import stylesCard from "../Card/card.module.sass";
@@ -86,8 +87,8 @@ export default function Hero() {
     <div className={styles.hero}>
       <div className={styles.main}>
         {cards.map((i, k) => (
-          <Card>
-            <div className={stylesCard.card_header} key={k}>
+          <Card key={k}>
+            <div className={stylesCard.card_header} >
               <div className={stylesCard.card_hgroup}>
                 <div className={stylesCard.card_title}>{i.title}</div>
                 {i.status && (
@@ -123,9 +124,15 @@ export default function Hero() {
       </div>
 
       <aside className={styles.sidebar}>
-        <div className={styles.sidebar_head}></div>
-
-        <div className={styles.sidebar_row}></div>
+        <div className={styles.sidebar_card}>
+            <div className={styles.sidebar_title}>
+                Total Sum
+            </div>
+            <span className={styles.sidebar_chart_val}>5000.00 $</span>
+            <div className={styles.sidebar_chart}>
+                <Chart />
+            </div>
+        </div>
       </aside>
     </div>
   );
