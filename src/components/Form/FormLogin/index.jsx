@@ -43,7 +43,6 @@ export default function FormLogin({ toggleModal, setOpenLogin }) {
 
     if (user) {
         //alert(user.displayName)
-        push('/settings')
         //return <div>Welcome {user.displayName}</div>
         return user
     }
@@ -141,7 +140,7 @@ export default function FormLogin({ toggleModal, setOpenLogin }) {
                     <div className={styles.form__row}>
                         <Input type='password' label='Пароль*' placeholder='' id='login_password' error='Обязательное поле' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
                     </div>
-                    <Btn label='Отправить' onClick={signIn} />
+                    <Btn label='Отправить' onClick={signIn} className={styles.form__btn} />
                 </form>
 
                 <div className={styles.form__cta}>

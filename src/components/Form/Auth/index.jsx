@@ -56,7 +56,7 @@ export default function AuthBtns({ toggleShow }) {
     }
 
     useEffect(() => {
-        if (user !== null) {
+        if (user) {
             //alert(user.displayName)
             setOpenLogin(false)
             setShow(true)
@@ -67,7 +67,6 @@ export default function AuthBtns({ toggleShow }) {
         }
     }, [user])
 
-    //alert(user.displayName)
 
 
     return (
@@ -85,6 +84,26 @@ export default function AuthBtns({ toggleShow }) {
             <Modal openModal={openReset} setModalOpen={setOpenReset} blockModalHide={blockModalHide}>
                 <FormReset toggleModalLogin={handleModalLogin} toggleModalRegistration={handleToggleRegistration} />
             </Modal>
+
+            {/* {show && <div type='button' className={styles.btn_v1} role="button" onClick={signOut}>
+                <span>Выйти</span> 
+            </div>} */}
+            
+            <div className={styles.btn_auth}>
+            {!show &&
+                <div type='button' className={styles.btn_v1} onClick={handleOpenLogin} role="button">
+                    <span>Войти</span> 
+                </div>
+            }
+            {!show &&
+                <div type='button' className={styles.btn_v1} onClick={handleOpenRegister} role="button">
+                    <span>Выйти</span> 
+                </div>
+            }
+            </div>
+        
+
+
 
         </>
 

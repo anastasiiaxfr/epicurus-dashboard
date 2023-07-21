@@ -40,11 +40,13 @@ export default function Header({ title, getTitle }) {
             
             {user && (
                     <>
-                        <Ava onClick={() => getNewTitle('Settings')} img={user?.photoURL}  name={user?.displayName}/>
+                            <Ava img={user?.photoURL} name={user?.displayName}/>
                         {/* <Notification /> */}
                     </>
             )}
             
+            
+            {!user && (<AuthBtns toggleShow = {setShow}/>)}
             
         </header>
     )

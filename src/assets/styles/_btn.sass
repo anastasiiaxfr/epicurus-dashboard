@@ -1,0 +1,68 @@
+%btn 
+    &s
+        +flex(flex, center, center, nowrap)
+        gap: 20px
+
+    a, input, &_grad
+        +flex(inline-flex, center, center, nowrap)
+        min-width: 158px
+        padding: 13px 20px
+        background-color: $main
+        border-radius: $brs10
+        border: none
+        color: $white
+        cursor: pointer
+        text-align: center
+        +ft(14, 21, 500, $ffHeading)
+        letter-spacing: 0.1em
+        transition: $trs
+
+        &:hover, &:active, &:focus
+            background-color: darken($main, 10%)
+
+        &[disabled]
+            opacity: 0.5
+
+    &_bd
+        border-color: $main
+        color: $main
+
+    &_link
+        &, & input
+            +flex(inline-flex, center, center, nowrap)
+            //min-width: 145px
+            +ft(14, 21, 500, $ffHeading)
+            background: transparent
+            border: none
+            cursor: pointer
+            &:hover, &:active, &:focus
+
+    &_grad 
+        min-width: 122px
+        height: 40px
+        padding: 14px 32px
+        transition: none
+        background: $grad0
+        +ft(16, 16, 700)
+
+        span
+            margin-right: 5px
+
+        &:hover, &:focus, &:active
+            box-shadow: $bxsd3
+
+    +maw($xs)
+        &, & input, &_link
+            width: 100%
+       
+
+    +maw($xxs)
+        &s
+            gap: 10px
+            display: grid
+            grid-template-columns: 1fr 1fr
+            flex: 1
+
+        &_grad
+            padding: 2.5vmin 5vmin
+

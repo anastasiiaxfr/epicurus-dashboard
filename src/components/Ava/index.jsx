@@ -1,34 +1,24 @@
 import { useState, useEffect } from "react";
 
+import { auth } from "../../pages/_firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+
 import Link from "next/link";
 import Image from "next/image";
 
-import UserIcon from "../../assets/icons/user.svg";
 import styles from "./ava.module.sass";
 
-export default function Ava({ onClick, name, img }) {
-  const [showImg, setShowImg] = useState(false);
-  const [showName, setShowName] = useState(false);
-
-  useEffect(() => {
-    setShowImg(true);
-  }, [img]);
-  useEffect(() => {
-    setShowName(true);
-  }, [name]);
-
+export default function Ava({ name, img }) {
+  const [user] = useAuthState(auth);
   return (
     <Link href="/settings">
-      {showName && (
-        <div className={styles.ava} onClick={onClick}>
-          {img && (
-            <div className={styles.ava_logo}>
-              <Image src={img} alt={name} width="75" height="75" />
-              {/* <UserIcon width="27" height="27" /> */}
-            </div>
-          )}
-        </div>
-      )}
+      <div className={styles.ava} onClick={() => auth.signOut()}>
+        {img && (
+          <div className={styles.ava_logo}>
+            <Image src={img} alt={name} width="75" height="75" />
+          </div>
+        )}
+      </div>
     </Link>
   );
 }
