@@ -2,9 +2,8 @@ import ClickAwayListener from '@mui/base/ClickAwayListener'
 import Btn from '../../Form/Btn'
 
 import CloseIcon from '../../../assets/icons/close.svg'
-import CheckIcon from '../../../assets/icons/check.svg'
 
-import styles from './modalSuccess.module.sass'
+import styles from './styles.module.sass'
 
 export default function ModalPopup({ openModal, setModalOpen, props }) {
     const { title, text, btnText, btnUrl } = props
@@ -15,9 +14,8 @@ export default function ModalPopup({ openModal, setModalOpen, props }) {
             <ClickAwayListener onClickAway={handleClose}>
                 <div className={styles.modal__content}>
                     <div className={styles.modal__icon}>
-                        <CheckIcon width="60" height="60"/>
+                        <CloseIcon className={styles.modal__close} width="25" height="25" onClick={handleClose}/>
                     </div>
-                    <CloseIcon className={styles.modal__close} width="25" height="25" onClick={handleClose}/>
 
                     <div className={styles.modal__title}>
                         { title }
@@ -25,7 +23,7 @@ export default function ModalPopup({ openModal, setModalOpen, props }) {
                     <div className={styles.modal__text}>
                         { text }
                     </div>
-                    <Btn label={ btnText } onClick={handleClose}/>
+                    <Btn label={ btnText } theme="grey" onClick={handleClose} />
 
                 </div>
             </ClickAwayListener>

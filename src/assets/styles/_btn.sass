@@ -3,9 +3,9 @@
         +flex(flex, center, center, nowrap)
         gap: 20px
 
-    a, input, &_grad
+    a, input, &_grad, &_grey
         +flex(inline-flex, center, center, nowrap)
-        min-width: 158px
+        min-width: 122px
         padding: 13px 20px
         background-color: $main
         border-radius: $brs10
@@ -35,7 +35,22 @@
             background: transparent
             border: none
             cursor: pointer
+            
+    &_grey
+        padding: 0
+        border-radius: $brs15
+        &:hover, &:active, &:focus
+            background-color: transparent
+        & input
+            padding: 0 20px
+            height: 40px
+            background-color: $dark12
+            border-radius: $brs15
+            +ft(16, 16, 700)
             &:hover, &:active, &:focus
+                transition: $trs
+                background-color: darken($dark12, 2%)
+            
 
     &_grad 
         min-width: 122px

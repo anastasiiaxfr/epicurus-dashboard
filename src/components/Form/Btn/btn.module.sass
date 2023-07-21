@@ -3,10 +3,12 @@
 
 .btn
     @extend %btn
+    &.grey
+        @extend %btn_grey
     &_auth
         +flex(flex, center, center, nowrap)
         gap: var(--gap)
-
+   
 
 
 

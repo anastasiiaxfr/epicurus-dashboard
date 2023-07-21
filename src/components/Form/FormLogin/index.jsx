@@ -15,7 +15,7 @@ import styles from './styles.module.sass'
 
 const modalInfo = {
     title: 'Something Wrong',
-    text: 'Reset password from link on your email',
+    text: 'Reset your password using the link sent to your email or register a new account.',
     btnText: 'Okay',
     btnUrl: '#'
 }
