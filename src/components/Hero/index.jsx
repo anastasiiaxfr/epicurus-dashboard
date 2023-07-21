@@ -1,152 +1,132 @@
-import { useState } from 'react'
+import { useState } from "react";
 
-import { auth } from '../../pages/_firebase'
-import { useAuthState } from 'react-firebase-hooks/auth'
+import { auth } from "../../pages/_firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
-import Link from 'next/link'
-import Card from '../Card'
+import Link from "next/link";
+import Card from "../Card";
 
-
-import styles from './hero.module.sass'
-import stylesCard from '../Card/card.module.sass'
+import styles from "./hero.module.sass";
+import stylesCard from "../Card/card.module.sass";
 
 import IconArr from "../../assets/icons/arr-t-rt.svg";
 
-
 export default function Hero() {
-    const [user] = useAuthState(auth)
+  const [user] = useAuthState(auth);
 
 
-    const redirectURL = !user ? '/' : '/settings'
+  const cards = [
+    {
+      title: "Robotic Trading",
+      status: "Active",
+      url: "#",
+      cols: [
+        {
+          title: "Balance",
+          val: "$ 100 342",
+        },
+        {
+          title: "PNL за день",
+          val: "+1434,75 $",
+        },
+        {
+          title: "Total PNL",
+          val: "+1434,75 $",
+        },
+      ],
+      cta: {
+        enable: false,
+        title: "",
+        url: "#",
+      },
+    },
+    {
+      title: "Deposit",
+      status: "",
+      url: "#",
+      cols: [
+        {
+          title: "Balance",
+          val: "$ 100 342",
+        },
+        {
+          title: "Total PNL",
+          val: "+1434,75 $",
+        },
+      ],
+      cta: {
+        enable: true,
+        title: "Accept",
+        url: "#",
+      },
+    },
+    {
+      title: "Trust Management",
+      status: "Active",
+      url: "#",
+      cols: [
+        {
+          title: "Balance",
+          val: "$ 100 342",
+        },
+        {
+          title: "Total PNL",
+          val: "+1434,75 $",
+        },
+      ],
+      cta: {
+        enable: false,
+        title: "",
+        url: "#",
+      },
+    },
+  ];
 
-    
-
-    return (
-
-        <div className={styles.hero}>
-            <div className={styles.main}>
-
-            <Card>
-                <div className={stylesCard.card_header}>
-                    <div className={stylesCard.card_hgroup}>
-                    <div className={stylesCard.card_title}>
-                        Robotic Trading
-                    </div>
-                    <div className={stylesCard.card_status}>
-                        Status:
-                        <span>
-                        Active
-                        </span>
-                    </div>
-                    </div>
-
-                    <IconArr with="16" height="16" />
-                </div>
-                <div className={stylesCard.card_body}>
-                    <div className={stylesCard.card_row}>
-                        <div className={stylesCard.card_col}>
-                        Balance
-                        <span>
-                        $ 100 342
-                        </span>
-                        </div>
-                        <div className={stylesCard.card_col}>
-                        PNL за день
-                        <span>
-                        +1434,75 $
-                        </span>
-                        </div>
-                        <div className={stylesCard.card_col}>
-                        Total PNL
-                        <span>
-                        +1434,75 $
-                        </span>
-                        </div>
-                    </div>
-                </div>
-            </Card>
-
-
-            <Card>
-                <div className={stylesCard.card_header}>
-                    <div className={stylesCard.card_hgroup}>
-                    <div className={stylesCard.card_title}>
-                    Deposit
-                    </div>
-                    </div>
-
-                    <IconArr with="16" height="16" />
-                </div>
-                <div className={stylesCard.card_body}>
-                    <div className={stylesCard.card_row}>
-                        <div className={stylesCard.card_col}>
-                        Balance
-                        <span>
-                        $ 100 342
-                        </span>
-                        </div>
-                        <div className={stylesCard.card_col}>
-                        Total PNL
-                        <span>
-                        +1434,75 $
-                        </span>
-                        </div>
-                    </div>
-                    <div className={stylesCard.card_cta}>
-                        <Link href="#">CTA</Link>
-                    </div>
-                </div>
-            </Card>
-               
-            <Card>
-                <div className={stylesCard.card_header}>
-                    <div className={stylesCard.card_hgroup}>
-                    <div className={stylesCard.card_title}>
-                        Trust Management
-                    </div>
-                    <div className={stylesCard.card_status}>
-                        Status:
-                        <span>
-                        Active
-                        </span>
-                    </div>
-                    </div>
-
-                    <IconArr with="16" height="16" />
-                </div>
-                <div className={stylesCard.card_body}>
-                    <div className={stylesCard.card_row}>
-                        <div className={stylesCard.card_col}>
-                        Balance
-                        <span>
-                        $ 100 342
-                        </span>
-                        </div>
-                        <div className={stylesCard.card_col}>
-                        Total PNL
-                        <span>
-                        +1434,75 $
-                        </span>
-                        </div>
-                    </div>
-                </div>
-            </Card>
-         
-
+  return (
+    <div className={styles.hero}>
+      <div className={styles.main}>
+        {cards.map((i, k) => (
+          <Card>
+            <div className={stylesCard.card_header} key={k}>
+              <div className={stylesCard.card_hgroup}>
+                <div className={stylesCard.card_title}>{i.title}</div>
+                {i.status && (
+                  <div className={stylesCard.card_status}>
+                    Status:
+                    <span>{i.status}</span>
+                  </div>
+                )}
+              </div>
+              <Link href={i.url}>
+                <IconArr with="16" height="16" />
+              </Link>
             </div>
+            <div className={stylesCard.card_body}>
+              <div className={stylesCard.card_row}>
+                {i.cols.map((j, key) => (
+                  <div className={stylesCard.card_col} key={`card-col-${k}-${key}`}>
+                    {j.title}
+                    <span>{j.val}</span>
+                  </div>
+                ))}
+              </div>
 
-            <aside className={styles.sidebar}>
-
-                <div className={styles.sidebar_head}>
-                   
+              {i.cta.enable && (
+                <div className={stylesCard.card_cta}>
+                  <Link href={i.cta.url}>{i.cta.title}</Link>
                 </div>
+              )}
+            </div>
+          </Card>
+        ))}
+       
+      </div>
 
-                <div className={styles.sidebar_row}>
-                   
-                </div>
+      <aside className={styles.sidebar}>
+        <div className={styles.sidebar_head}></div>
 
-            </aside>
-        </div>
-
-    )
+        <div className={styles.sidebar_row}></div>
+      </aside>
+    </div>
+  );
 }
