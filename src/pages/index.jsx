@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Push from '../components/Push'
 import Hero from '../components/Hero'
 import Table from '../components/Tables'
 import DownloadIcon from '../assets/icons/download.svg'
@@ -7,7 +8,8 @@ import DownloadIcon from '../assets/icons/download.svg'
 function HomePage() {
     return (
         <>
-            {/* HERO */}
+            <Push url="#" theme="default" type="Reminder" text="You Successfully Updated your Subscription  |  Ends at 11.07.23" close={false} />
+
             <Hero />
             
             {/* TRANSACTION */}

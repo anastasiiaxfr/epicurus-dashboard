@@ -1,4 +1,4 @@
-@import 'src/components/Form/Btn/btn.module.sass' 
+@import 'src/components/Form/Btn/btn.module.sass'
 @import 'src/assets/styles/vars.sass'
 @import 'src/assets/styles/text.sass'
 
@@ -6,14 +6,18 @@
     @extend %card
 
     &_header
-       +flex(flex, center, space-between, nowrap)
-       gap: var(--gap)
-       margin-bottom: var(--gapLg)
+        +flex(flex, center, space-between, nowrap)
+        gap: var(--gap)
+        margin-bottom: var(--gapLg)
 
-       svg
-        min-width: var(--gap) 
-        align-self: flex-start
-    
+        svg
+            min-width: var(--gap)
+            align-self: flex-start
+            color: $main
+            transition: $trs
+            &:hover
+                color: $white
+
     &_body
         +flex(flex, center, space-between, wrap)
         gap: var(--gapLg)
@@ -37,7 +41,6 @@
 
     &_cta
         @extend %btn_grad
-       
 
     &_status
         +flex(flex, center, flex-start, wrap)
@@ -51,7 +54,6 @@
             align-items: center
             margin-right: var(--gapXs)
             color: $stroke4
-
 
     &_title
         position: relative
@@ -67,6 +69,6 @@
     +maw($xs)
         &_title
             +ft(18, 18*1.2, 700)
-            
+
         &_col
             +ft(14, 14*1.2, 700)
