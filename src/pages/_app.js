@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 
-import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 
 import AuthProvider from "./_auth";
 
@@ -80,15 +79,7 @@ export default function App({ Component, pageProps }) {
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
           ></script>
-          <GoogleReCaptchaProvider
-            reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTHA_SITE_KEY}
-            scriptProps={{
-              async: false, // optional, default to false,
-              defer: true, // optional, default to false
-              appendTo: "body", // optional, default to "head", can be "head" or "body",
-              nonce: undefined,
-            }}
-          >
+     
             <AuthProvider>
               <div className="pg__wrap">
                 <Sidebar getTitle={getTitle} />
@@ -100,7 +91,6 @@ export default function App({ Component, pageProps }) {
                 </main>
               </div>
             </AuthProvider>
-          </GoogleReCaptchaProvider>
         </>
       )}
     </>
