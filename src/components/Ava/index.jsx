@@ -1,24 +1,21 @@
-import { useState, useEffect } from "react";
+import { useContext } from 'react'
+import { AuthContext } from "../../pages/_auth"
 
-import { auth } from "../../pages/_firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
-
-import Link from "next/link";
+// import Link from "next/link";
 import Image from "next/image";
 
 import styles from "./ava.module.sass";
 
 export default function Ava({ name, img }) {
-  const [user] = useAuthState(auth);
+  const { auth } = useContext(AuthContext)
+
   return (
-    <Link href="/settings">
       <div className={styles.ava} onClick={() => auth.signOut()}>
-        {img && (
+        
           <div className={styles.ava_logo}>
-            <Image src={img} alt={name} width="75" height="75" />
+            {img ? <Image src={img} alt={name} width="75" height="75" /> : name && name.charAt(0)}
           </div>
-        )}
+        
       </div>
-    </Link>
   );
 }

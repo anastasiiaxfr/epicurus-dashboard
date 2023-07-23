@@ -1,14 +1,13 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext  } from 'react'
+import { AuthContext } from "../../pages/_auth"
 
-import { auth } from '../../pages/_firebase'
-import { useAuthState } from 'react-firebase-hooks/auth'
 
 import AuthBtns from '../Form/Auth'
 import Ava from '../Ava'
 import Notification from '../Notification'
 
 export default function Header({ title, getTitle }) {
-    const [user] = useAuthState(auth)
+    const { auth, currentUser } = useContext(AuthContext)
 
     const [currentTitle, setCurrentTitle] = useState(title)
 
@@ -24,29 +23,29 @@ export default function Header({ title, getTitle }) {
     }, [title])
 
     useEffect(() => {
-        if (user !== null) {
+        if (currentUser !== null) {
             //alert(user.displayName)
             setShow(true)
         } else
         if (show === true){
             setShow(false)
         }
-    }, [user, show])
+    }, [currentUser, show])
 
 
     return (
         <header className="pg__header">
             <h1 className="h3">{ currentTitle }</h1>
             
-            {user && (
+            {currentUser && (
                     <>
-                            <Ava img={user?.photoURL} name={user?.displayName}/>
+                            <Ava img={currentUser?.photoURL} name={currentUser?.displayName}/>
                         {/* <Notification /> */}
                     </>
             )}
             
             
-            {!user && (<AuthBtns toggleShow = {setShow}/>)}
+            {!currentUser && (<AuthBtns toggleShow = {setShow}/>)}
             
         </header>
     )

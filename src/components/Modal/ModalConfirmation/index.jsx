@@ -17,9 +17,8 @@ export default function ModalPopup({ openModal, setModalOpen, props, toggleModal
             <ClickAwayListener onClickAway={handleClose}>
                 <div className={styles.modal__content}>
                     <div className={styles.modal__icon}>
-                        <CheckIcon width="60" height="60"/>
+                        <CheckIcon width="25" height="25" />
                     </div>
-                    <CloseIcon className={styles.modal__close} width="25" height="25" onClick={handleClose}/>
 
                     <div className={styles.modal__title}>
                         { title }
@@ -27,7 +26,7 @@ export default function ModalPopup({ openModal, setModalOpen, props, toggleModal
                     <div className={styles.modal__text}>
                         { text }
                     </div>
-                    <Btn label={ btnText } onClick={handleClose} />
+                    <Btn label={ btnText } theme="grey" onClick={handleClose} />
 
                 </div>
             </ClickAwayListener>

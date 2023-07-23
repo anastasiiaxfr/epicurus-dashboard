@@ -24,7 +24,6 @@ export default function InputField({ type, label, placeholder, value, note, erro
                 // setNewValue('')
             } else if (pattern && !currentInput.value.match(pattern)) {
                 setNewValue(value)
-                setShowError(false)
             }
             else {
                 setShowError(false)
@@ -33,8 +32,10 @@ export default function InputField({ type, label, placeholder, value, note, erro
 
         if (type === 'email') {
             if(pattern){
-               if (pattern.test(currentInput.value) !== true) { setShowError(true); } else {
-                setShowError(false);  
+               if (pattern.test(currentInput.value) !== true) { setShowError(true); 
+            } else {
+                setShowError(false); 
+
                }
             }
         }
@@ -69,24 +70,25 @@ export default function InputField({ type, label, placeholder, value, note, erro
     return (
         <div className={styles.field}>
             <label htmlFor={id} className={styles.label}>
-                {label}
-            </label>
+                <span>{label}</span>
 
-            <div className={styles.wrap}>
-                <Input name={id} id={id} type={type} placeholder={placeholder} value={newValue} disabled={disabled} required={required} className={styles.input} autoComplete = 'off' onClick={onClick} onChange={onChange} slotProps={{ input: { pattern: pattern,  ref: input, ...(type === 'file' && { accept: 'image/jpeg, image/png' }) } }} />
-                {icon}
-                {type === 'file' && <span className={styles.input__placeholder}>{fileAttached === true ? 'File added' : placeholder}</span>}
-            </div>
-
-            {note || error && showError && <div className={styles.info}>
+                {note || error && showError && <div className={styles.info}>
                 {note && <div className={styles.note}>
                     <InfoIcon width="12" height="12" /> <span>{note}</span>
                 </div>}
                 {error && showError &&
                     <Nottification label={error} type='error' />
                 }
+            </div>}
+            </label>
+
+            <div className={styles.wrap}>
+                <Input name={id} id={id} type={type} placeholder={placeholder} value={newValue} disabled={disabled} required={required} className={`${styles.input} ${showError ? styles.error : ''} }`} autoComplete = 'off' onClick={onClick} onChange={onChange} slotProps={{ input: { pattern: pattern,  ref: input, ...(type === 'file' && { accept: 'image/jpeg, image/png' }) } }} />
+                {icon}
+                {type === 'file' && <span className={styles.input__placeholder}>{fileAttached === true ? 'File added' : placeholder}</span>}
             </div>
-            }
+
+          
         </div>
     )
 }

@@ -22,8 +22,6 @@ const firebaseConfig = {
 };
 
 
-
-
 const app = initializeApp(firebaseConfig);
 const initFirebase = () => { return app };
 
@@ -31,29 +29,6 @@ const database = getDatabase();
 const firestore = getFirestore();
 const storage = getStorage(app);
 const auth = getAuth();
-
-
-
-onIdTokenChanged(auth, async (user) => {
-  if (user) {
-    try {
-      const token = await user.getIdToken(true)
-      // Use the refreshed token for API calls or update it in your app's state.
-    } catch (error) {
-      // Handle the token refresh error.
-    }
-  }
-})
-
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    // User is signed in.
-    const uid = user.uid;
-  } else {
-    // User is signed out.
-  }
-})
-
 
 
 // console.log(process.env.FIREBASE_API_KEY);
@@ -64,7 +39,7 @@ onAuthStateChanged(auth, (user) => {
 // console.log(process.env.FIREBASE_MESSAGING_SENDER_ID);
 // console.log(process.env.FIREBASE_APP_ID);
 
-export { initFirebase, database, storage, ref, set, uploadBytes, refStorage, getDownloadURL, getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, auth, createUserWithEmailAndPassword, updateProfile, onValue, sendEmailVerification, onIdTokenChanged, sendPasswordResetEmail, firestore, collection, doc, setDoc, remove};
+export { initFirebase, database, storage, ref, set, uploadBytes, refStorage, getDownloadURL, getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, auth, createUserWithEmailAndPassword, updateProfile, onValue, sendEmailVerification, onIdTokenChanged, sendPasswordResetEmail, firestore, collection, doc, setDoc, remove, onAuthStateChanged };
 export default function () {
     return <></>;
   }

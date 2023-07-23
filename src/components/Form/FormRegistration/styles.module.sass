@@ -19,10 +19,12 @@
 
     &__wrap
         h1
+            margin-top: 0
             +ft(20, 20, 700, $ffHeading)
             text-transform: uppercase
             letter-spacing: 0.05em
             user-select: none
+            color: $main
 
     &__row
         margin-bottom: 20px
@@ -37,7 +39,7 @@
         cursor: pointer
 
     label
-        +ft(14, 14, 700)    
+        +ft(14, 14, 500)    
 
     :global([class*=input_wrap])
         background-color: rgba($black, 0.35)
@@ -52,12 +54,13 @@
             width: 100%
 
 .btn__cta 
-    width: auto
+    +sz(auto, 40px)
     flex: 1
     +flex(flex, center, center, nowrap)
     padding: 10px 20px
     border-radius: 4px
-    +ft(14, 14, 700)
+    +ft(14, 14, 500)
+    letter-spacing: 0.05em
     text-align: center
     cursor: pointer
     border: 1px solid rgba($white, 0.2)
@@ -68,6 +71,7 @@
 
     b
         margin-right: 5px
+        font-weight: inherit
 
     +maw($xsm)
         b

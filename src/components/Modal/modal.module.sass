@@ -3,7 +3,8 @@
 .modal
     +ps(fixed, (t, 0), (b, 0), (l, 0), (r, 0))
     z-index: 1300
-    +flex(flex, center, center)
+    +flex(flex, center, center, nowrap, column)
+    gap: var(--gap)
     background: rgba($black, 0.5)
 
     &__content
@@ -15,7 +16,7 @@
         padding: 30px
         border-radius: $brs28
         background-color: $dark8
-        box-shadow: $bxsd5
+        box-shadow: $bxsd1
         animation: slideInUp 0.75s ease-in-out
   
     &__title

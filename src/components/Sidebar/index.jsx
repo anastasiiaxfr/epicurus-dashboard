@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 
 import styles from './styles.module.sass';
 
-import { auth } from "../../pages/_firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { useRouter } from "next/navigation";
 
 import Link from "next/link";
@@ -23,7 +21,6 @@ import Icon12 from "../../assets/icons/i12.svg";
 
 
 export default function Sidebar({ getTitle }) {
-    const [user] = useAuthState(auth);
     const { push } = useRouter();
     const router = useRouter();
 
@@ -45,15 +42,6 @@ export default function Sidebar({ getTitle }) {
         getTitle(title);
         setShowMenu(false);
     };
-
-    useEffect(() => {
-        if (user !== null) {
-            //alert(user.displayName)
-            setShowURL(true);
-        } else {
-            //push(`/?token=${token}`)
-        }
-    }, [user]);
 
     useEffect(() => {
         const onAwaySidebarClick = (event) => {
