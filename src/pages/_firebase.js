@@ -23,6 +23,7 @@ const firebaseConfig = {
 
 
 const app = initializeApp(firebaseConfig);
+
 const initFirebase = () => { return app };
 
 const database = getDatabase();
@@ -39,7 +40,7 @@ const auth = getAuth();
 // console.log(process.env.FIREBASE_MESSAGING_SENDER_ID);
 // console.log(process.env.FIREBASE_APP_ID);
 
-export { initFirebase, database, storage, ref, set, uploadBytes, refStorage, getDownloadURL, getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, auth, createUserWithEmailAndPassword, updateProfile, onValue, sendEmailVerification, onIdTokenChanged, sendPasswordResetEmail, firestore, collection, doc, setDoc, remove, onAuthStateChanged };
+export { initFirebase, database, storage, ref, set, uploadBytes, refStorage, getDownloadURL, getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, auth, createUserWithEmailAndPassword, updateProfile, onValue, sendEmailVerification, onIdTokenChanged, sendPasswordResetEmail, firestore, collection, doc, setDoc, remove, onAuthStateChanged, app };
 export default function () {
     return <></>;
   }
