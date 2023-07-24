@@ -1,7 +1,5 @@
 import React, { useEffect, useState, createContext } from "react";
 import * as fb from "./_firebase";
-import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check';
-
 // import { useAuthState } from 'react-firebase-hooks/auth'
 
 import LoadingModal from "../components/Loading/Modal";
@@ -13,7 +11,6 @@ export default function AuthProvider({ children }) {
   // const userID = user?.uid
 
   const {
-    app,
     auth,
     onAuthStateChanged,
     onIdTokenChanged,
@@ -24,21 +21,12 @@ export default function AuthProvider({ children }) {
   const [pending, setPending] = useState(true);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const appCheck = initializeAppCheck(app, {
-        provider: new ReCaptchaV3Provider(process.env.NEXT_PUBLIC_RECAPTHA_SITE_KEY),
-        isTokenAutoRefreshEnabled: true,
-      });
-    }
-  }, []);
-
-
-  useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         // User is signed in.
         const uid = user.uid;
         setCurrentUser(user);
+        alert(user.accessToken);
         setPending(false);
       } else {
         setCurrentUser(false);
