@@ -1,9 +1,11 @@
 //Import the functions you need from the SDKs you need
+import { AppCheckProvider, useFirebaseApp } from 'reactfire';
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set, onValue, remove } from 'firebase/database';
 import { getStorage, uploadBytes, getDownloadURL } from "firebase/storage";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, sendEmailVerification, onIdTokenChanged, onAuthStateChanged, sendPasswordResetEmail } from "firebase/auth";
 import { getFirestore, collection, doc, setDoc } from 'firebase/firestore';
+import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
 
 
 import { ref as refStorage } from 'firebase/storage';

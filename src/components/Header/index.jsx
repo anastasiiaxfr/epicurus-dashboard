@@ -5,6 +5,7 @@ import { AuthContext } from "../../pages/_auth"
 import AuthBtns from '../Form/Auth'
 import Ava from '../Ava'
 import Notification from '../Notification'
+import Wallet from '../Wallet'
 
 export default function Header({ title, getTitle }) {
     const { auth, currentUser } = useContext(AuthContext)
@@ -35,15 +36,15 @@ export default function Header({ title, getTitle }) {
 
     return (
         <header className="pg__header">
-            <h1 className="h3">{ currentTitle }</h1>
+            <h1 className="pg__header-title">{ currentTitle }</h1>
             
             {currentUser && (
-                    <>
-                            <Ava img={currentUser?.photoURL} name={currentUser?.displayName}/>
-                        {/* <Notification /> */}
-                    </>
+                <div className="pg__header-cta">
+                    <Wallet />
+                    <Notification />
+                    <Ava img={currentUser?.photoURL} name={currentUser?.displayName}/>
+                </div>
             )}
-            
             
             {!currentUser && (<AuthBtns toggleShow = {setShow}/>)}
             

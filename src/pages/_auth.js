@@ -26,7 +26,6 @@ export default function AuthProvider({ children }) {
         // User is signed in.
         const uid = user.uid;
         setCurrentUser(user);
-        alert(user.accessToken);
         setPending(false);
       } else {
         setCurrentUser(false);

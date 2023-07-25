@@ -1,0 +1,86 @@
+@import 'src/assets/styles/vars.sass'
+
+$menu_w: 226px
+.wallet
+    position: relative
+
+    +maw($xs)
+        position: static
+
+    &_menu
+        +ps(absolute, (t, 55px), (r, 0))
+        z-index: 100500
+        +theme(dark2)
+        +flex(flex, flex-start, center, nowrap, column)
+        width: $menu_w
+        gap: 15px
+        padding: 15px 15px
+        @extend %card
+        background-color: $dark3
+        border-radius: $brs10
+   
+    &_content, &_header
+        width: 100%
+
+    &_header
+        padding-bottom: 10px
+        border-bottom: 1px solid $stroke5
+
+    &_body
+        +flex(flex, center, flex-start, wrap, columnn)
+        gap: var(--gap)
+
+    &_ps
+        +flex(flex, center, flex-start, nowrap)
+        gap: var(--gapSm)
+        cursor: pointer
+        &_title
+            +ft(16, 16, 600)
+            letter-spacing: 0.04em
+        &_img
+            +sz(36px, 36px)
+            border-radius: 50%
+
+    &_label
+        margin-bottom: var(--gapXs)
+        +ft(18, 18, 700)
+        letter-spacing: 0.04em
+
+    &_title
+        +flex(flex, center, space-between, nowrap)
+        width: 100%
+        +ft(18, 18*1.2, 700, $ffHeading)
+        color: $main
+
+        svg
+            transform: scale(0.4) 
+            cursor: pointer
+            color: $white
+
+    &_text
+        +ft(12, 12*1.3, 400, $ffText)
+
+    &_id
+        color: $text_13
+
+    &_balance
+        +flex(flex, center, flex-start, wrap)
+        gap: var(--gapXs)
+        color: $main
+
+        &_title
+            +ft(16, 16, 700)
+            letter-spacing: 0.04em
+
+    &_icon
+        &_wrap
+            +sz(48px, 48px)
+            +flex(flex, center, center, nowrap)
+            background-color: $dark3
+            border-radius: $brs18
+            cursor: pointer
+            &:hover, &:active, &:focus
+                background-color: darken($dark3, 2%)
+            &.active
+                outline: $bd3
+

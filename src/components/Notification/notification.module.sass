@@ -3,6 +3,19 @@
 $menu_w: 280px
 .notification
     position: relative
+    +sz(48px, 48px)
+    +flex(flex, center, center, nowrap)
+    background-color: $dark3
+    border-radius: $brs18
+    cursor: pointer
+
+    &:hover, &:active, &:focus
+        background-color: darkne($dark3, 5%)
+    &.active
+        outline: $bd3
+
+    +maw($xs)
+        position: static
 
     &_icon
         cursor: pointer
@@ -14,6 +27,12 @@ $menu_w: 280px
             circle
                 display: block
 
+    &_close
+        +flex(flex, center, center, nowrap)
+        +sz(32px, 32px)
+        background-color: rgba($black, 0.5)
+        border-radius: 50%
+
     &_menu
         +ps(absolute, (t, 55px), (r, 0))
         z-index: 100500
@@ -22,7 +41,8 @@ $menu_w: 280px
         width: $menu_w
         gap: 15px
         padding: 15px 15px
-
+        @extend %card
+        background-color: $dark3
         border-radius: $brs10
         
     &_item
@@ -32,6 +52,7 @@ $menu_w: 280px
         padding: 15px
         margin: 0 auto
         border-radius: $brs10
+        background-color: darken($dark3, 3%)
 
     &_content
         width: 100%
@@ -40,10 +61,12 @@ $menu_w: 280px
         +flex(flex, center, space-between, nowrap)
         margin-bottom: 10px
         +ft(14, 14*1.2, 600, $ffHeading)
+        color: $yellow
 
         svg
             transform: scale(0.4) 
             cursor: pointer
+            color: $white
 
     &_text
         +ft(12, 12*1.3, 400, $ffText)

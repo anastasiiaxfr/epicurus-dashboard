@@ -71,6 +71,8 @@ export default function FormLogin({
           .then((userCredential) => {
             // Signed in
             const user = userCredential.user;
+            //alert(user.accessToken);
+
             setOpenLogin(false);
             // ...
           })
