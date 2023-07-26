@@ -7,7 +7,7 @@ export default function Nottification({ label, type, shown = true}) {
 
     return (
         shown && <div className={`${styles.nottification} ${styles[type]}`}>
-           <InfoIcon width="15" height="15" /> { label }
+           {type !== 'note' && <InfoIcon width="15" height="15" />} { label }
         </div>
     )
 }

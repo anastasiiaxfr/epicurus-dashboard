@@ -77,7 +77,7 @@ export default function FormReset({
         setModalOpen={setOpenModalReset}
       />
 
-      <div className={styles.form__wrap}>
+      <div className={styles.form_wrap}>
         <h1>Reset</h1>
 
         <form
@@ -90,7 +90,7 @@ export default function FormReset({
           ref={form}
           autoComplete="off"
         >
-          <div className={styles.form__row}>
+          <div className={styles.form_row}>
             <Input
               type="email"
               label="Your email*"
@@ -114,15 +114,15 @@ export default function FormReset({
           />
         </form>
 
-        <div className={styles.form__cta}>
+        <div className={styles.form_cta}>
           <div
             onClick={() => toggleModalRegistration()}
-            className={styles.btn__cta}
+            className={styles.btn_cta}
           >
             Sign Up
           </div>
           <span>OR</span>
-          <div onClick={() => toggleModalLogin()} className={styles.btn__cta}>
+          <div onClick={() => toggleModalLogin()} className={styles.btn_cta}>
             Sign In
           </div>
         </div>

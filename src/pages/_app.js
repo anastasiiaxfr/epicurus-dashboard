@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 
-
 import AuthProvider from "./_auth";
 
 import Seo from "../components/Seo";
@@ -11,7 +10,7 @@ import Sidebar from "../components/Sidebar";
 import "../assets/styles/main.sass";
 
 const seo = {
-  metaHeading: "Epicurus",
+  metaHeading: "Epicurus | <💛💙/>",
   metaDescription: "Epicurus Description",
   metaSiteName: "Epicurus",
   metaLocale: "en",
@@ -70,7 +69,6 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <Seo seo={seo} />
-
       {loading ? (
         <Preloader />
       ) : (
@@ -79,18 +77,18 @@ export default function App({ Component, pageProps }) {
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
           ></script>
-     
-            <AuthProvider>
-              <div className="pg__wrap">
-                <Sidebar getTitle={getTitle} />
-                <main className="pg__container">
-                  <Header title={title} getTitle={getTitle} />
-                  <article className="pg__content">
-                    <Component {...pageProps} />
-                  </article>
-                </main>
-              </div>
-            </AuthProvider>
+
+          <AuthProvider>
+            <div className="pg__wrap">
+              <Sidebar getTitle={getTitle} />
+              <main className="pg__container">
+                <Header title={title} getTitle={getTitle} />
+                <article className="pg__content">
+                  <Component {...pageProps} />
+                </article>
+              </main>
+            </div>
+          </AuthProvider>
         </>
       )}
     </>

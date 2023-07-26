@@ -10,18 +10,32 @@ export default function AuthProvider({ children }) {
   // const [user] = useAuthState(auth)
   // const userID = user?.uid
 
-  const {
-    auth,
-    onAuthStateChanged,
-    onIdTokenChanged,
-    signOut
-    
-  } = fb;
-  const [currentUser, setCurrentUser] = useState(null);
+  const { auth, onAuthStateChanged, onIdTokenChanged, signOut, signInWithCustomToken } = fb;
+
+  const [currentUser, setCurrentUser] = useState(true);
   const [pending, setPending] = useState(true);
 
+  const queryParams = new URLSearchParams(window.location.search);
+  const token = queryParams.get("token");
+
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    if(token){
+        signInWithCustomToken(auth, token)
+        .then((userCredential) => {
+          // User is now signed in on Site A
+          alert("Sign In");
+        })
+        .catch((error) => {
+          console.error("Error verifying token:", error);
+        });
+    }
+  }, [token]);
+
+  useEffect(() => {
+
+    onAuthStateChanged(auth, async (user) => {
+      //if(user){alert(user)}
+
       if (user) {
         // User is signed in.
         const uid = user.uid;
@@ -47,6 +61,7 @@ export default function AuthProvider({ children }) {
       }
     });
   }, []);
+
 
   if (pending) {
     return (

@@ -2,13 +2,17 @@
 @import '../modal.module'
 
 .modal
-    &__content
+    &_content
         max-width: 464px
         text-align: center
-        border: $bd2
+        //border: $bd2
         box-shadow: $bxsd5
 
-    &__icon
+    &_icon
         background-image: $grad14_0
         box-shadow: $bxsd6
+
+    :global([class*=btn])
+        input
+            height: 45px
 

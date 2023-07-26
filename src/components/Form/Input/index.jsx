@@ -5,7 +5,7 @@ import InfoIcon from '../../../assets/icons/info.svg'
 import Nottification from '../Nottifications'
 import styles from './input.module.sass'
 
-export default function InputField({ type, label, placeholder, value, note, error, id, required, disabled, setDisabled, icon, onClick, pattern, validate, submit,  setSubmit, reset, setReset, onImgSet }) {
+export default function InputField({ type, label, placeholder, value, note, error, id, required, disabled, setDisabled, icon, onClick, pattern, validate, submit,  setSubmit, reset, setReset, onImgSet, theme, form }) {
     const [newValue, setNewValue] = useState(value)
     const [showError, setShowError] = useState(false)
     const [fileAttached, setFileAttached] = useState(false)
@@ -46,19 +46,22 @@ export default function InputField({ type, label, placeholder, value, note, erro
             onImgSet(currentInput?.files[0])
         }
 
-        if(reset === false){
-            setShowError(false)
-        }
+       
 
         const allInputs = Array.from(document.querySelectorAll('input'))
         const anyEmptyInput = allInputs.some((input) => input.value === '')
-        if (anyEmptyInput === false) { validate(true); setReset(false);  } else { validate(false); setSubmit(false); setReset(true); }
+        if (anyEmptyInput === false) { validate(true); } else { validate(false); setSubmit(false);  }
 
     }
 
+  
     useEffect(() => {
         if (submit === true) { onChange(); }
     }, [submit])
+
+    useEffect(() => {
+        setShowError(false)
+    }, [reset])
 
     useEffect(() => {
         if(setDisabled){
@@ -68,22 +71,22 @@ export default function InputField({ type, label, placeholder, value, note, erro
 
 
     return (
-        <div className={styles.field}>
+        <div className={`${styles.field} ${styles[theme]}`}>
             <label htmlFor={id} className={styles.label}>
                 <span>{label}</span>
-
-                {note || error && showError && <div className={styles.info}>
-                {note && <div className={styles.note}>
-                    <InfoIcon width="12" height="12" /> <span>{note}</span>
+                
+                {(note || error && showError) && <div className={styles.info}>
+                {note && !showError && <div className={styles.note}>
+                    <Nottification label={note} type='note' />
                 </div>}
                 {error && showError &&
                     <Nottification label={error} type='error' />
                 }
-            </div>}
+                </div>}
             </label>
 
             <div className={styles.wrap}>
-                <Input name={id} id={id} type={type} placeholder={placeholder} value={newValue} disabled={disabled} required={required} className={`${styles.input} ${showError ? styles.error : ''} }`} autoComplete = 'off' onClick={onClick} onChange={onChange} slotProps={{ input: { pattern: pattern,  ref: input, ...(type === 'file' && { accept: 'image/jpeg, image/png' }) } }} />
+                <Input name={id} id={id} type={type} placeholder={placeholder} value={newValue} disabled={disabled} required={required} className={`${styles.input} ${showError ? styles.error : ''}`} autoComplete = 'off' onClick={onClick} onChange={onChange} slotProps={{ input: { pattern: pattern,  ref: input, ...(type === 'file' && { accept: 'image/jpeg, image/png' }) } }} />
                 {icon}
                 {type === 'file' && <span className={styles.input__placeholder}>{fileAttached === true ? 'File added' : placeholder}</span>}
             </div>

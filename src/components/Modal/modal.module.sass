@@ -6,8 +6,11 @@
     +flex(flex, center, center, nowrap, column)
     gap: var(--gap)
     background: rgba($black, 0.5)
+    backdrop-filter: blur(2px)
 
-    &__content
+    &_content
+        +flex(flex, center, center, nowrap, column)
+        gap: var(--gapLg)
         position: relative
         max-width: 500px
         width: 90%
@@ -19,26 +22,30 @@
         box-shadow: $bxsd1
         animation: slideInUp 0.75s ease-in-out
   
-    &__title
+    &_title
         +ft(24, 24, 700)
+        //margin-bottom: var(--gapMd)
 
-    &__text
-        margin-bottom: 34px
-        margin-top: 22px
+    &_text
         +ft(14, 18, 400)
         color: $text_6
+        white-space: pre-wrap
 
-    &__close
+    &_close
         +sz(30px, 30px)
 
-    &__icon
+    &_icon
         +flex(flex, center, center, nowrap)
-        margin: 0 auto 22px
+        margin: 0 auto 
         +sz(80px, 80px)
         border-radius: 50%
         background-image: $grad11
         box-shadow: $bxsd4
 
+    &_cta
+        +flex(flex, center, center, nowrap)
+        gap: var(--gap)
+
     +maw($xs)
-        &__title
+        &_title
             +ft(18, 18, 600)

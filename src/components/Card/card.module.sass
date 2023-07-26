@@ -6,7 +6,7 @@
     @extend %card
 
     &_header
-        +flex(flex, center, space-between, nowrap)
+        +flex(flex, flex-start, space-between, nowrap)
         gap: var(--gap)
         margin-bottom: var(--gapLg)
 
@@ -41,7 +41,8 @@
         color: $text_11
 
     &_cta
-        @extend %btn_grad
+        @extend %btn_grad2
+        height: 40px
 
     &_status
         +flex(flex, center, flex-start, wrap)
@@ -69,7 +70,8 @@
                 display: none
     +maw($xs)
         &_title
-            +ft(18, 18*1.2, 700)
+            +ft(16, 16*1.2, 800)
+            text-transform: uppercase
 
         &_col
             +ft(14, 14*1.2, 700)

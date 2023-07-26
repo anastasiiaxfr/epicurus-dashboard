@@ -35,7 +35,7 @@ export default function FormRegistration({ toggleModalLogin, setOpenRegister }) 
     const [validation, setValidation] = useState(false)
     const [submit, setSubmit] = useState(false)
     const [submitPressed, setSubmitPressed] = useState(false)
-    const [reset, setReset] = useState(true)
+    const [reset, setReset] = useState(false)
 
     const [openModalError, setOpenModalError] = useState(false)
     const [openModalSuccess, setOpenModalSuccess] = useState(false)
@@ -94,7 +94,7 @@ export default function FormRegistration({ toggleModalLogin, setOpenRegister }) 
                     })
 
                     setOpenModalSuccess(true)
-
+                    setReset(prev => !prev);  
                     // openModalSuccess !== true && setOpenRegister(false)
 
                 } catch (error) {
@@ -116,7 +116,7 @@ export default function FormRegistration({ toggleModalLogin, setOpenRegister }) 
 
             <ModalAuthSuccess openModal={openModalSuccess} setModalOpen={setOpenModalSuccess} props={modalInfoSuccess} toggleModal={setOpenRegister}/>
 
-            <div className={styles.form__wrap}>
+            <div className={styles.form_wrap}>
 
                 <h1>
                     Sign Up
@@ -124,23 +124,23 @@ export default function FormRegistration({ toggleModalLogin, setOpenRegister }) 
 
                 <form action="/" methord="POST" noValidate name="FormRegistration" id="FormRegistration" className={styles.form} ref={form} autoComplete='off'>
 
-                    <div className={styles.form__row}>
+                    <div className={styles.form_row}>
                         <Input type='text' label='Name*' placeholder='' id='reg_name' error='Required. Only Latin letters.' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
                     </div>
-                    <div className={styles.form__row}>
+                    <div className={styles.form_row}>
                         <Input type='email' label='Email*' placeholder='' id='reg_email' error='Required field' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} pattern={reg_email} />
                     </div>
-                    <div className={styles.form__row}>
+                    <div className={styles.form_row}>
                         <Input type='password' label='Password*' placeholder='' id='reg_password' error='Required field' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
                     </div>
                     <Btn label='Send' onClick={handleSubmit} />
 
                 </form>
 
-                <div className={styles.form__cta}>
+                <div className={styles.form_cta}>
                     {/* <div onClick={() => toggleModalReset()} className={styles.btn__cta}> Reset <b>password</b> </div> */}
                     <span>OR</span>
-                    <div onClick={() => toggleModalLogin()} className={styles.btn__cta}>
+                    <div onClick={() => toggleModalLogin()} className={styles.btn_cta}>
                         Sign In
                     </div>
                 </div>

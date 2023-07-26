@@ -1,6 +1,7 @@
 @import 'src/assets/styles/vars.sass'
 
 $menu_w: 280px
+
 .notification
     position: relative
     +sz(48px, 48px)
@@ -10,12 +11,11 @@ $menu_w: 280px
     cursor: pointer
 
     &:hover, &:active, &:focus
-        background-color: darkne($dark3, 5%)
+        background-color: darken($dark3, 2%)
+
     &.active
         outline: $bd3
-
-    +maw($xs)
-        position: static
+        color: $main
 
     &_icon
         cursor: pointer
@@ -30,8 +30,11 @@ $menu_w: 280px
     &_close
         +flex(flex, center, center, nowrap)
         +sz(32px, 32px)
-        background-color: rgba($black, 0.5)
+        background-color: rgba($black, 0.15)
         border-radius: 50%
+        transition: $trs
+        &:hover, &:active, &:focus
+            background-color: rgba($black, 0.25)
 
     &_menu
         +ps(absolute, (t, 55px), (r, 0))
@@ -64,10 +67,13 @@ $menu_w: 280px
         color: $yellow
 
         svg
+            width: 20px
             transform: scale(0.4) 
             cursor: pointer
             color: $white
 
     &_text
         +ft(12, 12*1.3, 400, $ffText)
-
+        
+    +maw($xs)
+        position: static

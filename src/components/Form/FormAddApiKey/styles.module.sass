@@ -1,0 +1,40 @@
+@import 'src/assets/styles/vars.sass'
+
+$h: 45px
+
+.form
+    width: 100%
+    &_cta
+        +flex(flex, center, flex-start, wrap)
+        gap: var(--gap)
+        margin: var(--gapLg) auto 0
+
+    &_row
+        margin-bottom: var(--gapLg)
+        &:last-child
+            margin-bottom: 0
+        +maw($xs)
+            margin-bottom: var(--gap)
+
+    label
+        color: $text_1
+
+    :global([class*=btn])
+        height: $h
+        & > *
+            max-width: 100% 
+            width: 100%
+            height: $h
+            border-radius: $brs10
+            +ft(14, 14, 500)
+            letter-spacing: 0.08em
+            +maw($xs)
+                +ft(13, 13, 500)
+                text-transform: uppercase
+                border-radius: 8px
+
+        
+
+
+
+

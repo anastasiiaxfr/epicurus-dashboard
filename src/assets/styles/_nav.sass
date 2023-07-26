@@ -14,7 +14,12 @@
             margin-left: auto
 
         &-title
-            @extend %h3
+            //@extend %h3
+            +ft(18, 18, 700)
+            letter-spacing: 0.05em
+            text-transform: uppercase
+            color: $main
+            //opacity: 0.5
         
         &-cta
             position: relative

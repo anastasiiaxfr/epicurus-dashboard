@@ -23,6 +23,56 @@
     +maw($xs)
         +ft(16, 16, 600)
 
+.field
+    &.default
+        input
+            height: 50px
+            //+ft(16, 16, 500)
+            +ft(14, 14, 500)
+            //border-radius: $brs20
+            border: $bd4
+            background-color: $dark11
+            //border-color: $dark11
+            border-radius: $brs10
+            transition: $trs
+
+            &:focus, &:active, &:hover
+                border-color: $main
+            
+        .wrap
+            border-radius: $brs20
+
+        .label
+            +ft(18, 18, 600) 
+            letter-spacing: 0.04em 
+            color: $text_11  
+            +maw($xs)
+                flex-wrap: wrap
+                +ft(14, 14, 600)
+
+        .info
+            justify-content: start
+            svg
+                display: none
+            & > div 
+                +flex(flex, center, flex-start, nowrap)
+                gap: var(--gapSm)
+                &::before
+                    content: '|'
+                    color: rgba($white, 0.06)
+                    +maw($xs)
+                        display: none
+            +maw($xs)
+                width: 100%
+                flex: 1 0 auto
+
+
+        +maw($xs)
+            input
+                padding: 4px 16px
+                +ft(12, 12, 400)
+                border-radius: $brs10
+
 .input 
     position: relative
     z-index: 1
@@ -40,16 +90,14 @@
         padding: 12px 20px
         border-radius: $brs10
         background: transparent
-        border: 2px solid $main
+        border: $bd3
         color: inherit
        
         +ft(14, 17, 400, $ffText)
 
         &:focus, &:active, &:focus-visible
-            //border-bottom: 1px solid $prurple100
             color: $white
-       
-        
+            
         &::file-selector-button
             display: none
         
@@ -59,11 +107,20 @@
         &[disabled]
             cursor: pointer
 
-
     &.error
         input
             border-color: $red
 
+
+.info
+    position: relative
+    flex: 1
+    color: $main
+    +ft(12, 12, 700)
+    letter-spacing: 0.08em
+ 
+.error, .note
+    width: 100%
 
 
 

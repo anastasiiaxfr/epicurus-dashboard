@@ -7,17 +7,12 @@ import Ava from '../Ava'
 import Notification from '../Notification'
 import Wallet from '../Wallet'
 
-export default function Header({ title, getTitle }) {
+export default function Header({ title }) {
     const { auth, currentUser } = useContext(AuthContext)
 
     const [currentTitle, setCurrentTitle] = useState(title)
 
     const [show, setShow] = useState(false)
-
-    const getNewTitle = (newTitle) => {
-        setCurrentTitle(newTitle)
-        getTitle(newTitle)
-    }
 
     useEffect(() => {
         setCurrentTitle(title)

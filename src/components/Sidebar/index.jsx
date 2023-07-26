@@ -33,15 +33,21 @@ export default function Sidebar({ getTitle }) {
 
     const [showMenu, setShowMenu] = useState(false);
 
+    const [active, setActive] = useState('Dashboard');
+
     const onToggleMenu = (title) => {
         setShowMenu(!showMenu);
         getTitle(title);
     };
 
-    const onSetTitle = (title) => {
+   
+    const onClick = (title) => {
         getTitle(title);
         setShowMenu(false);
-    };
+        setActive(title);
+    }
+
+  
 
     useEffect(() => {
         const onAwaySidebarClick = (event) => {
@@ -69,15 +75,15 @@ export default function Sidebar({ getTitle }) {
                         <span>Products</span>
                     </li>
                     <li>
-                        <Link href="/" onClick={() => onSetTitle("Dashboard")}>
+                        <Link className={active === 'Dashboard' ? styles.active : ''} href="/" onClick={() => {onClick("Dashboard")}}>
                             <Icon1 with="16" height="16" />
                             <span>Dashboard</span>
                         </Link>
                     </li>
                     <li>
-                        <Link
+                        <Link className={active === 'Robotic Trading' ? styles.active : ''}
                             href={showURL ? "/robotic-trading" : baseURL}
-                            onClick={() => onSetTitle("Robotic Trading")}
+                            onClick={() => {onClick("Robotic Trading")}}
                             title="Robotic Trading"
                         >
                             <Icon2 with="16" height="16" />
@@ -85,9 +91,9 @@ export default function Sidebar({ getTitle }) {
                         </Link>
                     </li>
                     <li>
-                        <Link
-                            href={showURL ? "/" : baseURL}
-                            onClick={() => onSetTitle("Trust Management")}
+                        <Link className={active === 'Trust Management' ? styles.active : ''}
+                            href={showURL ? "/trust-management" : baseURL}
+                            onClick={() => {onClick("Trust Management")}}
                             title="Trust Management"
                         >
                             <Icon3 with="16" height="16" />
@@ -95,9 +101,9 @@ export default function Sidebar({ getTitle }) {
                         </Link>
                     </li>
                     <li>
-                        <Link
+                        <Link className={active === 'Deposit' ? styles.active : ''}
                             href={showURL ? "/" : baseURL}
-                            onClick={() => onSetTitle("Deposit")}
+                            onClick={() => {onClick("Deposit")}}
                             title="Deposit"
                         >
                             <Icon4 with="16" height="16" />
@@ -105,9 +111,9 @@ export default function Sidebar({ getTitle }) {
                         </Link>
                     </li>
                     <li>
-                        <Link
+                        <Link className={active === 'Academy' ? styles.active : ''}
                             href={showURL ? "/" : baseURL}
-                            onClick={() => onSetTitle("Academy")}
+                            onClick={() => {onClick("Academy")}}
                             title="Academy"
                         >
                             <Icon5 with="16" height="16" />
@@ -120,9 +126,9 @@ export default function Sidebar({ getTitle }) {
                         <span>Payments</span>
                     </li>
                     <li>
-                        <Link
+                        <Link className={active === 'Payments' ? styles.active : ''}
                             href={showURL ? "/" : baseURL}
-                            onClick={() => onSetTitle("Payments")}
+                            onClick={() => {onClick("Payments")}}
                             title="Payments"
                         >
                             <Icon6 with="16" height="16" />
@@ -130,9 +136,9 @@ export default function Sidebar({ getTitle }) {
                         </Link>
                     </li>
                     <li>
-                        <Link
-                            href={showURL ? "/" : baseURL}
-                            onClick={() => onSetTitle("My API")}
+                        <Link className={active === 'My API' ? styles.active : ''}
+                            href={showURL ? "/myapi" : baseURL}
+                            onClick={() => {onClick("My API")}}
                             title="My API"
                         >
                             <Icon7 with="16" height="16" />
@@ -147,9 +153,9 @@ export default function Sidebar({ getTitle }) {
                     </li>
 
                     <li>
-                        <Link
+                        <Link className={active === 'Wiki' ? styles.active : ''}
                             href={showURL ? "/" : baseURL}
-                            onClick={() => onSetTitle("Wiki")}
+                            onClick={() => {onClick("Wiki")}}
                             title="Wiki"
                         >
                             <Icon10 with="16" height="16" />
@@ -158,9 +164,9 @@ export default function Sidebar({ getTitle }) {
                     </li>
 
                     <li>
-                        <Link
+                        <Link className={active === 'Support' ? styles.active : ''}
                             href={showURL ? "/" : baseURL}
-                            onClick={() => onSetTitle("Support")}
+                            onClick={() => {onClick("Support")}}
                             title="Support"
                         >
                             <Icon9 with="16" height="16" />
@@ -169,9 +175,9 @@ export default function Sidebar({ getTitle }) {
                     </li>
 
                     <li>
-                        <Link
+                        <Link className={active === 'Bug Report' ? styles.active : ''}
                             href={showURL ? "/" : baseURL}
-                            onClick={() => onSetTitle("Bug Report")}
+                            onClick={() => {onClick("Bug Report")}}
                             title="Bug Report"
                         >
                             <Icon10 with="16" height="16" />
@@ -180,10 +186,11 @@ export default function Sidebar({ getTitle }) {
                     </li>
 
                     <li>
-                        <Link
+                        <Link className={active === 'Settings' ? styles.active : ''}
                             href={showURL ? "/" : baseURL}
-                            onClick={() => onSetTitle("Settings")}
+                            onClick={() => {onClick("Settings")}}
                             title="Settings"
+
                         >
                             <Icon11 with="16" height="16" />
                             <span>Settings</span>

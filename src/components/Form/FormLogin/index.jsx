@@ -6,7 +6,6 @@ import {
   signInWithEmailAndPassword,
   initFirebase,
   auth,
-  sendPasswordResetEmail,
 } from "../../../pages/_firebase";
 
 import ModalAuthError from "../../Modal/ModalAuthError";
@@ -56,7 +55,7 @@ export default function FormLogin({
 
   const [validation, setValidation] = useState(false);
   const [submit, setSubmit] = useState(false);
-  const [reset, setReset] = useState(true);
+  const [reset, setReset] = useState(false);
 
   const signIn = (e) => {
     e.preventDefault();
@@ -67,19 +66,22 @@ export default function FormLogin({
       const login_password = form.current.login_password.value;
 
       if (validation) {
+        setReset(prev => !prev);
         signInWithEmailAndPassword(auth, login_email, login_password)
           .then((userCredential) => {
             // Signed in
             const user = userCredential.user;
             //alert(user.accessToken);
+            //setOpenLogin(false);
+            
 
-            setOpenLogin(false);
             // ...
           })
           .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
             setOpenModalError(true);
+            
             // login_email &&
             //   sendPasswordResetEmail(auth, login_email)
             //     .then(() => {
@@ -98,14 +100,14 @@ export default function FormLogin({
 
   return (
     <>
-      <div className="form__wrap-outside">
+      <div className={styles.form_wrap}>
         <ModalAuthError
           openModal={openModalError}
           setModalOpen={setOpenModalError}
           props={modalInfo}
         />
 
-        <div className={styles.form__wrap}>
+        <div className={styles.form_wrap}>
           <h1>Sign In</h1>
 
           <form
@@ -118,7 +120,7 @@ export default function FormLogin({
             ref={form}
             autoComplete="off"
           >
-            <div className={styles.form__row}>
+            <div className={styles.form_row}>
               <Input
                 type="email"
                 label="Email*"
@@ -134,7 +136,7 @@ export default function FormLogin({
                 pattern={reg_email}
               />
             </div>
-            <div className={styles.form__row}>
+            <div className={styles.form_row}>
               <Input
                 type="password"
                 label="Password*"
@@ -152,24 +154,23 @@ export default function FormLogin({
             <Btn
               label="Send"
               onClick={signIn}
-              className={styles.form__btn}
+              className={styles.form_btn}
             />
           </form>
 
           <div
             onClick={() => toggleModalReset()}
-            className={styles.form__reset}
+            className={styles.form_reset}
           >
             Reset <b>password</b>
           </div>
 
-          <div className={styles.form__cta}>
-            <div onClick={signInGoogle} className={styles.btn__cta}>
-              {" "}
-              <b>Login with</b> Google{" "}
+          <div className={styles.form_cta}>
+            <div onClick={signInGoogle} className={styles.btn_cta}>
+              <b>Login with</b> Google
             </div>
             <span>OR</span>
-            <div onClick={() => toggleModal()} className={styles.btn__cta}>
+            <div onClick={() => toggleModal()} className={styles.btn_cta}>
               Sign Up
             </div>
           </div>

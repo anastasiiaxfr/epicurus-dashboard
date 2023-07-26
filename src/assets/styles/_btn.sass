@@ -1,64 +1,70 @@
 %btn 
+    +flex(inline-flex, center, center, nowrap)
+    min-width: 122px
+    height: 45px
+    padding: 10px 20px
+    background-color: $main
+    border-radius: $brs10
+    border: none
+    color: $white
+    cursor: pointer
+    text-align: center
+    +ft(16, 16, 500)
+    letter-spacing: 0.05em
+    transition: $trs
+
+    &:hover, &:active, &:focus
+        background-color: darken($main, 10%)
+       
+    &[disabled]
+        opacity: 0.5
+
+    a, input
+        background-color: transparent
+        border: none
+        color: inherit
+        font-size: inherit
+        font-weight: inherit
+        cursor: pointer
+
     &s
         +flex(flex, center, center, nowrap)
         gap: 20px
 
-    a, input, &_grad, &_grey
-        +flex(inline-flex, center, center, nowrap)
-        min-width: 122px
-        padding: 13px 20px
-        background-color: $main
-        border-radius: $brs10
-        border: none
-        color: $white
-        cursor: pointer
-        text-align: center
-        +ft(14, 21, 500, $ffHeading)
-        letter-spacing: 0.1em
-        transition: $trs
-
-        &:hover, &:active, &:focus
-            background-color: darken($main, 10%)
-
-        &[disabled]
-            opacity: 0.5
+    &.success
+        background-color: darken($green2, 2%)
+        background: $grad15
+    &_error
+        background-color: darken($red, 2%)
+        background: $grad11
 
     &_bd
         border-color: $main
         color: $main
 
     &_link
-        &, & input
-            +flex(inline-flex, center, center, nowrap)
-            //min-width: 145px
-            +ft(14, 21, 500, $ffHeading)
-            background: transparent
-            border: none
-            cursor: pointer
+        +flex(inline-flex, center, center, nowrap)
+        //min-width: 145px
+        +ft(14, 21, 500, $ffHeading)
+        background: transparent
+        border: none
+        cursor: pointer
             
     &_grey
-        padding: 0
-        border-radius: $brs15
+        padding: 10px 20px
+        background-color: $dark12
+        //color: $text_4
+        color: $white
         &:hover, &:active, &:focus
-            background-color: transparent
-        & input
-            padding: 0 20px
-            height: 40px
-            background-color: $dark12
-            border-radius: $brs15
-            +ft(16, 16, 700)
-            &:hover, &:active, &:focus
-                transition: $trs
-                background-color: darken($dark12, 2%)
-            
+            transition: $trs
+            background-color: darken($dark12, 2%)
 
     &_grad 
+        +flex(inline-flex, center, center, nowrap)
         min-width: 122px
-        height: 40px
         padding: 14px 32px
         transition: none
         background: $grad0
-        +ft(16, 16, 700)
 
         span
             margin-right: 5px
@@ -66,11 +72,23 @@
         &:hover, &:focus, &:active
             box-shadow: $bxsd3
 
+    &_grad2
+        +flex(inline-flex, center, center, nowrap)
+        min-width: 122px
+        padding: 14px 32px
+        transition: none
+        +ft(14, 14, 600)
+        border-radius: $brs8
+        background: $grad7
+        *
+            letter-spacing: 0.04em
+        &:hover, &:active, &:focus
+            background: $main
+
     +maw($xs)
         &, & input, &_link
             width: 100%
        
-
     +maw($xxs)
         &s
             gap: 10px
@@ -78,6 +96,7 @@
             grid-template-columns: 1fr 1fr
             flex: 1
 
-        &_grad
-            padding: 2.5vmin 5vmin
+        &_grad, &_grad2
+            padding: 14px 1.5em
+            min-width: 0
 

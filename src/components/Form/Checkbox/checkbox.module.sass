@@ -7,35 +7,49 @@
     margin-bottom: 0
     cursor: pointer
 
+    &.error
+        display: none
+        & + label 
+            span
+                border-color: $red
+        
     & + label 
         position: relative
         +flex(flex, center, flex-start, nowrap)
-        +ft(12, 14, 300)
+        +ft(14, 14, 500)
+        letter-spacing: 0.02em
         cursor: pointer
+
+        a
+            color: $main
 
         span
             position: relative
             +flex(inline-flex, center, center, nowrap)
-            +sz(13px, 13px)
-            min-width: 13px
+            +sz(16px, 16px)
+            min-width: 16px
             margin-right: 10px
-            background-color: transparent
+            border: 2px solid $main
             border-radius: 50%
             cursor: pointer
 
 
-    &.checked + label b 
-        display: block
-        +ps(absolute, (t, 0), (b, 0), (l, 0), (r, 0))
-        +sz(5px, 5px)
-        border-radius: 50%
-        margin: auto
-        
+    &.checked + label 
+        b 
+            display: block
+            +ps(absolute, (t, 0), (b, 0), (l, 0), (r, 0))
+            +sz(8px, 8px)
+            margin: auto
+            border-radius: 50%
+            background-color: $main
+        span
+            border-color: $main
+
 .error
     +flex(flex, center, flex-start, nowrap)
     margin-top: 10px
     +ft(12, 14, 300, $ffText)
-    
+    color: $red
 
     +maw($xxs)
         +ft(10, 10*1.3, 300, $ffText)

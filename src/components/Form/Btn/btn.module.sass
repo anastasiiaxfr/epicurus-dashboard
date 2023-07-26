@@ -3,8 +3,12 @@
 
 .btn
     @extend %btn
-    &.grey
+    &.secondary
         @extend %btn_grey
+    &.error
+        @extend %btn_error
+    &.grad
+        @extend %btn_grad2
     &_auth
         +flex(flex, center, center, nowrap)
         gap: var(--gap)

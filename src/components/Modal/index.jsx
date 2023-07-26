@@ -20,7 +20,7 @@ export default function ModalPopup({
         <ClickAwayListener onClickAway={handleClose}>
           <>
             <Logo />
-            <div className={styles.modal__content}>{children}</div>
+            <div className={styles.modal_content}>{children}</div>
           </>
         </ClickAwayListener>
       </section>

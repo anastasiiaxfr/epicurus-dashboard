@@ -1,0 +1,112 @@
+@import 'src/assets/styles/vars.sass'
+@import 'src/assets/styles/text.sass'
+@import 'src/assets/styles/btn.sass'
+
+.card
+    @extend %card3
+    margin: 0
+
+    &_header
+        +flex(flex, flex-start, space-between, nowrap)
+        gap: var(--gap)
+        margin-bottom: var(--gapLg)
+
+    &_content
+        margin-top: var(--gapSm)
+        margin-bottom: var(--gapMd)
+        //+ft(14, 14*1.4, 500)
+        +ft(13, 13*1.4, 500)
+        color: $text_14
+
+    &_title
+        +ft(22, 22, 700)
+        letter-spacing: 0.02em
+        color: $main
+    
+    &_close
+        +flex(flex, center, center, nowrap)
+        +sz(44px, 44px)
+        min-width: 44px
+        align-self: flex-start
+        border-radius: 50%
+        background-color: rgba($black, 0.2)
+        cursor: pointer
+
+        &:hover, &:active, &:focus
+            background-color: rgba($black, 0.4)
+
+    &_divider
+        max-width: 140px
+        +sz(100%, 2px)
+        margin-top: 18px
+        border-radius: $brs10
+        background-color: rgba($white, 10%)
+
+    &_cols
+        position: relative
+        +flex(flex, stretch, center, nowrap)
+        padding: var(--gapMd)
+
+        background-color: rgba($black, 0.08)
+        border-radius: $brs28
+        box-shadow: $bxsd10
+
+
+        &_col:not(:last-child)
+            +flex(flex, stretch, center, nowrap)
+            &::after
+                content: ''
+                display: block
+                margin: 0 var(--gap)
+                +sz(2px, 80px)
+                background-color: rgba($stroke4, 0.3)
+
+        &_title
+            +ft(18, 18, 700)
+            letter-spacing: 0.08em
+            text-align: center
+            color: $text_15
+
+        &_val
+            //margin-top: var(--gapLg)
+            margin-top: var(--gapSm)
+            +ft(46, 46, 900)
+            letter-spacing: 0.1em
+            @extend %text-gradient
+
+    &_footer
+        +flex(flex, flex-end, space-between, wrap)
+        gap: var(--gap)
+
+    +maw($xs)
+        &_cols
+            width: 100%
+            &_val
+                font-size: 4vmax
+
+    +maw(420)
+        border-radius: $brs8
+
+        &_cols
+            flex-wrap: wrap
+            gap: var(--gap)
+            border-radius: $brs8
+            &_col:not(:last-child)::after
+                display: none 
+
+        &_close
+            display: none
+
+        &_content
+            +ft(12, 12*1.4, 400)
+
+        &_title
+            +ft(16, 16*1.4, 700)
+            text-transform: uppercase
+
+        &_divider
+            display: none
+
+        &_header
+            margin-bottom: var(--gap)
+

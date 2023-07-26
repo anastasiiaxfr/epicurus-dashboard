@@ -1,55 +1,68 @@
-import { useState, useEffect } from 'react'
-import { auth, ref, database, onValue } from '../../pages/_firebase'
-import { useAuthState } from 'react-firebase-hooks/auth'
+import { useState } from "react";
 
-import Tabs from '../../components/Tabs'
+import Banner from "../../components/Banner";
+import Card from "../../components/Card2";
+import Hgroup from "../../components/Hgroup";
 
-import AddBotPage from '../../components/Page/AddBotPage'
-import BotPageMain from '../../components/Page/BotPageMain'
-
-import PlusIcon from '../../assets/icons/plus.svg'
-
+import styles from "./styles.module.sass";
 
 function RoboticTradingPage() {
-    const [user, loading] = useAuthState(auth)
-    const userID = user?.uid
-    const [newData, setNewData] = useState()
-    const [delBot, setDelBot] = useState(false)
-    const [newBot, setNewBot] = useState(false)
-    const tabsItems = [{ list: <PlusIcon />, item: <AddBotPage setNewBot={setNewBot} /> }]
+  const [showBanner, setShowBanner] = useState(true);
 
-    //console.log(user)
+  const cards = [
+    {
+      title: "DCA Trading Bot",
+      text: "DCA (Dollar Cost Averaging) бот - это программа, разработанная для автоматического выполнения стратегии долларового усреднения при инвестировании. Он основан на алгоритмах искусственного интеллекта и предназначен для помощи инвесторам в автоматическом распределении их инвестиций в течение определенного периода времени.",
+      url: "#",
+      btn: "Choose",
+      cols: [
+        {
+          title: "Risks",
+          val: "10%",
+        },
+        {
+          title: "APY",
+          val: "48%",
+        },
+      ],
+    },
+    {
+      title: "DCA Trading Bot",
+      text: "DCA (Dollar Cost Averaging) бот - это программа, разработанная для автоматического выполнения стратегии долларового усреднения при инвестировании. Он основан на алгоритмах искусственного интеллекта и предназначен для помощи инвесторам в автоматическом распределении их инвестиций в течение определенного периода времени.",
+      url: "#",
+      btn: "Choose",
+      cols: [
+        {
+          title: "Risks",
+          val: "10%",
+        },
+        {
+          title: "APY",
+          val: "48%",
+        },
+      ],
+    },
+  ];
 
-    useEffect(() => {
-        if (user) {
-            const db = ref(database, 'addBotForm/' + userID)
-
-            const handleDataChange = (snapshot) => {
-                const data = snapshot.val()
-                if(data){
-                  const items = Object.entries(data).map(([id, item]) => ({ id, name: item.add_bot_name, balance: item.add_bot_sum }))
-                  setNewData(items)
-                }
-            }
-            const handleError = (error) => {
-                console.error('Error reading data:', error)
-            }
-            onValue(db, handleDataChange, handleError)
-        }
-    }, [user, newBot, delBot])
-
-    //console.log('setNewBot', newBot)
-
-    if (newData?.length > 0) {
-        const tabslist = [...new Set(newData)]
-        tabslist.map(i => tabsItems.push({ list: i.name, item: <BotPageMain bot_id={i.id} bot_balance={i.balance} setDelBot={setDelBot} /> }))
+  const hgroup = {
+    title: 'Our Solutions',
+    link: {
+        label: 'Learn More',
+        url: '#'
     }
+  };
 
-
-
-    return (
-      <></>
-    )
+  return (
+    <>
+      <Banner toggleShow={showBanner} />
+      <Hgroup props={hgroup}/>
+      <div className={styles.cards}>
+        {cards.map((i, k) => (
+          <Card props={i} key={k} />
+        ))}
+      </div>
+    </>
+  );
 }
 
-export default RoboticTradingPage
+export default RoboticTradingPage;
