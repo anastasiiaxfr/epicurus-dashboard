@@ -33,6 +33,7 @@
         gap: var(--gap)
         padding: var(--gapLg)
         padding-top: 0
+        padding-bottom: var(--gap)
 
     &_row
         display: grid
@@ -47,10 +48,11 @@
         transition: $trs
 
         &:nth-child(odd)
-            background-color: $dark16
+            //background-color: $dark16
+            background-color: $dark
 
         &:hover
-            background-color: darken($dark16, 6%)
+            background-color: darken($dark, 2%)
 
     &_icon
         +flex(inline-flex, center, center, nowrap)

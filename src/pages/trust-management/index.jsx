@@ -7,7 +7,7 @@ import Banner from "../../components/Banner";
 function TrustManagementPage() {
   const [hideForm, setHideForm] = useState(true);
   const [noTrustManagement, setNoTrustManagement] = useState(true);
-  const [showBanner, setShowBanner] = useState(true);
+  const [showBanner, setShowBanner] = useState(false);
 
   useEffect(() => {
     if (hideForm === true && noTrustManagement === true) {

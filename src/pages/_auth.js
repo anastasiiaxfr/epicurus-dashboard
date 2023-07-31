@@ -3,6 +3,7 @@ import * as fb from "./_firebase";
 // import { useAuthState } from 'react-firebase-hooks/auth'
 
 import LoadingModal from "../components/Loading/Modal";
+import Preloader from "../components/Preloader";
 
 export const AuthContext = createContext();
 
@@ -10,29 +11,39 @@ export default function AuthProvider({ children }) {
   // const [user] = useAuthState(auth)
   // const userID = user?.uid
 
-  const { auth, onAuthStateChanged, onIdTokenChanged, signOut, signInWithCustomToken } = fb;
+  const {
+    auth,
+    onAuthStateChanged,
+    onIdTokenChanged,
+    signOut,
+    signInWithCustomToken,
+  } = fb;
 
   const [currentUser, setCurrentUser] = useState(true);
   const [pending, setPending] = useState(true);
 
-  const queryParams = new URLSearchParams(window.location.search);
-  const token = queryParams.get("token");
+  // const queryParams = new URLSearchParams(window.location.search);
+  // const token = queryParams.get("token");
+
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 1500);
+  }, []);
+
+  // useEffect(() => {
+  //   if(token){
+  //       signInWithCustomToken(auth, token)
+  //       .then((userCredential) => {
+  //         // User is now signed in on Site A
+  //         alert("Sign In");
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error verifying token:", error);
+  //       });
+  //   }
+  // }, [token]);
 
   useEffect(() => {
-    if(token){
-        signInWithCustomToken(auth, token)
-        .then((userCredential) => {
-          // User is now signed in on Site A
-          alert("Sign In");
-        })
-        .catch((error) => {
-          console.error("Error verifying token:", error);
-        });
-    }
-  }, [token]);
-
-  useEffect(() => {
-
     onAuthStateChanged(auth, async (user) => {
       //if(user){alert(user)}
 
@@ -62,7 +73,6 @@ export default function AuthProvider({ children }) {
     });
   }, []);
 
-
   if (pending) {
     return (
       <AuthContext.Provider
@@ -71,19 +81,22 @@ export default function AuthProvider({ children }) {
           currentUser,
         }}
       >
-        <LoadingModal />
+        {!currentUser && <LoadingModal />}
       </AuthContext.Provider>
     );
   }
 
   return (
-    <AuthContext.Provider
-      value={{
-        auth,
-        currentUser,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
+    <>
+      {loading && <Preloader />}
+      <AuthContext.Provider
+        value={{
+          auth,
+          currentUser,
+        }}
+      >
+        {children}
+      </AuthContext.Provider>
+    </>
   );
 }

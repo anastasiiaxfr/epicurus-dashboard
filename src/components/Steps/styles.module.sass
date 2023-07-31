@@ -1,0 +1,26 @@
+@import 'src/assets/styles/vars.sass'
+
+.steps
+    width: 100%
+    padding: var(--gapLg)
+    background-color: $dark5
+    border-radius: $brs28
+
+    &_header
+        +flex(flex, center, space-between, wrap)
+        gap: var(--gap)
+        padding-bottom: var(--gapLg)
+
+    &_container
+        display: grid
+        grid-template-columns: repeat(3, 1fr)
+        gap: var(--gap)
+
+    &_title
+        +ft(22, 22, 700)
+        letter-spacing: 0.02em
+        color: $main
+
+    &_link
+        +ft(16, 16, 500)
+        color: $magenta2

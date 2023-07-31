@@ -3,30 +3,11 @@
 @import 'src/assets/styles/btn.sass'
 
 .banner
-    position: relative
-    z-index: 1
     +flex(flex, flex-end, space-between, nowrap)
     width: 100%
     margin: 0 auto
     //background: $grad16
-    background-color: $black
-    backdrop-filter: blur(60px)
-    border-radius: $brs28
-    box-shadow: $bxsd9
-    user-select: none
-    &::before
-        content: ''
-        width: 1px
-        height: 0
-        padding-top: 25%
-    &::after
-        content: ''
-        +ps(absolute, (l, 0), (b, 0))
-        z-index: -1
-        display: block
-        +sz(100%, 100%)
-        background: linear-gradient(0deg, $dark2, transparent)
-        border-radius: inherit
+    @extend %banner
     
     &_img
         +ps(absolute, (t, 0), (l, 0), (r, 0), (b, 0))

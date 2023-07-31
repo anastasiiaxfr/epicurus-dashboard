@@ -4,7 +4,7 @@ import Table from '../../components/Tables'
 import Hgroup from "../../components/Hgroup";
 
 
-function DepositPage() {
+function PaymentsPage() {
     const hgroup = {
         title: 'Transaction',
         link: {
@@ -27,4 +27,4 @@ function DepositPage() {
     )
 }
 
-export default DepositPage
+export default PaymentsPage

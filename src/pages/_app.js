@@ -1,11 +1,25 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useRouter } from "next/router";
 
 import AuthProvider from "./_auth";
 
 import Seo from "../components/Seo";
-import Preloader from "../components/Preloader";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
+
+
+import Icon1 from "../assets/icons/i1.svg";
+import Icon2 from "../assets/icons/i2.svg";
+import Icon3 from "../assets/icons/i3.svg";
+import Icon4 from "../assets/icons/i4.svg";
+import Icon5 from "../assets/icons/i5.svg";
+import Icon6 from "../assets/icons/i6.svg";
+import Icon7 from "../assets/icons/i7.svg";
+import Icon9 from "../assets/icons/i9.svg";
+import Icon10 from "../assets/icons/i10.svg";
+import Icon11 from "../assets/icons/i11.svg";
+import Icon12 from "../assets/icons/i12.svg";
+
 
 import "../assets/styles/main.sass";
 
@@ -55,23 +69,119 @@ const schema = {
 };
 
 export default function App({ Component, pageProps }) {
-  const [loading, setLoading] = useState(true);
+  const { push } = useRouter();
+  const router = useRouter();
 
-  const [title, setTitle] = useState("Home");
-  const getTitle = (value) => {
-    setTitle(value);
+  const currentURL = router.pathname;
+
+  let baseURL = `/`;
+
+  const links = [
+    {
+      group: "Products",
+      items: [
+        {
+          enable: true,
+          title: "Dashboard",
+          icon: <Icon1 with="16" height="16" />,
+          url: baseURL,
+        },
+        {
+          enable: true,
+          title: "Robotic Trading",
+          icon: <Icon2 with="16" height="16" />,
+          url: "/robotic-trading",
+        },
+        {
+          enable: true,
+          title: "Trust Management",
+          icon: <Icon3 with="16" height="16" />,
+          url: "/trust-management",
+        },
+        {
+          enable: true,
+          title: "Deposit",
+          icon: <Icon4 with="16" height="16" />,
+          url: "/deposit",
+        },
+        {
+          enable: true,
+          title: "Academy",
+          icon: <Icon5 with="16" height="16" />,
+          url: "/academy",
+        },
+      ],
+    },
+    {
+      group: "Payments",
+      items: [
+        {
+          enable: true,
+          title: "Payments",
+          icon: <Icon6 with="16" height="16" />,
+          url: "/payments",
+        },
+        {
+          enable: true,
+          title: "My API",
+          icon: <Icon7 with="16" height="16" />,
+          url: "/myapi",
+        },
+      ],
+    },
+    {
+      group: "Help and Settings",
+      items: [
+        {
+          enable: true,
+          title: "Wiki",
+          icon: <Icon10 with="16" height="16" />,
+          url: "/wiki",
+        },
+        {
+          enable: true,
+          title: "Support",
+          icon: <Icon9 with="16" height="16" />,
+          url: "/support",
+        },
+        {
+          enable: false,
+          title: "Bug Report",
+          icon: <Icon10 with="16" height="16" />,
+          url: "/bug-report",
+        },
+        {
+          enable: true,
+          title: "Settings",
+          icon: <Icon11 with="16" height="16" />,
+          url: "/settings",
+        },
+        {
+          enable: false,
+          title: "Dark Theme",
+          icon: <Icon12 with="16" height="16" />,
+        },
+      ],
+    },
+  ];
+
+  const findTitleByURL = (url) => {
+    for (const group of links) {
+      for (const item of group.items) {
+        if (item.url === url) {
+          return item.title;
+        }
+      }
+    }
+    return null; // Return null if the title is not found
   };
 
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 1500);
-  }, []);
+  const currentTitle = findTitleByURL(currentURL) || "Home";
 
   return (
     <>
       <Seo seo={seo} />
-      {loading ? (
-        <Preloader />
-      ) : (
+      
         <>
           <script
             type="application/ld+json"
@@ -80,9 +190,9 @@ export default function App({ Component, pageProps }) {
 
           <AuthProvider>
             <div className="pg__wrap">
-              <Sidebar getTitle={getTitle} />
+              <Sidebar links={links} currentURL={currentURL}/>
               <main className="pg__container">
-                <Header title={title} getTitle={getTitle} />
+                <Header title={currentTitle} />
                 <article className="pg__content">
                   <Component {...pageProps} />
                 </article>
@@ -90,7 +200,7 @@ export default function App({ Component, pageProps }) {
             </div>
           </AuthProvider>
         </>
-      )}
+      
     </>
   );
 }

@@ -12,6 +12,7 @@ $red2: #E03535
 $red3: #DA3030
 
 $magenta: #6833D4
+$magenta2: #7F3ADA
 
 $blue: #382EE7
 $pink: #F139E5
@@ -75,12 +76,13 @@ $grad10: linear-gradient(#CC09C8, #8809DB)
 $grad11: linear-gradient(#BE4646, #DA3059, #E03535)
 $grad12: linear-gradient(45deg, #FD9C38, #FD9C38)
 $grad13: linear-gradient(#7B46E5, #9F46E5)
-
 $grad14: linear-gradient(90deg, rgba(#1BE72F, 0.1), rgba(#36F683, 0.1))
 $grad14_0: linear-gradient(180deg, #1BE72F, #36F683)
 $grad15: linear-gradient(180deg, #1BE72F, darken(#36F683, 40%))
 $grad16: linear-gradient(125deg, rgba(#FD9C38, 0.22), rgba(#7830A0, 0.22))
 $grad17: linear-gradient(90deg, #2F2DE8 -50%, #F539E5)
+$grad18: linear-gradient(180deg, transparent, rgba($black, 0.9))
+$grad19: linear-gradient(90deg, transparent 80%, rgba($black, 0.9))
 
 
 $bxsd1: 0 0 0 2px #0F135A, 1px 1px 0 2px $main, 1px 0 0 2px #6530DA, 0 1px 0 2px #763FBF, 1px 0 0 2px #7E49F3
@@ -93,7 +95,6 @@ $bxsd7: 0 0 10px 2px rgba($black, 0.1)
 $bxsd8: 0 0 0 2px rgba(#1BE726, 0.5)
 //$bxsd9: 0 0 20px -5px rgba(#FD9C38, 0.25)
 $bxsd9: 0 0 20px -5px rgba($main, 0.25)
-
 $bxsd10: inset 0 0 10px 2px rgba($black, 0.16)
 
 $bd1: 1px solid rgba($white, 0.06)
@@ -318,7 +319,32 @@ $i: 0
 
     &::-webkit-scrollbar-thumb
         border-radius: 20pc
-        
+
+%banner       
+    position: relative
+    z-index: 1
+    background-color: $black
+    backdrop-filter: blur(60px)
+    //border-radius: $brs28
+    border-radius: $brs28
+    box-shadow: $bxsd9
+    user-select: none
+    transition: $trs
+    overflow: hidden
+    user-select: none
+    cursor: pointer
+    &::before
+        content: ''
+        +sz(0, 0)
+        padding-top: 25%
+    &::after
+        content: ''
+        +ps(absolute, (l, 0), (b, 0))
+        z-index: -1
+        display: block
+        +sz(100%, 100%)
+        background: linear-gradient(0deg, $dark2, transparent)
+        border-radius: inherit
 
 %card
     width: 100%

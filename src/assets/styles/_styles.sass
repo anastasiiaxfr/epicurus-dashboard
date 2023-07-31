@@ -50,13 +50,12 @@ a
             border-radius: $brs10
 
         &.active // TODO REFACTORING
-            min-width: 280px
+            //min-width: 280px
             border-radius: 0
             z-index: 100500 - 1
             overflow: hidden
             overflow-y: scroll
             @extend %scroll
-
             .pg__sidebar-inner
                 gap: var(--gap)
 
@@ -74,7 +73,7 @@ a
                         display: block
 
             +miw($xmd)
-                max-width: 75px
+                max-width: var(--sidebar-width-sm)
                 min-width: 0
                 [class*=sidebar_nav] 
                     span
@@ -98,7 +97,9 @@ a
         
 
         +maw($xmd)
+            max-width: var(--sidebar-width-sm)
             &.active
+                min-width: var(--sidebar-width)
                 +ps(fixed, (t, 0), (l, 0))
             &-inner
                 gap: 0

@@ -8,7 +8,7 @@ import Btn from "../../components/Form/Btn";
 import BannerImg from "../../assets/img/banners/banner1.png";
 
 export default function Banner({ toggleShow }) {
-    const [show, setShow] = useState(true);
+    const [show, setShow] = useState(false);
 
     useEffect(() => {
         toggleShow === false ? setShow(false) : setShow(true)

@@ -8,11 +8,11 @@ export default function Hgroup({props}) {
         <div className={styles.hgroup}>
         <h2 className={styles.hgroup_title}>{title}</h2>
 
-        <div className={styles.hgroup_cta}>
+        {link && <div className={styles.hgroup_cta}>
           <Link href={link.url} className={styles.hgroup_link}>
             {link.label}
           </Link>
-        </div>
+        </div>}
       </div>
     )
 }

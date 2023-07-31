@@ -3,11 +3,15 @@
 .sidebar_nav
     +flex(flex, center, center, nowrap)
     flex-direction: column
-    gap: var(--gapSm)
+    gap: var(--gapXs)
     width: 100%
     padding: 0
     margin: 0 
     list-style-type: none
+
+    &:last-of-type
+        margin-top: auto
+        margin-top: 20%
 
 
     &_btm
@@ -25,8 +29,8 @@
         a, div
             +flex(flex, center, center, nowrap)
             gap: 12px
-            padding: 14px 16px
-            width: 100%
+            padding: 16px 14px
+            +sz(100%, auto)
             //white-space: nowrap
             //gap: 20px
             +ft(14, 14, 700)
@@ -44,8 +48,6 @@
                 color: $white    
 
             &.active
-                padding: 10px 14px
-                font-weight: 600
                 +theme(main)
                 background: $grad7
 
@@ -66,6 +68,9 @@
         +maw($xmd)
             a, div
                 padding: 8px 4px
+                
+                &.active
+                    border-radius: 4px
 
             span
                 display: none
