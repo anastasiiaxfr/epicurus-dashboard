@@ -31,6 +31,7 @@ $dark12: #22242B
 $dark14: #1A1D25
 $dark15: #D9D9D9
 $dark16: #202125
+$dark17: #1D1B23
 
 
 $stroke1: #4D4D4D
@@ -39,6 +40,8 @@ $stroke3: #2E2E2E
 $stroke4: #2C2C2C
 $stroke5: #9E9E9E
 $stroke6: #777777
+$stroke7: #4E4E4E
+
 
 $text_0: #5F5F5F
 $text_1: #686868
@@ -56,12 +59,12 @@ $text_12: #B5B5B5
 $text_13: #7A7A7A
 $text_14: #C3C3C3
 $text_15: #EFEFEF
+$text_16: #B4B4B4
 
 
 $grad0: linear-gradient(#464DBE, #6530DA, #7136F1)
 $grad1: linear-gradient(#0F135A, #6530DA, #763FBF, #7E49F3)
 $grad2: linear-gradient(125deg, #464DBE, #6530DA, #7136F1)
-
 $grad3: linear-gradient(90deg, rgba(#FDE02A, 0.1), rgba(#F24072, 0.1))
 $grad3_0: linear-gradient(180deg, #FDE02A, #F24072)
 $grad4: linear-gradient(90deg, rgba(#00ECFA, 0.1), rgba(#1101FF, 0.1))
@@ -96,6 +99,8 @@ $bxsd8: 0 0 0 2px rgba(#1BE726, 0.5)
 //$bxsd9: 0 0 20px -5px rgba(#FD9C38, 0.25)
 $bxsd9: 0 0 20px -5px rgba($main, 0.25)
 $bxsd10: inset 0 0 10px 2px rgba($black, 0.16)
+$bxsd11: 0 0 10px 2px rgba($black, 0.02)
+
 
 $bd1: 1px solid rgba($white, 0.06)
 $bd2: 2px solid #4D4D4D
@@ -103,12 +108,6 @@ $bd3: 2px solid $main
 $bd4: 2px solid rgba(#2E2E2E, 0.5)
 $bd5: 2px solid #2E2E2E
 
-$brs8: 8px
-$brs10: 10px	
-$brs15: 15px
-$brs18: 18px	
-$brs20: 20px	
-$brs28: 28px	
 
 $ffHeading: 'Inter'
 $ffText: 'Inter'
@@ -123,6 +122,7 @@ $sm: 768
 $xsm: 640
 $xs: 480
 $xxs: 360
+
 
 $trs: all 0.35s ease-in-out
 
@@ -325,8 +325,7 @@ $i: 0
     z-index: 1
     background-color: $black
     backdrop-filter: blur(60px)
-    //border-radius: $brs28
-    border-radius: $brs28
+    border-radius: var(--brsLg)
     box-shadow: $bxsd9
     user-select: none
     transition: $trs
@@ -351,8 +350,8 @@ $i: 0
     margin: 10px auto
     padding: var(--gapMd)
     +theme(dark)
-    border-radius: $brs20
-    box-shadow: $bxsd1
+    border-radius: var(--brsMd)
+    //box-shadow: $bxsd1
     background-repeat: no-repeat
     background-size: cover
     color: $white
@@ -364,15 +363,12 @@ $i: 0
     padding: var(--gapLg)
     //border: $bd4
     background-color: $dark5
-    border-radius: $brs28
+    border-radius: var(--brsLg)
     background-repeat: no-repeat
     background-size: cover
     box-shadow: $bxsd7
     color: $white
     overflow: hidden
-
-    +maw($xs)
-        border-radius: $brs10
 
 %card3
     position: relative
@@ -381,7 +377,7 @@ $i: 0
     margin: 10px auto
     padding: var(--gapMd)
     //border: $bd4
-    border-radius: $brs20
+    border-radius: var(--brsMd)
     //border: $bd5
     color: $white
     overflow: hidden

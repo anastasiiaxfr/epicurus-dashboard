@@ -18,8 +18,17 @@
     --gapXs: 8px
     --gapMd: 24px
     --gapLg: 32px
+
+    --brsXs: 10px
+    --brsSm: 15px
+    --brsMd: 20px
+    --brsLg: 28px
+
     +maw($xmd)
         --logoW: 36px
         --hero-sidebar-width: 330px
     +maw($md)
         --hero-sidebar-width: 100%
+    +maw($xs)
+        --brsLg: 10px
+        --brsMd: 10px

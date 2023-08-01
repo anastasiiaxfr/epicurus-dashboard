@@ -19,8 +19,8 @@
 
     &_divider
         max-width: 144px
-        width: 100%
-        height: 2px
+        +sz(100%, 2px)
+        margin-top: var(--gap)
         background-color: $dark15
         border-radius: 10px
 
@@ -31,7 +31,6 @@
         padding: var(--gapMd)
 
     &_title
-        margin-bottom: var(--gap)
         +ft(52, 52*1.2, 800)
         letter-spacing: 0.04em
         @extend %text-gradient
@@ -71,8 +70,10 @@
             opacity: 0.1
     
     +maw($xs)
-        border-radius: $brs8
+        border-radius: var(--brsXs)
         &::before
             padding-top: 0
+        &_divider
+            display: none
         &_title
-            +ft(24, 24*1.2, 900)
+            +ft(20, 20*1.2, 900)

@@ -16,9 +16,9 @@ $menu_w: 226px
         gap: 15px
         padding: 15px 15px
         @extend %card
-        background-color: $dark3
-        border-radius: $brs10
-   
+        background-color: $dark2
+        border-radius: var(--brsXs)
+
     &_content, &_header
         width: 100%
 
@@ -76,12 +76,10 @@ $menu_w: 226px
         &_wrap
             +sz(48px, 48px)
             +flex(flex, center, center, nowrap)
-            background-color: $dark3
-            border-radius: $brs18
+            border-radius: var(--brsSm)
+            background-color: lighten($dark, 6%)
             cursor: pointer
-            &:hover, &:active, &:focus
-                background-color: darken($dark3, 2%)
+
             &.active
                 outline: $bd3
-                color: $bd3
 

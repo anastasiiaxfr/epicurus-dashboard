@@ -7,8 +7,8 @@
     //background-color: darken($dark8, 20%)
     background-color: $dark2
     //border: $bd5
-    box-shadow: $bxsd1
-    border-radius: $brs28
+    //box-shadow: $bxsd1
+    border-radius: var(--brsLg)
 
     &_header
         +flex(flex, flex-start, space-between, nowrap)
@@ -69,7 +69,6 @@
             color: $green
 
     +maw($md)
-        border-radius: $brs10
         &_info::before
             display: none
         &_body

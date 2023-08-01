@@ -7,11 +7,11 @@
     margin-right: auto
     //border-spacing: 15px
     border-collapse: collapse
-    border-radius: $brs20
+    border-radius: var(--brsMd)
     text-align: left
 
     overflow: hidden
-    box-shadow: $bxsd1
+    //box-shadow: $bxsd1
 
     &:last-of-type
         margin-bottom: 0
@@ -100,25 +100,27 @@
             color: $red
 
     +maw($md)
+        box-shadow: none
+        background-color: transparent
+        
+        &_body
+            padding: 0
+
         &_heading
             display: none
         
-        &_body
-            padding: var(--gap)
-
         &_row
             display: grid
-            grid-template-columns: repeat(auto-fill, minmax(calc(50% - 20px), 1fr))
-            //gap: 20px
+            gap: var(--gap)
             margin: 0 auto
-            padding: var(--gap)
-            border: 1px solid $dark2
-            border-width: 1px 0
-            border-radius: $brs10
+            padding: var(--gapMd)
+            border-radius: var(--brsXs)
+            grid-template-columns: 1fr 1fr
 
-            &:nth-child(odd)
-                background-color: rgba($dark16, 0.5)
+            &, &:nth-child(odd)
+                background-color: $dark2
            
+
             & > div
                 position: relative
                 display: grid
@@ -144,17 +146,13 @@
         &_icon
             display: none
 
-        &_row
-            display: grid
-            grid-template-columns: 1fr 1fr
-
+          
     +maw($sm)
         &_row
             grid-template-columns: 1fr
-            gap: var(--gapXs)
+            gap: var(--gap)
 
             & > div
-                padding: 5px 15px
                 grid-template-columns: 1fr 1fr
                 &::before
                     letter-spacing: 0.1em
@@ -162,9 +160,8 @@
     +maw($xs)
         &_row
             grid-template-columns: 1fr
-
+           
             & > div
-                padding: 5px 15px
                 grid-template-columns: 1fr 
                 &::before
                     font-size: 70%

@@ -4,6 +4,7 @@
 
 .card
     @extend %card
+    margin: 0
 
     &_header
         +flex(flex, flex-start, space-between, nowrap)
@@ -65,7 +66,8 @@
         color: $green
 
     +maw($md)
-        border-radius: $brs10
+        box-shadow: none
+
         &_status
             &::before
                 display: none

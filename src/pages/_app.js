@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useRouter } from "next/router";
 
 import AuthProvider from "./_auth";
@@ -24,7 +23,7 @@ import Icon12 from "../assets/icons/i12.svg";
 import "../assets/styles/main.sass";
 
 const seo = {
-  metaHeading: "Epicurus | <💛💙/>",
+  metaHeading: "Epicurus | 💛💙",
   metaDescription: "Epicurus Description",
   metaSiteName: "Epicurus",
   metaLocale: "en",
@@ -69,7 +68,6 @@ const schema = {
 };
 
 export default function App({ Component, pageProps }) {
-  const { push } = useRouter();
   const router = useRouter();
 
   const currentURL = router.pathname;
@@ -173,7 +171,7 @@ export default function App({ Component, pageProps }) {
         }
       }
     }
-    return null; // Return null if the title is not found
+    return null; 
   };
 
   const currentTitle = findTitleByURL(currentURL) || "Home";

@@ -6,16 +6,13 @@ $menu_w: 280px
     position: relative
     +sz(48px, 48px)
     +flex(flex, center, center, nowrap)
-    background-color: $dark3
-    border-radius: $brs18
+    //background-color: $dark3
+    background-color: lighten($dark, 6%)
+    border-radius: var(--brsSm)
     cursor: pointer
-
-    &:hover, &:active, &:focus
-        background-color: darken($dark3, 2%)
 
     &.active
         outline: $bd3
-        color: $main
 
     &_icon
         cursor: pointer
@@ -45,8 +42,8 @@ $menu_w: 280px
         gap: 15px
         padding: 15px 15px
         @extend %card
-        background-color: $dark3
-        border-radius: $brs10
+        background-color: $dark2
+        border-radius: var(--brsXs)
         
     &_item
         +theme(dark)
@@ -54,8 +51,8 @@ $menu_w: 280px
         width: 100%
         padding: 15px
         margin: 0 auto
-        border-radius: $brs10
-        background-color: darken($dark3, 3%)
+        border-radius: var(--brsXs)
+        background-color: lighten($dark2, 2%)
 
     &_content
         width: 100%

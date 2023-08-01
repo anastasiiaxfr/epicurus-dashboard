@@ -59,9 +59,8 @@ $cardH: 638px
         z-index: 1
         height: 100%
         //min-height: $cardH
-      
         border: $bd4
-        border-radius: $brs28
+        border-radius: var(--brsLg)
         overflow: hidden
 
         &::after, &::before
@@ -79,7 +78,7 @@ $cardH: 638px
             //backdrop-filter: blur(260px)
             backdrop-filter: blur(75px)
             background-color: rgba($white, 0.06)
-            border-radius: $brs28
+            border-radius: inherit
 
         &::after
             +ps(absolute, (b, var(--gapLg)), (l, var(--gapLg)))
@@ -107,12 +106,9 @@ $cardH: 638px
 +maw($xs)
     .hero
         &_title
-            +ft(16, 16, 700)  
+            +ft(16, 16*1.4, 700)  
 
         &_container_icon
             display: none
             
-        &_container_inner
-            :global([class*=btn])
-                +ft(14, 14, 500)
-
+       

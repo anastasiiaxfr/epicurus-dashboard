@@ -4,12 +4,12 @@
     height: 45px
     padding: 10px 20px
     background-color: $main
-    border-radius: $brs10
+    border-radius: var(--brsXs)
     border: none
     color: $white
     cursor: pointer
     text-align: center
-    +ft(16, 16, 500)
+    +ft(14, 14, 600)
     letter-spacing: 0.05em
     transition: $trs
 
@@ -45,7 +45,6 @@
     &_link
         +flex(inline-flex, center, center, nowrap)
         //min-width: 145px
-        +ft(14, 21, 500, $ffHeading)
         background: transparent
         border: none
         cursor: pointer
@@ -54,31 +53,19 @@
         padding: 10px 20px
         background-color: $dark12
         //color: $text_4
-        color: $white
+        color: $text_3
+        *
+            letter-spacing: 0.04em
         &:hover, &:active, &:focus
             transition: $trs
-            background-color: darken($dark12, 2%)
+            background-color: $dark
 
-    &_grad 
+    &_grad, &_grad2
         +flex(inline-flex, center, center, nowrap)
         min-width: 122px
         padding: 14px 32px
         transition: none
-        background: $grad0
-
-        span
-            margin-right: 5px
-
-        &:hover, &:focus, &:active
-            box-shadow: $bxsd3
-
-    &_grad2
-        +flex(inline-flex, center, center, nowrap)
-        min-width: 122px
-        padding: 14px 32px
-        transition: none
-        +ft(14, 14, 600)
-        border-radius: $brs8
+        border-radius: var(--brsXs)
         background: $grad7
         *
             letter-spacing: 0.04em
@@ -86,7 +73,7 @@
             background: $main
 
     +maw($xs)
-        &, & input, &_link
+        &, &_link
             width: 100%
        
     +maw($xxs)

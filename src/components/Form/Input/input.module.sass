@@ -2,7 +2,7 @@
 
 .wrap
     position: relative
-    border-radius: $brs10
+    border-radius: var(--brsXs)
     background-color: $black
 
     .input + *
@@ -29,18 +29,18 @@
             height: 50px
             //+ft(16, 16, 500)
             +ft(14, 14, 500)
-            //border-radius: $brs20
+            //border-radius: var(--brsMd)
             border: $bd4
             background-color: $dark11
             //border-color: $dark11
-            border-radius: $brs10
+            border-radius: var(--brsXs)
             transition: $trs
 
             &:focus, &:active, &:hover
                 border-color: $main
             
         .wrap
-            border-radius: $brs20
+            border-radius: var(--brsMd)
 
         .label
             +ft(18, 18, 600) 
@@ -71,12 +71,12 @@
             input
                 padding: 4px 16px
                 +ft(12, 12, 400)
-                border-radius: $brs10
+                border-radius: var(--brsXs)
 
 .input 
     position: relative
     z-index: 1
-    border-radius: $brs10
+    border-radius: var(--brsXs)
 
     &__placeholder
         +ps(absolute, (l, 15px), (t, 0), (b, 0))
@@ -88,7 +88,7 @@
         width: 100%
         height: 45px
         padding: 12px 20px
-        border-radius: $brs10
+        border-radius: var(--brsXs)
         background: transparent
         border: $bd3
         color: inherit

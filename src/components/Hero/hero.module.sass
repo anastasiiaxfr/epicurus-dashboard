@@ -11,6 +11,7 @@
     .main
         display: flex
         flex-direction: column
+        gap: var(--gap)
 
     .img
         position: relative
@@ -29,6 +30,7 @@
         @extend %card
         +flex(flex, center, center, nowrap, column)
         max-width: var(--hero-sidebar-width)
+        margin: 0
         &_card
             width: 100%
             flex: 1

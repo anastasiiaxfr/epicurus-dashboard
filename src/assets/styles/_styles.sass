@@ -38,24 +38,28 @@ a
         padding-right: 0
 
         &-content
+            +ps(sticky, (t, var(--gap)), (l, 0))
             +flex(flex, flex-start, flex-start, nowrap, column)
             gap: 22px
-            width: 80%
-            margin: var(--gap) auto
+            width: 100%
+            padding: var(--gap)
 
         &-inner
             +ps(sticky, (t, var(--gap)), (l, 0))
             +flex(flex, flex-start, flex-start, nowrap, column)
+            min-height: calc(100vh - 32px)
             +theme(dark)
-            border-radius: $brs10
+            border-radius: var(--brsXs)
 
         &.active // TODO REFACTORING
             //min-width: 280px
             border-radius: 0
             z-index: 100500 - 1
-            overflow: hidden
-            overflow-y: scroll
-            @extend %scroll
+           
+            .pg__sidebar-content
+                padding: var(--gap) 
+                +ps(sticky, (t, var(--gap)), (l, 0))
+               
             .pg__sidebar-inner
                 gap: var(--gap)
 
@@ -75,9 +79,14 @@ a
             +miw($xmd)
                 max-width: var(--sidebar-width-sm)
                 min-width: 0
+              
+                .pg__sidebar-content
+                    +ps(sticky, (t, var(--gap)), (l, 0))
+
                 [class*=sidebar_nav] 
                     span
                         display: none
+
                 [class*=logo]
                     width: 36px 
                     margin: 0 auto
@@ -86,8 +95,21 @@ a
                         width: 36px
                         path:nth-of-type(4)
                             display: none
+
+            +maw($xmd)
                 .pg__sidebar-inner
+                    height: 100%
                     top: 0
+                    overflow: hidden
+                    overflow-y: scroll
+                    
+                    &::-webkit-scrollbar
+                        +sz(10px, 10px)
+
+                    &::-webkit-scrollbar-track
+
+                    &::-webkit-scrollbar-thumb
+                        border-radius: 20pc
 
         
         &-logo
@@ -103,7 +125,7 @@ a
                 +ps(fixed, (t, 0), (l, 0))
             &-inner
                 gap: 0
-                padding: 12px 
+                +ps(sticky, (t, var(--gap)), (l, 0))
             &-logo
                 border: none
                 padding: 0
