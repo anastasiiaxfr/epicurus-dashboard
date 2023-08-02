@@ -1,8 +1,9 @@
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import Push from "../components/Push";
 import Products from "../components/Products";
 import Hgroup from "../components/Hgroup";
 import Steps from "../components/Steps";
+import HomeDashboard from "../components/Page/Home";
 
 import { AuthContext } from "../pages/_auth";
 
@@ -15,6 +16,7 @@ function HomePage() {
   const { auth, currentUser } = useContext(AuthContext);
 
   const userName = currentUser.displayName;
+  const [toggleDashboard, setToggleDashboard] = useState(false);
 
   const hgroup = {
     title: "Our Products",
@@ -52,20 +54,26 @@ function HomePage() {
 
   return (
     <>
-      <Push
-        url="#"
-        theme="default"
-        type="Welcome!"
-        text={`We are very pleased to present to you Epicurus, ${userName}!`}
-        close={false}
-      />
+      {toggleDashboard ? (
+        <HomeDashboard />
+      ) : (
+        <>
+          <Push
+            url="#"
+            theme="default"
+            type="Welcome!"
+            text={`We are very pleased to present to you Epicurus, ${userName}!`}
+            close={false}
+          />
 
-      <Steps />
+          <Steps setToggleDashboard={setToggleDashboard} />
 
-      {/* TRANSACTION */}
-      <Hgroup props={hgroup} />
+          {/* TRANSACTION */}
+          <Hgroup props={hgroup} />
 
-      {products && <Products products={products} />}
+          {products && <Products products={products} />}
+        </>
+      )}
     </>
   );
 }

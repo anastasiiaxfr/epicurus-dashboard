@@ -5,7 +5,7 @@ import styles from "./styles.module.sass";
 
 export default function Products({ products }) {
   return (
-    <div className={styles.products_cards}>
+    <div className={styles.products_cards} id="products">
       {products.map((i, k) => (
        
           <Link className={styles.products} key={k} href={i.url}>

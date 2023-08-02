@@ -1,7 +1,9 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 
-import { ref, database, onValue, remove } from "../../../pages/_firebase";
+import { ref, database, remove } from "../../../pages/_firebase";
 import { AuthContext } from "../../../pages/_auth";
+import { ProductContext } from "../../../pages/_products";
+
 
 import ModalConfirmation from "../../../components/Modal/ModalConfirmation";
 import ModalError from "../../../components/Modal/ModalAuthError";
@@ -13,12 +15,12 @@ import DelIcon from "../../../assets/icons/del.svg";
 
 import styles from "./style.module.sass";
 
-export default function ApiKeyList({setShow}) {
+export default function ApiKeyList() {
   const { currentUser } = useContext(AuthContext);
   const userID = currentUser.uid;
 
-  const [delApiKey, setDelApiKey] = useState(false);
-  const [newApiKey, setNewApiKey] = useState([]);
+  const { newTrustManagement } = useContext(ProductContext);
+
 
   const [apiKeyName, setApiKeyName] = useState('');
   const [apiKeyId, setApiKeyId] = useState(null);
@@ -84,43 +86,10 @@ export default function ApiKeyList({setShow}) {
     setApiKeyName(name);
     setApiKeyId(id);
     setOpenModalDelKeyConfirm(true);
-    setDelApiKey(prev => !prev);
   };
 
-
-  useEffect(() => {
-    if (currentUser) {
-      const db = ref(database, "trustManagement/" + userID);
-
-      const handleDataChange = (snapshot) => {
-        const data = snapshot.val();
-        if (data !== null && data !== undefined) {
-          //console.log(data);
-          const items = Object?.entries(data).map(([id, item]) => ({
-            id,
-            api_name: item.api_name,
-            api_key: item.api_key,
-            api_secret: item.api_secret,
-          }));
-          setNewApiKey(items);
-        } else {
-          setNewApiKey([]);
-        }
-      };
-      const handleError = (error) => {
-        console.error("Error reading data:", error);
-      };
-      onValue(db, handleDataChange, handleError);
-    }
-  }, [currentUser, delApiKey]);
-
-  useEffect(() => {
-    newApiKey.length === 0 ? setShow(true) : setShow(false);
-  }, [newApiKey]);
-
-
-  //console.log('newApiKey', newApiKey);
-
+  //console.log('newTrustManagement', newTrustManagement);
+  
   return (
     <>
       <ModalConfirmation
@@ -145,7 +114,7 @@ export default function ApiKeyList({setShow}) {
       />
 
 
-      {newApiKey?.map((i, k) => (
+      {newTrustManagement?.map((i, k) => (
         <div className={styles.table} key={i.id}>
           <div className={styles.table_header}>
             <div className={styles.table_header_container}>

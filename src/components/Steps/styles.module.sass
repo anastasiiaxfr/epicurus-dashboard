@@ -24,7 +24,7 @@
             margin: auto
             +sz(100%, 0px)
             border-top: 2px dashed $stroke7
-
+            border-radius: inherit
 
     &_title
         +ft(22, 22, 700)
@@ -34,6 +34,22 @@
     &_link
         +ft(16, 16, 500)
         color: $magenta2
+
+    &_icon
+        +flex(flex, center, center, nowrap)
+        +sz(60px, 60px)
+        padding: 16px
+        border-radius: 50%
+        background-color: $green
+        background: $grad15
+        box-shadow: $bxsd6
+
+    &_content
+        flex: 1
+        +flex(flex, center, center, nowrap, column)
+        gap: var(--gapMd)
+        text-align: center
+        +ft(18, 18*1.4, 700)
 
     &_item
         +flex(flex, flex-start, space-between, nowrap, column)
@@ -52,6 +68,9 @@
         &.active
             //box-shadow: $bxsd1
             border-color: $main
+
+        &.completed
+            border-color: $green
 
         &_header
             margin-bottom: var(--gapXs)
@@ -82,6 +101,9 @@
 
         &_container
             grid-template-columns: 1fr
+
+        &_content
+            +ft(16, 16*1.4, 600)
 
         &_item
             &_header

@@ -1,28 +1,79 @@
-import Push from '../../components/Push'
-import Hero from '../../components/Hero'
-import Table from '../../components/Tables'
 import Hgroup from "../../components/Hgroup";
+import Card from "./Card";
 
 
 function DepositPage() {
     const hgroup = {
-        title: 'Transaction',
+        title: 'Our Solutions',
         link: {
             label: 'See All',
             url: '#'
         }
     };
 
+    const deposits = [
+        {
+            type: 'Deposit Classic',
+            about: {
+                title: 'About the Deposit',
+                text: 'DCA (Dollar Cost Averaging) бот - это программа, разработанная для автоматического выполнения стратегии долларового усреднения при инвестировании. Он основан на алгоритмах искусственного интеллекта и предназначен для помощи инвесторам в автоматическом распределении их инвестиций в течение определенного периода времени.'
+            },
+            offer: {
+                title: 'Percentage',
+                val: '10%'
+            },
+            cta: {
+                title: 'Want to invest?',
+                btn: {
+                    title: 'Invest Now',
+                    on_click: '/'
+                }
+            }
+        },
+        {
+            type: 'Deposit Premium',
+            about: {
+                title: 'About the Deposit',
+                text: 'DCA (Dollar Cost Averaging) бот - это программа, разработанная для автоматического выполнения стратегии долларового усреднения при инвестировании. Он основан на алгоритмах искусственного интеллекта и предназначен для помощи инвесторам в автоматическом распределении их инвестиций в течение определенного периода времени.'
+            },
+            offer: {
+                title: 'Percentage',
+                val: '20%'
+            },
+            cta: {
+                title: 'Want to invest?',
+                btn: {
+                    title: 'Invest Now',
+                    on_click: '/'
+                }
+            }
+        },
+        {
+            type: 'Deposit VIP',
+            about: {
+                title: 'About the Deposit',
+                text: 'DCA (Dollar Cost Averaging) бот - это программа, разработанная для автоматического выполнения стратегии долларового усреднения при инвестировании. Он основан на алгоритмах искусственного интеллекта и предназначен для помощи инвесторам в автоматическом распределении их инвестиций в течение определенного периода времени.'
+            },
+            offer: {
+                title: 'Percentage',
+                val: '12%'
+            },
+            cta: {
+                title: 'Want to invest?',
+                btn: {
+                    title: 'Invest Now',
+                    on_click: '/'
+                }
+            }
+        },
+
+    ];
+
     return (
         <>
-            <Push url="#" theme="default" type="Reminder" text="You Successfully Updated your Subscription  |  Ends at 11.07.23" close={false} />
-
-            <Hero />
-            
-            {/* TRANSACTION */}
             <Hgroup props={hgroup}/>
-            <Table />
-            
+
+            <Card deposits={deposits} />
         </>
     )
 }

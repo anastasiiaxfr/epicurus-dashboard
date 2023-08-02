@@ -1,7 +1,7 @@
-import Push from '../../components/Push'
-import Hero from '../../components/Hero'
-import Table from '../../components/Tables'
-import Hgroup from "../../components/Hgroup";
+import Push from '../../../components/Push'
+import Hero from '../../../components/Hero'
+import Table from '../../../components/Tables'
+import Hgroup from "../../../components/Hgroup";
 
 
 function HomePage() {

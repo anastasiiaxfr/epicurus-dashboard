@@ -1,6 +1,8 @@
 import { useRouter } from "next/router";
 
 import AuthProvider from "./_auth";
+import ProductProvider from "./_products";
+
 
 import Seo from "../components/Seo";
 import Header from "../components/Header";
@@ -187,6 +189,7 @@ export default function App({ Component, pageProps }) {
           ></script>
 
           <AuthProvider>
+            <ProductProvider>
             <div className="pg__wrap">
               <Sidebar links={links} currentURL={currentURL}/>
               <main className="pg__container">
@@ -196,6 +199,7 @@ export default function App({ Component, pageProps }) {
                 </article>
               </main>
             </div>
+            </ProductProvider>
           </AuthProvider>
         </>
       

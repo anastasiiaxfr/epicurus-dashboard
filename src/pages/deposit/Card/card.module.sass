@@ -1,0 +1,129 @@
+@import 'src/assets/styles/vars.sass'
+@import 'src/assets/styles/text.sass'
+@import 'src/assets/styles/btn.sass'
+
+.card
+    @extend %card3
+    margin: 0
+
+    &_wrap
+        +flex(flex, center, center, nowrap, column)
+        gap: var(--gap)
+
+    &_header
+        +flex(flex, flex-start, space-between, nowrap)
+        gap: var(--gap)
+        margin-bottom: var(--gapLg)
+
+    &_content
+        display: grid
+        grid-template-columns: 3fr 2fr 1fr 
+        gap: var(--gap)
+
+    &_title
+        +ft(22, 22, 900)
+        letter-spacing: 0.02em
+        color: $main
+        background: $grad13_0
+        -webkit-background-clip: text
+        -webkit-text-fill-color: transparent
+
+        &::before
+            content: '|'
+            margin-right: var(--gapXs)
+
+    &:nth-child(2)
+        .card_title
+            background: $grad9_0
+            -webkit-background-clip: text
+            -webkit-text-fill-color: transparent
+
+    &:nth-child(3)
+        .card_title
+            background: $grad4_1
+            -webkit-background-clip: text
+            -webkit-text-fill-color: transparent
+    
+    &_cols
+        position: relative
+        +flex(flex, flex-start, space-between, nowrap, column)
+        gap: var(--gap)
+        padding: var(--gapMd)
+        background-color: rgba($black, 0.08)
+        border-radius: var(--brsLg)
+        box-shadow: $bxsd10
+
+        &_title
+            width: 100%
+            +ft(18, 18*1.4, 700)
+            letter-spacing: 0.06em
+            color: $main
+
+        &_text
+            +ft(14, 14*1.4, 500)
+            color: $text_14
+
+        &_val
+            +ft(62, 62, 900)
+            letter-spacing: 0.1em
+            color: $green
+   
+
+    +maw($md)
+        &_content
+            grid-template-columns: 1fr 1fr
+
+            & > div:first-child
+                grid-column: 1/-1
+
+    +maw($sm)
+        &_content
+            grid-template-columns: 1fr
+
+        &_cols
+            align-items: center
+
+            &_title
+                text-align: center
+
+            &:first-child
+                
+                .card_cols_title
+                    text-align: left
+
+    +maw($xs)
+        padding: 0
+
+        &::after, &::before
+            display: none
+
+        &_header
+            margin-bottom: var(--gap)
+
+        &_cols
+            align-items: center
+            &:first-child
+                
+                .card_cols_title
+                    text-align: left
+            &_text
+                +ft(12, 12*1.4, 400)
+
+    +maw($xxs)
+        &_header
+            justify-content: center
+
+        &_title
+            text-align: center
+            &::before
+                display: none
+
+        &_cols
+            &_title
+                +ft(15, 15*1.4, 900)
+            &_text
+                +ft(10, 10*1.4, 400)
+
+          
+
+   
