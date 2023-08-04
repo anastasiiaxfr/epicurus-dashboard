@@ -28,8 +28,8 @@ export default function ModalPopup({ openModal, setModalOpen, props, toggleModal
             <div className={styles.modal_title}>{title}</div>
             <div className={styles.modal_text}>{text}</div>
             {btnText2 ? <div className={styles.modal_cta}>
-                <Btn label={btnText} theme="secondary" onClick={toggleModal}/>
-                <Btn label={btnText2} theme="error" onClick={handleClose} /> 
+                <Btn label={btnText} theme="error" onClick={toggleModal}/>
+                <Btn label={btnText2} theme="secondary" onClick={handleClose} /> 
             </div> : <Btn label={btnText} theme="secondary" onClick={handleClose} />}
            
           </div>

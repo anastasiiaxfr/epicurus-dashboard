@@ -5,6 +5,10 @@
 .card
     @extend %card3
     margin: 0
+    border: 2px solid transparent
+
+    &.active
+        border-color: $main
 
     &_header
         +flex(flex, flex-start, space-between, nowrap)
@@ -13,7 +17,6 @@
 
     &_content
         margin-top: var(--gapSm)
-        margin-bottom: var(--gapMd)
         //+ft(14, 14*1.4, 500)
         +ft(13, 13*1.4, 500)
         color: $text_14
@@ -75,6 +78,7 @@
     &_footer
         +flex(flex, flex-end, space-between, wrap)
         gap: var(--gap)
+        margin-top: var(--gapMd)
 
     +maw($xs)
         &_cols

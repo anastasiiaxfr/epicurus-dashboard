@@ -1,5 +1,6 @@
 import Hgroup from "../../components/Hgroup";
 import Card from "./Card";
+import Calculator from "./Calculator";
 
 
 function DepositPage() {
@@ -71,8 +72,8 @@ function DepositPage() {
 
     return (
         <>
+            <Calculator />
             <Hgroup props={hgroup}/>
-
             <Card deposits={deposits} />
         </>
     )

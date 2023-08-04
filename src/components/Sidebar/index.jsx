@@ -2,18 +2,11 @@ import { useState, useEffect } from "react";
 
 import styles from "./styles.module.sass";
 
-import { useRouter } from "next/router";
 
 import Link from "next/link";
 import Logo from "../Logo";
 
-export default function Sidebar({ links }) {
-  const { push } = useRouter();
-  const router = useRouter();
-
-  const currentURL = router.pathname;
-
-  const { token } = router.query || "";
+export default function Sidebar({ links, currentURL }) {
 
   const [showMenu, setShowMenu] = useState(true);
 

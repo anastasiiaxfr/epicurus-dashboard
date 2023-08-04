@@ -1,0 +1,182 @@
+@import 'src/assets/styles/vars.sass'
+
+.calculator
+    width: 100%
+    padding: var(--gapLg)
+    background-color: $dark11
+    border-radius: var(--brsSm)
+    border: 2px solid $main
+
+    &_header
+        +flex(flex, center, space-between, wrap)
+        gap: var(--gap)
+        color: $main
+
+    &_nav
+        display: grid
+        grid-template-columns: repeat(3, 1fr)
+        gap: var(--gap)
+
+    &_note
+        +flex(flex, center, flex-start, nowrap)
+        gap: var(--gapXs)
+
+    &_title
+        +ft(22, 22, 700)
+
+    &_toggle
+        +ft(16, 16, 500)
+        letter-spacing: 0.02em
+        cursor: pointer
+
+    &_input
+        +flex(flex, center, flex-start, nowrap)
+        width: 100%
+        gap: var(--gapXs)
+        padding: var(--gap) var(--gapMd)
+        margin-top: var(--gapLg)
+        border-radius: var(--brsMd)
+        background-color: $dark11
+        border: 2px solid transparent
+
+        &.active 
+            color: $green
+            border-color: $green
+
+        &_val
+            width: 100%
+            +ft(52, 52, 900)
+            letter-spacing: 0.06em
+            background: transparent
+            border: none
+            color: inherit
+
+        &_cur
+            +ft(26, 26, 600)
+            letter-spacing: 0.06em
+            color: $text_8
+            
+    &_body
+        display: grid
+        grid-template-columns: 1fr 1fr
+        gap: var(--gap)
+        padding-top: var(--gapLg)
+
+    &_info
+        width: 100%
+        margin-top: var(--gapLg)
+        display: grid
+        grid-template-columns: 1fr 1fr
+        word-break: break-all
+        gap: var(--gap)
+
+        &_label
+            margin-bottom: var(--gap)
+            +ft(22, 22, 700)
+            color: $main
+
+        &_val
+            +flex(flex, flex-end, flex-start, wrap)
+            gap: var(--gapXs)
+            //+ft(26, 26, 700)
+            +ft(48, 48, 700)
+            letter-spacing: 0.02em
+            color: $green
+
+            span
+                +ft(16, 16, 700)
+                letter-spacing: 0.06em
+                color: $text_8
+
+    &_card
+        padding: var(--gapMd)
+        border-radius: var(--brsMd)
+        background-color: $dark14
+
+        &:last-child
+            grid-column: 2
+            grid-row: 1
+            grid-row-end: 4
+
+        &_header
+            +flex(flex, center, space-between, wrap)
+            gap: var(--gap)
+            color: $main
+            +ft(14, 14, 600)
+            letter-spacing: 0.04em
+
+        &_title
+            +ft(22, 22, 600)
+            letter-spacing: 0.02em
+
+        &_body
+            &_content
+                margin-top: var(--gapLg)
+
+            &_title
+                +ft(18, 18, 700)
+                letter-spacing: 0.04em
+            
+            &_text
+                margin-top: var(--gapSm)
+                +ft(12, 12, 600)
+                letter-spacing: 0.04em
+                color: $text_9
+    
+    +maw($md)
+        padding: 0
+        background-color: transparent
+        border: none
+
+        &_body
+            grid-template-columns: 1fr
+
+        &_card:last-child
+            grid-column: 1
+            grid-row: 4
+
+    +maw($sm)
+        &_info
+            grid-template-columns: 1fr
+
+        &_nav
+            :global([class*=btn])
+                min-width: 0
+
+        &_input
+            &_cur
+                +ft(12, 12, 700)
+            &_val
+                +ft(20, 20, 900)
+
+    +maw($xs)
+        &_note
+            svg
+                display: none
+
+        &_input
+            margin-top: var(--gap)
+            padding: var(--gapXs)
+            &_val
+                padding: 0
+            &_cur
+                padding: 0
+
+        &_info
+            &_val
+                span
+                    width: 100%
+                    order: -1
+                    display: block
+
+        &_card
+            &_title
+                +ft(15, 15*1.4, 900)
+                text-transform: uppercase
+
+            &_body
+                &_text
+                    +ft(12, 12*1.4, 600)
+                    
+                &_title
+                    +ft(14, 14*1.4, 700)

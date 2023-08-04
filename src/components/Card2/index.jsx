@@ -4,10 +4,10 @@ import IconArr from "../../assets/icons/arr-t-rt.svg";
 
 import styles from "./card.module.sass";
 
-export default function Card({ props, k }) {
+export default function Card({ props, k, active, onClick }) {
   const { title, text, url, btn, cols } = props;
   return (
-    <figure className={styles.card} key={k}>
+    <figure className={`${styles.card} ${active ? styles.active : ""}`} key={k} onClick={onClick}>
       <div className={styles.card_header}>
         <div className={styles.card_hgroup}>
           <div className={styles.card_title}>{title}</div>
@@ -21,9 +21,9 @@ export default function Card({ props, k }) {
       <div className={styles.card_content}>
         <div className={styles.card_text}>{text}</div>
       </div>
-      <div className={styles.card_footer}>
+      {cols && <div className={styles.card_footer}>
         <div className={styles.card_cols}>
-          {cols.map((i, k) => (
+          {cols?.map((i, k) => (
             <div key={k} className={styles.card_cols_col}>
               <div>
                 <div className={styles.card_cols_title}>{i.title}</div>
@@ -34,7 +34,7 @@ export default function Card({ props, k }) {
         </div>
 
         <Btn label={btn} theme="grad" />
-      </div>
+      </div>}
     </figure>
   );
 }

@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import Push from "../components/Push";
 import Products from "../components/Products";
 import Hgroup from "../components/Hgroup";
@@ -17,6 +17,7 @@ function HomePage() {
 
   const userName = currentUser.displayName;
   const [toggleDashboard, setToggleDashboard] = useState(false);
+
 
   const hgroup = {
     title: "Our Products",

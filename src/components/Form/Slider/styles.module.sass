@@ -1,0 +1,48 @@
+@import 'src/assets/styles/vars.sass'
+
+.slider
+    &_label
+        +flex(flex, center, space-between, nowrap)
+        +ft(26, 26, 700)
+        letter-spacing: 0.08em
+
+    &:global(.MuiSlider-root)
+        position: relative
+        +flex(flex, center, flex-start, nowrap)
+        width: calc(100% - 28px)
+        margin: var(--gapLg) 0
+        padding: var(--gapLg) 0 0  
+
+    :global(.MuiSlider-rail)
+        position: absolute
+        display: block
+        +sz(calc(100% + 28px), 16px)
+        border-radius: 2pc
+        background-color: $main
+
+    :global(.MuiSlider-track)
+        position: absolute
+        display: block
+        +sz(0, 16px)
+        border-radius: 2pc
+        background: $grad7
+
+    :global(.MuiSlider-thumb)
+        position: absolute
+        +sz(28px, 28px)
+        margin-left: 0
+        z-index: 1
+        border-radius: 50%
+        background-color: $main
+        border: 8px solid $white
+    
+    :global(.valueLabel)
+        +ps(absolute, (t, -36px), (l, -50%))
+        min-width: 28px
+        +ft(26, 26, 700)
+        letter-spacing: 0.08em
+        text-align: center
+
+    +maw($xs)
+        :global(.valueLabel)
+            +ft(20, 20, 700)

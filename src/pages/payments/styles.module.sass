@@ -1,0 +1,18 @@
+@import 'src/assets/styles/vars.sass'
+@import 'src/assets/styles/text.sass'
+
+.cards
+    display: grid
+    grid-template-columns: repeat(3, 1fr)
+    gap: var(--gap)
+
+    +maw($md)
+        grid-template-columns: 1fr 1fr
+
+    +maw($xsm)
+        grid-template-columns: 1fr
+
+    &_content
+        +flex(flex, center, center, nowrap, column)
+        width: 100%
+        gap: var(--gap)
