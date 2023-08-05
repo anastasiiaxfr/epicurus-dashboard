@@ -26,7 +26,7 @@ export default function ModalPopup({ openModal, setModalOpen, props, toggleModal
             </div>
 
             <div className={styles.modal_title}>{title}</div>
-            <div className={styles.modal_text}>{text}</div>
+            {text && <div className={styles.modal_text}>{text}</div>}
             {btnText2 ? <div className={styles.modal_cta}>
                 <Btn label={btnText} theme="error" onClick={toggleModal}/>
                 <Btn label={btnText2} theme="secondary" onClick={handleClose} /> 

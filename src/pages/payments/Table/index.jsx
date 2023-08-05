@@ -60,10 +60,6 @@ export default function ApiKeyList() {
 
   const modalDelConfirm = {
     title: "Delete " + payments + "?",
-    text: `This API Key is connected to: Test Robotic Trading, My New Deposit, Test Trust Management.
-  
-    Deleting the API key will render all products to which it is connected inoperable. Please make sure you really want to delete the key`,
-
     btnText: "Accept",
     btnText2: "Cancel",
   };

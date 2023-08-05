@@ -21,9 +21,21 @@
         background-color: $dark8
         box-shadow: $bxsd1
         animation: slideInUp 0.75s ease-in-out
+
+    &_row
+        +flex(flex, center, center, nowrap)
+        gap: var(--gap)
+
+    &_inner
+        +flex(flex, flex-start, flex-start, nowrap, column)
+        gap: var(--gap)
   
+    &_heading
+        +ft(24, 24*1.4, 700)
+        color: $main
+
     &_title
-        +ft(24, 24, 700)
+        +ft(24, 24*1.2, 700)
         //margin-bottom: var(--gapMd)
 
     &_text
@@ -45,6 +57,7 @@
     &_cta
         +flex(flex, center, center, nowrap)
         gap: var(--gap)
+        width: 100%
 
     +maw($xs)
         &_title

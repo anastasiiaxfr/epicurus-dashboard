@@ -1,0 +1,105 @@
+@import 'src/assets/styles/vars.sass'
+@import 'src/assets/styles/text.sass'
+
+.table
+    width: 100%
+    padding: var(--gapMd)
+    //background-color: darken($dark8, 20%)
+    background-color: $dark2
+    //border: $bd5
+    //box-shadow: $bxsd1
+    border-radius: var(--brsLg)
+
+    &.disabled
+        opacity: 0.5
+
+    &_header
+        +flex(flex, flex-start, space-between, nowrap)
+        gap: var(--gap)
+        margin-bottom: var(--gapLg)
+        &_container
+            +flex(flex, center, flex-start, wrap)
+            gap: var(--gap)
+
+    &_body
+        +flex(flex, flex-start, flex-start, wrap)
+        gap: var(--gapLg)
+
+    &_content
+        +flex(flex, flex-end, space-between, wrap)
+        gap: var(--gapLg)
+
+    &_label
+        margin-bottom: 12px
+        +ft(18, 18, 500)
+        letter-spacing: 0.04em
+        color: $text_7
+
+    &_title
+        color: $main
+        +ft(22, 22, 600)
+        letter-spacing: 0.02em
+
+    &_val
+        +ft(20, 20, 500)
+        letter-spacing: 0.02em
+        word-break: break-word
+        b
+            +flex(flex, center, flex-start, nowrap)
+            gap: var(--gapXs)
+            color: $main
+
+    &_img
+        +sz(58px, 58px)
+        img
+            +sz(100%, 100%)
+            object-fit: cover
+
+    &_cta
+        +flex(flex, center, center, wrap)
+        gap: var(--gap)
+
+        svg
+            +sz(20px, 20px)
+            min-width: 20px
+    
+    &_edit
+        color: $text_7
+        &:hover, &:focus, &:active, &.active
+            color: $main
+
+    &_info
+        position: relative
+        +flex(flex, flex-start, flex-start, wrap)
+        gap: var(--gapXs)
+        +ft(14, 14, 600)
+        letter-spacing: 0.08em
+        &::before
+            content: '|'
+            padding-right: var(--gapXs)
+            color: $stroke4
+            font-weight: 500
+
+        b
+            color: $green
+
+        .active
+            color: $green
+
+        .deactivated
+            color: $red
+
+        .payment_required
+            color: $yellow
+
+
+    +maw($md)
+        &_info::before
+            display: none
+        &_body
+            gap: var(--gap)
+        &_label
+            text-transform: uppercase
+    +maw($xs)
+        &_label
+            +ft(14, 14, 700)
