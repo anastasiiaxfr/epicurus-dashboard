@@ -4,6 +4,7 @@ import { ProductContext } from "../../pages/_products";
 import Hero from "./Hero";
 import Table from "./Table";
 import Banner from "../../components/Banner";
+import Hgroup from "../../components/Hgroup";
 
 
 function TrustManagementPage() {
@@ -25,12 +26,20 @@ function TrustManagementPage() {
     }
   }, [noTrustManagement, hideForm]);
 
+  const hgroup = {
+    title: "My Trust Management",
+    link: {
+      label: "Learn More",
+      url: "#",
+    },
+  };
+
+
   return (
     <>
       <Hero setShow={setHideForm} />
-
       <Banner toggleShow={showBanner} />
-
+      {!showBanner && <Hgroup props={hgroup} />}
       {/* TRANSACTION */}
       <Table />
     </>

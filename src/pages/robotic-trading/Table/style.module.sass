@@ -21,7 +21,7 @@
     &_body
         +flex(flex, flex-start, flex-start, wrap)
         gap: var(--gapLg)
-
+    
     &_content
         +flex(flex, flex-end, space-between, wrap)
         gap: var(--gapLg)
@@ -34,8 +34,25 @@
 
     &_title
         color: $main
-        +ft(22, 22, 600)
+        +ft(22, 22, 900)
         letter-spacing: 0.02em
+
+        &.premium
+            background: $grad13_0
+            -webkit-background-clip: text
+            -webkit-text-fill-color: transparent
+
+        &.classic
+            background: $grad9_0
+            -webkit-background-clip: text
+            -webkit-text-fill-color: transparent
+
+        &.vip
+            background: $grad4_1
+            -webkit-background-clip: text
+            -webkit-text-fill-color: transparent
+
+
 
     &_val
         +ft(20, 20, 500)
@@ -79,6 +96,7 @@
             gap: var(--gap)
         &_label
             text-transform: uppercase
+            
     +maw($xs)
         &_label
             +ft(14, 14, 700)

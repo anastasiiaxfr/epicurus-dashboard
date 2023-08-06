@@ -2,65 +2,70 @@ import { useState, useContext } from "react";
 
 import { ref, database, remove } from "../../../pages/_firebase";
 import { AuthContext } from "../../../pages/_auth";
-import { ProductContext } from "../../../pages/_products";
 
-import Btn from "../../../components/Form/Btn";
 import ModalConfirmation from "../../../components/Modal/ModalConfirmation";
 import ModalError from "../../../components/Modal/ModalAuthError";
-import ModalAddApiKey from "../../../components/Modal/ModaEditApiKey";
+import Btn from "../../../components/Form/Btn";
 
 import DelIcon from "../../../assets/icons/del.svg";
 
 import styles from "./style.module.sass";
 
-export default function ApiKeyList() {
+export default function ApiKeyList({ deposits }) {
   const { currentUser } = useContext(AuthContext);
   const userID = currentUser.uid;
 
-  const { newTrustManagement } = useContext(ProductContext);
-
-  const [apiKeyName, setApiKeyName] = useState("");
+  const [depositName, setDepositName] = useState("");
   const [apiKeyId, setApiKeyId] = useState(null);
 
   const [openModalDelKeyConfirm, setOpenModalDelKeyConfirm] = useState(false);
   const [openModalDelSuccess, setOpenModalDelSuccess] = useState(false);
 
-  const [openModalEditApiKey, setOpenModalEditApiKey] = useState(false);
-  // const list = [
-  //   {
-  //     api_name: "Test API Key",
-  //     api_status: "Active",
-  //     api_bot: "Cryptobot",
-  //     api_key: "bY2t8YgK***vBssiXJ2",
-  //     api_secret: "••••••••••••••••••••••••",
-  //     api_balance: "$ 3642",
-  //     api_perios: "11.07.23",
-  //   },
-  // ];
+  const list = [
+    {
+      deposit_name: "Premium",
+      deposit_status: "Active",
+      deposit_wallet: "Metamask",
+      deposit_balance: "100 342",
+      deposit_pnl: "+1434,75 $",
+      deposit_percentage: "20",
+      deposit_active_until: "11.07.23",
+    },
+    {
+      deposit_name: "Classic",
+      deposit_status: "Active",
+      deposit_wallet: "Metamask",
+      deposit_balance: "100 342",
+      deposit_pnl: "+1434,75 $",
+      deposit_percentage: "20",
+      deposit_active_until: "11.07.23",
+    },
+    {
+      deposit_name: "VIP",
+      deposit_status: "Active",
+      deposit_wallet: "Metamask",
+      deposit_balance: "100 342",
+      deposit_pnl: "+1434,75 $",
+      deposit_percentage: "20",
+      deposit_active_until: "11.07.23",
+    },
+  ];
 
   const modalDelKeyConfirm = {
-    title: "Delete " + apiKeyName + "?",
-    text: `Removing this Trust Management will render it inoperable. Please make sure you really want to delete this bot`,
-
+    title: "Delete " + depositName + "?",
     btnText: "Accept",
     btnText2: "Cancel",
   };
 
   const modalDelKeySuccess = {
-    title: apiKeyName + " was successfully deleted",
+    title: depositName + " was successfully deleted",
     btnText: "Accept",
-  };
-
-  const modalEditKey = {
-    user_id: userID,
-    api_key_id: apiKeyId,
-    api_key_name: apiKeyName,
   };
 
   const toggleModalConfirmation = () => {
     setOpenModalDelKeyConfirm(false);
 
-    const apiKey = ref(database, "trustManagement/" + userID + "/" + apiKeyId);
+    const apiKey = ref(database, "deposit/" + userID + "/" + apiKeyId);
     //alert(e.target.getAttribute("data-key"));
     remove(apiKey)
       .then(() => {
@@ -73,12 +78,12 @@ export default function ApiKeyList() {
   };
 
   const onDelApiKey = (id, name) => {
-    setApiKeyName(name);
+    setDepositName(name);
     setApiKeyId(id);
     setOpenModalDelKeyConfirm(true);
   };
 
-  //console.log('newTrustManagement', newTrustManagement);
+  //console.log('newApiKey', newApiKey);
 
   return (
     <>
@@ -97,65 +102,61 @@ export default function ApiKeyList() {
         toggleModal={toggleModalConfirmation}
       />
 
-      <ModalAddApiKey
-        openModal={openModalEditApiKey}
-        setModalOpen={setOpenModalEditApiKey}
-        props={modalEditKey}
-      />
-
-      {newTrustManagement?.map((i, k) => (
-        <div className={styles.table} key={i.id}>
+      {list?.map((i, k) => (
+        <div className={styles.table} key={k}>
           <div className={styles.table_header}>
             <div className={styles.table_header_container}>
-              <div className={styles.table_title}>{i.api_name}</div>
-
+              <div
+                className={`${styles.table_title} ${styles[i.deposit_name]}`}
+              >{"Robotic Trading"}</div>
               <div className={styles.table_info}>
                 <span>Status:</span>
-                <b>Active</b>
+                <b> {i.deposit_status || "Active"} </b>
               </div>
             </div>
 
             <div className={styles.table_cta}>
               <DelIcon
                 className={styles.table_del}
-                onClick={() => onDelApiKey(i.id, i.api_name)}
+                onClick={() => onDelApiKey(i.id, i.deposit_type)}
               />
             </div>
           </div>
+
           <div className={styles.table_content}>
             <div className={styles.table_body}>
-              {i.api_key && (
-                <div className={styles.table_col}>
-                  <div className={styles.table_label}>API Key</div>
-                  <div className={styles.table_val}>{i.api_key}</div>
+              <div className={styles.table_col}>
+                <div className={styles.table_label}>API Key</div>
+                <div className={styles.table_val}>
+                  <span>Test API Key</span>
                 </div>
-              )}
-
-              {i.api_secret && (
-                <div className={styles.table_col}>
-                  <div className={styles.table_label}>API Secret</div>
-                  <div className={styles.table_val}>{i.api_secret}</div>
-                </div>
-              )}
+              </div>
 
               <div className={styles.table_col}>
                 <div className={styles.table_label}>Total PNL</div>
                 <div className={styles.table_val}>
-                  <b>$ 199.00</b>
+                  <b>$ {"199.00"}</b>
+                </div>
+              </div>
+
+              <div className={styles.table_col}>
+                <div className={styles.table_label}>Daily PNL</div>
+                <div className={styles.table_val}>
+                  <b>$ {"199.00"} </b>
                 </div>
               </div>
 
               <div className={styles.table_col}>
                 <div className={styles.table_label}>Deposit</div>
                 <div className={styles.table_val}>
-                  <b>$ 199.00</b>
+                  <b>$ {"199.00"} </b>
                 </div>
               </div>
 
               <div className={styles.table_col}>
-                <div className={styles.table_label}>Active Until</div>
+                <div className={styles.table_label}>Period</div>
                 <div className={styles.table_val}>
-                  <span>11.07.23</span>
+                  <span> {"11.07.23"} </span>
                 </div>
               </div>
             </div>
@@ -164,7 +165,7 @@ export default function ApiKeyList() {
                 theme="grad"
                 label="Open"
                 type="link"
-                link={`trust-management/${i.id}`}
+                link={`deposit/${i.id}`}
               />
             </div>
           </div>

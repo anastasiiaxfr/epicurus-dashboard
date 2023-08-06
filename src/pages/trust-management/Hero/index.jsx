@@ -16,9 +16,9 @@ export default function Hero({setShow}) {
     setActive(true);
   }
 
-  useEffect(() => {
-    active === true ? setShow(false) : setShow(true);
-  }, [active]);
+  // useEffect(() => {
+  //   active === true ? setShow(false) : setShow(true);
+  // }, [active]);
 
 
   return (
