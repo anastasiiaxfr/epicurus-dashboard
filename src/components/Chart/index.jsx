@@ -1,42 +1,31 @@
-import React from 'react';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Doughnut } from 'react-chartjs-2';
-
-import styles from './styles.module.sass';
+import React from "react";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Doughnut } from "react-chartjs-2";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export const data = {
-    labels: ['CryptoBot', 'Deposit', 'API', 'Balance'],
-    datasets: [
-      {
-        label: '# of Votes',
-        data: [70, 5, 10, 15],
-        backgroundColor: [
-          '#7B46E5',
-          '#56FFEB',
-          '#F05FFD',
-          '#1DC74C',
-        ],
-        borderWidth: 0,
-        
-      },
-    ],
-  };
-
-
-
-  const options = {
-    plugins: {
-        legend: {
-            order: 2
-        },
+  labels: ["CryptoBot", "Deposit", "API", "Balance"],
+  datasets: [
+    {
+      label: "# of Votes",
+      data: [70, 5, 10, 15],
+      backgroundColor: ["#7B46E5", "#56FFEB", "#F05FFD", "#1DC74C"],
+      borderWidth: 0,
     },
-  };
+  ],
+};
+const options = {
+  plugins: {
+    legend: {
+      order: 2,
+    },
+  },
+};
 export default function Card() {
-    return (
-        <>
-            <Doughnut data={data} options={options} width="100%" height="100%"/>
-        </>
-    )
+  return (
+    <>
+      <Doughnut data={data} options={options} width="100%" height="100%" />
+    </>
+  );
 }

@@ -160,7 +160,7 @@ export default function ApiKeyList({deposits}) {
 
             </div>
             <div className={styles.table_btn}>
-              <Btn theme="grad" label="Open" />
+              <Btn theme="grad" label="Open" type="link" link={`deposit/${i.id}`}/>
             </div>
           </div>
 

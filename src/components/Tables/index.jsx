@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 import UsersIcon from '../../assets/icons/users.svg'
 
 import styles from './table.module.sass'
@@ -18,7 +20,10 @@ const data = [
 ]
 
 export default function Table() {
-
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        setTimeout(() => setLoading(false), 1500);
+      }, []);
     return (
         <div className={styles.table_wrap}>
 
@@ -31,8 +36,12 @@ export default function Table() {
                         ))}
                     </div>
                 <div className={styles.table_body}>
-
-                    {data.map((i, ind) => (
+                    {loading && 
+                        <div className={styles.table_caption}>
+                            You Don’t Have Transactions Yet
+                        </div>
+                    }
+                    {!loading && data.map((i, ind) => (
                         <div key={ind} className={styles.table_row}>
                             <div data-value={heading[0].title}>
                                 <div className={styles.table_title}>

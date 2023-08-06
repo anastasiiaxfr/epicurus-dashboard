@@ -72,7 +72,7 @@ const schema = {
 export default function App({ Component, pageProps }) {
   const router = useRouter();
 
-  const currentURL = router.pathname;
+  const currentURL = router.asPath;
 
   let baseURL = `/`;
 
@@ -166,11 +166,16 @@ export default function App({ Component, pageProps }) {
   ];
 
   const findTitleByURL = (url) => {
+    const urlParent = '/' + url.split('/')[1]
     for (const group of links) {
       for (const item of group.items) {
         if (item.url === url) {
           return item.title;
+        } else
+        if (item.url === urlParent) {
+          return item.title;
         }
+        
       }
     }
     return null; 

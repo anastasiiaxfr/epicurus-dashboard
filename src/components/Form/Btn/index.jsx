@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 import styles from './btn.module.sass'
 
-export default function BtnField({ type, label, link, onClick,disabled, theme, icon }) {
+export default function BtnField({ type, label, link, onClick, disabled, theme, icon }) {
     return (
         type === 'submit' ? (
             <Input type='submit' className={styles.btn} value={label} onClick={onClick} disabled={disabled}/>
