@@ -11,10 +11,12 @@ export default function ModalPopup({
   props,
   toggleModal,
   theme,
+  show
 }) {
   const { title, text, btnText } = props;
   const handleClose = () => {
     setModalOpen(false);
+    if(show){ show(false); }
     if (toggleModal) {
       toggleModal(false);
     }

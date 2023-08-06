@@ -12,7 +12,7 @@ import metamaskIcon from "../../../assets/img/wallet/metamask.png";
 
 import styles from "./modal.module.sass";
 
-export default function ModalWallet({ openModal, setModalOpen, newWallet }) {
+export default function ModalWallet({ openModal, setModalOpen, newWallet, toggleModal }) {
   const { currentUser } = useContext(AuthContext);
   const userID = currentUser.uid;
 
@@ -29,7 +29,11 @@ export default function ModalWallet({ openModal, setModalOpen, newWallet }) {
   };
 
   const handleSubmit = () => {
-    sendToFB(walletSelected);
+    if(toggleModal){
+      toggleModal(walletSelected);
+    } else {
+      sendToFB(walletSelected);
+    }
     setModalOpen(false);
   };
 
@@ -74,7 +78,7 @@ export default function ModalWallet({ openModal, setModalOpen, newWallet }) {
   };
 
   const activeWallets = props.wallets.filter(
-    (wallet) => !newWallet.some((i) => i.wallet === wallet.title)
+    (wallet) => !newWallet?.some((i) => i.wallet === wallet.title)
   );
 
 

@@ -15,6 +15,7 @@ export default function ProductProvider({ children }) {
   const [newTrustManagement, setNewTrustManagement] = useState([]);
   const [newRoboticTrading, setNewRoboticTrading] = useState([]);
   const [newWallet, setNewWallet] = useState([]);
+  const [newDeposit, setNewDeposit] = useState([]);
 
 
   const handleError = (error) => {
@@ -124,11 +125,41 @@ export default function ProductProvider({ children }) {
     
   }, [currentUser]);
 
+  useEffect(() => {
+    if (currentUser) {
+      //alert(userID)
+
+      const dbDeposits = ref(database, "deposit/" + userID);
+
+      const handleDataDeposit = (snapshot) => {
+        const data = snapshot.val();
+        if (data !== null && data !== undefined) {
+          //console.log('apiKey', data);
+          const items = Object?.entries(data).map(([id, item]) => ({
+            id,
+            deposit_name: item.deposit_type.replace("Deposit", "").toLocaleLowerCase().trim(),
+            deposit_type: item.deposit_type,
+            deposit_wallet: item.deposit_wallet,
+            deposit_sum: item.deposit_sum,
+            deposit_period: item.deposit_period,
+            deposit_network: item.deposit_network,
+          }));
+          setNewDeposit(items);
+        } else {
+          setNewDeposit([]);
+        }
+      };
+    
+      onValue(dbDeposits, handleDataDeposit, handleError);
+    }
+    
+  }, [currentUser]);
+
   return (
     <>
       <ProductContext.Provider
         value={{
-          newApiKey, newTrustManagement, newRoboticTrading, newWallet
+          newApiKey, newTrustManagement, newRoboticTrading, newWallet, newDeposit
         }}
       >
         {children}
