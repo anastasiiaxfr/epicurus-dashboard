@@ -24,6 +24,29 @@
         +ft(16, 16, 600)
 
 .field
+    &.text
+        .label
+            display: block
+            margin-bottom: var(--gapXs)
+            +ft(18, 18, 600) 
+            letter-spacing: 0.04em 
+            color: $text_11  
+            +maw($xs)
+                flex-wrap: wrap
+                +ft(14, 14, 600)
+
+        input
+            padding: 0
+            height: auto
+            border: none
+            +ft(18, 18, 600) 
+            
+        .wrap
+            border: none
+            background: transparent
+            color: $main
+           
+
     &.default
         input
             height: 50px
@@ -110,6 +133,9 @@
     &.error
         input
             border-color: $red
+    &.success
+        input
+            border-color: $green
 
 
 .info

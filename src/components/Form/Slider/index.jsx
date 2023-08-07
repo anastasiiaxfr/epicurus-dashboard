@@ -23,7 +23,7 @@ export default function SliderField({ getSliderVal }) {
         step={1}
         marks
         min={1}
-        max={12}
+        max={24}
         getAriaValueText={valuetext}
         slots={{ valueLabel: SliderValueLabel }}
 

@@ -1,7 +1,5 @@
-import { useState } from "react";
-
-import { auth } from "../../pages/_firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { useState, useEffect, useContext } from "react";
+import { ProductContext } from "../../pages/_products";
 
 import Link from "next/link";
 import Card from "../Card";
@@ -13,34 +11,25 @@ import stylesCard from "../Card/card.module.sass";
 import IconArr from "../../assets/icons/arr-t-rt.svg";
 
 export default function Hero() {
-  const [user] = useAuthState(auth);
+  const { newDeposit } = useContext(ProductContext);
 
+  const [balanceDeposit, setBalanceDeposit] = useState(0);
+  const [balanceRT, setBalanceRT] = useState(0);
+  const [balanceTM, setBalanceTM] = useState(0);
+  const [totalDeposit, setTotalDeposit] = useState(0);
+  const [totalRT, setTotalRT] = useState(0);
+  const [totalTM, setTotalTM] = useState(0);
+
+  console.log(newDeposit);
+  useEffect(() => {
+    let totalDepositSum = 0;
+    newDeposit.forEach((deposit) => {
+      totalDepositSum += parseInt(deposit.deposit_sum);
+    });
+    setBalanceDeposit(totalDepositSum);
+  }, []);
 
   const cards = [
-    {
-      title: "Robotic Trading",
-      status: "Active",
-      url: "/robotic-trading",
-      cols: [
-        {
-          title: "Balance",
-          val: "$ 100 342",
-        },
-        {
-          title: "PNL за день",
-          val: "+1434,75 $",
-        },
-        {
-          title: "Total PNL",
-          val: "+1434,75 $",
-        },
-      ],
-      cta: {
-        enable: false,
-        title: "",
-        url: "#",
-      },
-    },
     {
       title: "Deposit",
       status: "",
@@ -48,11 +37,11 @@ export default function Hero() {
       cols: [
         {
           title: "Balance",
-          val: "$ 100 342",
+          val: `$ ${balanceDeposit.toFixed(2)}`,
         },
         {
           title: "Total PNL",
-          val: "+1434,75 $",
+          val: `${totalDeposit.toFixed(2)} $`,
         },
       ],
       cta: {
@@ -62,17 +51,41 @@ export default function Hero() {
       },
     },
     {
+      title: "Robotic Trading",
+      status: "Active",
+      url: "/robotic-trading",
+      cols: [
+        {
+          title: "Balance",
+          val: `$ ${totalRT.toFixed(2)}`,
+        },
+        {
+          title: "Total PNL",
+          val: `${totalRT.toFixed(2)} $`,
+        },
+        {
+          title: "PNL за день",
+          val: "0,00 $",
+        },
+      ],
+      cta: {
+        enable: false,
+        title: "",
+        url: "#",
+      },
+    },
+    {
       title: "Trust Management",
       status: "Active",
       url: "/trust-management",
       cols: [
         {
           title: "Balance",
-          val: "$ 100 342",
+          val: `$ ${totalTM.toFixed(2)}`,
         },
         {
           title: "Total PNL",
-          val: "+1434,75 $",
+          val: `${totalTM.toFixed(2)} $`,
         },
       ],
       cta: {
@@ -88,7 +101,7 @@ export default function Hero() {
       <div className={styles.main}>
         {cards.map((i, k) => (
           <Card key={k}>
-            <div className={stylesCard.card_header} >
+            <div className={stylesCard.card_header}>
               <div className={stylesCard.card_hgroup}>
                 <div className={stylesCard.card_title}>{i.title}</div>
                 {i.status && (
@@ -105,7 +118,10 @@ export default function Hero() {
             <div className={stylesCard.card_body}>
               <div className={stylesCard.card_row}>
                 {i.cols.map((j, key) => (
-                  <div className={stylesCard.card_col} key={`card-col-${k}-${key}`}>
+                  <div
+                    className={stylesCard.card_col}
+                    key={`card-col-${k}-${key}`}
+                  >
                     {j.title}
                     <span>{j.val}</span>
                   </div>
@@ -120,18 +136,17 @@ export default function Hero() {
             </div>
           </Card>
         ))}
-       
       </div>
 
       <aside className={styles.sidebar}>
         <div className={styles.sidebar_card}>
-            <div className={styles.sidebar_title}>
-                Total Sum
-            </div>
-            <span className={styles.sidebar_chart_val}>5000.00 $</span>
-            <div className={styles.sidebar_chart}>
-                <Chart />
-            </div>
+          <div className={styles.sidebar_title}>Total Sum</div>
+          <span className={styles.sidebar_chart_val}>
+            {balanceDeposit.toFixed(2)} $
+          </span>
+          <div className={styles.sidebar_chart}>
+            <Chart />
+          </div>
         </div>
       </aside>
     </div>

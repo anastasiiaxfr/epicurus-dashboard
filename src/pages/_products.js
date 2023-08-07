@@ -141,6 +141,7 @@ export default function ProductProvider({ children }) {
             id,
             deposit_name: item.deposit_type.replace("Deposit", "").toLocaleLowerCase().trim(),
             deposit_type: item.deposit_type,
+            deposit_percent: item.deposit_percent,
             deposit_wallet: item.deposit_wallet,
             deposit_sum: item.deposit_sum,
             deposit_period: item.deposit_period,

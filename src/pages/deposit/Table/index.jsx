@@ -147,7 +147,7 @@ export default function ApiKeyList({deposits}) {
               <div className={styles.table_col}>
                 <div className={styles.table_label}>Percentage</div>
                 <div className={styles.table_val}>
-                  <b> {i.deposit_percentage || 20}% </b>
+                  <b> {i.deposit_percent || '20%'}</b>
                 </div>
               </div>
 

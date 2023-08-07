@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import Input from '@mui/base/Input'
 
-import InfoIcon from '../../../assets/icons/info.svg'
+// import InfoIcon from '../../../assets/icons/info.svg'
 import styles from './checkbox.module.sass'
 
 export default function CheckboxField({ label, error, id, submit, setSubmit, validate, reset}) {

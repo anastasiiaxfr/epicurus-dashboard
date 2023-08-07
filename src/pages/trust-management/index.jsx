@@ -1,30 +1,37 @@
 import { useState, useEffect, useContext } from "react";
 import { ProductContext } from "../../pages/_products";
 
-import Hero from "./Hero";
 import Table from "./Table";
 import Banner from "../../components/Banner";
 import Hgroup from "../../components/Hgroup";
-
+import HeroGroup from "../../components/HeroCta";
+import FormAddTrustManagement from "../../components/Form/FormAddTrustManagement";
 
 function TrustManagementPage() {
-  const [hideForm, setHideForm] = useState(true);
+  const [showForm, setShowForm] = useState(false);
+
   const [noTrustManagement, setNoTrustManagement] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
 
   const { newTrustManagement } = useContext(ProductContext);
 
   useEffect(() => {
-    newTrustManagement.length === 0 ?  setNoTrustManagement(true) :  setNoTrustManagement(false);
+    newTrustManagement.length === 0
+      ? setNoTrustManagement(true)
+      : setNoTrustManagement(false);
   }, [newTrustManagement]);
 
   useEffect(() => {
-    if (hideForm === true && noTrustManagement === true) {
+    if (noTrustManagement === true) {
       setShowBanner(true);
     } else {
       setShowBanner(false);
     }
-  }, [noTrustManagement, hideForm]);
+  }, [noTrustManagement, showForm]);
+
+  const handleBtnAddTM = () => {
+    setShowForm(true);
+  };
 
   const hgroup = {
     title: "My Trust Management",
@@ -34,14 +41,37 @@ function TrustManagementPage() {
     },
   };
 
+  const hero = {
+    heading: `Add New Trust Management`,
+    title: "Create a new Trust Management and start earning",
+    text: `Press “Add Trust” to create new Trust Management and start working with them`,
+    info: ` 4 steps to complete`,
+    btn: {
+      label: "Add Trust",
+      on_click: handleBtnAddTM,
+    },
+  };
 
   return (
     <>
-      <Hero setShow={setHideForm} />
+      <HeroGroup hero={hero} show={showForm}>
+        <>
+          <FormAddTrustManagement
+            show={
+              newTrustManagement.length !== 0
+                ? () => setShowForm((prev) => !prev)
+                : () => setShowForm((prev) => !prev)
+            }
+          />
+        </>
+      </HeroGroup>
       <Banner toggleShow={showBanner} />
-      {!showBanner && <Hgroup props={hgroup} />}
-      {/* TRANSACTION */}
-      <Table />
+      {newTrustManagement.length !== 0 && (
+        <>
+          <Hgroup props={hgroup} />
+          <Table />
+        </>
+      )}
     </>
   );
 }

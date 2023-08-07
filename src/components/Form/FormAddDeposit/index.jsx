@@ -1,10 +1,13 @@
-import { useState, useRef, useContext } from "react";
-import { ref, database, set } from '../../../pages/_firebase';
+import { useState, useEffect, useRef, useContext } from "react";
+import { ref, database, set } from "../../../pages/_firebase";
 import { AuthContext } from "../../../pages/_auth";
 import nextId from "react-id-generator";
 
 import ModalConfirmation from "../../Modal/ModalConfirmation";
 import Input from "../Input";
+import SelectPeriod from "../SelectPeriod";
+import SelectNetwork from "../SelectNetwork";
+
 import Btn from "../Btn";
 import Checkbox from "../Checkbox";
 
@@ -16,33 +19,29 @@ const modalDepositAdded = {
   btnUrl: "#",
 };
 
-const modalSuccessDeleted = {
-    title: "Deposit removed",
-    btnText: "Accept",
-    btnUrl: "#",
-};
+export default function FormAddDeposit({ show, deposit, wallet, setFieldSum, setFieldPeriod, setFieldNetwork , setFieldPolicy}) {
+  const [disabled, setDisabled] = useState(false);
 
-const modalConfirmDelete = {
-    title: "Delete Deposit?",
-    btnText: "Accept",
-    btnUrl: "#",
-};
-
-
-export default function FormAddDeposit({ show, deposit, wallet }) {
   const htmlId = nextId("deposit-");
   const { currentUser } = useContext(AuthContext);
   const userID = currentUser.uid;
 
+
   const form = useRef(null);
   const [validation, setValidation] = useState(false);
   const [validationCheckbox, setValidationCheckbox] = useState(false);
+  const [validationSelect, setValidationSelect] = useState(false);
 
   const [submit, setSubmit] = useState(false);
-  const [reset, setReset] = useState(false)
+  const [reset, setReset] = useState(false);
   const [resetCheckbox, setResetCheckbox] = useState(false);
+  const [resetSelect, setResetSelect] = useState(false);
 
   const [openModalSuccess, setOpenModalSuccess] = useState(false);
+
+  useEffect(() => {
+    validationCheckbox ? setFieldPolicy(true) : setFieldPolicy(false);
+  }, [validationCheckbox])
 
   const onAddKey = (e) => {
     e.preventDefault();
@@ -50,37 +49,58 @@ export default function FormAddDeposit({ show, deposit, wallet }) {
     if (form.current) {
       const deposit_sum = form.current.deposit_sum.value;
       const deposit_type = deposit.type;
+      const deposit_percent = deposit.val;
       const deposit_wallet = wallet;
       const deposit_period = form.current.deposit_period.value;
       const deposit_network = form.current.deposit_network.value;
 
-      if (validation && validationCheckbox) {
-        setResetCheckbox(prev => !prev);
-        sendToFB(deposit_sum, deposit_type, deposit_wallet, deposit_period, deposit_network);
+      if (validation && validationCheckbox && validationSelect) {
+        setResetCheckbox((prev) => !prev);
+        setResetSelect((prev) => !prev);
+
+        sendToFB(
+          deposit_sum,
+          deposit_type,
+          deposit_percent,
+          deposit_wallet,
+          deposit_period,
+          deposit_network
+        );
         setOpenModalSuccess(true);
-        form.current.reset();  
-        setReset(prev => !prev);  
+        form.current.reset();
+        setReset((prev) => !prev);
       }
     }
   };
 
   const onResetFrom = () => {
-    form.current.reset();  
-    show(true);  
-    setReset(prev => !prev);
-    setResetCheckbox(prev => !prev);
+    form.current.reset();
+    show(true);
+    setReset((prev) => !prev);
+    setResetCheckbox((prev) => !prev);
+    setResetSelect((prev) => !prev);
+    setFieldPolicy((prev) => !prev);
   };
 
-  const sendToFB = (deposit_sum, deposit_type, deposit_wallet, deposit_period, deposit_network) => {
-    set(ref(database, 'deposit/' + userID + '/' + htmlId), {
+  const sendToFB = (
+    deposit_sum,
+    deposit_type,
+    deposit_percent,
+    deposit_wallet,
+    deposit_period,
+    deposit_network
+  ) => {
+    set(ref(database, "deposit/" + userID + "/" + htmlId), {
       deposit_type: deposit_type,
+      deposit_percent: deposit_percent,
       deposit_sum: deposit_sum,
       deposit_wallet: deposit_wallet,
       deposit_period: deposit_period,
       deposit_network: deposit_network,
-    })
+    });
   };
 
+  //alert(disabled)
   return (
     <>
       <ModalConfirmation
@@ -92,7 +112,8 @@ export default function FormAddDeposit({ show, deposit, wallet }) {
       />
 
       <div className={styles.form_note}>
-        You have chosen <b>{deposit.type}</b>. Enter the amount and select the period
+        You have chosen <b>{deposit.type}</b>. Enter the amount and select the
+        period
       </div>
 
       <form
@@ -119,41 +140,30 @@ export default function FormAddDeposit({ show, deposit, wallet }) {
             setSubmit={setSubmit}
             validate={setValidation}
             theme="default"
+            success={setFieldSum}
+            setDisabled={setDisabled}
           />
         </div>
 
         <div className={styles.form_row}>
-          <Input
-            type="text"
-            label="Your Period"
-            placeholder="Choose Period"
+          <SelectPeriod
+            submit={submit}
+            setSubmit={setSubmit}
+            validate={setValidationSelect}
+            reset={resetSelect}
             id="deposit_period"
-            error="Required field"
-            note=""
-            required={true}
-            reset={reset}
-            setReset={setReset}
-            submit={submit}
-            setSubmit={setSubmit}
-            validate={setValidation}
-            theme="default"
+            success={() => setFieldPeriod(true)}
           />
         </div>
 
         <div className={styles.form_row}>
-          <Input
-            type="text"
-            label="Your Network"
-            placeholder="Select Network"
-            id="deposit_network"
-            error="Required field"
-            required={true}
-            reset={reset}
-            setReset={setReset}
+           <SelectNetwork
             submit={submit}
             setSubmit={setSubmit}
-            validate={setValidation}
-            theme="default"
+            validate={setValidationSelect}
+            reset={resetSelect}
+            id="deposit_network"
+            success={() => setFieldNetwork(true)}
           />
         </div>
 
@@ -170,7 +180,7 @@ export default function FormAddDeposit({ show, deposit, wallet }) {
         </div>
 
         <div className={styles.form_cta}>
-          <Btn label="Create Deposit" onClick={onAddKey} />
+          <Btn label="Create Deposit" onClick={onAddKey} disabled={disabled} />
           <Btn label="Reset form" onClick={onResetFrom} theme="secondary" />
         </div>
       </form>

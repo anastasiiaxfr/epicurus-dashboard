@@ -12,14 +12,101 @@ import ModalDeposit from "../../components/Modal/ModalDeposit";
 import FormDeposit from "../../components/Form/FormAddDeposit";
 
 function DepositPage() {
+  const { newDeposit } = useContext(ProductContext);
+
   const [show, setShow] = useState(false);
   const [showForm, setShowForm] = useState(false);
-  const { newDeposit } = useContext(ProductContext);
 
   const [openModal, setOpenModal] = useState(false);
   const [openModalAddWallet, setOpenModalAddWallet] = useState(false);
   const [selectDeposit, setSelectDeposit] = useState({});
   const [selectWallet, setSelectWallet] = useState();
+
+  const totalSteps = 4;
+  const [steps, setSteps] = useState(totalSteps);
+
+  const [stepsTitle, setStepsTitle] = useState("Enter SUM");
+
+  const [fieldSum, setFieldSum] = useState(false);
+  const [fieldPeriod, setFieldPeriod] = useState(false);
+  const [fieldNetwork, setFieldNetwork] = useState(false);
+  const [fieldPolicy, setFieldPolicy] = useState(false);
+
+  useEffect(() => {
+    if (fieldPolicy) {
+      if (fieldPeriod && fieldNetwork && fieldSum) {
+        setSteps(0);
+      }
+      if (!fieldPeriod && !fieldNetwork && !fieldSum) {
+        setSteps(3);
+      }
+
+      if (fieldPeriod && !fieldNetwork && !fieldSum) {
+        setSteps(2);
+      }
+      if (!fieldPeriod && fieldNetwork && !fieldSum) {
+        setSteps(2);
+      }
+      if (!fieldPeriod && !fieldNetwork && fieldSum) {
+        setSteps(2);
+      }
+
+      if (fieldPeriod && fieldNetwork && !fieldSum) {
+        setSteps(1);
+      }
+      if (!fieldPeriod && fieldNetwork && fieldSum) {
+        setSteps(1);
+      }
+      if (fieldPeriod && !fieldNetwork && fieldSum) {
+        setSteps(1);
+      }
+    } else {
+      if (fieldSum) {
+        if (fieldPeriod && !fieldNetwork) {
+          setStepsTitle("Select Network");
+          setSteps(2);
+        }
+        if (!fieldPeriod && fieldNetwork) {
+          setStepsTitle("Choose Period");
+          setSteps(2);
+        }
+        if (!fieldPeriod && !fieldNetwork) {
+          setStepsTitle("Choose Period");
+          setSteps(3);
+        }
+        if (fieldPeriod && fieldNetwork) {
+          setStepsTitle("Press Create Deposit");
+          setSteps(1);
+        }
+      } else {
+        if (!fieldPeriod && !fieldNetwork) {
+          setSteps(4);
+          setStepsTitle("Enter SUM");
+        }
+        if (fieldPeriod && fieldNetwork) {
+          setStepsTitle("Enter SUM");
+          setSteps(2);
+        }
+        if (fieldPeriod && !fieldNetwork) {
+          setStepsTitle("Enter SUM");
+          setSteps(3);
+        }
+        if (!fieldPeriod && fieldNetwork) {
+          setStepsTitle("Enter SUM");
+          setSteps(3);
+        }
+      }
+    }
+  }, [fieldSum, fieldPeriod, fieldNetwork, fieldPolicy]);
+
+  useEffect(() => {
+    setFieldSum(false);
+    setFieldPeriod(false);
+    setFieldNetwork(false);
+    setFieldPolicy(false);
+    setSteps(4);
+    setStepsTitle("Enter SUM");
+  }, [showForm, show]);
 
   const handleOpenModal = () => {
     setOpenModal(true);
@@ -57,10 +144,10 @@ function DepositPage() {
   };
 
   const hero = {
-    heading: "Open New Deposit",
+    heading: `Open New Deposit ${showForm ? "| " + stepsTitle : ""}`,
     title: "Open a new Deposit and start earning",
     text: `Press “Add Deposit” to register a new Deposit and start working with them`,
-    info: "4 steps to complete",
+    info: `${steps} steps to complete`,
     btn: {
       label: "Add Deposit",
       on_click: handleOpenModal,
@@ -72,8 +159,7 @@ function DepositPage() {
       type: "Deposit Classic",
       about: {
         title: "About the Deposit",
-        text:
-          "DCA (Dollar Cost Averaging) бот - это программа, разработанная для автоматического выполнения стратегии долларового усреднения при инвестировании. Он основан на алгоритмах искусственного интеллекта и предназначен для помощи инвесторам в автоматическом распределении их инвестиций в течение определенного периода времени.",
+        text: "DCA (Dollar Cost Averaging) бот - это программа, разработанная для автоматического выполнения стратегии долларового усреднения при инвестировании. Он основан на алгоритмах искусственного интеллекта и предназначен для помощи инвесторам в автоматическом распределении их инвестиций в течение определенного периода времени.",
       },
       offer: {
         title: "Percentage",
@@ -92,8 +178,7 @@ function DepositPage() {
       type: "Deposit Premium",
       about: {
         title: "About the Deposit",
-        text:
-          "DCA (Dollar Cost Averaging) бот - это программа, разработанная для автоматического выполнения стратегии долларового усреднения при инвестировании. Он основан на алгоритмах искусственного интеллекта и предназначен для помощи инвесторам в автоматическом распределении их инвестиций в течение определенного периода времени.",
+        text: "DCA (Dollar Cost Averaging) бот - это программа, разработанная для автоматического выполнения стратегии долларового усреднения при инвестировании. Он основан на алгоритмах искусственного интеллекта и предназначен для помощи инвесторам в автоматическом распределении их инвестиций в течение определенного периода времени.",
       },
       offer: {
         title: "Percentage",
@@ -112,8 +197,7 @@ function DepositPage() {
       type: "Deposit VIP",
       about: {
         title: "About the Deposit",
-        text:
-          "DCA (Dollar Cost Averaging) бот - это программа, разработанная для автоматического выполнения стратегии долларового усреднения при инвестировании. Он основан на алгоритмах искусственного интеллекта и предназначен для помощи инвесторам в автоматическом распределении их инвестиций в течение определенного периода времени.",
+        text: "DCA (Dollar Cost Averaging) бот - это программа, разработанная для автоматического выполнения стратегии долларового усреднения при инвестировании. Он основан на алгоритмах искусственного интеллекта и предназначен для помощи инвесторам в автоматическом распределении их инвестиций в течение определенного периода времени.",
       },
       offer: {
         title: "Percentage",
@@ -154,17 +238,32 @@ function DepositPage() {
 
       {!show && (
         <>
-          <HeroGroup hero={hero} show={showForm}>
+          <HeroGroup
+            hero={hero}
+            show={showForm}
+            steps={steps}
+            totalSteps={totalSteps}
+          >
             <FormDeposit
               deposit={selectDeposit}
               wallet={selectWallet}
-              show={newDeposit.length !== 0 ? () => setShowForm(prev => !prev) : setShow}
+              show={
+                newDeposit.length !== 0
+                  ? () => setShowForm((prev) => !prev)
+                  : setShow
+              }
+              setFieldSum={setFieldSum}
+              setFieldPeriod={setFieldPeriod}
+              setFieldNetwork={setFieldNetwork}
+              setFieldPolicy={setFieldPolicy}
             />
           </HeroGroup>
-          {newDeposit.length !== 0 && <>
-            <Hgroup props={hgroup2} />
-            <Table deposits={newDeposit} />
-          </>}
+          {newDeposit.length !== 0 && (
+            <>
+              <Hgroup props={hgroup2} />
+              <Table deposits={newDeposit} />
+            </>
+          )}
         </>
       )}
     </>

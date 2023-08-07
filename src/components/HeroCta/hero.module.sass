@@ -5,7 +5,39 @@
     width: 100%
     @extend %card2
     padding: 0
-    
+
+    &_steps
+        display: grid
+        gap: var(--gapXs)
+        +sz(100%, 8px)
+        background-color: lighten($dark, 2%)
+        grid-template-columns: repeat(4, 1fr)
+
+        div
+            background-color: $dark
+            border-radius: var(--brsXs)
+            opacity: 1
+
+        &.step
+            &_4_0
+                div
+                    background: $grad7
+            &_4_1
+                div:nth-child(1),
+                div:nth-child(2),
+                div:nth-child(3)
+                    background: $grad7
+            &_4_2
+                div:nth-child(1),
+                div:nth-child(2)
+                    background: $grad7
+
+            &_4_3
+                div:nth-child(1)
+                    background: $grad7
+
+        
+
     &_header
         padding: var(--gapLg)
         +flex(flex, center, space-between, nowrap)

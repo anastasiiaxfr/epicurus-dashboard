@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 import Btn from "../Form/Btn";
 
 import RocketIcon from "../../assets/icons/rocket.svg";
@@ -5,14 +7,32 @@ import PlusIcon from "../../assets/icons/plus-md.svg";
 
 import styles from "./hero.module.sass";
 
-export default function Hero({ hero, show, children }) {
+export default function Hero({ hero, show, children, steps, totalSteps }) {
   const { heading, title, text, info, btn } = hero;
+
+  let stepsArr = [];
+  for (let i = 0; i < totalSteps; i++) {
+    stepsArr.push(i);
+  }
+
   return (
     <div className={styles.hero}>
       <div className={styles.hero_header}>
         <div className={styles.hero_title}> {heading} </div>
         <span>{info}</span>
       </div>
+
+      {show && totalSteps && (
+        <div
+          className={`${styles.hero_steps} ${
+            styles[`step_${totalSteps}_${steps}`]
+          }`}
+        >
+          {stepsArr.map((k) => (
+            <div key={k}></div>
+          ))}
+        </div>
+      )}
 
       <div className={styles.hero_container}>
         {!show && (

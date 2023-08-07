@@ -30,7 +30,7 @@ const modalKeyConfirmDelete = {
 };
 
 
-export default function FormAddTrustManagement({ setActive }) {
+export default function FormAddTrustManagement({ show }) {
   const htmlId = nextId("tm-key-");
   const { currentUser } = useContext(AuthContext);
   const userID = currentUser.uid;
@@ -57,7 +57,7 @@ export default function FormAddTrustManagement({ setActive }) {
         setResetCheckbox(prev => !prev);
         sendToFB(api_name, api_key, api_secret);
         setOpenModalSuccess(true);
-        setActive(false);
+        show(false);
         form.current.reset();  
         setReset(prev => !prev);  
       }
@@ -68,6 +68,7 @@ export default function FormAddTrustManagement({ setActive }) {
     form.current.reset();    
     setReset(prev => !prev);
     setResetCheckbox(prev => !prev);
+    show(false);
   };
 
   const sendToFB = (api_name, api_key, api_secret) => {
