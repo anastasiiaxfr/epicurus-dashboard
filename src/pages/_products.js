@@ -16,6 +16,7 @@ export default function ProductProvider({ children }) {
   const [newRoboticTrading, setNewRoboticTrading] = useState([]);
   const [newWallet, setNewWallet] = useState([]);
   const [newDeposit, setNewDeposit] = useState([]);
+  const [newRT, setNewRT] = useState([]);
 
 
   const handleError = (error) => {
@@ -112,6 +113,7 @@ export default function ProductProvider({ children }) {
         if (data !== null && data !== undefined) {
           //console.log('apiKey', data);
           const items = Object?.entries(data).map(([id, item]) => ({
+            id,
             wallet: item.wallet
           }));
           setNewWallet(items);
@@ -155,11 +157,38 @@ export default function ProductProvider({ children }) {
     
   }, [currentUser]);
 
+  useEffect(() => {
+    if (currentUser) {
+      //alert(userID)
+
+      const dbRT = ref(database, "rt/" + userID);
+
+      const handleDataRT = (snapshot) => {
+        const data = snapshot.val();
+        if (data !== null && data !== undefined) {
+          //console.log('apiKey', data);
+          const items = Object?.entries(data).map(([id, item]) => ({
+            id,
+            rt_sum: item.rt_sum,
+            rt_period: item.rt_period,
+            rt_network: item.rt_network,
+          }));
+          setNewRT(items);
+        } else {
+          setNewRT([]);
+        }
+      };
+    
+      onValue(dbRT, handleDataRT, handleError);
+    }
+    
+  }, [currentUser]);
+
   return (
     <>
       <ProductContext.Provider
         value={{
-          newApiKey, newTrustManagement, newRoboticTrading, newWallet, newDeposit
+          newApiKey, newTrustManagement, newRoboticTrading, newWallet, newDeposit, newRT
         }}
       >
         {children}

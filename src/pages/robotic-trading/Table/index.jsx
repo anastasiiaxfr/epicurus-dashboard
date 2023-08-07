@@ -11,63 +11,34 @@ import DelIcon from "../../../assets/icons/del.svg";
 
 import styles from "./style.module.sass";
 
-export default function ApiKeyList({ deposits }) {
+export default function ApiKeyList({ data }) {
   const { currentUser } = useContext(AuthContext);
   const userID = currentUser.uid;
 
-  const [depositName, setDepositName] = useState("");
-  const [apiKeyId, setApiKeyId] = useState(null);
+  const [name, setName] = useState("");
+  const [id, setId] = useState(null);
 
-  const [openModalDelKeyConfirm, setOpenModalDelKeyConfirm] = useState(false);
+  const [openModalDelConfirm, setOpenModalDelConfirm] = useState(false);
   const [openModalDelSuccess, setOpenModalDelSuccess] = useState(false);
 
-  const list = [
-    {
-      deposit_name: "Premium",
-      deposit_status: "Active",
-      deposit_wallet: "Metamask",
-      deposit_balance: "100 342",
-      deposit_pnl: "+1434,75 $",
-      deposit_percentage: "20",
-      deposit_active_until: "11.07.23",
-    },
-    {
-      deposit_name: "Classic",
-      deposit_status: "Active",
-      deposit_wallet: "Metamask",
-      deposit_balance: "100 342",
-      deposit_pnl: "+1434,75 $",
-      deposit_percentage: "20",
-      deposit_active_until: "11.07.23",
-    },
-    {
-      deposit_name: "VIP",
-      deposit_status: "Active",
-      deposit_wallet: "Metamask",
-      deposit_balance: "100 342",
-      deposit_pnl: "+1434,75 $",
-      deposit_percentage: "20",
-      deposit_active_until: "11.07.23",
-    },
-  ];
-
-  const modalDelKeyConfirm = {
-    title: "Delete " + depositName + "?",
-    btnText: "Accept",
+  const modalDelConfirm = {
+    title: "Delete " + name + " Bot?",
+    text: "Removing the bot will render it inoperable. Please make sure you really want to delete this bot",
+    btnText: "Delete",
     btnText2: "Cancel",
   };
 
-  const modalDelKeySuccess = {
-    title: depositName + " was successfully deleted",
+  const modalDelSuccess = {
+    title: name + " was successfully deleted",
     btnText: "Accept",
   };
 
   const toggleModalConfirmation = () => {
-    setOpenModalDelKeyConfirm(false);
+    setOpenModalDelConfirm(false);
 
-    const apiKey = ref(database, "deposit/" + userID + "/" + apiKeyId);
+    const RT = ref(database, "rt/" + userID + "/" + id);
     //alert(e.target.getAttribute("data-key"));
-    remove(apiKey)
+    remove(RT)
       .then(() => {
         //alert("Data successfully deleted!");
         setOpenModalDelSuccess(true);
@@ -77,10 +48,10 @@ export default function ApiKeyList({ deposits }) {
       });
   };
 
-  const onDelApiKey = (id, name) => {
-    setDepositName(name);
-    setApiKeyId(id);
-    setOpenModalDelKeyConfirm(true);
+  const onDelRT = (id, name) => {
+    setName(name);
+    setId(id);
+    setOpenModalDelConfirm(true);
   };
 
   //console.log('newApiKey', newApiKey);
@@ -90,35 +61,35 @@ export default function ApiKeyList({ deposits }) {
       <ModalConfirmation
         openModal={openModalDelSuccess}
         setModalOpen={setOpenModalDelSuccess}
-        props={modalDelKeySuccess}
+        props={modalDelSuccess}
         theme="success"
       />
 
       <ModalError
-        openModal={openModalDelKeyConfirm}
-        setModalOpen={setOpenModalDelKeyConfirm}
-        props={modalDelKeyConfirm}
+        openModal={openModalDelConfirm}
+        setModalOpen={setOpenModalDelConfirm}
+        props={modalDelConfirm}
         theme="error"
         toggleModal={toggleModalConfirmation}
       />
 
-      {list?.map((i, k) => (
+      {data?.map((i, k) => (
         <div className={styles.table} key={k}>
           <div className={styles.table_header}>
             <div className={styles.table_header_container}>
               <div
-                className={`${styles.table_title} ${styles[i.deposit_name]}`}
+                className={`${styles.table_title}`}
               >{"Robotic Trading"}</div>
               <div className={styles.table_info}>
                 <span>Status:</span>
-                <b> {i.deposit_status || "Active"} </b>
+                <b> {"Active"} </b>
               </div>
             </div>
 
             <div className={styles.table_cta}>
               <DelIcon
                 className={styles.table_del}
-                onClick={() => onDelApiKey(i.id, i.deposit_type)}
+                onClick={() => onDelRT(i.id, "Robotic Trading")}
               />
             </div>
           </div>
@@ -165,7 +136,7 @@ export default function ApiKeyList({ deposits }) {
                 theme="grad"
                 label="Open"
                 type="link"
-                link={`deposit/${i.id}`}
+                link={`robotic-trading/${i.id}`}
               />
             </div>
           </div>

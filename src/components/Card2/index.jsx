@@ -5,7 +5,7 @@ import IconArr from "../../assets/icons/arr-t-rt.svg";
 import styles from "./card.module.sass";
 
 export default function Card({ props, k, active, onClick }) {
-  const { title, text, url, btn, cols } = props;
+  const { title, text, on_click, btn, cols } = props;
   return (
     <figure className={`${styles.card} ${active ? styles.active : ""}`} key={k} onClick={onClick}>
       <div className={styles.card_header}>
@@ -33,7 +33,7 @@ export default function Card({ props, k, active, onClick }) {
           ))}
         </div>
 
-        <Btn label={btn} theme="grad" />
+        <Btn label={btn} theme="grad" onClick={on_click} />
       </div>}
     </figure>
   );

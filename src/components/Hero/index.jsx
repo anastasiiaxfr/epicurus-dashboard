@@ -20,7 +20,7 @@ export default function Hero() {
     {
       title: "Robotic Trading",
       status: "Active",
-      url: "#",
+      url: "/robotic-trading",
       cols: [
         {
           title: "Balance",
@@ -44,7 +44,7 @@ export default function Hero() {
     {
       title: "Deposit",
       status: "",
-      url: "#",
+      url: "/deposit",
       cols: [
         {
           title: "Balance",
@@ -58,13 +58,13 @@ export default function Hero() {
       cta: {
         enable: true,
         title: "Accept",
-        url: "#",
+        url: "/deposit",
       },
     },
     {
       title: "Trust Management",
       status: "Active",
-      url: "#",
+      url: "/trust-management",
       cols: [
         {
           title: "Balance",

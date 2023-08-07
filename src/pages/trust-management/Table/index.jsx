@@ -60,9 +60,9 @@ export default function ApiKeyList() {
   const toggleModalConfirmation = () => {
     setOpenModalDelKeyConfirm(false);
 
-    const apiKey = ref(database, "trustManagement/" + userID + "/" + apiKeyId);
+    const TM = ref(database, "trustManagement/" + userID + "/" + apiKeyId);
     //alert(e.target.getAttribute("data-key"));
-    remove(apiKey)
+    remove(TM)
       .then(() => {
         //alert("Data successfully deleted!");
         setOpenModalDelSuccess(true);
