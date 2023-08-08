@@ -21,15 +21,16 @@ function DepositSinglePage() {
 
   const [data, setData] = useState({});
   const [deposit, setDeposit] = useState(0);
-  const [depositChanged, setDepositChanged] = useState(false);
 
   
   useEffect(() => {
     if (filterTM[0]) {
-      const { api_name: name, api_key: key, api_secret: secret } = filterTM[0];
-      setData({ name, key, secret });
+      const { tm_name: name, api_key_id: key, tm_sum: sum, id
+      } = filterTM[0];
+      setData({ name, key, sum, id });
     }
   }, [filterTM[0]]);
+
 
   const [openModalDeposit, setOpenModalDeposit] = useState(false);
   const [openModalDepositError, setOpenModalDepositError] = useState(false);
@@ -38,6 +39,7 @@ function DepositSinglePage() {
     setOpenModalDepositError(state);
     setDeposit(val);
   };
+
 
   const modalDeposit = {
     title: "Trust Deposit Incrase",
@@ -66,7 +68,6 @@ function DepositSinglePage() {
         openModal={openModalDeposit}
         data={data.key}
         setModalOpen={setOpenModalDeposit}
-        setDepositChanged={setDepositChanged}
         props={modalDeposit}
         toggleModal={hangleModalDepositForm}
       ></ModalDepositAdd>
@@ -81,7 +82,6 @@ function DepositSinglePage() {
       <HeroSingle
         data={data}
         deposit={deposit}
-        depositChanged={depositChanged}
         depositAdd={() => {setOpenModalDeposit(true)}}
       />
 

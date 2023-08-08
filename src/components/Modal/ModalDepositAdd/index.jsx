@@ -11,7 +11,6 @@ export default function ModalDeposit({
   openModal,
   setModalOpen,
   toggleModal,
-  setDepositChanged,
   props,
   data,
 }) {
@@ -39,7 +38,6 @@ export default function ModalDeposit({
         } else {
             toggleModal(false, deposit_sum);
             setModalOpen(false);
-            setDepositChanged(prev => !prev);
             form.current.reset();
             setReset((prev) => !prev);
         }

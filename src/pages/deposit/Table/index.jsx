@@ -11,10 +11,9 @@ import DelIcon from "../../../assets/icons/del.svg";
 
 import styles from "./style.module.sass";
 
-export default function ApiKeyList({deposits}) {
+export default function ApiKeyList({ deposits }) {
   const { currentUser } = useContext(AuthContext);
   const userID = currentUser.uid;
-
 
   const [depositName, setDepositName] = useState("");
   const [apiKeyId, setApiKeyId] = useState(null);
@@ -67,11 +66,20 @@ export default function ApiKeyList({deposits}) {
     setOpenModalDelKeyConfirm(false);
 
     const apiKey = ref(database, "deposit/" + userID + "/" + apiKeyId);
+    const allDeposit = ref(database, "allDeposit/" + userID + "/" + apiKeyId);
     //alert(e.target.getAttribute("data-key"));
     remove(apiKey)
       .then(() => {
         //alert("Data successfully deleted!");
         setOpenModalDelSuccess(true);
+      })
+      .catch((error) => {
+        console.error("Error deleting data:", error);
+      });
+
+    remove(allDeposit)
+      .then(() => {
+        //alert("Data successfully deleted!");
       })
       .catch((error) => {
         console.error("Error deleting data:", error);
@@ -107,7 +115,9 @@ export default function ApiKeyList({deposits}) {
         <div className={styles.table} key={k}>
           <div className={styles.table_header}>
             <div className={styles.table_header_container}>
-              <div className={`${styles.table_title} ${styles[i.deposit_name]}`}>{`${i.deposit_type}`}</div>
+              <div
+                className={`${styles.table_title} ${styles[i.deposit_name]}`}
+              >{`${i.deposit_type}`}</div>
               <div className={styles.table_info}>
                 <span>Status:</span>
                 <b> {i.deposit_status || "Active"} </b>
@@ -129,7 +139,6 @@ export default function ApiKeyList({deposits}) {
 
           <div className={styles.table_content}>
             <div className={styles.table_body}>
-
               <div className={styles.table_col}>
                 <div className={styles.table_label}>Balance</div>
                 <div className={styles.table_val}>
@@ -147,7 +156,7 @@ export default function ApiKeyList({deposits}) {
               <div className={styles.table_col}>
                 <div className={styles.table_label}>Percentage</div>
                 <div className={styles.table_val}>
-                  <b> {i.deposit_percent || '20%'}</b>
+                  <b> {i.deposit_percent || "20%"}</b>
                 </div>
               </div>
 
@@ -157,13 +166,16 @@ export default function ApiKeyList({deposits}) {
                   <span> {i.deposit_active_until || "11.07.23"} </span>
                 </div>
               </div>
-
             </div>
             <div className={styles.table_btn}>
-              <Btn theme="grad" label="Open" type="link" link={`deposit/${i.id}`}/>
+              <Btn
+                theme="grad"
+                label="Open"
+                type="link"
+                link={`deposit/${i.id}`}
+              />
             </div>
           </div>
-
         </div>
       ))}
     </>

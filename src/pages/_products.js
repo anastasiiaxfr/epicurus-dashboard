@@ -16,7 +16,6 @@ export default function ProductProvider({ children }) {
   const [newRoboticTrading, setNewRoboticTrading] = useState([]);
   const [newWallet, setNewWallet] = useState([]);
   const [newDeposit, setNewDeposit] = useState([]);
-  const [newRT, setNewRT] = useState([]);
 
 
   const handleError = (error) => {
@@ -44,15 +43,13 @@ export default function ProductProvider({ children }) {
           setNewApiKey([]);
         }
       };
-    
+
       onValue(dbApiKeys, handleDataChangeApiKeys, handleError);
     }
-    
   }, [currentUser]);
 
   useEffect(() => {
     if (currentUser) {
-
       const dbTM = ref(database, "trustManagement/" + userID);
 
       const handleDataChangeTM = (snapshot) => {
@@ -61,9 +58,11 @@ export default function ProductProvider({ children }) {
           //console.log('trustManagement', data);
           const items = Object?.entries(data).map(([id, item]) => ({
             id,
-            api_name: item.api_name,
-            api_key: item.api_key,
-            api_secret: item.api_secret,
+            tm_name: item.tm_name,
+            tm_period: item.tm_period,
+            tm_sum: item.tm_sum,
+            api_key_name: item.api_key_name,
+            api_key_id: item.api_key_id,
           }));
           setNewTrustManagement(items);
         } else {
@@ -73,35 +72,9 @@ export default function ProductProvider({ children }) {
 
       onValue(dbTM, handleDataChangeTM, handleError);
     }
-    
   }, [currentUser]);
 
-  useEffect(() => {
-    if (currentUser) {
-
-      const dbRT = ref(database, "roboticTrading/" + userID);
-
-      const handleDataChangeRT = (snapshot) => {
-        const data = snapshot.val();
-        if (data !== null && data !== undefined) {
-          //console.log(data);
-          const items = Object?.entries(data).map(([id, item]) => ({
-            id,
-            api_name: item.api_name,
-            api_key: item.api_key,
-            api_secret: item.api_secret,
-          }));
-          setNewRoboticTrading(items);
-        } else {
-          setNewRoboticTrading([]);
-        }
-      };
-
-      onValue(dbRT, handleDataChangeRT, handleError);
-    }
-    
-  }, [currentUser]);
-
+ 
   useEffect(() => {
     if (currentUser) {
       //alert(userID)
@@ -114,17 +87,16 @@ export default function ProductProvider({ children }) {
           //console.log('apiKey', data);
           const items = Object?.entries(data).map(([id, item]) => ({
             id,
-            wallet: item.wallet
+            wallet: item.wallet,
           }));
           setNewWallet(items);
         } else {
           setNewWallet([]);
         }
       };
-    
+
       onValue(dbWallets, handleDataWallets, handleError);
     }
-    
   }, [currentUser]);
 
   useEffect(() => {
@@ -139,7 +111,10 @@ export default function ProductProvider({ children }) {
           //console.log('apiKey', data);
           const items = Object?.entries(data).map(([id, item]) => ({
             id,
-            deposit_name: item.deposit_type.replace("Deposit", "").toLocaleLowerCase().trim(),
+            deposit_name: item.deposit_type
+              .replace("Deposit", "")
+              .toLocaleLowerCase()
+              .trim(),
             deposit_type: item.deposit_type,
             deposit_percent: item.deposit_percent,
             deposit_wallet: item.deposit_wallet,
@@ -152,12 +127,12 @@ export default function ProductProvider({ children }) {
           setNewDeposit([]);
         }
       };
-    
+
       onValue(dbDeposits, handleDataDeposit, handleError);
     }
-    
   }, [currentUser]);
 
+ 
   useEffect(() => {
     if (currentUser) {
       //alert(userID)
@@ -174,22 +149,41 @@ export default function ProductProvider({ children }) {
             rt_period: item.rt_period,
             rt_network: item.rt_network,
           }));
-          setNewRT(items);
+          setNewRoboticTrading(items);
         } else {
-          setNewRT([]);
+          setNewRoboticTrading([]);
         }
       };
-    
+
       onValue(dbRT, handleDataRT, handleError);
     }
-    
   }, [currentUser]);
+
+
+  
+  const totalDepositBalance = newDeposit.reduce((sum, item) => sum + +item.deposit_sum, 0);
+
+  const allDepositSum = (totalDepositBalance || 0).toFixed(2);
+
+  const totalTMBalanceSum = newTrustManagement.reduce((sum, item) => +sum + +item.tm_sum, 0);
+  const totalTMBalance = (totalTMBalanceSum.toFixed(2));
+
+  const totalRTBalanceSum = newRoboticTrading.reduce((sum, item) => +sum + +item.rt_sum, 0);
+  const totalRTBalance = (totalRTBalanceSum.toFixed(2));
 
   return (
     <>
       <ProductContext.Provider
         value={{
-          newApiKey, newTrustManagement, newRoboticTrading, newWallet, newDeposit, newRT
+          newApiKey,
+          newTrustManagement,
+          newRoboticTrading,
+          newWallet,
+          newDeposit,
+          allDepositSum,
+          totalDepositBalance,
+          totalTMBalance,
+          totalRTBalance
         }}
       >
         {children}

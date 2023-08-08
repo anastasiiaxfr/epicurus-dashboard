@@ -1,7 +1,7 @@
 //Import the functions you need from the SDKs you need
 import { AppCheckProvider, useFirebaseApp } from 'reactfire';
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, set, onValue, remove } from 'firebase/database';
+import { getDatabase, ref, set, onValue, remove, update } from 'firebase/database';
 import { getStorage, uploadBytes, getDownloadURL } from "firebase/storage";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, sendEmailVerification, onIdTokenChanged, onAuthStateChanged, sendPasswordResetEmail, signInWithCustomToken } from "firebase/auth";
 import { getFirestore, collection, doc, setDoc } from 'firebase/firestore';
@@ -42,7 +42,7 @@ const auth = getAuth();
 // console.log(process.env.FIREBASE_MESSAGING_SENDER_ID);
 // console.log(process.env.FIREBASE_APP_ID);
 
-export { initFirebase, database, storage, ref, set, uploadBytes, refStorage, getDownloadURL, getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, auth, createUserWithEmailAndPassword, updateProfile, onValue, sendEmailVerification, onIdTokenChanged, sendPasswordResetEmail, firestore, collection, doc, setDoc, remove, onAuthStateChanged, signInWithCustomToken };
+export { initFirebase, database, storage, ref, set, update, uploadBytes, refStorage, getDownloadURL, getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, auth, createUserWithEmailAndPassword, updateProfile, onValue, sendEmailVerification, onIdTokenChanged, sendPasswordResetEmail, firestore, collection, doc, setDoc, remove, onAuthStateChanged, signInWithCustomToken };
 export default function () {
     return <></>;
   }

@@ -1,5 +1,5 @@
 import { useState, useRef, useContext } from "react";
-import { ref, database, set } from '../../../pages/_firebase';
+import { ref, database, set } from "../../../pages/_firebase";
 import { AuthContext } from "../../../pages/_auth";
 import nextId from "react-id-generator";
 
@@ -7,6 +7,8 @@ import ModalConfirmation from "../../Modal/ModalConfirmation";
 import Input from "../Input";
 import Btn from "../Btn";
 import Checkbox from "../Checkbox";
+import SelectPeriod from "../SelectPeriod";
+import SelectApi from "../SelectApi";
 
 import styles from "./styles.module.sass";
 
@@ -17,20 +19,19 @@ const modalKeyAdded = {
 };
 
 const modalKeySuccessDeleted = {
-    title: "Activation Successful",
-    btnText: "Accept",
-    btnUrl: "#",
+  title: "Activation Successful",
+  btnText: "Accept",
+  btnUrl: "#",
 };
 
 const modalKeyConfirmDelete = {
-    title: "Delete API Key?",
-    text: "Удаление API ключа приведет к неработоспособности всех продуктов, к которому он подключен. Пожалуйста, убедитесь, что вы действительно хотите удалить ключ",
-    btnText: "Accept",
-    btnUrl: "#",
+  title: "Delete API Key?",
+  text: "Удаление API ключа приведет к неработоспособности всех продуктов, к которому он подключен. Пожалуйста, убедитесь, что вы действительно хотите удалить ключ",
+  btnText: "Accept",
+  btnUrl: "#",
 };
 
-
-export default function FormAddTrustManagement({ show }) {
+export default function FormAddTrustManagement({ show, setFieldPeriod, setFieldApi, setFieldName, setFieldSum }) {
   const htmlId = nextId("tm-key-");
   const { currentUser } = useContext(AuthContext);
   const userID = currentUser.uid;
@@ -38,10 +39,12 @@ export default function FormAddTrustManagement({ show }) {
   const form = useRef(null);
   const [validation, setValidation] = useState(false);
   const [validationCheckbox, setValidationCheckbox] = useState(false);
+  const [validationSelect, setValidationSelect] = useState(false);
 
   const [submit, setSubmit] = useState(false);
-  const [reset, setReset] = useState(false)
+  const [reset, setReset] = useState(false);
   const [resetCheckbox, setResetCheckbox] = useState(false);
+  const [resetSelect, setResetSelect] = useState(false);
 
   const [openModalSuccess, setOpenModalSuccess] = useState(false);
 
@@ -49,34 +52,40 @@ export default function FormAddTrustManagement({ show }) {
     e.preventDefault();
     setSubmit((prev) => !prev);
     if (form.current) {
-      const api_name = form.current.api_name.value;
-      const api_key = form.current.api_key.value;
-      const api_secret = form.current.api_secret.value;
+      const tm_name = form.current.tm_name.value;
+      const tm_period = form.current.tm_period.value;
+      const tm_sum = form.current.tm_sum.value;
+      const api_key_name = form.current.tm_api.value;
+      const api_key_id = form.current.tm_api.getAttribute("name");
 
       if (validation && validationCheckbox) {
-        setResetCheckbox(prev => !prev);
-        sendToFB(api_name, api_key, api_secret);
+        setResetCheckbox((prev) => !prev);
+        setResetSelect((prev) => !prev);
+        sendToFB(tm_name, tm_period, tm_sum, api_key_name, api_key_id);
         setOpenModalSuccess(true);
         show(false);
-        form.current.reset();  
-        setReset(prev => !prev);  
+        form.current.reset();
+        setReset((prev) => !prev);
       }
     }
   };
 
   const onResetFrom = () => {
-    form.current.reset();    
-    setReset(prev => !prev);
-    setResetCheckbox(prev => !prev);
+    form.current.reset();
+    setReset((prev) => !prev);
+    setResetCheckbox((prev) => !prev);
+    setResetSelect((prev) => !prev);
     show(false);
   };
 
-  const sendToFB = (api_name, api_key, api_secret) => {
-    set(ref(database, 'trustManagement/' + userID + '/' + htmlId), {
-      api_name: api_name,
-      api_key: api_key,
-      api_secret: api_secret,
-    })
+  const sendToFB = (tm_name, tm_period, tm_sum, api_key_name, api_key_id) => {
+    set(ref(database, "trustManagement/" + userID + "/" + htmlId), {
+      tm_name: tm_name,
+      tm_period: tm_period,
+      tm_sum: tm_sum,
+      api_key_name: api_key_name,
+      api_key_id: api_key_id
+    });
   };
 
   return (
@@ -101,9 +110,9 @@ export default function FormAddTrustManagement({ show }) {
         <div className={styles.form_row}>
           <Input
             type="text"
-            label="API Name"
+            label="Name"
             placeholder="Enter Name"
-            id="api_name"
+            id="tm_name"
             error="Required field"
             required={true}
             reset={reset}
@@ -112,17 +121,17 @@ export default function FormAddTrustManagement({ show }) {
             setSubmit={setSubmit}
             validate={setValidation}
             theme="default"
+            success={setFieldName}
           />
         </div>
 
         <div className={styles.form_row}>
           <Input
             type="text"
-            label="API Key"
-            placeholder="Enter API Key"
-            id="api_key"
-            error="API Key is not valid"
-            note="API Key changes every 3 months"
+            label="Your SUM"
+            placeholder="Enter SUM, USDT"
+            id="tm_sum"
+            error="Required field"
             required={true}
             reset={reset}
             setReset={setReset}
@@ -130,23 +139,29 @@ export default function FormAddTrustManagement({ show }) {
             setSubmit={setSubmit}
             validate={setValidation}
             theme="default"
+            success={setFieldSum}
           />
         </div>
 
         <div className={styles.form_row}>
-          <Input
-            type="text"
-            label="Secret Key"
-            placeholder="Enter Secret Key"
-            id="api_secret"
-            error="API Key is not valid"
-            required={true}
-            reset={reset}
-            setReset={setReset}
+          <SelectApi
             submit={submit}
             setSubmit={setSubmit}
-            validate={setValidation}
-            theme="default"
+            validate={setValidationSelect}
+            reset={resetSelect}
+            id="tm_api"
+            success={() => setFieldApi(true)}
+          />
+        </div>
+
+        <div className={styles.form_row}>
+          <SelectPeriod
+            submit={submit}
+            setSubmit={setSubmit}
+            validate={setValidationSelect}
+            reset={resetSelect}
+            id="tm_period"
+            success={() => setFieldPeriod(true)}
           />
         </div>
 

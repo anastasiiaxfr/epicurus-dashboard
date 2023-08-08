@@ -66,6 +66,7 @@ export default function FormAddDeposit({ show, deposit, wallet, setFieldSum, set
           deposit_period,
           deposit_network
         );
+        sendToFBTotalDeposit(deposit_sum);
         setOpenModalSuccess(true);
         form.current.reset();
         setReset((prev) => !prev);
@@ -97,6 +98,14 @@ export default function FormAddDeposit({ show, deposit, wallet, setFieldSum, set
       deposit_wallet: deposit_wallet,
       deposit_period: deposit_period,
       deposit_network: deposit_network,
+    });
+  };
+
+  const sendToFBTotalDeposit = (
+    deposit_sum,
+  ) => {
+    set(ref(database, "allDeposit/" + userID + "/" + htmlId), {
+      deposit_sum: deposit_sum,
     });
   };
 

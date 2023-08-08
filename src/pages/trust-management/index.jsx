@@ -15,6 +15,13 @@ function TrustManagementPage() {
 
   const { newTrustManagement } = useContext(ProductContext);
 
+  const [fieldName, setFieldName] = useState(false);
+  const [fieldSum, setFieldSum] = useState(false);
+  const [fieldPeriod, setFieldPeriod] = useState(false);
+  const [fieldApi, setFieldApi] = useState(false);
+  const [fieldPolicy, setFieldPolicy] = useState(false);
+
+
   useEffect(() => {
     newTrustManagement.length === 0
       ? setNoTrustManagement(true)
@@ -62,6 +69,10 @@ function TrustManagementPage() {
                 ? () => setShowForm((prev) => !prev)
                 : () => setShowForm((prev) => !prev)
             }
+            setFieldPeriod={setFieldPeriod}
+            setFieldApi={setFieldApi}
+            setFieldName={setFieldName}
+            setFieldSum={setFieldSum}
           />
         </>
       </HeroGroup>

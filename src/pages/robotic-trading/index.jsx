@@ -12,15 +12,15 @@ import Table from "./Table";
 import styles from "./styles.module.sass";
 
 function RoboticTradingPage() {
-  const { newRT } = useContext(ProductContext);
+  const { newRoboticTrading } = useContext(ProductContext);
 
   const [show, setShow] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [showBanner, setShowBanner] = useState(true);
 
   useEffect(() => {
-    newRT.length === 0 ? setShow(false) : setShow(true);
-  }, [newRT]);
+    newRoboticTrading.length === 0 ? setShow(false) : setShow(true);
+  }, [newRoboticTrading]);
 
   const handleChooseBot = () => {
     setShow(true)
@@ -105,12 +105,12 @@ function RoboticTradingPage() {
       {show && (
         <>
           <HeroGroup hero={hero} show={showForm}>
-            <FormAddRT show={newRT.length !== 0 ? () => setShowForm(prev => !prev) : setShow} />
+            <FormAddRT show={newRoboticTrading.length !== 0 ? () => setShowForm(prev => !prev) : setShow} />
           </HeroGroup>
-          {newRT.length !== 0 && (
+          {newRoboticTrading.length !== 0 && (
             <>
               <Hgroup props={hgroup2} />
-              <Table data={newRT} />
+              <Table data={newRoboticTrading} />
             </>
           )}
         </>

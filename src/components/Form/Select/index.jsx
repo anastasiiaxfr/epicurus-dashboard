@@ -8,7 +8,18 @@ import ArrowIcon from "../../../assets/icons/arr-btm-0.svg";
 
 import styles from "./select.module.sass";
 
-export default function SelectField({ label, id, data, error, note, submit, setSubmit, validate, success }) {
+export default function SelectField({
+  label,
+  id,
+  data,
+  error,
+  note,
+  submit,
+  setSubmit,
+  validate,
+  success,
+  children,
+}) {
   const [newValue, setNewValue] = useState(data[0]);
   const [shown, setShown] = useState(false);
   const [selected, setSelected] = useState(false);
@@ -20,22 +31,33 @@ export default function SelectField({ label, id, data, error, note, submit, setS
 
   const onClick = (val) => {
     setNewValue(val);
+   
     setShown(false);
     setSelected(true);
     validate(true);
-  }
+  };
 
   const onChange = () => {
-    if(selected === false){ setShowError(true); setSubmit(false); } else { setShowError(false); }
-  }
+    if (selected === false) {
+      setShowError(true);
+      setSubmit(false);
+    } else {
+      setShowError(false);
+    }
+  };
 
   useEffect(() => {
-    if (submit === true) { onChange(); }
-  }, [submit])
+    if (submit === true) {
+      onChange();
+    }
+  }, [submit]);
 
   useEffect(() => {
-    if (selected === true) { onChange(); success(true) }
-  }, [selected])
+    if (selected === true) {
+      onChange();
+      success(true);
+    }
+  }, [selected]);
 
   return (
     <div className={styles.select__wrapper}>
@@ -49,21 +71,21 @@ export default function SelectField({ label, id, data, error, note, submit, setS
                 <Nottification label={note} type="note" />
               </div>
             )}
-            {error && showError && (
-              <Nottification label={error} type="error" />
-            )}
+            {error && showError && <Nottification label={error} type="error" />}
           </div>
         )}
       </label>
 
       <div
-        className={`${styles.select} ${shown ? styles.active : ""} ${ selected ? styles.selected : ""} ${showError ? styles.error : ""}`}
+        className={`${styles.select} ${shown ? styles.active : ""} ${
+          selected ? styles.selected : ""
+        } ${showError ? styles.error : ""}`}
       >
         <Input
-          name={id}
+          name={typeof newValue  === "object" ? newValue.id : id}
           id={id}
           type="text"
-          value={newValue.charAt(0).toUpperCase() + newValue.slice(1)}
+          value={typeof newValue === "object" ? newValue.name.charAt(0).toUpperCase() + newValue.name.slice(1) : newValue.charAt(0).toUpperCase() + newValue.slice(1)}
           disabled
           onClick={onMenuToggle}
         />
@@ -77,27 +99,32 @@ export default function SelectField({ label, id, data, error, note, submit, setS
       {shown && (
         <ClickAwayListener onClickAway={() => setShown(false)}>
           <ul className={styles.select__options}>
-            {data.slice(1, 3).map((i, ind) => (
-              <li
-                key={ind}
-                value={i}
-                onClick={() => onClick(i)}
-              >
-                {i}
-              </li>
-            ))}
-            {data.length >= 4 && (
-              <div className={styles.select__options_wrap}>
-                {data.slice(3, data.length).map((i, ind) => (
-                  <li
-                    key={ind}
-                    value={i}
-                    onClick={() => onClick(i)}
-                  >
-                    {i}
-                  </li>
-                ))}
-              </div>
+            {data.length === 1 ? (
+              <li onClick={() => setShown(false)}>{children}</li>
+            ) : (
+              <>
+                {console.log(data.slice(1, 3))}
+                {data.slice(1, 3).map((i, ind) =>
+                  typeof i === "object" ? (
+                    <li key={ind} onClick={() => onClick(i)}>
+                      {i.name}
+                    </li>
+                  ) : (
+                    <li key={ind} value={i} onClick={() => onClick(i)}>
+                      {i}
+                    </li>
+                  )
+                )}
+                {/* {data.length >= 4 && (
+                  <div className={styles.select__options_wrap}>
+                    {data.slice(3, data.length).map((i, ind) => (
+                      <li key={ind} value={i} onClick={() => onClick(i)}>
+                        {i}
+                      </li>
+                    ))}
+                  </div>
+                )} */}
+              </>
             )}
           </ul>
         </ClickAwayListener>

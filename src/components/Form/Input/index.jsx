@@ -13,6 +13,7 @@ export default function InputField({
   note,
   error,
   id,
+  name,
   required,
   disabled,
   setDisabled,
@@ -138,7 +139,7 @@ export default function InputField({
 
       <div className={styles.wrap}>
         <Input
-          name={id}
+          name={name}
           id={id}
           type={type}
           placeholder={placeholder}

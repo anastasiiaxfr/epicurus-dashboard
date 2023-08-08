@@ -11,23 +11,13 @@ import stylesCard from "../Card/card.module.sass";
 import IconArr from "../../assets/icons/arr-t-rt.svg";
 
 export default function Hero() {
-  const { newDeposit } = useContext(ProductContext);
+  const { allDepositSum, totalDeposit: balanceDeposit, totalTMBalance: balanceTM, totalRTBalance: balanceRT} = useContext(ProductContext);
 
-  const [balanceDeposit, setBalanceDeposit] = useState(0);
-  const [balanceRT, setBalanceRT] = useState(0);
-  const [balanceTM, setBalanceTM] = useState(0);
   const [totalDeposit, setTotalDeposit] = useState(0);
   const [totalRT, setTotalRT] = useState(0);
   const [totalTM, setTotalTM] = useState(0);
 
-  console.log(newDeposit);
-  useEffect(() => {
-    let totalDepositSum = 0;
-    newDeposit.forEach((deposit) => {
-      totalDepositSum += parseInt(deposit.deposit_sum);
-    });
-    setBalanceDeposit(totalDepositSum);
-  }, []);
+
 
   const cards = [
     {
@@ -37,7 +27,7 @@ export default function Hero() {
       cols: [
         {
           title: "Balance",
-          val: `$ ${balanceDeposit.toFixed(2)}`,
+          val: `$ ${allDepositSum}`,
         },
         {
           title: "Total PNL",
@@ -57,7 +47,7 @@ export default function Hero() {
       cols: [
         {
           title: "Balance",
-          val: `$ ${totalRT.toFixed(2)}`,
+          val: `$ ${balanceRT}`,
         },
         {
           title: "Total PNL",
@@ -81,7 +71,7 @@ export default function Hero() {
       cols: [
         {
           title: "Balance",
-          val: `$ ${totalTM.toFixed(2)}`,
+          val: `$ ${balanceTM}`,
         },
         {
           title: "Total PNL",
@@ -142,7 +132,7 @@ export default function Hero() {
         <div className={styles.sidebar_card}>
           <div className={styles.sidebar_title}>Total Sum</div>
           <span className={styles.sidebar_chart_val}>
-            {balanceDeposit.toFixed(2)} $
+            {balanceDeposit} $
           </span>
           <div className={styles.sidebar_chart}>
             <Chart />
