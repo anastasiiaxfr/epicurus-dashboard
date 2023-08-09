@@ -12,11 +12,13 @@ function DepositSinglePage() {
   const currentURL = router.asPath;
   const currentID = currentURL.replace("/robotic-trading/", "").trim();
 
-  const { newRT } = useContext(ProductContext);
+  const { newRoboticTrading } = useContext(ProductContext);
 
-  const filterTM = newRT.filter((i) => i.id === currentID);
+  const filterTM = newRoboticTrading.filter((i) => i.id === currentID);
   
   const [data, setData] = useState({});
+
+
   useEffect(() => {
     if(filterTM[0]){
         const { rt_sum: sum, rt_network: network, rt_period: period } = filterTM[0];

@@ -1,9 +1,10 @@
-import { useState, useRef, useContext } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import { ref, database, set } from "../../../pages/_firebase";
 import { AuthContext } from "../../../pages/_auth";
 import nextId from "react-id-generator";
 
-import ModalConfirmation from "../../Modal/ModalConfirmation";
+import ModalPolicy from "../../Modal/ModalPolicy";
+
 import Input from "../Input";
 import Btn from "../Btn";
 import Checkbox from "../Checkbox";
@@ -12,26 +13,35 @@ import SelectApi from "../SelectApi";
 
 import styles from "./styles.module.sass";
 
-const modalKeyAdded = {
-  title: "Activation Successful",
-  btnText: "Accept",
-  btnUrl: "#",
+const policy = {
+  title: "Usage Policy",
+  text: `
+  <p>What the fuck is going on?! God-damn! Are these pills supposed to wake me up or something? Don't even trip about your pants, dawg. We got an extra pair right here.</p>
+
+  <p>He's not pressing charges. That's gotta be the you shot me equivalent of not being mad. I'd like to order one large person with extra people please. white people, no no no black people... and hispanic on half. Ooohhh can do. Well then get your shit together. Get it all together and put it in a backpack, all your shit, so it's together. …and if you gotta take it somewhere, take it somewhere ya know? Take it to the shit store and sell it, or put it in a shit museum. I don't care what you do, you just gotta get it together… Get your shit together.</p>
+
+  <p>Nothing you do matters, your existence is a lie! Sometimes science is a lot more art, than science. A lot of people don't get that. That, out there. That's my grave. On one of our adventures Rick and I basically destroyed the whole world. So we bailed on that reality and we came to this one. Because in this one the world wasn't destroyed. And in this one, we were dead. So we came here a-a-and we buried ourselves and we took their place. And every morning, Summer, I eat breakfast 2 Nice, Mrs Pancakes. Real nice.</p>
+
+  <p>That's Right Morty! This is gonna be a lot like that. Except you know. It's gonna make sense. Like nothing shady ever happened in a fully furnished office? You ever hear about Wall Street Morty? You know what those guys do in their fancy board rooms? They take their balls and dip 'em in cocaine and wipe 'em all over each other. You know Grandpa goes around and he does his business in public because grandpa isn't shady. First off, I always slay it, queen. Secondly, yes. Okay, take it easy Rick. T-that's dark.</p>
+  `,
 };
 
-const modalKeySuccessDeleted = {
-  title: "Activation Successful",
+const modalPolicy = {
+  title: `${policy.title}`,
+  text: policy.text,
   btnText: "Accept",
-  btnUrl: "#",
+  btnText2: "Cansel",
 };
 
-const modalKeyConfirmDelete = {
-  title: "Delete API Key?",
-  text: "Удаление API ключа приведет к неработоспособности всех продуктов, к которому он подключен. Пожалуйста, убедитесь, что вы действительно хотите удалить ключ",
-  btnText: "Accept",
-  btnUrl: "#",
-};
-
-export default function FormAddTrustManagement({ show, setFieldPeriod, setFieldApi, setFieldName, setFieldSum }) {
+export default function FormAddTrustManagement({
+  show,
+  setFieldPeriod,
+  setFieldApi,
+  setFieldName,
+  setFieldSum,
+  setFieldPolicy,
+  toggleModal
+}) {
   const htmlId = nextId("tm-key-");
   const { currentUser } = useContext(AuthContext);
   const userID = currentUser.uid;
@@ -45,58 +55,75 @@ export default function FormAddTrustManagement({ show, setFieldPeriod, setFieldA
   const [reset, setReset] = useState(false);
   const [resetCheckbox, setResetCheckbox] = useState(false);
   const [resetSelect, setResetSelect] = useState(false);
+  const [checkedCheckbox, setCheckedCheckbox] = useState(false);
 
-  const [openModalSuccess, setOpenModalSuccess] = useState(false);
+
+  const [openModalPolicy, setOpenModalPolicy] = useState(false);
 
   const onAddTM = (e) => {
     e.preventDefault();
     setSubmit((prev) => !prev);
     if (form.current) {
       const tm_name = form.current.tm_name.value;
-      const tm_period = form.current.tm_period.value;
       const tm_sum = form.current.tm_sum.value;
+      const tm_sum_first = form.current.tm_sum.value;
+      const tm_period = form.current.tm_period.value;
+      const tm_start_date = Date.now();
       const api_key_name = form.current.tm_api.value;
       const api_key_id = form.current.tm_api.getAttribute("name");
 
-      if (validation && validationCheckbox) {
+      if (validation && validationCheckbox && validationSelect) {
         setResetCheckbox((prev) => !prev);
         setResetSelect((prev) => !prev);
-        sendToFB(tm_name, tm_period, tm_sum, api_key_name, api_key_id);
-        setOpenModalSuccess(true);
+        sendToFB(tm_name, tm_period, tm_start_date, tm_sum, tm_sum_first, api_key_name, api_key_id);
+        toggleModal(true);
         show(false);
         form.current.reset();
         setReset((prev) => !prev);
+        setFieldPolicy((prev) => !prev);
       }
     }
   };
 
+  useEffect(() => {
+    validationCheckbox ? setFieldPolicy(true) : setFieldPolicy(false);
+  }, [validationCheckbox])
+
   const onResetFrom = () => {
     form.current.reset();
+    show(false);
     setReset((prev) => !prev);
     setResetCheckbox((prev) => !prev);
     setResetSelect((prev) => !prev);
-    show(false);
   };
 
-  const sendToFB = (tm_name, tm_period, tm_sum, api_key_name, api_key_id) => {
-    set(ref(database, "trustManagement/" + userID + "/" + htmlId), {
+  const sendToFB = (tm_name, tm_period, tm_start_date, tm_sum, tm_sum_first, api_key_name, api_key_id) => {
+    set(ref(database, "trust-management/" + userID + "/" + htmlId), {
       tm_name: tm_name,
+      tm_start_date: tm_start_date,
       tm_period: tm_period,
+      tm_sum_first: tm_sum_first,
       tm_sum: tm_sum,
       api_key_name: api_key_name,
-      api_key_id: api_key_id
+      api_key_id: api_key_id,
     });
   };
 
+  const handlePolicyClick = () => {
+    setOpenModalPolicy(true);
+    setResetCheckbox((prev) => !prev);
+  }
+
   return (
     <>
-      <ModalConfirmation
-        openModal={openModalSuccess}
-        setModalOpen={setOpenModalSuccess}
-        props={modalKeyAdded}
+ 
+      <ModalPolicy
+        openModal={openModalPolicy}
+        setModalOpen={setOpenModalPolicy}
+        props={modalPolicy}
+        toggleCheckbox={setCheckedCheckbox}
         theme="success"
       />
-
       <form
         action="/"
         methord="POST"
@@ -167,13 +194,20 @@ export default function FormAddTrustManagement({ show, setFieldPeriod, setFieldA
 
         <div className={styles.form_row}>
           <Checkbox
-            label="I have read the Usage Policy"
+             label={
+              <div>
+                I have read the
+                <strong onClick={handlePolicyClick}> {policy.title}</strong>
+              </div>
+            }
             id="api_policy"
             error="Required field"
             submit={submit}
             setSubmit={setSubmit}
             validate={setValidationCheckbox}
             reset={resetCheckbox}
+            checkedCheckbox={checkedCheckbox}
+            setCheckedCheckbox={setCheckedCheckbox}
           />
         </div>
 

@@ -13,13 +13,18 @@ export default function ModalPopup({
   theme,
   show
 }) {
-  const { title, text, btnText } = props;
+  const { title, text, btnText, on_click } = props;
   const handleClose = () => {
     setModalOpen(false);
     if(show){ show(false); }
     if (toggleModal) {
       toggleModal(false);
     }
+  };
+
+  const onSubmit = () => {
+   handleClose(true); 
+   if(on_click){on_click(true)}
   };
 
   return (
@@ -33,7 +38,7 @@ export default function ModalPopup({
 
             <div className={styles.modal_title}>{title}</div>
             {text && <div className={styles.modal_text} dangerouslySetInnerHTML={{ __html: text }}/>}
-            <Btn label={btnText} theme={theme} onClick={handleClose} />
+            <Btn label={btnText} theme={theme} onClick={onSubmit} />
           </div>
         </ClickAwayListener>
       </section>

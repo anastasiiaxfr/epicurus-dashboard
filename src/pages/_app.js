@@ -105,7 +105,7 @@ export default function App({ Component, pageProps }) {
           url: "/deposit",
         },
         {
-          enable: true,
+          enable: false,
           title: "Academy",
           icon: <Icon5 with="16" height="16" />,
           url: "/academy",
@@ -133,13 +133,13 @@ export default function App({ Component, pageProps }) {
       group: "Help and Settings",
       items: [
         {
-          enable: true,
+          enable: false,
           title: "Wiki",
           icon: <Icon10 with="16" height="16" />,
           url: "/wiki",
         },
         {
-          enable: true,
+          enable: false,
           title: "Support",
           icon: <Icon9 with="16" height="16" />,
           url: "/support",

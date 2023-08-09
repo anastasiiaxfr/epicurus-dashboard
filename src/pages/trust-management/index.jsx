@@ -6,14 +6,16 @@ import Banner from "../../components/Banner";
 import Hgroup from "../../components/Hgroup";
 import HeroGroup from "../../components/HeroCta";
 import FormAddTrustManagement from "../../components/Form/FormAddTrustManagement";
+import ModalConfirmation from "../../components/Modal/ModalConfirmation";
 
 function TrustManagementPage() {
   const [showForm, setShowForm] = useState(false);
 
-  const [noTrustManagement, setNoTrustManagement] = useState(false);
-  const [showBanner, setShowBanner] = useState(false);
-
   const { newTrustManagement } = useContext(ProductContext);
+
+  const totalSteps = 5;
+  const [steps, setSteps] = useState(totalSteps);
+  const [stepsTitle, setStepsTitle] = useState("Enter SUM");
 
   const [fieldName, setFieldName] = useState(false);
   const [fieldSum, setFieldSum] = useState(false);
@@ -21,20 +23,28 @@ function TrustManagementPage() {
   const [fieldApi, setFieldApi] = useState(false);
   const [fieldPolicy, setFieldPolicy] = useState(false);
 
+  const [openModalSuccess, setOpenModalSuccess] = useState(false);
+
+  const modalKeyAdded = {
+    title: "Activation Successful",
+    btnText: "Accept",
+    btnUrl: "#",
+  };
+
+ useEffect(() => {
+    const trueFieldCount = [fieldPolicy, fieldApi, fieldPeriod, fieldSum, fieldName].filter(Boolean).length;
+    setSteps(totalSteps - trueFieldCount);
+ }, [fieldPolicy, fieldApi, fieldPeriod, fieldSum, fieldName]);
 
   useEffect(() => {
-    newTrustManagement.length === 0
-      ? setNoTrustManagement(true)
-      : setNoTrustManagement(false);
-  }, [newTrustManagement]);
-
-  useEffect(() => {
-    if (noTrustManagement === true) {
-      setShowBanner(true);
-    } else {
-      setShowBanner(false);
-    }
-  }, [noTrustManagement, showForm]);
+    setFieldName(false);
+    setFieldSum(false);
+    setFieldPeriod(false);
+    setFieldApi(false);
+    setFieldPolicy(false);
+    setSteps(totalSteps);
+    setStepsTitle("Enter SUM");
+  }, [showForm]);
 
   const handleBtnAddTM = () => {
     setShowForm(true);
@@ -52,7 +62,7 @@ function TrustManagementPage() {
     heading: `Add New Trust Management`,
     title: "Create a new Trust Management and start earning",
     text: `Press “Add Trust” to create new Trust Management and start working with them`,
-    info: ` 4 steps to complete`,
+    info: ` ${steps} steps to complete`,
     btn: {
       label: "Add Trust",
       on_click: handleBtnAddTM,
@@ -61,7 +71,18 @@ function TrustManagementPage() {
 
   return (
     <>
-      <HeroGroup hero={hero} show={showForm}>
+      <ModalConfirmation
+        openModal={openModalSuccess}
+        setModalOpen={setOpenModalSuccess}
+        props={modalKeyAdded}
+        theme="success"
+      />
+      <HeroGroup
+        hero={hero}
+        show={showForm}
+        totalSteps={totalSteps}
+        steps={steps}
+      >
         <>
           <FormAddTrustManagement
             show={
@@ -73,16 +94,20 @@ function TrustManagementPage() {
             setFieldApi={setFieldApi}
             setFieldName={setFieldName}
             setFieldSum={setFieldSum}
+            setFieldPolicy={setFieldPolicy}
+            toggleModal={setOpenModalSuccess}
           />
         </>
       </HeroGroup>
-      <Banner toggleShow={showBanner} />
+
       {newTrustManagement.length !== 0 && (
         <>
           <Hgroup props={hgroup} />
           <Table />
         </>
       )}
+
+      {newTrustManagement.length <= 4 && <Banner />}
     </>
   );
 }

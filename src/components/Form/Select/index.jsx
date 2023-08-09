@@ -31,7 +31,7 @@ export default function SelectField({
 
   const onClick = (val) => {
     setNewValue(val);
-   
+
     setShown(false);
     setSelected(true);
     validate(true);
@@ -82,10 +82,14 @@ export default function SelectField({
         } ${showError ? styles.error : ""}`}
       >
         <Input
-          name={typeof newValue  === "object" ? newValue.id : id}
+          name={typeof newValue === "object" ? newValue.id : id}
           id={id}
           type="text"
-          value={typeof newValue === "object" ? newValue.name.charAt(0).toUpperCase() + newValue.name.slice(1) : newValue.charAt(0).toUpperCase() + newValue.slice(1)}
+          value={
+            typeof newValue === "object"
+              ? newValue.name.charAt(0).toUpperCase() + newValue.name.slice(1)
+              : newValue.charAt(0).toUpperCase() + newValue.slice(1)
+          }
           disabled
           onClick={onMenuToggle}
         />
@@ -103,27 +107,32 @@ export default function SelectField({
               <li onClick={() => setShown(false)}>{children}</li>
             ) : (
               <>
-                {console.log(data.slice(1, 3))}
-                {data.slice(1, 3).map((i, ind) =>
+                {data.slice(1, 10).map((i, ind) =>
                   typeof i === "object" ? (
                     <li key={ind} onClick={() => onClick(i)}>
                       {i.name}
                     </li>
                   ) : (
-                    <li key={ind} value={i} onClick={() => onClick(i)}>
+                    <li key={ind} onClick={() => onClick(i)}>
                       {i}
                     </li>
                   )
                 )}
-                {/* {data.length >= 4 && (
+                {data.length >= 11 && (
                   <div className={styles.select__options_wrap}>
-                    {data.slice(3, data.length).map((i, ind) => (
-                      <li key={ind} value={i} onClick={() => onClick(i)}>
-                        {i}
-                      </li>
-                    ))}
+                    {data.slice(10, data.length).map((i, ind) =>
+                      typeof i !== "object" ? (
+                        <li key={ind} value={i} onClick={() => onClick(i)}>
+                          {i}
+                        </li>
+                      ) : (
+                        <li key={ind} onClick={() => onClick(i)}>
+                          {i.name}
+                        </li>
+                      )
+                    )}
                   </div>
-                )} */}
+                )}
               </>
             )}
           </ul>

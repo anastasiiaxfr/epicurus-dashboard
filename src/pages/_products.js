@@ -50,7 +50,7 @@ export default function ProductProvider({ children }) {
 
   useEffect(() => {
     if (currentUser) {
-      const dbTM = ref(database, "trustManagement/" + userID);
+      const dbTM = ref(database, "trust-management/" + userID);
 
       const handleDataChangeTM = (snapshot) => {
         const data = snapshot.val();
@@ -59,7 +59,9 @@ export default function ProductProvider({ children }) {
           const items = Object?.entries(data).map(([id, item]) => ({
             id,
             tm_name: item.tm_name,
+            tm_start_date: item.tm_start_date,
             tm_period: item.tm_period,
+            tm_sum_first: item.tm_sum_first,
             tm_sum: item.tm_sum,
             api_key_name: item.api_key_name,
             api_key_id: item.api_key_id,
@@ -137,7 +139,7 @@ export default function ProductProvider({ children }) {
     if (currentUser) {
       //alert(userID)
 
-      const dbRT = ref(database, "rt/" + userID);
+      const dbRT = ref(database, "robotic-trading/" + userID);
 
       const handleDataRT = (snapshot) => {
         const data = snapshot.val();
@@ -145,9 +147,13 @@ export default function ProductProvider({ children }) {
           //console.log('apiKey', data);
           const items = Object?.entries(data).map(([id, item]) => ({
             id,
-            rt_sum: item.rt_sum,
+            rt_name: item.rt_name,
+            rt_start_date: item.rt_start_date,
             rt_period: item.rt_period,
-            rt_network: item.rt_network,
+            rt_sum_first: item.rt_sum_first,
+            rt_sum: item.rt_sum,
+            api_key_name: item.api_key_name,
+            api_key_id: item.api_key_id,
           }));
           setNewRoboticTrading(items);
         } else {

@@ -33,7 +33,7 @@ export default function ModalDeposit({
       const deposit_key = form.current.add_deposit_key.value;
 
       if (validation) {
-        if (deposit_sum < 500) {
+        if (deposit_sum < 50) {
           toggleModal(true, 0);
         } else {
             toggleModal(false, deposit_sum);

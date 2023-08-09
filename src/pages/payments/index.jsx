@@ -4,6 +4,7 @@ import Table from '../../components/Tables';
 import Card from "../../components/Card2";
 import CardPayments from "./Table";
 import Hero from "./Hero";
+import Banner from "../../components/Banner";
 
 import styles from "./styles.module.sass";
 
@@ -38,7 +39,7 @@ function PaymentsPage() {
             </section>
 
             <section className={styles.cards_content}>
-                {active === 0  && <Hero />}
+                {active === 0  && <><Hero /><Banner /></>}
                 {active === 1  && <CardPayments />}
                 {active === 2  && <Table />}
             </section>

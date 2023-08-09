@@ -23,8 +23,8 @@ function DepositSinglePage() {
   const hgroup = {
     title: "Transactions",
     link: {
-      label: "See All",
-      url: "#",
+      label: "Go Back",
+      url: "/deposit",
     },
   };
 

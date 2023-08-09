@@ -1,10 +1,7 @@
 import { useState, useEffect, useRef, useContext } from "react";
-import { ref, database, set } from "../../../pages/_firebase";
 import { AuthContext } from "../../../pages/_auth";
 import nextId from "react-id-generator";
 
-import Input from "../Input";
-import SelectPeriod from "../SelectPeriod";
 import SelectNetwork from "../SelectNetwork";
 import Btn from "../Btn";
 import Checkbox from "../Checkbox";
@@ -16,19 +13,19 @@ import styles from "./styles.module.sass";
 const terms = {
   title: "Terms of Use",
   text: `Terms of Use
-    <p>What the fuck is going on?! God-damn! Are these pills supposed to wake me up or something? Don't even trip about your pants, dawg. We got an extra pair right here.</p>
-  
-    <p>He's not pressing charges. That's gotta be the you shot me equivalent of not being mad. I'd like to order one large person with extra people please. white people, no no no black people... and hispanic on half. Ooohhh can do. Well then get your shit together. Get it all together and put it in a backpack, all your shit, so it's together. …and if you gotta take it somewhere, take it somewhere ya know? Take it to the shit store and sell it, or put it in a shit museum. I don't care what you do, you just gotta get it together… Get your shit together.</p>
-    `,
+  <p>What the fuck is going on?! God-damn! Are these pills supposed to wake me up or something? Don't even trip about your pants, dawg. We got an extra pair right here.</p>
+
+  <p>He's not pressing charges. That's gotta be the you shot me equivalent of not being mad. I'd like to order one large person with extra people please. white people, no no no black people... and hispanic on half. Ooohhh can do. Well then get your shit together. Get it all together and put it in a backpack, all your shit, so it's together. …and if you gotta take it somewhere, take it somewhere ya know? Take it to the shit store and sell it, or put it in a shit museum. I don't care what you do, you just gotta get it together… Get your shit together.</p>
+  `,
 };
 
 const policy = {
   title: "Refund Policy",
   text: `Refund Policy
-    <p>What the fuck is going on?! God-damn! Are these pills supposed to wake me up or something? Don't even trip about your pants, dawg. We got an extra pair right here.</p>
-  
-    <p>He's not pressing charges. That's gotta be the you shot me equivalent of not being mad. I'd like to order one large person with extra people please. white people, no no no black people... and hispanic on half. Ooohhh can do. Well then get your shit together. Get it all together and put it in a backpack, all your shit, so it's together. …and if you gotta take it somewhere, take it somewhere ya know? Take it to the shit store and sell it, or put it in a shit museum. I don't care what you do, you just gotta get it together… Get your shit together.</p>
-    `,
+  <p>What the fuck is going on?! God-damn! Are these pills supposed to wake me up or something? Don't even trip about your pants, dawg. We got an extra pair right here.</p>
+
+  <p>He's not pressing charges. That's gotta be the you shot me equivalent of not being mad. I'd like to order one large person with extra people please. white people, no no no black people... and hispanic on half. Ooohhh can do. Well then get your shit together. Get it all together and put it in a backpack, all your shit, so it's together. …and if you gotta take it somewhere, take it somewhere ya know? Take it to the shit store and sell it, or put it in a shit museum. I don't care what you do, you just gotta get it together… Get your shit together.</p>
+  `,
 };
 
 const modalPolicy = {
@@ -45,23 +42,13 @@ const modalTerms = {
   btnText2: "Cansel",
 };
 
-export default function FormAddDeposit({
-  show,
-  deposit,
-  wallet,
-  setFieldSum,
-  setFieldPeriod,
-  setFieldNetwork,
-  setFieldPolicy,
-  toggleModal,
-}) {
-  const [disabled, setDisabled] = useState(false);
-
+export default function FormPayment({ show, setFieldNetwork, setFieldPolicy }) {
   const htmlId = nextId("deposit-");
   const { currentUser } = useContext(AuthContext);
   const userID = currentUser.uid;
 
   const form = useRef(null);
+  const [disabled, setDisabled] = useState(false);
   const [validation, setValidation] = useState(false);
   const [validationCheckbox, setValidationCheckbox] = useState(false);
   const [validationSelect, setValidationSelect] = useState(false);
@@ -78,6 +65,7 @@ export default function FormAddDeposit({
   const [openModalPolicy, setOpenModalPolicy] = useState(false);
   const [openModalTerms, setOpenModalTerms] = useState(false);
 
+
   const handlePolicyClick = () => {
     setOpenModalPolicy(true);
     setResetCheckbox((prev) => !prev);
@@ -88,7 +76,7 @@ export default function FormAddDeposit({
     setResetCheckbox((prev) => !prev);
   };
 
-  const toogleModalPolicy = (val) => {
+  const tooglePolicy = (val) => {
     setCheckedCheckboxPolicy(val);
     setOpenModalPolicy(false);
     if (!checkedCheckboxTerms && val !== false) {
@@ -96,7 +84,7 @@ export default function FormAddDeposit({
     }
   };
 
-  const toogleModalTerms = (val) => {
+  const toogleTerms = (val) => {
     setCheckedCheckboxTerms(val);
     setOpenModalTerms(false);
 
@@ -124,37 +112,22 @@ export default function FormAddDeposit({
     validationCheckbox ? setFieldPolicy(true) : setFieldPolicy(false);
   }, [validationCheckbox]);
 
+
+  const current_payment_sum = "100";
   const onAddKey = (e) => {
     e.preventDefault();
     setSubmit((prev) => !prev);
     if (form.current) {
-      const deposit_sum = form.current.deposit_sum.value;
-      const deposit_type = deposit.type;
-      const deposit_percent = deposit.val;
-      const deposit_wallet = wallet;
-      const deposit_period = form.current.deposit_period.value;
-      const deposit_network = form.current.deposit_network.value;
+      const payment_sum = current_payment_sum;
+      const payment_network = form.current.payment_network.value;
 
       if (validation && validationCheckbox && validationSelect) {
         setResetCheckbox((prev) => !prev);
         setResetSelect((prev) => !prev);
-
-        sendToFB(
-          deposit_sum,
-          deposit_type,
-          deposit_percent,
-          deposit_wallet,
-          deposit_period,
-          deposit_network
-        );
-        sendToFBTotalDeposit(deposit_sum);
         toggleModal(true);
         show(false);
         form.current.reset();
         setReset((prev) => !prev);
-        setResetCheckbox((prev) => !prev);
-        setResetSelect((prev) => !prev);
-        setFieldPolicy((prev) => !prev);
       }
     }
   };
@@ -163,106 +136,55 @@ export default function FormAddDeposit({
     form.current.reset();
     show(false);
     setReset((prev) => !prev);
-    setResetCheckbox((prev) => !prev);
-    setResetSelect((prev) => !prev);
-    setFieldPolicy((prev) => !prev);
+    setResetCheckbox(false);
+    setFieldNetwork(false);
+    setFieldPolicy(false);
   };
 
-  const sendToFB = (
-    deposit_sum,
-    deposit_type,
-    deposit_percent,
-    deposit_wallet,
-    deposit_period,
-    deposit_network
-  ) => {
-    set(ref(database, "deposit/" + userID + "/" + htmlId), {
-      deposit_type: deposit_type,
-      deposit_percent: deposit_percent,
-      deposit_sum: deposit_sum,
-      deposit_wallet: deposit_wallet,
-      deposit_period: deposit_period,
-      deposit_network: deposit_network,
-    });
-  };
 
-  const sendToFBTotalDeposit = (deposit_sum) => {
-    set(ref(database, "allDeposit/" + userID + "/" + htmlId), {
-      deposit_sum: deposit_sum,
-    });
-  };
 
-  //alert(disabled)
   return (
     <>
       <ModalPolicy
         openModal={openModalPolicy}
         setModalOpen={setOpenModalPolicy}
         props={modalPolicy}
-        toggleCheckbox={(val) => toogleModalPolicy(val)}
+        toggleCheckbox={ tooglePolicy }
         theme="success"
       />
+      
 
       <ModalPolicy
         openModal={openModalTerms}
         setModalOpen={setOpenModalTerms}
         props={modalTerms}
-        toggleCheckbox={(val) => toogleModalTerms(val)}
+        toggleCheckbox={ toogleTerms }
         theme="success"
       />
+      
+
 
       <div className={styles.form_note}>
-        You have chosen <b>{deposit.type}</b>. Enter the amount and select the
-        period
+        You need to pay <b>{current_payment_sum}$</b>
       </div>
 
       <form
         action="/"
         methord="POST"
         noValidate
-        name="FormAddDeposit"
-        id="FormAddDeposit"
+        name="FormPayment"
+        id="FormPayment"
         className={styles.form}
         ref={form}
         autoComplete="off"
       >
-        <div className={styles.form_row}>
-          <Input
-            type="text"
-            label="Your SUM"
-            placeholder="Enter sum (USDT)"
-            id="deposit_sum"
-            error="Required field"
-            required={true}
-            reset={reset}
-            setReset={setReset}
-            submit={submit}
-            setSubmit={setSubmit}
-            validate={setValidation}
-            theme="default"
-            success={setFieldSum}
-            setDisabled={setDisabled}
-          />
-        </div>
-
-        <div className={styles.form_row}>
-          <SelectPeriod
-            submit={submit}
-            setSubmit={setSubmit}
-            validate={setValidationSelect}
-            reset={resetSelect}
-            id="deposit_period"
-            success={() => setFieldPeriod(true)}
-          />
-        </div>
-
         <div className={styles.form_row}>
           <SelectNetwork
             submit={submit}
             setSubmit={setSubmit}
             validate={setValidationSelect}
             reset={resetSelect}
-            id="deposit_network"
+            id="payment_network"
             success={() => setFieldNetwork(true)}
           />
         </div>
@@ -278,7 +200,7 @@ export default function FormAddDeposit({
                 <strong onClick={handlePolicyClick}>Refund Policy</strong>
               </div>
             }
-            id="deposit_policy"
+            id="payment_policy"
             error="Required field"
             submit={submit}
             setSubmit={setSubmit}
@@ -289,8 +211,8 @@ export default function FormAddDeposit({
         </div>
 
         <div className={styles.form_cta}>
-          <Btn label="Create Deposit" onClick={onAddKey} disabled={disabled} />
-          <Btn label="Reset form" onClick={onResetFrom} theme="secondary" />
+          <Btn label="Continue" onClick={onAddKey} disabled={disabled} />
+          <Btn label="Close form" onClick={onResetFrom} theme="secondary" />
         </div>
       </form>
     </>

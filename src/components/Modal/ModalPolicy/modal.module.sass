@@ -1,0 +1,50 @@
+@import 'src/assets/styles/vars.sass'
+@import '../modal.module'
+
+.modal
+    &_content
+        box-shadow: $bxsd7
+
+    &_hgroup
+        width: 100%
+
+    &_heading
+        width: 100%
+        text-align: center
+
+    &_text
+        &_wrap
+            padding: var(--gap)
+            border-radius: var(--brsSm)
+            background-color: rgba($white, 0.06)
+
+            &_inner
+                max-height: 40vh
+                overflow: hidden
+                overflow-y: scroll
+                @extend %scroll
+                padding-right: 8px
+
+                &::-webkit-scrollbar
+                    +sz(8px, 8px)
+
+                &::-webkit-scrollbar-thumb
+                    background-color: $dark
+
+        &_sm
+            +ft(12, 12*1.4, 400)
+            color: $text_11
+
+            p
+                &:first-child
+                    margin-top: 0
+                &:last-child
+                    margin-bottom: 0
+
+
+   
+
+                
+
+    
+    

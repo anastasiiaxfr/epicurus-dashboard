@@ -34,7 +34,7 @@ a
     &__sidebar
         max-width: var(--sidebar-width)
         +sz(100%, 100%)
-        min-height: 100vh
+        //min-height: 100vh
         padding-right: 0
 
         &-content
@@ -43,6 +43,7 @@ a
             gap: 22px
             width: 100%
             padding: var(--gap)
+            flex: 1 0 auto
 
         &-inner
             +ps(sticky, (t, var(--gap)), (l, 0))

@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { ref, database, update } from '../../pages/_firebase';
+import { ref, database, update } from "../../pages/_firebase";
 import { AuthContext } from "../../pages/_auth";
 import { ProductContext } from "../../pages/_products";
 
@@ -10,39 +10,61 @@ import Push from "../Push";
 
 import styles from "./hero.module.sass";
 
-export default function Hero({ data, deposit, depositAdd }) {
+export default function Hero({
+  data,
+  deposit,
+  depositAddSuccess,
+  toggleModalAddDeposit,
+  subscription,
+  subscriptionSuccess,
+}) {
   const htmlId = nextId("all-deposit-");
-  const { currentUser } = useContext(AuthContext)
+  const { currentUser } = useContext(AuthContext);
   const userID = currentUser.uid;
   const { newApiKey } = useContext(ProductContext);
-  
 
-  const {name, key, sum, id } = data;
+  const { name, key, sum, id } = data;
   const targetKey = newApiKey.find((j) => j.id === key);
   const apiName = targetKey ? targetKey.api_name : "";
 
   const [showPush, setShowPush] = useState(false);
+  const [showPushSubscribtion, setShowPushSubscribtion] = useState(false);
+
   const [pnl, setPnl] = useState(0);
   const [dailyPnl, setDailyPnl] = useState(0);
-  
+
+  const [depositAdd, setDepositAdd] = useState(false);
 
   useEffect(() => {
-    if(deposit !== 0){
-        setShowPush(true);
-        setTimeout(() => setShowPush(false), 1500);
+    if (deposit) {
+      setDepositAdd(prev => !prev);
     }
-  }, [deposit]);
-
-  const newDeposit = (+sum + +deposit).toFixed(2) || +sum.toFixed(2)
+  }, [depositAddSuccess]);
 
   useEffect(() => {
-   if(id && deposit !== 0){
-      update(ref(database, "trustManagement/" + userID + "/" + id), {
+    if (deposit) {
+      setShowPush(true);
+      setTimeout(() => {setShowPush(false);}, 6500);
+    }
+  }, [depositAdd]);
+
+  useEffect(() => {
+      setShowPush(false);
+      if(subscriptionSuccess){ 
+        setShowPushSubscribtion(true);
+        setTimeout(() => setShowPushSubscribtion(false), 6500);
+      }
+  }, [subscriptionSuccess]);
+
+  useEffect(() => {
+    const newDeposit = (+sum + +deposit).toFixed(2) || +sum.toFixed(2);
+
+    if (id && deposit !== 0) {
+      update(ref(database, "trust-management/" + userID + "/" + id), {
         tm_sum: newDeposit,
       });
-   }
-  }, [deposit])
-
+    }
+  }, [depositAdd]);
 
   return (
     <>
@@ -56,6 +78,16 @@ export default function Hero({ data, deposit, depositAdd }) {
         />
       )}
 
+      {showPushSubscribtion && (
+        <Push
+          url="#"
+          theme="green"
+          type="Reminder"
+          text="You Successfully Updated your Subscription  |  Ends at 11.07.23"
+          close={true}
+        />
+      )}
+
       <div className={styles.hero}>
         <div className={styles.hero_header}>
           <div className={styles.hero_hgroup}>
@@ -65,7 +97,13 @@ export default function Hero({ data, deposit, depositAdd }) {
               <b> Active </b>
             </div>
           </div>
-          <Btn label="Increase the Deposit" theme="grad" onClick={() => { depositAdd(); }} />
+          <Btn
+            label="Increase the Deposit"
+            theme="grad"
+            onClick={() => {
+              toggleModalAddDeposit(true);
+            }}
+          />
         </div>
 
         <div className={styles.hero_body}>
@@ -75,9 +113,7 @@ export default function Hero({ data, deposit, depositAdd }) {
           </div>
           <div className={styles.hero_card}>
             <div className={styles.hero_card_title}>Deposit</div>
-            <div className={styles.hero_card_val}>
-              $ {sum}
-            </div>
+            <div className={styles.hero_card_val}>$ {sum}</div>
           </div>
           <div className={styles.hero_card}>
             <div className={styles.hero_card_title}>Daily PNL</div>
@@ -102,7 +138,11 @@ export default function Hero({ data, deposit, depositAdd }) {
               </div>
             </div>
             <div className={styles.hero_card_cta}>
-              <Btn label="Renew Subscription" theme="grad" />
+              <Btn
+                label="Renew Subscription"
+                theme="grad"
+                onClick={() => subscription(true)}
+              />
             </div>
           </div>
         </div>

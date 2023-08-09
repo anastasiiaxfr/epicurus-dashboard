@@ -6,9 +6,12 @@ import Calculator from "./Calculator";
 import Table from "./Table";
 import Hgroup from "../../components/Hgroup";
 import HeroGroup from "../../components/HeroCta";
+import Banner from "../../components/Banner";
 
 import ModalWallet from "../../components/Modal/ModalWallet";
 import ModalDeposit from "../../components/Modal/ModalDeposit";
+import ModalConfirmation from "../../components/Modal/ModalConfirmation";
+
 import FormDeposit from "../../components/Form/FormAddDeposit";
 
 function DepositPage() {
@@ -19,12 +22,13 @@ function DepositPage() {
 
   const [openModal, setOpenModal] = useState(false);
   const [openModalAddWallet, setOpenModalAddWallet] = useState(false);
+  const [openModalSuccess, setOpenModalSuccess] = useState(false);
+
   const [selectDeposit, setSelectDeposit] = useState({});
   const [selectWallet, setSelectWallet] = useState();
 
   const totalSteps = 4;
   const [steps, setSteps] = useState(totalSteps);
-
   const [stepsTitle, setStepsTitle] = useState("Enter SUM");
 
   const [fieldSum, setFieldSum] = useState(false);
@@ -32,71 +36,15 @@ function DepositPage() {
   const [fieldNetwork, setFieldNetwork] = useState(false);
   const [fieldPolicy, setFieldPolicy] = useState(false);
 
+  const modalDepositAdded = {
+    title: "Activation Successful",
+    btnText: "Accept",
+    btnUrl: "#",
+  };
+
   useEffect(() => {
-    if (fieldPolicy) {
-      if (fieldPeriod && fieldNetwork && fieldSum) {
-        setSteps(0);
-      }
-      if (!fieldPeriod && !fieldNetwork && !fieldSum) {
-        setSteps(3);
-      }
-
-      if (fieldPeriod && !fieldNetwork && !fieldSum) {
-        setSteps(2);
-      }
-      if (!fieldPeriod && fieldNetwork && !fieldSum) {
-        setSteps(2);
-      }
-      if (!fieldPeriod && !fieldNetwork && fieldSum) {
-        setSteps(2);
-      }
-
-      if (fieldPeriod && fieldNetwork && !fieldSum) {
-        setSteps(1);
-      }
-      if (!fieldPeriod && fieldNetwork && fieldSum) {
-        setSteps(1);
-      }
-      if (fieldPeriod && !fieldNetwork && fieldSum) {
-        setSteps(1);
-      }
-    } else {
-      if (fieldSum) {
-        if (fieldPeriod && !fieldNetwork) {
-          setStepsTitle("Select Network");
-          setSteps(2);
-        }
-        if (!fieldPeriod && fieldNetwork) {
-          setStepsTitle("Choose Period");
-          setSteps(2);
-        }
-        if (!fieldPeriod && !fieldNetwork) {
-          setStepsTitle("Choose Period");
-          setSteps(3);
-        }
-        if (fieldPeriod && fieldNetwork) {
-          setStepsTitle("Press Create Deposit");
-          setSteps(1);
-        }
-      } else {
-        if (!fieldPeriod && !fieldNetwork) {
-          setSteps(4);
-          setStepsTitle("Enter SUM");
-        }
-        if (fieldPeriod && fieldNetwork) {
-          setStepsTitle("Enter SUM");
-          setSteps(2);
-        }
-        if (fieldPeriod && !fieldNetwork) {
-          setStepsTitle("Enter SUM");
-          setSteps(3);
-        }
-        if (!fieldPeriod && fieldNetwork) {
-          setStepsTitle("Enter SUM");
-          setSteps(3);
-        }
-      }
-    }
+    const trueFieldCount = [fieldSum, fieldPeriod, fieldNetwork, fieldPolicy].filter(Boolean).length;
+    setSteps(totalSteps - trueFieldCount);
   }, [fieldSum, fieldPeriod, fieldNetwork, fieldPolicy]);
 
   useEffect(() => {
@@ -104,8 +52,7 @@ function DepositPage() {
     setFieldPeriod(false);
     setFieldNetwork(false);
     setFieldPolicy(false);
-    setSteps(4);
-    setStepsTitle("Enter SUM");
+    setSteps(totalSteps);
   }, [showForm, show]);
 
   const handleOpenModal = () => {
@@ -144,7 +91,7 @@ function DepositPage() {
   };
 
   const hero = {
-    heading: `Open New Deposit ${showForm ? "| " + stepsTitle : ""}`,
+    heading: `Open New Deposit`,
     title: "Open a new Deposit and start earning",
     text: `Press “Add Deposit” to register a new Deposit and start working with them`,
     info: `${steps} steps to complete`,
@@ -228,6 +175,14 @@ function DepositPage() {
         toggleModal={handleOpenModalWallet}
       />
 
+      <ModalConfirmation
+        openModal={openModalSuccess}
+        setModalOpen={setOpenModalSuccess}
+        show={show}
+        props={modalDepositAdded}
+        theme="success"
+      />
+
       {show && (
         <>
           <Calculator />
@@ -250,20 +205,27 @@ function DepositPage() {
               show={
                 newDeposit.length !== 0
                   ? () => setShowForm((prev) => !prev)
-                  : setShow
+                  : () => {
+                      setShow(true);
+                      setShowForm((prev) => !prev);
+                    }
               }
               setFieldSum={setFieldSum}
               setFieldPeriod={setFieldPeriod}
               setFieldNetwork={setFieldNetwork}
               setFieldPolicy={setFieldPolicy}
+              toggleModal={setOpenModalSuccess}
             />
           </HeroGroup>
+
           {newDeposit.length !== 0 && (
             <>
               <Hgroup props={hgroup2} />
               <Table deposits={newDeposit} />
             </>
           )}
+
+          {newDeposit.length <= 4 && <Banner />}
         </>
       )}
     </>

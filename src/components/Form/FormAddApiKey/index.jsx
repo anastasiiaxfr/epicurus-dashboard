@@ -1,36 +1,32 @@
-import { useState, useRef, useContext } from "react";
-import { ref, database, set } from '../../../pages/_firebase';
+import { useState, useEffect, useRef, useContext } from "react";
+import { ref, database, set } from "../../../pages/_firebase";
 import { AuthContext } from "../../../pages/_auth";
 import nextId from "react-id-generator";
 
-import ModalConfirmation from "../../Modal/ModalConfirmation";
 import Input from "../../Form/Input";
 import Btn from "../../Form/Btn";
 import Checkbox from "../../Form/Checkbox";
+import ModalPolicy from "../../Modal/ModalPolicy";
 
 import styles from "./styles.module.sass";
 
-const modalKeyAdded = {
-  title: "Activation Successful",
+const policy = {
+  title: "Usage Policy",
+  text: `
+    <p>What the fuck is going on?! God-damn! Are these pills supposed to wake me up or something? Don't even trip about your pants, dawg. We got an extra pair right here.</p>
+  
+    <p>He's not pressing charges. That's gotta be the you shot me equivalent of not being mad. I'd like to order one large person with extra people please. white people, no no no black people... and hispanic on half. Ooohhh can do. Well then get your shit together. Get it all together and put it in a backpack, all your shit, so it's together. …and if you gotta take it somewhere, take it somewhere ya know? Take it to the shit store and sell it, or put it in a shit museum. I don't care what you do, you just gotta get it together… Get your shit together.</p>
+    `,
+};
+
+const modalPolicy = {
+  title: `${policy.title}`,
+  text: policy.text,
   btnText: "Accept",
-  btnUrl: "#",
+  btnText2: "Cansel",
 };
 
-const modalKeySuccessDeleted = {
-    title: "Activation Successful",
-    btnText: "Accept",
-    btnUrl: "#",
-};
-
-const modalKeyConfirmDelete = {
-    title: "Delete API Key?",
-    text: "Удаление API ключа приведет к неработоспособности всех продуктов, к которому он подключен. Пожалуйста, убедитесь, что вы действительно хотите удалить ключ",
-    btnText: "Accept",
-    btnUrl: "#",
-};
-
-
-export default function FormAddApiKey({ setActive }) {
+export default function FormAddApiKey({ show, toggleModal, setFieldPolicy, setFieldName, setFieldKey, setFieldSecret }) {
   const htmlId = nextId("api-key-");
   const { currentUser } = useContext(AuthContext);
   const userID = currentUser.uid;
@@ -40,10 +36,16 @@ export default function FormAddApiKey({ setActive }) {
   const [validationCheckbox, setValidationCheckbox] = useState(false);
 
   const [submit, setSubmit] = useState(false);
-  const [reset, setReset] = useState(false)
+  const [reset, setReset] = useState(false);
   const [resetCheckbox, setResetCheckbox] = useState(false);
+  const [checkedCheckbox, setCheckedCheckbox] = useState(false);
 
-  const [openModalSuccess, setOpenModalSuccess] = useState(false);
+  const [openModalPolicy, setOpenModalPolicy] = useState(false);
+
+  const handlePolicyClick = () => {
+    setOpenModalPolicy(true);
+    setResetCheckbox((prev) => !prev);
+  };
 
   const onAddKey = (e) => {
     e.preventDefault();
@@ -54,37 +56,45 @@ export default function FormAddApiKey({ setActive }) {
       const api_secret = form.current.api_secret.value;
 
       if (validation && validationCheckbox) {
-        setResetCheckbox(prev => !prev);
+        setFieldPolicy((prev) => !prev);
+        setResetCheckbox((prev) => !prev);
         sendToFB(api_name, api_key, api_secret);
-        setOpenModalSuccess(true);
-        setActive(false);
-        form.current.reset();  
-        setReset(prev => !prev);  
+        toggleModal(true);
+        show(false);
+        form.current.reset();
+        setReset((prev) => !prev);
       }
     }
   };
 
   const onResetFrom = () => {
-    form.current.reset();    
-    setReset(prev => !prev);
-    setResetCheckbox(prev => !prev);
+    form.current.reset();
+    show(false);
+    setReset((prev) => !prev);
+    setResetCheckbox((prev) => !prev);
   };
 
   const sendToFB = (api_name, api_key, api_secret) => {
-    set(ref(database, 'apiKey/' + userID + '/' + htmlId), {
+    set(ref(database, "apiKey/" + userID + "/" + htmlId), {
       api_name: api_name,
       api_key: api_key,
       api_secret: api_secret,
-    })
-  };
+    });
+  }; 
+
+  useEffect(() => {
+    validationCheckbox ? setFieldPolicy(true) : setFieldPolicy(false);
+  }, [validationCheckbox]);
+
 
   return (
     <>
-      <ModalConfirmation
-        openModal={openModalSuccess}
-        setModalOpen={setOpenModalSuccess}
-        props={modalKeyAdded}
+      <ModalPolicy
+        openModal={openModalPolicy}
+        setModalOpen={setOpenModalPolicy}
+        props={modalPolicy}
         theme="success"
+        toggleCheckbox={setCheckedCheckbox}
       />
 
       <form
@@ -111,6 +121,7 @@ export default function FormAddApiKey({ setActive }) {
             setSubmit={setSubmit}
             validate={setValidation}
             theme="default"
+            success={setFieldName}
           />
         </div>
 
@@ -129,6 +140,7 @@ export default function FormAddApiKey({ setActive }) {
             setSubmit={setSubmit}
             validate={setValidation}
             theme="default"
+            success={setFieldKey}
           />
         </div>
 
@@ -146,18 +158,26 @@ export default function FormAddApiKey({ setActive }) {
             setSubmit={setSubmit}
             validate={setValidation}
             theme="default"
+            success={setFieldSecret}
           />
         </div>
 
         <div className={styles.form_row}>
           <Checkbox
-            label="I have read the Usage Policy"
+            label={
+              <div>
+                I have read the{" "}
+                <strong onClick={handlePolicyClick}>Usage Policy</strong>
+              </div>
+            }
             id="api_policy"
             error="Required field"
             submit={submit}
             setSubmit={setSubmit}
             validate={setValidationCheckbox}
             reset={resetCheckbox}
+            checkedCheckbox={checkedCheckbox}
+            setCheckedCheckbox={setCheckedCheckbox}
           />
         </div>
 

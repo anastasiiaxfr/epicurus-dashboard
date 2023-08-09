@@ -27,17 +27,20 @@ export default function ApiKeyList() {
 
   const [openModalEditApiKey, setOpenModalEditApiKey] = useState(false);
 
-  // const list = [
-  //   {
-  //     api_name: "Test API Key",
-  //     api_status: "Active",
-  //     api_bot: "Cryptobot",
-  //     api_key: "bY2t8YgK***vBssiXJ2",
-  //     api_secret: "••••••••••••••••••••••••",
-  //     api_balance: "$ 3642",
-  //     api_perios: "11.07.23",
-  //   },
-  // ];
+  const pnl_total = (0).toFixed(2);
+  const pnl_daily = (0).toFixed(2);
+
+  const getDateTime = (val) => {
+    const timestamp = val;
+    const date = new Date(timestamp);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear() % 100;
+    const formattedDate = `${day < 10 ? `0${day}` : day}.${
+      month < 10 ? `0${month}` : month
+    }.${year}`;
+    return formattedDate;
+  };
 
   const modalDelKeyConfirm = {
     title: "Delete " + apiKeyName + "?",
@@ -58,15 +61,13 @@ export default function ApiKeyList() {
     api_key_name: apiKeyName,
   };
 
-  console.log(newApiKey);
-
   const toggleModalConfirmation = () => {
     setOpenModalDelKeyConfirm(false);
 
-    const TM = ref(database, "trustManagement/" + userID + "/" + apiKeyId);
+    const TM = ref(database, "trust-management/" + userID + "/" + apiKeyId);
     const totalDeposit = ref(
       database,
-      "totalDeposit/" + userID + "/" + apiKeyId
+      "total-deposit/" + userID + "/" + apiKeyId
     );
     //alert(e.target.getAttribute("data-key"));
     remove(TM)
@@ -121,7 +122,10 @@ export default function ApiKeyList() {
       {newTrustManagement?.map((i, k) => {
         const targetKey = newApiKey.find((j) => j.id === i.api_key_id);
         const apiName = targetKey ? targetKey.api_name : "";
-        const apiSecret = targetKey ? targetKey.api_secret : "";
+        const date = new Date(i.tm_start_date);
+        const period = +i.tm_period.replace("Month", "").trim();
+        const period_start = getDateTime(i.tm_start_date);
+        const period_end = getDateTime(date.setMonth(date.getMonth() + period));
 
         return (
           <div className={styles.table} key={k}>
@@ -151,17 +155,17 @@ export default function ApiKeyList() {
                   </div>
                 )}
 
-                {i.api_key_id  && (
-                  <div className={styles.table_col}>
-                    <div className={styles.table_label}>API Secret</div>
-                    <div className={styles.table_val}>{apiSecret}</div>
-                  </div>
-                )}
-
                 <div className={styles.table_col}>
                   <div className={styles.table_label}>Total PNL</div>
                   <div className={styles.table_val}>
-                    <b>$ 199.00</b>
+                    <b>$ {pnl_total}</b>
+                  </div>
+                </div>
+
+                <div className={styles.table_col}>
+                  <div className={styles.table_label}>Daily PNL</div>
+                  <div className={styles.table_val}>
+                    <b>$ {pnl_daily}</b>
                   </div>
                 </div>
 
@@ -173,9 +177,16 @@ export default function ApiKeyList() {
                 </div>
 
                 <div className={styles.table_col}>
-                  <div className={styles.table_label}>Active Until</div>
+                  <div className={styles.table_label}>Activated Start</div>
                   <div className={styles.table_val}>
-                    <span>11.07.23</span>
+                    <span>{period_start}</span>
+                  </div>
+                </div>
+
+                <div className={styles.table_col}>
+                  <div className={styles.table_label}>Activated End</div>
+                  <div className={styles.table_val}>
+                    <span>{period_end}</span>
                   </div>
                 </div>
               </div>

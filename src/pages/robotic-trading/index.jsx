@@ -6,6 +6,7 @@ import Card from "../../components/Card2";
 import Hgroup from "../../components/Hgroup";
 import HeroGroup from "../../components/HeroCta";
 import FormAddRT from "../../components/Form/FormAddRT";
+import ModalConfirmation from "../../components/Modal/ModalConfirmation";
 
 import Table from "./Table";
 
@@ -16,16 +17,46 @@ function RoboticTradingPage() {
 
   const [show, setShow] = useState(true);
   const [showForm, setShowForm] = useState(false);
-  const [showBanner, setShowBanner] = useState(true);
+
+  const totalSteps = 4;
+  const [steps, setSteps] = useState(totalSteps);
+
+  const [fieldName, setFieldName] = useState(false);
+  const [fieldSum, setFieldSum] = useState(false);
+  const [fieldApi, setFieldApi] = useState(false);
+  const [fieldPolicy, setFieldPolicy] = useState(false);
+
+  const [step1, setStep1] = useState(false);
+  const [step2, setStep2] = useState(false);
+  const [step3, setStep3] = useState(false);
+  const [step4, setStep4] = useState(false);
+
+  const [openModalSuccess, setOpenModalSuccess] = useState(false);
+
+  useEffect(() => {
+    const trueFieldCount = [fieldPolicy, fieldApi, fieldSum, fieldName].filter(
+      Boolean
+    ).length;
+    const completeStep1 = totalSteps - trueFieldCount;
+    if(completeStep1 === 0){ setStep1(true); setSteps(totalSteps - 1); }
+  }, [fieldPolicy, fieldApi, fieldSum, fieldName]);
 
   useEffect(() => {
     newRoboticTrading.length === 0 ? setShow(false) : setShow(true);
   }, [newRoboticTrading]);
 
   const handleChooseBot = () => {
-    setShow(true)
-    setShowForm(true)
-  }
+    setShow(true);
+    setShowForm(true);
+  };
+
+  useEffect(() => {
+    setFieldName(false);
+    setFieldSum(false);
+    setFieldApi(false);
+    setFieldPolicy(false);
+    setSteps(totalSteps);
+  }, [showForm]);
 
   const cards = [
     {
@@ -79,7 +110,7 @@ function RoboticTradingPage() {
   };
 
   const hero = {
-    heading: "Add New Robotic Trading",
+    heading: "Register Trading Bot",
     title: "Create a new Robotic Trading and start earning",
     text: `Press “Add Bot” to create new Robotic Trading and start working with them`,
     info: "4 steps to complete",
@@ -89,11 +120,17 @@ function RoboticTradingPage() {
     },
   };
 
+  const modalDepositAdded = {
+    title: "Activation Successful",
+    btnText: "Accept",
+    btnUrl: "#",
+  };
+
   return (
     <>
       {!show && (
         <>
-          <Banner toggleShow={showBanner} />
+          <Banner />
           <Hgroup props={hgroup} />
           <div className={styles.cards}>
             {cards.map((i, k) => (
@@ -104,15 +141,50 @@ function RoboticTradingPage() {
       )}
       {show && (
         <>
-          <HeroGroup hero={hero} show={showForm}>
-            <FormAddRT show={newRoboticTrading.length !== 0 ? () => setShowForm(prev => !prev) : setShow} />
+          <ModalConfirmation
+            openModal={openModalSuccess}
+            setModalOpen={setOpenModalSuccess}
+            props={modalDepositAdded}
+            theme="success"
+          />
+
+          <HeroGroup
+            hero={hero}
+            show={showForm}
+            totalSteps={totalSteps}
+            steps={steps}
+          >
+
+            {!step1 && <FormAddRT
+              setFieldApi={setFieldApi}
+              setFieldName={setFieldName}
+              setFieldSum={setFieldSum}
+              setFieldPolicy={setFieldPolicy}
+              show={
+                newRoboticTrading.length !== 0
+                  ? () => {
+                    setStep1(true);
+                    setShowForm(prev => !prev);
+                  }
+                  : () => {
+                      //setShow(prev => !prev);
+                      
+                    }
+              }
+            />}
+            {step1 && <>
+                step2
+            </>}
           </HeroGroup>
+
           {newRoboticTrading.length !== 0 && (
             <>
               <Hgroup props={hgroup2} />
               <Table data={newRoboticTrading} />
             </>
           )}
+
+          {newRoboticTrading.length <= 4 && <Banner />}
         </>
       )}
     </>
