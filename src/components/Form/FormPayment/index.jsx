@@ -42,7 +42,7 @@ const modalTerms = {
   btnText2: "Cansel",
 };
 
-export default function FormPayment({ show, setFieldNetwork, setFieldPolicy }) {
+export default function FormPayment({ show, setFieldNetwork, setFieldPolicy, getDataFB, payment }) {
   const htmlId = nextId("deposit-");
   const { currentUser } = useContext(AuthContext);
   const userID = currentUser.uid;
@@ -113,7 +113,10 @@ export default function FormPayment({ show, setFieldNetwork, setFieldPolicy }) {
   }, [validationCheckbox]);
 
 
-  const current_payment_sum = "100";
+  const current_payment_sum = payment?.subscription_sum  || "100";
+  const current_payment_type = payment?.subscription_type;
+  
+  
   const onAddKey = (e) => {
     e.preventDefault();
     setSubmit((prev) => !prev);
@@ -121,11 +124,11 @@ export default function FormPayment({ show, setFieldNetwork, setFieldPolicy }) {
       const payment_sum = current_payment_sum;
       const payment_network = form.current.payment_network.value;
 
-      if (validation && validationCheckbox && validationSelect) {
+      if (validationCheckbox && validationSelect) {
+        getDataFB({payment_sum: payment_sum, payment_network: payment_network});
+        show(true);
         setResetCheckbox((prev) => !prev);
         setResetSelect((prev) => !prev);
-        toggleModal(true);
-        show(false);
         form.current.reset();
         setReset((prev) => !prev);
       }
@@ -165,7 +168,8 @@ export default function FormPayment({ show, setFieldNetwork, setFieldPolicy }) {
 
 
       <div className={styles.form_note}>
-        You need to pay <b>{current_payment_sum}$</b>
+        {current_payment_type ? <>You will activate the <b>{current_payment_type}</b> for <b>{current_payment_sum}$</b> per month. Tax included</> : <> You need to pay <b>{current_payment_sum}$</b></>}
+
       </div>
 
       <form

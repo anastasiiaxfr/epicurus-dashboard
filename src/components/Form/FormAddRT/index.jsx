@@ -1,7 +1,4 @@
-import { useState, useEffect, useRef, useContext } from "react";
-import { ref, database, set } from "../../../pages/_firebase";
-import { AuthContext } from "../../../pages/_auth";
-import nextId from "react-id-generator";
+import { useState, useEffect, useRef } from "react";
 
 import ModalPolicy from "../../Modal/ModalPolicy";
 import Input from "../Input";
@@ -34,11 +31,8 @@ export default function FormAddRT({
   setFieldName,
   setFieldSum,
   setFieldPolicy,
-  toogleModal
+  getDataFB
 }) {
-  const htmlId = nextId("rt-");
-  const { currentUser } = useContext(AuthContext);
-  const userID = currentUser.uid;
 
   const form = useRef(null);
   const [validation, setValidation] = useState(false);
@@ -75,16 +69,10 @@ export default function FormAddRT({
       const api_key_id = form.current.rt_api.getAttribute("name");
 
       if (validation && validationCheckbox && validationSelect) {
-        setResetCheckbox((prev) => !prev);
-        setResetSelect((prev) => !prev);
-        sendToFB(rt_name, rt_start_date, rt_sum, api_key_name, api_key_id);
-        
-        toogleModal && toogleModal(true);
-
-        show(false);
-        form.current.reset();
-        setReset((prev) => !prev);
-        setFieldPolicy((prev) => !prev);
+        getDataFB({
+          rt_name, rt_start_date, rt_sum, api_key_name, api_key_id
+        });
+        show(true);
       }
     }
   };
@@ -95,17 +83,6 @@ export default function FormAddRT({
     setReset((prev) => !prev);
     setResetCheckbox((prev) => !prev);
     setResetSelect((prev) => !prev);
-  };
-
-  const sendToFB = (rt_name, rt_start_date, rt_sum, api_key_name, api_key_id) => {
-    set(ref(database, "robotic-trading/" + userID + "/" + htmlId), {
-      rt_name: rt_name,
-      rt_start_date: rt_start_date,
-      rt_sum: rt_sum,
-      rt_sum_first: rt_sum,
-      api_key_name: api_key_name,
-      api_key_id: api_key_id,
-    });
   };
 
   return (
@@ -195,8 +172,8 @@ export default function FormAddRT({
         </div>
 
         <div className={styles.form_cta}>
-          <Btn label="Create" onClick={onAddRT} />
-          <Btn label="Reset form" onClick={onResetFrom} theme="secondary" />
+          <Btn label="Continue" onClick={onAddRT} />
+          <Btn label="Close form" onClick={onResetFrom} theme="secondary" />
         </div>
       </form>
     </>

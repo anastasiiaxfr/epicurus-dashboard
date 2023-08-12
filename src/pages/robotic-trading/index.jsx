@@ -1,4 +1,8 @@
 import { useState, useEffect, useContext } from "react";
+import { ref, database, set } from "../../pages/_firebase";
+import { AuthContext } from "../../pages/_auth";
+import nextId from "react-id-generator";
+
 import { ProductContext } from "../../pages/_products";
 
 import Banner from "../../components/Banner";
@@ -6,6 +10,10 @@ import Card from "../../components/Card2";
 import Hgroup from "../../components/Hgroup";
 import HeroGroup from "../../components/HeroCta";
 import FormAddRT from "../../components/Form/FormAddRT";
+import FormChooseSubscription from "../../components/Form/FormChooseSubscription";
+import FormPayment from "../../components/Form/FormPayment";
+import FormPaymentTransaction from "../../components/Form/FormPaymentTransaction";
+
 import ModalConfirmation from "../../components/Modal/ModalConfirmation";
 
 import Table from "./Table";
@@ -13,6 +21,10 @@ import Table from "./Table";
 import styles from "./styles.module.sass";
 
 function RoboticTradingPage() {
+  const htmlId = nextId("rt-");
+  const { currentUser } = useContext(AuthContext);
+  const userID = currentUser.uid;
+
   const { newRoboticTrading } = useContext(ProductContext);
 
   const [show, setShow] = useState(true);
@@ -21,10 +33,17 @@ function RoboticTradingPage() {
   const totalSteps = 4;
   const [steps, setSteps] = useState(totalSteps);
 
+  const [submit, setSubmit] = useState(false);
+
   const [fieldName, setFieldName] = useState(false);
   const [fieldSum, setFieldSum] = useState(false);
   const [fieldApi, setFieldApi] = useState(false);
   const [fieldPolicy, setFieldPolicy] = useState(false);
+  const [fieldPolicyPayment, setFieldPolicyPayment] = useState(false);
+  const [fieldHash, setFieldHash] = useState(false);
+  const [fieldNetwork, setFieldNetwork] = useState(false);
+  const [subscription, setSubscription] = useState(false);
+  const [choosenSubscription, choosenSetSubscription] = useState();
 
   const [step1, setStep1] = useState(false);
   const [step2, setStep2] = useState(false);
@@ -33,13 +52,57 @@ function RoboticTradingPage() {
 
   const [openModalSuccess, setOpenModalSuccess] = useState(false);
 
+  const [fbData, setFbData] = useState();
+
   useEffect(() => {
     const trueFieldCount = [fieldPolicy, fieldApi, fieldSum, fieldName].filter(
       Boolean
     ).length;
     const completeStep1 = totalSteps - trueFieldCount;
-    if(completeStep1 === 0){ setStep1(true); setSteps(totalSteps - 1); }
-  }, [fieldPolicy, fieldApi, fieldSum, fieldName]);
+    completeStep1 === 0 && submit && setStep1(true) ;
+  }, [fieldPolicy, fieldApi, fieldSum, fieldName, submit]);
+
+  useEffect(() => {
+    subscription === true && submit && setStep2(true) ;
+  }, [subscription, submit]);
+
+  useEffect(() => {
+    fieldNetwork && fieldPolicyPayment && submit && setStep3(true);
+  }, [fieldNetwork, fieldPolicyPayment, submit]);
+
+  useEffect(() => {
+    (fieldHash === true) ? setStep4(true) : setStep4(false);
+  }, [fieldHash]);
+
+  useEffect(() => {
+    !step1 ? setSubmit(false) : setSubmit(true);
+    !step2 ? setSubmit(false) : setSubmit(true);
+    !step3 ? setSubmit(false) : setSubmit(true);
+    !step4 ? setSubmit(false) : setSubmit(true);
+    step1 && setSteps(totalSteps - 1);
+    step1 && step2 && setSteps(totalSteps - 2);
+    step1 && step2 && step3 && setSteps(totalSteps - 3);
+    step1 && step2 && step3 && step4 && setSteps(0);
+
+  }, [step1, step2, step3, step4]);
+
+  useEffect(() => {
+    setFieldName(false);
+    setFieldSum(false);
+    setFieldApi(false);
+    setFieldPolicy(false);
+    setFieldPolicyPayment(false);
+    setSubscription(false);
+    setFieldNetwork(false);
+    setFieldHash(false)
+    setSteps(totalSteps);
+    setStep1(false);
+    setStep2(false);
+    setStep3(false);
+    setStep4(false);
+    setSubmit(false);
+    setFbData();
+  }, [showForm]);
 
   useEffect(() => {
     newRoboticTrading.length === 0 ? setShow(false) : setShow(true);
@@ -51,17 +114,39 @@ function RoboticTradingPage() {
   };
 
   useEffect(() => {
-    setFieldName(false);
-    setFieldSum(false);
-    setFieldApi(false);
-    setFieldPolicy(false);
-    setSteps(totalSteps);
-  }, [showForm]);
+    if(fbData && fbData.subscription){
+      choosenSetSubscription({
+        subscription_type: fbData.subscription,
+        subscription_sum: fbData.subscription_sum,
+      })
+    }
+    if(fbData && fbData?.hash_code){
+        set(ref(database, "robotic-trading/" + userID + "/" + htmlId), {
+          rt_name: fbData.rt_name,
+          rt_start_date: fbData.rt_start_date,
+          rt_sum: fbData.rt_sum,
+          rt_sum_first: fbData.rt_sum,
+          api_key_name: fbData.api_key_name,
+          api_key_id: fbData.api_key_id,
+          subscription: fbData.subscription,
+          subscription_sum: fbData.subscription_sum,
+          subscription_period: fbData.subscription_period,
+          payment_network: fbData.payment_network,
+          payment_sum: fbData.payment_sum,
+          hash_code: fbData.hash_code
+        });
+    }
+  }, [fbData]);
+
+  const toggleModalSuccess = () => {
+    setOpenModalSuccess(true);
+  };
 
   const cards = [
     {
       title: "DCA Trading Bot",
-      text: "DCA (Dollar Cost Averaging) бот - это программа, разработанная для автоматического выполнения стратегии долларового усреднения при инвестировании. Он основан на алгоритмах искусственного интеллекта и предназначен для помощи инвесторам в автоматическом распределении их инвестиций в течение определенного периода времени.",
+      text:
+        "DCA (Dollar Cost Averaging) бот - это программа, разработанная для автоматического выполнения стратегии долларового усреднения при инвестировании. Он основан на алгоритмах искусственного интеллекта и предназначен для помощи инвесторам в автоматическом распределении их инвестиций в течение определенного периода времени.",
       on_click: handleChooseBot,
       btn: "Choose",
       cols: [
@@ -77,7 +162,8 @@ function RoboticTradingPage() {
     },
     {
       title: "DCA Trading Bot",
-      text: "DCA (Dollar Cost Averaging) бот - это программа, разработанная для автоматического выполнения стратегии долларового усреднения при инвестировании. Он основан на алгоритмах искусственного интеллекта и предназначен для помощи инвесторам в автоматическом распределении их инвестиций в течение определенного периода времени.",
+      text:
+        "DCA (Dollar Cost Averaging) бот - это программа, разработанная для автоматического выполнения стратегии долларового усреднения при инвестировании. Он основан на алгоритмах искусственного интеллекта и предназначен для помощи инвесторам в автоматическом распределении их инвестиций в течение определенного периода времени.",
       on_click: handleChooseBot,
       btn: "Choose",
       cols: [
@@ -113,7 +199,7 @@ function RoboticTradingPage() {
     heading: "Register Trading Bot",
     title: "Create a new Robotic Trading and start earning",
     text: `Press “Add Bot” to create new Robotic Trading and start working with them`,
-    info: "4 steps to complete",
+    info: `${steps} steps to complete`,
     btn: {
       label: "Add Bot",
       on_click: () => setShowForm(true),
@@ -128,6 +214,12 @@ function RoboticTradingPage() {
 
   return (
     <>
+      <ModalConfirmation
+        openModal={openModalSuccess}
+        setModalOpen={setOpenModalSuccess}
+        props={modalDepositAdded}
+        theme="success"
+      />
       {!show && (
         <>
           <Banner />
@@ -141,41 +233,75 @@ function RoboticTradingPage() {
       )}
       {show && (
         <>
-          <ModalConfirmation
-            openModal={openModalSuccess}
-            setModalOpen={setOpenModalSuccess}
-            props={modalDepositAdded}
-            theme="success"
-          />
-
-          <HeroGroup
-            hero={hero}
-            show={showForm}
-            totalSteps={totalSteps}
-            steps={steps}
-          >
-
-            {!step1 && <FormAddRT
-              setFieldApi={setFieldApi}
-              setFieldName={setFieldName}
-              setFieldSum={setFieldSum}
-              setFieldPolicy={setFieldPolicy}
-              show={
-                newRoboticTrading.length !== 0
-                  ? () => {
-                    setStep1(true);
-                    setShowForm(prev => !prev);
+          {(
+            <HeroGroup
+              hero={hero}
+              show={showForm}
+              totalSteps={totalSteps}
+              steps={steps}
+              hideSidebar={step1 ? true : false}
+            >
+              {!step1 && (
+                <FormAddRT
+                  setFieldApi={setFieldApi}
+                  setFieldName={setFieldName}
+                  setFieldSum={setFieldSum}
+                  setFieldPolicy={setFieldPolicy}
+                  getDataFB={setFbData}
+                  show={
+                    newRoboticTrading.length !== 0
+                      ? (val) => {
+                          setShowForm(val);
+                          setSubmit(val);
+                        }
+                      : (val) => {
+                          setShow(val);
+                          setSubmit(val);
+                        }
                   }
-                  : () => {
-                      //setShow(prev => !prev);
-                      
-                    }
-              }
-            />}
-            {step1 && <>
-                step2
-            </>}
-          </HeroGroup>
+                />
+              )}
+              {step1 && !step2 && (
+                <>
+                  <FormChooseSubscription
+                    getDataFB={(data) => setFbData(prevData => ({ ...prevData, ...data }))}
+                    show={(val) => {
+                      setShowForm(val);
+                      setSubmit(val);
+                    }}
+                    setSubscription={setSubscription}
+                  />
+                </>
+              )}
+              {step2 && !step3 && (
+                <>
+                  <FormPayment
+                    getDataFB={(data) => setFbData(prevData => ({ ...prevData, ...data }))}
+                    show={(val) => {
+                      setShowForm(val);
+                      setSubmit(val);
+                    }}
+                    setFieldNetwork={setFieldNetwork}
+                    setFieldPolicy={setFieldPolicyPayment}
+                    payment={choosenSubscription}
+                  />
+                </>
+              )}
+              {step3 && (
+                <>
+                  <FormPaymentTransaction
+                    getDataFB={(data) => setFbData(prevData => ({ ...prevData, ...data }))}
+                    show={(val) => {
+                      setShowForm(val);
+                    }}
+                    setFieldHash={setFieldHash}
+                    toggleModal={toggleModalSuccess}
+
+                  />
+                </>
+              )}
+            </HeroGroup>
+          )}
 
           {newRoboticTrading.length !== 0 && (
             <>

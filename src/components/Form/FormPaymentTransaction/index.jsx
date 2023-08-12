@@ -11,7 +11,7 @@ import CopyIcon from '../../../assets/icons/copy.svg';
 
 import styles from "./styles.module.sass";
 
-export default function FormPayment({ show, setFieldHash, toggleModal }) {
+export default function FormPayment({ show, setFieldHash, toggleModal, getDataFB }) {
   const { currentUser } = useContext(AuthContext);
   const userID = currentUser.uid;
 
@@ -29,11 +29,11 @@ export default function FormPayment({ show, setFieldHash, toggleModal }) {
     e.preventDefault();
     setSubmit((prev) => !prev);
     if (form.current) {
+      const hash_code = form.current.transaction_hash.value;
       if (validation) {
-        show(true);
+        getDataFB({hash_code: hash_code});
+        show(false);
         toggleModal(true);
-        form.current.reset();
-        setReset((prev) => !prev);
       }
     }
   };
