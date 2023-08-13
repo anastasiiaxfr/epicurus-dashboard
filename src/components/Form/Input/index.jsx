@@ -29,6 +29,7 @@ export default function InputField({
   theme,
   form,
   success,
+  isError
 }) {
   const [newValue, setNewValue] = useState(value);
   const [showError, setShowError] = useState(false);
@@ -106,7 +107,9 @@ export default function InputField({
 
   useEffect(() => {
     setShowError(false);
+    setCompleted(false);
   }, [reset]);
+
 
   useEffect(() => {
     if (setDisabled) {

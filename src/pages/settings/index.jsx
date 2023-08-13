@@ -1,12 +1,12 @@
 import Tabs from '../../components/Tabs'
 
-import KycPage from '../../components/Page/KycPage'
-
-import PlusIcon from '../../assets/icons/plus.svg'
+import FormSettings from '../../components/Form/FormSettings'
+import FormSettingsPassword from '../../components/Form/FormSettingsPassword'
 
 
 const tabsItems = [
-    { list: <PlusIcon/>, item: <KycPage /> },
+    { list: "General", item: <FormSettings /> },
+    { list: "Security", item: <FormSettingsPassword /> },
 ]
 
 function Settings() {

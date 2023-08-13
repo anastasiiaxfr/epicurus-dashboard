@@ -1,88 +1,42 @@
-import * as React from 'react'
-import { useState, useRef } from 'react'
+import * as React from "react";
+import { useState, useContext } from "react";
+import { AuthContext } from "../../pages/_auth";
 
-import Tabs from '@mui/base/Tabs'
-import TabsList from '@mui/base/TabsList'
-import TabPanel from '@mui/base/TabPanel'
-import Tab from '@mui/base/Tab'
+import Tabs from "@mui/base/Tabs";
+import TabsList from "@mui/base/TabsList";
+import TabPanel from "@mui/base/TabPanel";
+import Tab from "@mui/base/Tab";
+import Btn from "../Form/Btn";
 
 // import PlusIcon from '../../assets/icons/plus.svg'
-import styles from './tabs.module.sass'
+import styles from "./tabs.module.sass";
 
+export default function BasicTabs({ props }) {
+  const { auth } = useContext(AuthContext);
 
-const CustomTab = ({ label, value, onFocus, onBlur, children }) => {
-    return (
-        <Tab
-            label={label}
-            value={value}
-            className={styles.tabs_toggle}
-            onFocus={onFocus}
-            onBlur={onBlur}
-        >
-            {children || label}
-        </Tab>
-    )
-}
+  return (
+    <Tabs defaultValue={0} orientation="vertical" className={styles.tabs}>
+      <div className={styles.tabs_btns}>
+        <TabsList className={styles.tabs_toogle}>
+          {props?.map((i, ind) => (
+            <Tab key={ind} value={ind}>
+              {i.list}
+            </Tab>
+          ))}
+        </TabsList>
 
+        <div className={styles.tabs_cta}>
+          <Btn label="Log Out" theme="error" onClick={() => auth.signOut()} />
+        </div>
+      </div>
 
-export default function BasicTabs({props}) {
-
-    const tabsHeaderRef = useRef(null)
-    const [isFocused, setIsFocused] = useState(false)
-
-    const onTabToggle = (e) => {
-        // e.currentTarget.scrollIntoView({
-        //     behavior: "smooth",
-        //     inline: "center"
-        // })
-        // setIsFocused(true)
-    }
-    
-    const tabs = [];
-    for (let i = 1; i <= 50; i++) {
-        const label = `Tab ${i}`
-        const value = i
-
-        tabs.push(
-            <CustomTab
-                key={value}
-                value={value}
-                label={label}
-                onFocus={onTabToggle}
-                onBlur={onTabToggle}
-            />
-        )
-    }
-    // Find count of tabs and their total width if width more then parent container width add className={`${styles.tabs_header} ${styles.scrollable}`}. Change index first tab to first position when tabs width more them container width
-    return (
-        <Tabs defaultValue={1} className={styles.tabs}>
-            <TabsList className={`${styles.tabs_header}`} ref={tabsHeaderRef}>
-
-                {/* <CustomTab key={1} onFocus={onTabToggle} onBlur={onTabToggle} onTabToggle={onTabToggle} value={1} className={styles.tabs_toggle}><PlusIcon width="20" height="20" /></CustomTab> */}
-                
-                { props?.map((i, ind) => 
-                    <CustomTab key={ind + 1} onFocus={onTabToggle} onBlur={onTabToggle} onTabToggle={onTabToggle} value={ind + 1} className={styles.tabs_toggle}>{i.list}</CustomTab>
-                ) } 
-                
-
-                {/* <CustomTab key={2} onFocus={onTabToggle} onBlur={onTabToggle} onTabToggle={onTabToggle} value={2} className={styles.tabs_toggle}>Robot Evil Morty</CustomTab> */}
-                
-                {/* {tabs} */}
-
-            </TabsList>
-            <div className={styles.tabs_content}>
-                {/* <TabPanel value={1}>
-                    <AddApiPage />
-                </TabPanel> */}
-
-                { props?.map((i, ind) =>
-                <TabPanel value={ind + 1} key={ind + 1}>
-                    {i.item}
-                </TabPanel>
-                ) }
-
-                {/* <TabPanel value={3}>Third page</TabPanel> */}
-            </div>
-        </Tabs>
-    )
+      <div className={styles.tabs_content}>
+        {props?.map((i, ind) => (
+          <TabPanel value={ind} key={ind}>
+            {i.item}
+          </TabPanel>
+        ))}
+      </div>
+    </Tabs>
+  );
 }

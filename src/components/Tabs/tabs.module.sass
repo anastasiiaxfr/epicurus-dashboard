@@ -1,62 +1,74 @@
 @import 'src/assets/styles/vars.sass'
     
 .tabs
-    display: flex
-    flex-direction: column
-    max-width: calc(100vw - var(--sidebar-width) - 40px)
-    +sz(100%, 100%)
-    margin: 0 
+    width: 100%
+    flex: 1
+    padding: var(--gapLg)
+    display: grid
+    grid-template-columns: auto 2fr
+    gap: var(--gapLg)
+    background-color: $dark5
+    border-radius: var(--brsMd)
 
-    &_content
-        //max-width: var(--mawTab)
-        +theme(dark)
-        border-radius: 0 0 var(--brsMd) var(--brsMd) 
-        padding: 30px
-        flex: 1
+    &_btns
+        +flex(flex, flex-start, flex-start, nowrap, column)
+        gap: var(--gap)
+        padding-right: var(--gapLg)
+        border-right: 1px solid rgba($white, 0.04)
+        color: $text_1
 
-        +maw($xs)
-            padding: 15px
-
-    &_header
-        +flex(flex, flex-start, flex-start, nowrap)
-        //max-width: var(--mawTab)
+    &_cta
+        margin-top: auto
+    
+    &_toogle
         width: 100%
-        margin: 0  
-        padding: 0
-        gap: 10px
+        +flex(flex, flex-start, flex-start, nowrap, column)
+        gap: var(--gap)
 
-        overflow-x: scroll
-        scrollbar-width: none
+        button
+            +sz(100%, 45px)
+            padding: 10px 16px
+            border-radius: var(--brsXs)
+            background-color: transparent
+            border: none
+            color: inherit
+            +ft(16, 16, 700)
+            letter-spacing: 0.02em
+            cursor: pointer
 
-        &::-webkit-scrollbar 
-            //display: none
-            +sz(0, 0)
+            &[class*="Mui-selected"]
+                background-color: $main
+                background: $grad7
+                color: $white
 
-    &_toggle
-        +flex(flex, center, center, nowrap)
-        align-self: stretch
-        min-height: 40px
-        padding: 14px 25px
-        //+ft(28, 42, 600, $ffHeading)
-        +ft(13, 13, 600, $ffHeading)
-        text-transform: uppercase
-        letter-spacing: 0.1em
-        white-space: nowrap
-        border-radius: var(--brsMd)/2 var(--brsMd)/2 0 0
-        cursor: pointer
-        outline: none
-        border: none
-
-    :global(.MuiTab-root.Mui-selected)
-        opacity: 1
-        +theme(dark)
-       
-
-.scrollable
-    @extend %scroll
-    &::-webkit-scrollbar 
-        +sz(10px, 10px)
-        
     +maw($sm)
-        &::-webkit-scrollbar 
-            +sz(0, 0)
+        padding: var(--gap)
+        gap: var(--gap)
+
+        &_toogle
+            padding-right: var(--gap)
+
+    +maw($xs)
+        grid-template-columns: 1fr
+        flex: 0
+
+        &_toogle
+            flex-direction: row
+            overflow: hidden
+            overflow-x: scroll
+            scrollbar-width: none
+
+            &::-webkit-scrollbar 
+                //display: none
+                +sz(0, 0)
+         
+        &_btns
+            display: grid
+            grid-template-columns: 1fr
+            border-right: 0
+            padding-right: 0
+            
+           
+
+        &_content
+            flex: 1

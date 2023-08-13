@@ -55,7 +55,7 @@ export default function SelectField({
   useEffect(() => {
     if (selected === true) {
       onChange();
-      success(true);
+      success && success(true);
     }
   }, [selected]);
 
