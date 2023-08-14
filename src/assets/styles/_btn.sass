@@ -35,6 +35,7 @@
     &.success
         background-color: darken($green2, 2%)
         background: $grad15
+        
     &_error
         background-color: darken($red, 2%)
         background: $grad11
@@ -50,6 +51,21 @@
         background: transparent
         border: none
         cursor: pointer
+
+        input
+            background: transparent
+            border: none
+    
+    &_text
+        min-width: 0
+        width: auto
+        padding: 0
+        background: transparent
+        color: $text_1
+        input
+            padding: 0
+        &:hover, &:active, &:focus-visible
+            color: $main
             
     &_grey
         padding: 10px 20px

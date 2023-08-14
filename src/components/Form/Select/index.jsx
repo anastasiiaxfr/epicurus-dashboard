@@ -19,6 +19,7 @@ export default function SelectField({
   validate,
   success,
   children,
+  reset
 }) {
   const [newValue, setNewValue] = useState(data[0]);
   const [shown, setShown] = useState(false);
@@ -52,12 +53,19 @@ export default function SelectField({
     }
   }, [submit]);
 
+
   useEffect(() => {
     if (selected === true) {
       onChange();
       success && success(true);
     }
   }, [selected]);
+
+  useEffect(() => {
+    setShowError(false);
+    setNewValue(data[0]);
+    setSelected(false);
+  }, [reset]);
 
   return (
     <div className={styles.select__wrapper}>

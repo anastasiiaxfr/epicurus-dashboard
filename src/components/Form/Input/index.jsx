@@ -126,7 +126,7 @@ export default function InputField({
 
   return (
     <div className={`${styles.field} ${styles[theme]}`}>
-      <label htmlFor={id} className={styles.label}>
+      {label && <label htmlFor={id} className={styles.label}>
         <span>{label}</span>
         {(note || (error && showError)) && (
           <div className={styles.info}>
@@ -138,7 +138,7 @@ export default function InputField({
             {error && showError && <Nottification label={error} type="error" />}
           </div>
         )}
-      </label>
+      </label>}
 
       <div className={styles.wrap}>
         <Input

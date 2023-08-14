@@ -94,6 +94,7 @@ export default function KYC() {
               submit={submit}
               setSubmit={setSubmit}
               validate={setValidation}
+              theme="default"
             />
           </div>
 
@@ -113,6 +114,7 @@ export default function KYC() {
               submit={submit}
               setSubmit={setSubmit}
               validate={setValidation}
+              theme="default"
             />
           </div>
 
@@ -132,6 +134,7 @@ export default function KYC() {
               submit={submit}
               setSubmit={setSubmit}
               validate={setValidation}
+              theme="default"
             />
           </div>
           <div className={`${styles.form_cta} ${styles.form_cta_btm}`}>

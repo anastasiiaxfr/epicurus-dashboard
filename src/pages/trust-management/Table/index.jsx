@@ -13,7 +13,7 @@ import DelIcon from "../../../assets/icons/del.svg";
 
 import styles from "./style.module.sass";
 
-export default function ApiKeyList() {
+export default function TMList() {
   const { currentUser } = useContext(AuthContext);
   const userID = currentUser.uid;
 
