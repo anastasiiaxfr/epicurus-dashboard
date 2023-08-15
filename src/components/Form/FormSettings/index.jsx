@@ -223,30 +223,39 @@ export default function Settings() {
           </div>
 
           <div className={styles.form_row}>
-            <label htmlFor="settings_referral" className={styles.form_label}>
-              <span>Your Referal</span>
-              <b>Share the link and get personal bonus</b>
+            <label htmlFor="settings_user_birth" className={styles.form_label}>
+              <span>Date of Birth</span>
+              <b>Here you can enter your birth date</b>
             </label>
+            <Input
+              type="text"
+              placeholder="00/00/00"
+              id="settings_user_birth"
+              error="Only latin characters"
+              required={true}
+              reset={reset}
+              setReset={setReset}
+              submit={submit}
+              setSubmit={setSubmit}
+              validate={setValidation}
+              theme="default"
+            />
+          </div>
 
-            <ClickAwayListener onClickAway={() => setCopy(false)}>
-              <div onClick={() => handleCopyClick(refferal)}>
-                <Input
-                  type="text"
-                  placeholder="Enter Current Password"
-                  id="settings_referral"
-                  required={true}
-                  reset={reset}
-                  setReset={setReset}
-                  submit={submit}
-                  setSubmit={setSubmit}
-                  validate={setValidation}
-                  disabled={true}
-                  value={refferal}
-                  icon={<CopyIcon />}
-                  theme={copy ? "copied" : "default"}
-                />
-              </div>
-            </ClickAwayListener>
+          <div className={styles.form_row}>
+            <label htmlFor="settings_user_sex" className={styles.form_label}>
+              <span>Your Gender</span>
+              <b>Choose your Gender</b>
+            </label>
+            <Select
+              placeholder="Choose Your Gender"
+              submit={submit}
+              setSubmit={setSubmit}
+              reset={resetSelect}
+              validate={setValidationSelect}
+              data={gender}
+              id="settings_user_sex"
+            />
           </div>
 
           <div className={styles.form_row}>
@@ -290,40 +299,33 @@ export default function Settings() {
             />
           </div>
 
-          <div className={styles.form_row}>
-            <label htmlFor="settings_user_birth" className={styles.form_label}>
-              <span>Date of Birth</span>
-              <b>Here you can enter your birth date</b>
-            </label>
-            <Input
-              type="text"
-              placeholder="00/00/00"
-              id="settings_user_birth"
-              error="Only latin characters"
-              required={true}
-              reset={reset}
-              setReset={setReset}
-              submit={submit}
-              setSubmit={setSubmit}
-              validate={setValidation}
-              theme="default"
-            />
-          </div>
+  
 
           <div className={styles.form_row}>
-            <label htmlFor="settings_user_sex" className={styles.form_label}>
-              <span>Your Gender</span>
-              <b>Choose your Gender</b>
+            <label htmlFor="settings_referral" className={styles.form_label}>
+              <span>Your Referal</span>
+              <b>Share the link and get personal bonus</b>
             </label>
-            <Select
-              placeholder="Choose Your Gender"
-              submit={submit}
-              setSubmit={setSubmit}
-              reset={resetSelect}
-              validate={setValidationSelect}
-              data={gender}
-              id="settings_user_sex"
-            />
+
+            <ClickAwayListener onClickAway={() => setCopy(false)}>
+              <div onClick={() => handleCopyClick(refferal)}>
+                <Input
+                  type="text"
+                  placeholder="Enter Current Password"
+                  id="settings_referral"
+                  required={true}
+                  reset={reset}
+                  setReset={setReset}
+                  submit={submit}
+                  setSubmit={setSubmit}
+                  validate={setValidation}
+                  disabled={true}
+                  value={refferal}
+                  icon={<CopyIcon />}
+                  theme={copy ? "copied" : "default"}
+                />
+              </div>
+            </ClickAwayListener>
           </div>
 
           <div className={`${styles.form_cta} ${styles.form_cta_btm}`}>
