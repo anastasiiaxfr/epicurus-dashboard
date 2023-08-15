@@ -1,0 +1,125 @@
+@import 'src/assets/styles/vars.sass'
+@import 'src/assets/styles/text.sass'
+
+.sidebar
+    +flex(flex, center, flex-start, nowrap, column)
+    gap: var(--gap)
+    margin: 0
+    @extend %card3
+    overflow: hidden
+
+    & > *
+        width: 100%
+
+    &_title
+        +ft(22, 22, 700)
+        letter-spacing: 0.04em
+
+    &_subtitle
+        margin-top: var(--gapXs)
+        +ft(14, 14*1.4, 500)
+        color: $text_7
+
+    &_links
+        +flex(flex, flex-start, flex-start, nowrap, column)
+        margin-bottom: 0
+        margin-top: var(--gapXs)
+        padding: 0
+        list-style-type: none
+
+        &.show
+            display: flex
+
+        &_wrap
+            margin-top: auto
+
+        &_header
+            +flex(flex, center, space-between, nowrap)
+            gap: var(--gap)
+            display: none
+
+            svg.show
+                transform: rotate(180deg)
+
+        li
+            width: 100%
+            padding: 5px
+            color: $text_1
+
+        a
+            +flex(flex, center, space-between, nowrap)
+            width: 100%
+            padding: 10px 20px
+            +ft(16, 16*1.4, 500)
+            letter-spacing: 0.04em
+            color: inherit
+            border-radius: inherit
+
+            &:hover, &:focus, &:active
+                color: $main
+
+    &_icons
+        +flex(flex, center, center, nowrap)
+        +sz(28px, auto)
+
+        svg
+            display: block
+            &:nth-of-type(2)
+                opacity: 0.5
+            &:nth-of-type(3)
+                opacity: 0.2
+
+    .active
+        border-radius: var(--brsXs)
+        //border: 1px solid rgba($white, 0.2)
+        border: 1px solid rgba($main, 1)
+        color: $white
+        a
+            background-color: rgba($main, 0.2)
+            background: $grad7
+            color: $white
+
+            &:hover, &:active, &:focus
+                color: $white
+
+    +maw($md)
+        //+ps(sticky, (t, var(--gap)))
+        background-color: $dark2
+        &::before, &::after
+            display: none
+
+        &_title
+            text-transform: uppercase
+            
+        &_links
+            display: none 
+            max-height: 200px
+            padding-right: var(--gap)
+            overflow: hidden
+            overflow-y: scroll
+
+            &_header
+                display: flex  
+
+    +maw($xs)
+        &_links
+            &_header
+                justify-content: space-between
+            a
+                padding: 0
+                +ft(12, 12*1.2, 500) 
+
+        &_title
+            text-transform: uppercase
+            +ft(14, 14*1.4, 700)    
+
+        .active
+            border: none
+            a
+                background: transparent
+        
+
+                
+
+
+
