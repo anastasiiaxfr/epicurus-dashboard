@@ -81,22 +81,20 @@ const items = [
 function WikiSinglePage() {
   const router = useRouter();
   const currentURL = router.asPath;
-
   const findTitleByURL = (url) => {
     for (const item of links) {
-        if (item.url === url) {
+        if (item.url === url || item.url !== '/support' && currentURL.includes(item.url)) {
           return item.title;
-        }
+        } 
     }
     return null; 
   };
 
-  const currentTitle = findTitleByURL(currentURL) || "Home";
-
-
+  const currentTitle = findTitleByURL(currentURL) || "Getting started";
+  
   return (
     <div className={styles.pg_container}>
-    <Sidebar links={links} currentURL={currentURL}/>
+    <Sidebar links={links} currentURL={currentURL} />
 
     <article className={styles.pg_content}>
       <div className={styles.hgroup}>

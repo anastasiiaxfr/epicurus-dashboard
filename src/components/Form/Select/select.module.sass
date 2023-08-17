@@ -38,11 +38,14 @@
         z-index: 1
         background-color: transparent
         border: none
+        cursor: pointer
+        &:focus-visible, &:focus, &:active
+            cursor: pointer
 
     &__icon
         display: block
         +ps(absolute, (r, 15px), (t, 0), (b, 0))
-        z-index: 0
+        z-index: 1
         margin: auto
         color: $text_1
         &.active

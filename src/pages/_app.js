@@ -164,7 +164,7 @@ export default function App({ Component, pageProps }) {
   const findTitleByURL = (url) => {
     for (const group of links) {
       for (const item of group.items) {
-        if (item.url === url || item.url && item.url !== '/' && url.includes(item.url)) {
+        if (item.url === url || item.url && item.url !== '/' && urlParent.includes(item.url)) {
           return item.title;
         }
       }
@@ -186,7 +186,7 @@ export default function App({ Component, pageProps }) {
           <AuthProvider>
             <ProductProvider>
             <div className="pg__wrap">
-              <Sidebar links={links} currentURL={currentURL}/>
+              <Sidebar links={links} currentURL={currentURL} urlParent={urlParent}/>
               <main className="pg__container">
                 <Header title={currentTitle} />
                 <article className="pg__content">

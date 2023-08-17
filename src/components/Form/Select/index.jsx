@@ -98,7 +98,6 @@ export default function SelectField({
               ? newValue.name.charAt(0).toUpperCase() + newValue.name.slice(1)
               : newValue.charAt(0).toUpperCase() + newValue.slice(1)
           }
-          disabled
           onClick={onMenuToggle}
         />
         <ArrowIcon

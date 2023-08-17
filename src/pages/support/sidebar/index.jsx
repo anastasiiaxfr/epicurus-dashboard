@@ -1,16 +1,17 @@
 import { useState } from "react";
 import Link from "next/link";
 
+import Btn from "../../../components/Form/Btn";
 import ArrowIcon from "../../../assets/icons/arr-rt.svg";
 import ArrowBtmIcon from "../../../assets/icons/arr-btm-0.svg";
 
 import styles from "./styles.module.sass";
 
 function Sidebar({ links, currentURL }) {
-  const [show, setShow] = useState(false)
+  const [show, setShow] = useState(false);
   const showNav = () => {
-    setShow(prev => !prev)
-  }
+    setShow((prev) => !prev);
+  };
 
   return (
     <aside className={styles.sidebar}>
@@ -24,27 +25,54 @@ function Sidebar({ links, currentURL }) {
       <nav className={styles.sidebar_links_wrap}>
         <div className={styles.sidebar_links_header} onClick={showNav}>
           <span className={styles.sidebar_title}>Wiki</span>
-          <ArrowBtmIcon className={show ? styles.show : ''}/>
+          <ArrowBtmIcon className={show ? styles.show : ""} />
         </div>
-        <ul className={`${styles.sidebar_links} ${show ? styles.show : ''}`}>
+        <ul className={`${styles.sidebar_links} ${show ? styles.show : ""}`}>
           {links.map((i, k) => (
-            <li className={i.url === currentURL ? styles.active : ""} key={k}>
+            <li
+              className={
+                i.url === currentURL ||
+                currentURL.includes(i.url.split("/")[2]) ||
+                (currentURL.includes(i.url) &&
+                  !currentURL.includes(i.url.split("/")[1] + "/"))
+                  ? styles.active
+                  : ""
+              }
+              key={k}
+            >
               <Link href={i.url}>
-                {i.title}{" "}
-                {i.url === currentURL && (
-                  <div className={styles.sidebar_icons}>
-                    <ArrowIcon />
-                    <ArrowIcon />
-                    <ArrowIcon />
-                  </div>
-                )}
+                {i.title} <br />
+                <div
+                  className={`${styles.sidebar_icons} ${
+                    i.url === currentURL ||
+                    currentURL.includes(i.url.split("/")[2]) ||
+                    (currentURL.includes(i.url) &&
+                      !currentURL.includes(i.url.split("/")[1] + "/"))
+                      ? styles.active
+                      : ""
+                  }`}
+                >
+                  <ArrowIcon />
+                  <ArrowIcon />
+                  <ArrowIcon />
+                </div>
               </Link>
             </li>
           ))}
         </ul>
       </nav>
 
-      {/* <section className={styles.sidebar_cta}></section> */}
+      <section className={styles.sidebar_cta}>
+        <div className={styles.sidebar_cta_hgroup}>
+          <div className={styles.sidebar_cta_title}>
+            Do you still need our help?
+          </div>
+          <div className={styles.sidebar_cta_subtitle}>Send your request here</div>
+        </div>
+        <div className={styles.sidebar_cta_btn}>
+          <Btn label="Start Chat" />
+        </div>
+      </section>
     </aside>
   );
 }
