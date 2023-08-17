@@ -54,11 +54,13 @@ export default function FormAddApiKey({ show, toggleModal, setFieldPolicy, setFi
       const api_name = form.current.api_name.value;
       const api_key = form.current.api_key.value;
       const api_secret = form.current.api_secret.value;
+      const api_start_date = Date.now();
+
 
       if (validation && validationCheckbox) {
         setFieldPolicy((prev) => !prev);
         setResetCheckbox((prev) => !prev);
-        sendToFB(api_name, api_key, api_secret);
+        sendToFB(api_name, api_key, api_secret, api_start_date);
         toggleModal(true);
         show(false);
         form.current.reset();
@@ -74,11 +76,14 @@ export default function FormAddApiKey({ show, toggleModal, setFieldPolicy, setFi
     setResetCheckbox((prev) => !prev);
   };
 
-  const sendToFB = (api_name, api_key, api_secret) => {
+  const sendToFB = (api_name, api_key, api_secret, api_start_date) => {
     set(ref(database, "apiKey/" + userID + "/" + htmlId), {
+      api_enable: true,
+      api_status: 'enable',
       api_name: api_name,
       api_key: api_key,
       api_secret: api_secret,
+      api_start_date: api_start_date
     });
   }; 
 

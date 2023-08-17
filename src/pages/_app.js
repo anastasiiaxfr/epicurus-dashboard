@@ -25,7 +25,7 @@ import Icon12 from "../assets/icons/i12.svg";
 import "../assets/styles/main.sass";
 
 const seo = {
-  metaHeading: "Epicurus | 💛💙",
+  metaHeading: "Epicurus | 💙💛",
   metaDescription: "Epicurus Description",
   metaSiteName: "Epicurus",
   metaLocale: "en",
@@ -133,14 +133,8 @@ export default function App({ Component, pageProps }) {
       group: "Help and Settings",
       items: [
         {
-          enable: false,
-          title: "Wiki",
-          icon: <Icon10 with="16" height="16" />,
-          url: "/wiki",
-        },
-        {
-          enable: false,
-          title: "Support",
+          enable: true,
+          title: "Support & Wiki",
           icon: <Icon9 with="16" height="16" />,
           url: "/support",
         },
@@ -165,24 +159,20 @@ export default function App({ Component, pageProps }) {
     },
   ];
 
+  const urlParent = '/' + currentURL.split('/')[1]
+
   const findTitleByURL = (url) => {
-    const urlParent = '/' + url.split('/')[1]
     for (const group of links) {
       for (const item of group.items) {
-        if (item.url === url) {
-          return item.title;
-        } else
-        if (item.url === urlParent) {
+        if (item.url === url || item.url && item.url !== '/' && url.includes(item.url)) {
           return item.title;
         }
-        
       }
     }
     return null; 
   };
 
   const currentTitle = findTitleByURL(currentURL) || "Home";
-
   return (
     <>
       <Seo seo={seo} />

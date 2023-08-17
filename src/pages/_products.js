@@ -37,6 +37,9 @@ export default function ProductProvider({ children }) {
             api_name: item.api_name,
             api_key: item.api_key,
             api_secret: item.api_secret,
+            api_start_date: item?.api_start_date,
+            api_status: item.api_status,
+            api_enable: item.api_enable
           }));
           setNewApiKey(items);
         } else {
