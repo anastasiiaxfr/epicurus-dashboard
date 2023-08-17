@@ -91,7 +91,7 @@ function SupportPage() {
     return null; 
   };
 
-  const currentTitle = findTitleByURL(currentURL) || "Home";
+  const currentTitle = findTitleByURL(currentURL) || "Getting started";
   return (
     <div className={styles.pg_container}>
       <Sidebar links={links} currentURL={currentURL}/>

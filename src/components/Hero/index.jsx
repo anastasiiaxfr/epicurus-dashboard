@@ -77,6 +77,10 @@ export default function Hero() {
           title: "Total PNL",
           val: `${totalTM.toFixed(2)} $`,
         },
+        {
+            title: "PNL за день",
+            val: "0,00 $",
+          },
       ],
       cta: {
         enable: false,

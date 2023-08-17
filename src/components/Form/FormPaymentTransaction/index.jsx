@@ -20,7 +20,6 @@ export default function FormPayment({ show, setFieldHash, toggleModal, getDataFB
   const [validation, setValidation] = useState(false);
   const [submit, setSubmit] = useState(false);
   const [reset, setReset] = useState(false);
-  const [resetCheckbox, setResetCheckbox] = useState(false);
 
   const pm_network = "USDT.TRC20"
   const wallet = "TMJTmyTQFFhSL6PKc3DwcBmyvgpXNKSbos"
@@ -31,7 +30,7 @@ export default function FormPayment({ show, setFieldHash, toggleModal, getDataFB
     if (form.current) {
       const hash_code = form.current.transaction_hash.value;
       if (validation) {
-        getDataFB({hash_code: hash_code});
+        getDataFB && getDataFB({hash_code: hash_code});
         show(false);
         toggleModal(true);
       }
@@ -39,8 +38,8 @@ export default function FormPayment({ show, setFieldHash, toggleModal, getDataFB
   };
 
   const onResetFrom = () => {
-    form.current.reset();
     show(false);
+    form.current.reset();
     setReset((prev) => !prev);
   };
 

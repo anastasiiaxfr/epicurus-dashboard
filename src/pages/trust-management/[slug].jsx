@@ -5,7 +5,7 @@ import { ProductContext } from "../../pages/_products";
 
 import Hgroup from "../../components/Hgroup";
 import Table from "../../components/Tables";
-import HeroSingle from "../../components/HeroSingle";
+import Hero from "./Hero";
 import HeroGroup from "../../components/HeroCta";
 import FormPayment from "../../components/Form/FormPayment";
 import FormPaymentTransaction from "../../components/Form/FormPaymentTransaction";
@@ -19,10 +19,8 @@ function DepositSinglePage() {
   const router = useRouter();
   const currentURL = router.asPath;
   const currentID = currentURL.replace("/trust-management/", "").trim();
-
   const { newTrustManagement } = useContext(ProductContext);
-
-  const filterTM = newTrustManagement.filter((i) => i.id === currentID);
+  const filterTM = newTrustManagement.filter((i) => currentID.includes(i.id));
 
   const [data, setData] = useState({});
   const [deposit, setDeposit] = useState(0);
@@ -77,9 +75,11 @@ function DepositSinglePage() {
         api_key_id: key,
         api_key_name: api_name,
         tm_sum: sum,
+        tm_start_date: tm_start_date,
+        tm_period: tm_period,
         id,
       } = filterTM[0];
-      setData({ name, api_name, key, sum, id });
+      setData({ name, api_name, key, sum, id, tm_start_date, tm_period });
     }
   }, [filterTM[0]]);
 
@@ -155,7 +155,7 @@ function DepositSinglePage() {
 
       {!showForm && (
         <>
-          <HeroSingle
+          <Hero
             data={data}
             deposit={deposit}
             subscription={setShowForm}

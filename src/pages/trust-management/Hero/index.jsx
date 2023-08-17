@@ -1,12 +1,12 @@
 import { useState, useEffect, useContext } from "react";
-import { ref, database, update } from "../../pages/_firebase";
-import { AuthContext } from "../../pages/_auth";
-import { ProductContext } from "../../pages/_products";
+import { ref, database, update } from "../../../pages/_firebase";
+import { AuthContext } from "../../../pages/_auth";
+import { ProductContext } from "../../../pages/_products";
 
 import nextId from "react-id-generator";
 
-import Btn from "../Form/Btn";
-import Push from "../Push";
+import Btn from "../../../components/Form/Btn";
+import Push from "../../../components/Push";
 
 import styles from "./hero.module.sass";
 
