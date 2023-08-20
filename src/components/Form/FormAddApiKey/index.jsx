@@ -27,11 +27,14 @@ const modalPolicy = {
 };
 
 export default function FormAddApiKey({ show, toggleModal, setFieldPolicy, setFieldName, setFieldKey, setFieldSecret }) {
+  const reg_name = /^[0-9a-zA-Z\s-]+$/;
+  
   const htmlId = nextId("api-key-");
   const { currentUser } = useContext(AuthContext);
   const userID = currentUser.uid;
 
   const form = useRef(null);
+  const [disabled, setDisabled] = useState(false);
   const [validation, setValidation] = useState(false);
   const [validationCheckbox, setValidationCheckbox] = useState(false);
 
@@ -51,13 +54,13 @@ export default function FormAddApiKey({ show, toggleModal, setFieldPolicy, setFi
     e.preventDefault();
     setSubmit((prev) => !prev);
     if (form.current) {
-      const api_name = form.current.api_name.value;
+      const api_name = form.current.api_name.value.replaceAll(" ", "-");
       const api_key = form.current.api_key.value;
       const api_secret = form.current.api_secret.value;
       const api_start_date = Date.now();
 
 
-      if (validation && validationCheckbox) {
+      if (!disabled && validation && validationCheckbox) {
         setFieldPolicy((prev) => !prev);
         setResetCheckbox((prev) => !prev);
         sendToFB(api_name, api_key, api_secret, api_start_date);
@@ -121,12 +124,14 @@ export default function FormAddApiKey({ show, toggleModal, setFieldPolicy, setFi
             error="Required field"
             required={true}
             reset={reset}
-            setReset={setReset}
             submit={submit}
             setSubmit={setSubmit}
             validate={setValidation}
+            setDisabled={setDisabled}
             theme="default"
             success={setFieldName}
+            maxLength={12}
+            pattern={reg_name}
           />
         </div>
 
@@ -140,7 +145,6 @@ export default function FormAddApiKey({ show, toggleModal, setFieldPolicy, setFi
             note="API Key changes every 3 months"
             required={true}
             reset={reset}
-            setReset={setReset}
             submit={submit}
             setSubmit={setSubmit}
             validate={setValidation}
@@ -158,7 +162,6 @@ export default function FormAddApiKey({ show, toggleModal, setFieldPolicy, setFi
             error="API Key is not valid"
             required={true}
             reset={reset}
-            setReset={setReset}
             submit={submit}
             setSubmit={setSubmit}
             validate={setValidation}
@@ -187,7 +190,7 @@ export default function FormAddApiKey({ show, toggleModal, setFieldPolicy, setFi
         </div>
 
         <div className={styles.form_cta}>
-          <Btn label="Create Key" onClick={onAddKey} />
+          <Btn label="Create Key" onClick={onAddKey} disabled={disabled}/>
           <Btn label="Reset form" onClick={onResetFrom} theme="secondary" />
         </div>
       </form>

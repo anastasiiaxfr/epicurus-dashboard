@@ -134,6 +134,7 @@ export default function FormLogin({
                 setSubmit={setSubmit}
                 validate={setValidation}
                 pattern={reg_email}
+                maxLength={32}
               />
             </div>
             <div className={styles.form_row}>
@@ -149,6 +150,7 @@ export default function FormLogin({
                 submit={submit}
                 setSubmit={setSubmit}
                 validate={setValidation}
+                maxLength={128}
               />
             </div>
             <Btn

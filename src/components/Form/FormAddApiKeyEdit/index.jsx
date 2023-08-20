@@ -11,9 +11,10 @@ import styles from "./styles.module.sass";
 export default function FormAddApiKeyEdit({api_key_id, close_modal}) {
   const { currentUser } = useContext(AuthContext);
   const userID = currentUser.uid;
-
+  const reg_name = /^[0-9a-zA-Z\s-]+$/;
   const formEdit = useRef(null);
   const [validation, setValidation] = useState(false);
+  const [disabled, setDisabled] = useState(false);
 
   const [submit, setSubmit] = useState(false);
   const [reset, setReset] = useState(false)
@@ -24,11 +25,11 @@ export default function FormAddApiKeyEdit({api_key_id, close_modal}) {
     e.preventDefault();
     setSubmit((prev) => !prev);
     if (formEdit.current) {
-      const api_name = formEdit.current.api_edit_name.value;
+      const api_name = formEdit.current.api_edit_name.value.replaceAll(" ", "-");
       const api_key = formEdit.current.api_edit_key.value;
       const api_secret = formEdit.current.api_edit_secret.value;
 
-      if (api_name.length > 0 && api_key.length > 0 && api_secret.length > 0) {
+      if (!disabled && (api_name.length > 0 && api_key.length > 0 && api_secret.length > 0)) {
         sendToFB(api_name, api_key, api_secret);
         formEdit.current.reset();  
         setReset(prev => !prev);  
@@ -68,13 +69,16 @@ export default function FormAddApiKeyEdit({api_key_id, close_modal}) {
             placeholder="Enter Name"
             id="api_edit_name"
             error="Required field"
+            note="Only numbers and Latin letters, less than 12 symbols"
             required={true}
             reset={reset}
-            setReset={setReset}
             submit={submit}
             setSubmit={setSubmit}
+            setDisabled={setDisabled}
             validate={setValidation}
             theme="default"
+            maxLength={12}
+            pattern={reg_name}
           />
         </div>
 

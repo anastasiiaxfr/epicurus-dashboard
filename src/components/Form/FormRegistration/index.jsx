@@ -29,9 +29,10 @@ const modalInfoSuccess = {
 
 export default function FormRegistration({ toggleModalLogin, setOpenRegister }) {
     const user = auth.currentUser
-
+    const reg_name = /^[0-9a-zA-Z\s-]+$/;
     const reg_email = /^[^\s@#$%]+@[^\s@#$%]+\.[^\s@#$%]+$/
     const form = useRef(null)
+    const [disabled, setDisabled] = useState(false);
     const [validation, setValidation] = useState(false)
     const [submit, setSubmit] = useState(false)
     const [submitPressed, setSubmitPressed] = useState(false)
@@ -67,7 +68,7 @@ export default function FormRegistration({ toggleModalLogin, setOpenRegister }) 
             const reg_password = form.current.reg_password.value
             const reg_name = form.current.reg_name.value
 
-            if (validation === true) {
+            if (!disabled && validation === true) {
                 try {
                     const userCredential = await createUserWithEmailAndPassword(auth, reg_email, reg_password)
                     const user = userCredential.user
@@ -125,15 +126,15 @@ export default function FormRegistration({ toggleModalLogin, setOpenRegister }) 
                 <form action="/" methord="POST" noValidate name="FormRegistration" id="FormRegistration" className={styles.form} ref={form} autoComplete='off'>
 
                     <div className={styles.form_row}>
-                        <Input type='text' label='Name*' placeholder='' id='reg_name' error='Required. Only Latin letters.' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
+                        <Input type='text' label='Name*' placeholder='' id='reg_name' error='Required. Only Latin letters.' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} maxLength={16} pattern={reg_name} setDisabled={setDisabled}/>
                     </div>
                     <div className={styles.form_row}>
-                        <Input type='email' label='Email*' placeholder='' id='reg_email' error='Required field' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} pattern={reg_email} />
+                        <Input type='email' label='Email*' placeholder='' id='reg_email' error='Required field' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} pattern={reg_email} maxLength={128}/>
                     </div>
                     <div className={styles.form_row}>
-                        <Input type='password' label='Password*' placeholder='' id='reg_password' error='Required field' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
+                        <Input type='password' label='Password*' placeholder='' id='reg_password' error='Required field' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} maxLength={128}/>
                     </div>
-                    <Btn label='Send' onClick={handleSubmit} />
+                    <Btn label='Send' onClick={handleSubmit} disabled={disabled} />
 
                 </form>
 

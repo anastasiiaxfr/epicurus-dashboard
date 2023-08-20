@@ -24,17 +24,14 @@ export default function InputField({
   submit,
   setSubmit,
   reset,
-  setReset,
   onImgSet,
   theme,
-  form,
   success,
-  isError
+  maxLength
 }) {
   const [newValue, setNewValue] = useState(value);
   const [showError, setShowError] = useState(false);
   const [fileAttached, setFileAttached] = useState(false);
-  const [errorPattern, setErrorPattern] = useState(false);
   const [completed, setCompleted] = useState(false);
 
   const input = useRef(null);
@@ -42,18 +39,30 @@ export default function InputField({
   const onChange = () => {
     const currentInput = input.current;
 
+    const allInputs = Array.from(document.querySelectorAll("input"));
+    const anyEmptyInput = allInputs.some((input) => input.value === "");
+    
+    
+    if (anyEmptyInput === false) {
+      validate(true);
+    } else {
+      validate(false);
+      setSubmit(false);
+    }
+
     if (currentInput?.disabled !== true) {
-      if (currentInput?.value?.length === 0) {
+      if (currentInput?.value?.length === 0 || currentInput?.value?.length > maxLength) {
         setShowError(true);
-      } else if (
-        type !== "email" &&
-        pattern &&
-        currentInput.value.match(pattern)
-      ) {
-        setShowError(true);
-        // setNewValue('')
-      } else if (pattern && !currentInput.value.match(pattern)) {
-        setNewValue(value);
+      } else if (type !== "email" && pattern) {
+        if (currentInput.value.match(pattern)) {
+          setShowError(false);
+          setCompleted(true);
+          setDisabled && setDisabled(false);
+        } else if (!currentInput.value.match(pattern)) {
+          setShowError(true);
+          setCompleted(false);
+          setDisabled && setDisabled(true);
+        }
       } else {
         setShowError(false);
         setCompleted(true);
@@ -88,15 +97,6 @@ export default function InputField({
       }
       onImgSet(currentInput?.files[0]);
     }
-
-    const allInputs = Array.from(document.querySelectorAll("input"));
-    const anyEmptyInput = allInputs.some((input) => input.value === "");
-    if (anyEmptyInput === false) {
-      validate(true);
-    } else {
-      validate(false);
-      setSubmit(false);
-    }
   };
 
   useEffect(() => {
@@ -110,12 +110,12 @@ export default function InputField({
     setCompleted(false);
   }, [reset]);
 
-
   useEffect(() => {
     if (setDisabled) {
       showError === true ? setDisabled(true) : setDisabled(false);
     }
     showError === true && setCompleted(false);
+    //showError === true ? validate(false) : validate(true);
   }, [showError]);
 
   useEffect(() => {
@@ -126,19 +126,23 @@ export default function InputField({
 
   return (
     <div className={`${styles.field} ${styles[theme]}`}>
-      {label && <label htmlFor={id} className={styles.label}>
-        <span>{label}</span>
-        {(note || (error && showError)) && (
-          <div className={styles.info}>
-            {note && !showError && (
-              <div className={styles.note}>
-                <Nottification label={note} type="note" />
-              </div>
-            )}
-            {error && showError && <Nottification label={error} type="error" />}
-          </div>
-        )}
-      </label>}
+      {label && (
+        <label htmlFor={id} className={styles.label}>
+          <span>{label}</span>
+          {(note || (error && showError)) && (
+            <div className={styles.info}>
+              {note && !showError && (
+                <div className={styles.note}>
+                  <Nottification label={note} type="note" />
+                </div>
+              )}
+              {error && showError && (
+                <Nottification label={error} type="error" />
+              )}
+            </div>
+          )}
+        </label>
+      )}
 
       <div className={styles.wrap}>
         <Input
@@ -158,6 +162,7 @@ export default function InputField({
           slotProps={{
             input: {
               pattern: pattern,
+              maxLength: maxLength || 32,
               ref: input,
               ...(type === "file" && { accept: "image/jpeg, image/png" }),
             },
