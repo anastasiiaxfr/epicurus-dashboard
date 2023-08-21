@@ -28,6 +28,7 @@
     "sass": "^1.62.1"
   },
   "devDependencies": {
-    "@svgr/webpack": "^7.0.0"
+    "@svgr/webpack": "^7.0.0",
+    "typescript": "^5.1.6"
   }
 }

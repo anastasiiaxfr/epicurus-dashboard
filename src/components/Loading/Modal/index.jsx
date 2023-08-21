@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
-import { AuthContext } from "../../../pages/_auth"
+import { AuthContext } from "../../../pages/_auth.tsx"
 
 import Modal from '../../Modal'
 import FormLogin from '../../Form/FormLogin'
