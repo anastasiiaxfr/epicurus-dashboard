@@ -2,6 +2,8 @@ import { useState, useContext } from "react";
 import { ref, database, set } from "../../../pages/_firebase";
 import { AuthContext } from "../../../pages/_auth.tsx";
 
+import { MetamaskContext }  from "../../../pages/_metamask";
+
 import ClickAwayListener from "@mui/base/ClickAwayListener";
 import Image from "next/image";
 
@@ -16,12 +18,16 @@ export default function ModalWallet({ openModal, setModalOpen, newWallet, toggle
   const { currentUser } = useContext(AuthContext);
   const userID = currentUser.uid;
 
+  const { hasProvider, handleConnect, wallet } = useContext(MetamaskContext);
+
   const [walletSelectedId, setWalletSelectedId] = useState(0);
   const [walletSelected, setWalletSelected] = useState("Metamask");
+
 
   const handleWalletSelected = (a: any, b: any) => {
     setWalletSelectedId(a);
     setWalletSelected(b);
+    handleConnect();
   };
 
   const handleClose = () => {

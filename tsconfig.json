@@ -109,7 +109,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/pages/_metamask.js"  ],
   "exclude": [
     "node_modules"
   ]

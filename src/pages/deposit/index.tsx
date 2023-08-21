@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from "react";
+import MetamaskProvider from "../../pages/_metamask";
 import { ProductContext } from "../_products";
 
 import Card from "./Card";
@@ -43,7 +44,12 @@ function DepositPage() {
   };
 
   useEffect(() => {
-    const trueFieldCount = [fieldSum, fieldPeriod, fieldNetwork, fieldPolicy].filter(Boolean).length;
+    const trueFieldCount = [
+      fieldSum,
+      fieldPeriod,
+      fieldNetwork,
+      fieldPolicy,
+    ].filter(Boolean).length;
     setSteps(totalSteps - trueFieldCount);
   }, [fieldSum, fieldPeriod, fieldNetwork, fieldPolicy]);
 
@@ -163,11 +169,14 @@ function DepositPage() {
 
   return (
     <>
-      <ModalWallet
-        openModal={openModalAddWallet}
-        setModalOpen={setOpenModalAddWallet}
-        toggleModal={handleOpenModalForm}
-      />
+      <MetamaskProvider>
+        <ModalWallet
+          openModal={openModalAddWallet}
+          setModalOpen={setOpenModalAddWallet}
+          toggleModal={handleOpenModalForm}
+        />
+      </MetamaskProvider>
+
       <ModalDeposit
         openModal={openModal}
         setModalOpen={setOpenModal}

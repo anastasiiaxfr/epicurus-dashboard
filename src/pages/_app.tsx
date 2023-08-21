@@ -1,8 +1,7 @@
 import { useRouter } from "next/router";
 
-import AuthProvider from "./_auth.tsx";
+import AuthProvider from "./_auth";
 import ProductProvider from "./_products";
-
 
 import Seo from "../components/Seo";
 import Header from "../components/Header";
@@ -173,6 +172,8 @@ export default function App({ Component, pageProps }: any) {
   };
 
   const currentTitle = findTitleByURL(currentURL) || "Home";
+
+
   return (
     <>
       <Seo seo={seo} />
@@ -201,3 +202,4 @@ export default function App({ Component, pageProps }: any) {
     </>
   );
 }
+

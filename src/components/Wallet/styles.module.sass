@@ -27,13 +27,14 @@ $menu_w: 226px
         border-bottom: 1px solid $stroke5
 
     &_body
-        +flex(flex, center, flex-start, wrap, columnn)
+        +flex(flex, flex-start, flex-start, wrap, column)
         gap: var(--gap)
 
     &_ps
         +flex(flex, center, flex-start, nowrap)
         gap: var(--gapSm)
         cursor: pointer
+        width: 100%
         &_title
             +ft(16, 16, 600)
             letter-spacing: 0.04em
