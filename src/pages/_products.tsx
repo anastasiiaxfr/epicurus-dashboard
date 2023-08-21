@@ -1,14 +1,14 @@
 import React, { useEffect, useState, useContext, createContext } from "react";
 import * as fb from "./_firebase";
 
-import { AuthContext } from "./_auth.tsx";
+import { AuthContext } from "./_auth";
 
 export const ProductContext = createContext();
 
-export default function ProductProvider({ children }) {
+export default function ProductProvider({ children }: any) {
   const { ref, database, onValue } = fb;
 
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser }: any = useContext(AuthContext);
   const userID = currentUser.uid;
 
   const [newApiKey, setNewApiKey] = useState([]);

@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import Push from "../components/Push";
 import Products from "../components/Products";
 import Hgroup from "../components/Hgroup";
@@ -12,12 +12,12 @@ import ProductImg2 from "../assets/img/solutions-2.png";
 import ProductImg3 from "../assets/img/solutions-3.png";
 import ProductImg4 from "../assets/img/solutions-4.png";
 
+
 function HomePage() {
   const { auth, currentUser }: any = useContext(AuthContext);
 
   const userName = currentUser.displayName;
   const [toggleDashboard, setToggleDashboard] = useState(false);
-
 
   const hgroup = {
     title: "Our Products",

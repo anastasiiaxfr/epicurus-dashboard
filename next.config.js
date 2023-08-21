@@ -14,29 +14,31 @@ module.exports = {
     REFERRER: process.env.REFERRER,
     REFFERAL: process.env.REFFERAL,
     DB: process.env.DB,
-    JWT_SECRET: process.env.JWT_SECRET
+    JWT_SECRET: process.env.JWT_SECRET,
   },
   images: {
-    domains: ['lh3.googleusercontent.com'],
+    domains: ["lh3.googleusercontent.com"],
   },
+
   webpack: (config, { isServer }) => {
+    config.experiments = { ...config.experiments, topLevelAwait: true },
     config.module.rules.push({
       test: /\.svg$/i,
       issuer: /\.[jt]sx?$/,
       use: [
         {
-          loader: '@svgr/webpack',
+          loader: "@svgr/webpack",
           options: {
             svgoConfig: {
               plugins: [
                 {
-                  "name": "preset-default",
-                  "params": {
-                    "overrides": {
-                      "removeViewBox": false
-                    }
-                  }
-                }
+                  name: "preset-default",
+                  params: {
+                    overrides: {
+                      removeViewBox: false,
+                    },
+                  },
+                },
               ],
             },
           },
