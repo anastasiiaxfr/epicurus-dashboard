@@ -152,11 +152,15 @@ export default function ProductProvider({ children }) {
             id,
             rt_name: item.rt_name,
             rt_start_date: item.rt_start_date,
-            rt_period: item.rt_period,
+            subscription_period: item.subscription_period,
+            subscription_sum: item.subscription_sum,
             rt_sum_first: item.rt_sum_first,
             rt_sum: item.rt_sum,
             api_key_name: item.api_key_name,
             api_key_id: item.api_key_id,
+            hash_code: item.hash_code,
+            payment_network: item.payment_network,
+            payment_sum: item.payment_sum
           }));
           setNewRoboticTrading(items);
         } else {

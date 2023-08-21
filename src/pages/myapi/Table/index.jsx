@@ -154,13 +154,6 @@ export default function ApiKeyList() {
                 </div>
               )}
 
-              {i.api_secret && (
-                <div className={styles.table_col}>
-                  <div className={styles.table_label}>API Secret</div>
-                  <div className={styles.table_val}>{i.api_secret}</div>
-                </div>
-              )}
-
               <div className={styles.table_col}>
                 <div className={styles.table_label}>Balance</div>
                 <div className={styles.table_val}>

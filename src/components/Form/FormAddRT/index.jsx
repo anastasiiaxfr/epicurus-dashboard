@@ -33,8 +33,10 @@ export default function FormAddRT({
   setFieldPolicy,
   getDataFB
 }) {
-
+  const reg_sum = /^[0-9]+(\.[0-9]+)?$/;
+  const reg_name = /^[0-9a-zA-Z\s-]+$/;
   const form = useRef(null);
+  const [disabled, setDisabled] = useState(false);
   const [validation, setValidation] = useState(false);
   const [validationCheckbox, setValidationCheckbox] = useState(false);
   const [validationSelect, setValidationSelect] = useState(false);
@@ -62,13 +64,13 @@ export default function FormAddRT({
     e.preventDefault();
     setSubmit((prev) => !prev);
     if (form.current) {
-      const rt_name = form.current.rt_name.value;
+      const rt_name = form.current.rt_name.value.replaceAll(" ", "-");
       const rt_start_date = Date.now();
       const rt_sum = form.current.rt_sum.value;
       const api_key_name = form.current.rt_api.value;
       const api_key_id = form.current.rt_api.getAttribute("name");
 
-      if (validation && validationCheckbox && validationSelect) {
+      if (!disabled && validation && validationCheckbox && validationSelect) {
         getDataFB({
           rt_name, rt_start_date, rt_sum, api_key_name, api_key_id
         });
@@ -112,14 +114,16 @@ export default function FormAddRT({
             placeholder="Enter Name"
             id="rt_name"
             error="Required field"
+            note="Only numbers and Latin letters, less than 12 symbols"
             required={true}
             reset={reset}
-            setReset={setReset}
             submit={submit}
             setSubmit={setSubmit}
             validate={setValidation}
             theme="default"
             success={setFieldName}
+            maxLength={12}
+            pattern={reg_name}
           />
         </div>
 
@@ -127,17 +131,18 @@ export default function FormAddRT({
           <Input
             type="text"
             label="Your SUM"
-            placeholder="Enter sum (USDT)"
+            placeholder="xxx.xx (USDT)"
             id="rt_sum"
             error="Required field"
             required={true}
             reset={reset}
-            setReset={setReset}
             submit={submit}
             setSubmit={setSubmit}
+            setDisabled={setDisabled}
             validate={setValidation}
             theme="default"
             success={setFieldSum}
+            pattern={reg_sum}
           />
         </div>
 
@@ -172,7 +177,7 @@ export default function FormAddRT({
         </div>
 
         <div className={styles.form_cta}>
-          <Btn label="Continue" onClick={onAddRT} />
+          <Btn label="Continue" onClick={onAddRT} disabled={disabled}/>
           <Btn label="Close form" onClick={onResetFrom} theme="secondary" />
         </div>
       </form>

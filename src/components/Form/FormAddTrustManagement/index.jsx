@@ -42,11 +42,15 @@ export default function FormAddTrustManagement({
   setFieldPolicy,
   toggleModal
 }) {
+
   const htmlId = nextId("tm-key-");
   const { currentUser } = useContext(AuthContext);
   const userID = currentUser.uid;
 
+  const reg_sum = /^[0-9]+(\.[0-9]+)?$/;
+  const reg_name = /^[0-9a-zA-Z\s-]+$/;
   const form = useRef(null);
+  const [disabled, setDisabled] = useState(false);
   const [validation, setValidation] = useState(false);
   const [validationCheckbox, setValidationCheckbox] = useState(false);
   const [validationSelect, setValidationSelect] = useState(false);
@@ -72,7 +76,7 @@ export default function FormAddTrustManagement({
       const api_key_name = form.current.tm_api.value;
       const api_key_id = form.current.tm_api.getAttribute("name");
 
-      if (validation && validationCheckbox && validationSelect) {
+      if (!disabled && validation && validationCheckbox && validationSelect) {
         setResetCheckbox((prev) => !prev);
         setResetSelect((prev) => !prev);
         sendToFB(tm_name, tm_period, tm_start_date, tm_sum, tm_sum_first, api_key_name, api_key_id);
@@ -99,7 +103,7 @@ export default function FormAddTrustManagement({
 
   const sendToFB = (tm_name, tm_period, tm_start_date, tm_sum, tm_sum_first, api_key_name, api_key_id) => {
     set(ref(database, "trust-management/" + userID + "/" + htmlId), {
-      tm_name: tm_name,
+      tm_name: tm_name.replaceAll(" ", "-"),
       tm_start_date: tm_start_date,
       tm_period: tm_period,
       tm_sum_first: tm_sum_first,
@@ -141,14 +145,16 @@ export default function FormAddTrustManagement({
             placeholder="Enter Name"
             id="tm_name"
             error="Required field"
+            note="Only numbers and Latin letters, less than 12 symbols"
             required={true}
             reset={reset}
-            setReset={setReset}
             submit={submit}
             setSubmit={setSubmit}
             validate={setValidation}
             theme="default"
             success={setFieldName}
+            maxLength={12}
+            pattern={reg_name}
           />
         </div>
 
@@ -156,17 +162,18 @@ export default function FormAddTrustManagement({
           <Input
             type="text"
             label="Your SUM"
-            placeholder="Enter SUM, USDT"
+            placeholder="xxx.xx (USDT)"
             id="tm_sum"
-            error="Required field"
+            error="Only numbers"
             required={true}
             reset={reset}
-            setReset={setReset}
             submit={submit}
             setSubmit={setSubmit}
+            setDisabled={setDisabled}
             validate={setValidation}
             theme="default"
             success={setFieldSum}
+            pattern={reg_sum}
           />
         </div>
 
@@ -212,8 +219,8 @@ export default function FormAddTrustManagement({
         </div>
 
         <div className={styles.form_cta}>
-          <Btn label="Create Key" onClick={onAddTM} />
-          <Btn label="Reset form" onClick={onResetFrom} theme="secondary" />
+          <Btn label="Create" onClick={onAddTM} disabled={disabled}/>
+          <Btn label="Close form" onClick={onResetFrom} theme="secondary" />
         </div>
       </form>
     </>

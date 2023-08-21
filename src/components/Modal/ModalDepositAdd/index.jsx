@@ -15,8 +15,10 @@ export default function ModalDeposit({
   data,
 }) {
   const { title, text, btnText, btnText2 } = props;
+  const reg_sum = /^[0-9]+(\.[0-9]+)?$/;
 
   const form = useRef(null);
+  const [disabled, setDisabled] = useState(false);
   const [validation, setValidation] = useState(false);
   const [submit, setSubmit] = useState(false);
   const [reset, setReset] = useState(false);
@@ -32,7 +34,7 @@ export default function ModalDeposit({
       const deposit_sum = form.current.add_deposit_sum.value;
       const deposit_key = form.current.add_deposit_key.value;
 
-      if (validation) {
+      if (!disabled && validation) {
         if (deposit_sum < 50) {
           toggleModal(true, 0);
         } else {
@@ -91,6 +93,8 @@ export default function ModalDeposit({
                     submit={submit}
                     setSubmit={setSubmit}
                     validate={setValidation}
+                    setDisabled={setDisabled}
+                    pattern={reg_sum}
                     theme="default"
                   />
 

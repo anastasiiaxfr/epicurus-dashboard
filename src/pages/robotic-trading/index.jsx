@@ -51,6 +51,8 @@ function RoboticTradingPage() {
   const [step4, setStep4] = useState(false);
 
   const [openModalSuccess, setOpenModalSuccess] = useState(false);
+  const [openModalDeposit, setOpenModalDeposit] = useState(false);
+  const [openModalDepositError, setOpenModalDepositError] = useState(false);
 
   const [fbData, setFbData] = useState();
 
@@ -59,11 +61,11 @@ function RoboticTradingPage() {
       Boolean
     ).length;
     const completeStep1 = totalSteps - trueFieldCount;
-    completeStep1 === 0 && submit && setStep1(true) ;
+    completeStep1 === 0 && submit && setStep1(true);
   }, [fieldPolicy, fieldApi, fieldSum, fieldName, submit]);
 
   useEffect(() => {
-    subscription === true && submit && setStep2(true) ;
+    subscription === true && submit && setStep2(true);
   }, [subscription, submit]);
 
   useEffect(() => {
@@ -71,7 +73,7 @@ function RoboticTradingPage() {
   }, [fieldNetwork, fieldPolicyPayment, submit]);
 
   useEffect(() => {
-    (fieldHash === true) ? setStep4(true) : setStep4(false);
+    fieldHash === true ? setStep4(true) : setStep4(false);
   }, [fieldHash]);
 
   useEffect(() => {
@@ -83,7 +85,6 @@ function RoboticTradingPage() {
     step1 && step2 && setSteps(totalSteps - 2);
     step1 && step2 && step3 && setSteps(totalSteps - 3);
     step1 && step2 && step3 && step4 && setSteps(0);
-
   }, [step1, step2, step3, step4]);
 
   useEffect(() => {
@@ -94,7 +95,7 @@ function RoboticTradingPage() {
     setFieldPolicyPayment(false);
     setSubscription(false);
     setFieldNetwork(false);
-    setFieldHash(false)
+    setFieldHash(false);
     setSteps(totalSteps);
     setStep1(false);
     setStep2(false);
@@ -114,33 +115,29 @@ function RoboticTradingPage() {
   };
 
   useEffect(() => {
-    if(fbData && fbData.subscription){
+    if (fbData && fbData.subscription) {
       choosenSetSubscription({
         subscription_type: fbData.subscription,
         subscription_sum: fbData.subscription_sum,
-      })
+      });
     }
-    if(fbData && fbData?.hash_code){
-        set(ref(database, "robotic-trading/" + userID + "/" + htmlId), {
-          rt_name: fbData.rt_name,
-          rt_start_date: fbData.rt_start_date,
-          rt_sum: fbData.rt_sum,
-          rt_sum_first: fbData.rt_sum,
-          api_key_name: fbData.api_key_name,
-          api_key_id: fbData.api_key_id,
-          subscription: fbData.subscription,
-          subscription_sum: fbData.subscription_sum,
-          subscription_period: fbData.subscription_period,
-          payment_network: fbData.payment_network,
-          payment_sum: fbData.payment_sum,
-          hash_code: fbData.hash_code
-        });
+    if (fbData && fbData?.hash_code) {
+      set(ref(database, "robotic-trading/" + userID + "/" + htmlId), {
+        rt_name: fbData.rt_name,
+        rt_start_date: fbData.rt_start_date,
+        rt_sum: fbData.rt_sum,
+        rt_sum_first: fbData.rt_sum,
+        api_key_name: fbData.api_key_name,
+        api_key_id: fbData.api_key_id,
+        subscription: fbData.subscription,
+        subscription_sum: fbData.subscription_sum,
+        subscription_period: fbData.subscription_period,
+        payment_network: fbData.payment_network,
+        payment_sum: fbData.payment_sum,
+        hash_code: fbData.hash_code,
+      });
     }
   }, [fbData]);
-
-  const toggleModalSuccess = () => {
-    setOpenModalSuccess(true);
-  };
 
   const cards = [
     {
@@ -206,6 +203,10 @@ function RoboticTradingPage() {
     },
   };
 
+  const toggleModalSuccess = () => {
+    setOpenModalSuccess(true);
+  };
+
   const modalDepositAdded = {
     title: "Activation Successful",
     btnText: "Accept",
@@ -220,6 +221,7 @@ function RoboticTradingPage() {
         props={modalDepositAdded}
         theme="success"
       />
+     
       {!show && (
         <>
           <Banner />
@@ -233,7 +235,7 @@ function RoboticTradingPage() {
       )}
       {show && (
         <>
-          {(
+          {
             <HeroGroup
               hero={hero}
               show={showForm}
@@ -264,7 +266,9 @@ function RoboticTradingPage() {
               {step1 && !step2 && (
                 <>
                   <FormChooseSubscription
-                    getDataFB={(data) => setFbData(prevData => ({ ...prevData, ...data }))}
+                    getDataFB={(data) =>
+                      setFbData((prevData) => ({ ...prevData, ...data }))
+                    }
                     show={(val) => {
                       setShowForm(val);
                       setSubmit(val);
@@ -276,7 +280,9 @@ function RoboticTradingPage() {
               {step2 && !step3 && (
                 <>
                   <FormPayment
-                    getDataFB={(data) => setFbData(prevData => ({ ...prevData, ...data }))}
+                    getDataFB={(data) =>
+                      setFbData((prevData) => ({ ...prevData, ...data }))
+                    }
                     show={(val) => {
                       setShowForm(val);
                       setSubmit(val);
@@ -290,18 +296,19 @@ function RoboticTradingPage() {
               {step3 && (
                 <>
                   <FormPaymentTransaction
-                    getDataFB={(data) => setFbData(prevData => ({ ...prevData, ...data }))}
+                    getDataFB={(data) =>
+                      setFbData((prevData) => ({ ...prevData, ...data }))
+                    }
                     show={(val) => {
                       setShowForm(val);
                     }}
                     setFieldHash={setFieldHash}
                     toggleModal={toggleModalSuccess}
-
                   />
                 </>
               )}
             </HeroGroup>
-          )}
+          }
 
           {newRoboticTrading.length !== 0 && (
             <>

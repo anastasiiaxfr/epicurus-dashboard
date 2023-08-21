@@ -55,6 +55,7 @@ export default function FormAddDeposit({
   setFieldPolicy,
   toggleModal,
 }) {
+  const reg_sum = /^[0-9]+(\.[0-9]+)?$/;
   const [disabled, setDisabled] = useState(false);
 
   const htmlId = nextId("deposit-");
@@ -135,7 +136,8 @@ export default function FormAddDeposit({
       const deposit_period = form.current.deposit_period.value;
       const deposit_network = form.current.deposit_network.value;
 
-      if (validation && validationCheckbox && validationSelect) {
+
+      if (!disabled && validation && validationCheckbox && validationSelect) {
         setResetCheckbox((prev) => !prev);
         setResetSelect((prev) => !prev);
 
@@ -232,7 +234,7 @@ export default function FormAddDeposit({
             label="Your SUM"
             placeholder="Enter sum (USDT)"
             id="deposit_sum"
-            error="Required field"
+            error="Only numbers"
             required={true}
             reset={reset}
             setReset={setReset}
@@ -242,6 +244,7 @@ export default function FormAddDeposit({
             theme="default"
             success={setFieldSum}
             setDisabled={setDisabled}
+            pattern={reg_sum}
           />
         </div>
 

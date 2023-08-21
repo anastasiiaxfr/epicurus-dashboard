@@ -218,7 +218,7 @@ export default function Settings() {
                 theme="file"
               />
 
-              <Btn label="Delete" type="text" theme="text" />
+              {/* <Btn label="Delete" type="text" theme="text" /> */}
             </div>
           </div>
 
