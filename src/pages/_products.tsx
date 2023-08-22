@@ -93,6 +93,8 @@ export default function ProductProvider({ children }: any) {
           const items = Object?.entries(data).map(([id, item]) => ({
             id,
             wallet: item.wallet,
+            wallet_id: item.wallet_id,
+            wallet_status: item.wallet_status
           }));
           setNewWallet(items);
         } else {
@@ -123,6 +125,7 @@ export default function ProductProvider({ children }: any) {
             deposit_type: item.deposit_type,
             deposit_percent: item.deposit_percent,
             deposit_wallet: item.deposit_wallet,
+            deposit_wallet_id: item.deposit_wallet_id,
             deposit_sum: item.deposit_sum,
             deposit_period: item.deposit_period,
             deposit_network: item.deposit_network,

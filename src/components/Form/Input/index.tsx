@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import Input from "@mui/base/Input";
 
-import InfoIcon from "../../../assets/icons/info.svg";
+// import InfoIcon from "../../../assets/icons/info.svg";
 import Nottification from "../Nottifications";
 import styles from "./input.module.sass";
 
@@ -28,7 +28,7 @@ export default function InputField({
   theme,
   success,
   maxLength
-}) {
+}: any) {
   const [newValue, setNewValue] = useState(value);
   const [showError, setShowError] = useState(false);
   const [fileAttached, setFileAttached] = useState(false);
@@ -51,7 +51,7 @@ export default function InputField({
     }
 
     if (currentInput?.disabled !== true) {
-      if (currentInput?.value?.length === 0 || currentInput?.value?.length > maxLength) {
+      if (currentInput?.value?.length === 0 || currentInput?.value?.length > maxLength || currentInput?.value?.length > 32) {
         setShowError(true);
       } else if (type !== "email" && pattern) {
         if (currentInput.value.match(pattern)) {

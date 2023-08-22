@@ -125,6 +125,7 @@ export default function FormAddDeposit({
     validationCheckbox ? setFieldPolicy(true) : setFieldPolicy(false);
   }, [validationCheckbox]);
 
+
   const onAddKey = (e: any) => {
     e.preventDefault();
     setSubmit((prev) => !prev);
@@ -132,7 +133,8 @@ export default function FormAddDeposit({
       const deposit_sum = form.current.deposit_sum.value;
       const deposit_type = deposit.type;
       const deposit_percent = deposit.val;
-      const deposit_wallet = wallet;
+      const deposit_wallet = wallet.title;
+      const deposit_wallet_id = wallet.wallet_id;
       const deposit_period = form.current.deposit_period.value;
       const deposit_network = form.current.deposit_network.value;
 
@@ -146,8 +148,9 @@ export default function FormAddDeposit({
           deposit_type,
           deposit_percent,
           deposit_wallet,
+          deposit_wallet_id,
           deposit_period,
-          deposit_network
+          deposit_network,
         );
         sendToFBTotalDeposit(deposit_sum);
         toggleModal(true);
@@ -175,6 +178,7 @@ export default function FormAddDeposit({
     deposit_type: any,
     deposit_percent: any,
     deposit_wallet: any,
+    deposit_wallet_id: any,
     deposit_period: any,
     deposit_network: any
   ) => {
@@ -183,6 +187,7 @@ export default function FormAddDeposit({
       deposit_percent: deposit_percent,
       deposit_sum: deposit_sum,
       deposit_wallet: deposit_wallet,
+      deposit_wallet_id: deposit_wallet_id,
       deposit_period: deposit_period,
       deposit_network: deposit_network,
     });

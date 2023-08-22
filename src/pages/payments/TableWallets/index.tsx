@@ -17,7 +17,7 @@ import metamaskIcon from "../../../assets/img/wallet/metamask.png";
 
 import styles from "./style.module.sass";
 
-export default function WalletsList({ props }: any) {
+export default function WalletsList({ props, toggleModal }: any) {
   const { currentUser } = useContext(AuthContext);
   const userID = currentUser.uid;
 
@@ -77,14 +77,14 @@ export default function WalletsList({ props }: any) {
       />
 
       {props?.map((i: any, k: number) => (
-        <>
+        
           <div className={`${styles.table}`} key={k}>
             <div className={styles.table_header}>
               <div className={styles.table_header_container}>
                 <div className={styles.table_title}>{i.wallet}</div>
                 <div className={styles.table_info}>
                   <span>Status:</span>
-                  <b className={""}>Active</b>
+                  <b className={""}>{i.wallet_status}</b>
                 </div>
               </div>
               <div className={styles.table_cta}>
@@ -102,7 +102,7 @@ export default function WalletsList({ props }: any) {
                 </div>
                 <div className={styles.table_col}>
                   <div className={styles.table_label}>Wallet ID</div>
-                  <div className={styles.table_val}> 0x4C9***2d49 </div>
+                  <div className={styles.table_val}> {i.wallet_id} </div>
                 </div>
                 <div className={styles.table_col}>
                   <div className={styles.table_label}>Wallet Name</div>
@@ -118,11 +118,11 @@ export default function WalletsList({ props }: any) {
                 </div>
               </div>
               <div className={styles.table_btn}>
-                <Btn theme="grad" label="Change Wallet" />
+                <Btn theme="grad" label="Change Wallet" onClick={toggleModal}/>
               </div>
             </div>
           </div>
-        </>
+       
       ))}
     </>
   );

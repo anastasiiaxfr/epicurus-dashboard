@@ -9,7 +9,7 @@ import Hgroup from "../../components/Hgroup";
 import HeroGroup from "../../components/HeroCta";
 import Banner from "../../components/Banner";
 
-import ModalWallet from "../../components/Modal/ModalWallet";
+import ModalWallet from "../../components/Modal/ModalWalletChoose";
 import ModalDeposit from "../../components/Modal/ModalDeposit";
 import ModalConfirmation from "../../components/Modal/ModalConfirmation";
 
@@ -43,6 +43,7 @@ function DepositPage() {
     btnUrl: "#",
   };
 
+
   useEffect(() => {
     const trueFieldCount = [
       fieldSum,
@@ -71,6 +72,7 @@ function DepositPage() {
   };
 
   const handleOpenModalForm = (val: any) => {
+    console.log("val", val);
     setSelectWallet(val);
     setShowForm(true);
     setShow(false);

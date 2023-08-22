@@ -1,29 +1,36 @@
-import { useState, useEffect } from "react";
+import { useState, useContext } from "react";
+import { ProductContext } from "../../pages/_products";
 
 import Image from "next/image";
 import ClickAwayListener from "@mui/base/ClickAwayListener";
 
 import WalletIcon from "../../assets/icons/wallet.svg";
 import WalletCoins from "../../assets/icons/wallet-coins.svg";
-import WalletAva from "../../assets/img/wallet/metamask.png";
+import WalletMetamaskAva from "../../assets/img/wallet/metamask.png";
+import WalletTrustWalletAva from "../../assets/img/wallet/tw.png";
 
 import styles from "./styles.module.sass";
 
-
 export default function wallet() {
-    
+  const { newWallet } = useContext(ProductContext);
+
+  const primaryWallet = newWallet.find(
+    (item: any) => item.wallet_status === "Primary"
+  );
 
   const data = {
     show: true,
     title: "Main Wallet",
-    wallet: "Metamask",
-    wallet_id: '',
-    wallet_ava: "",
+    wallet: primaryWallet?.wallet,
+    wallet_id: primaryWallet?.wallet_id,
+    wallet_ava:
+      primaryWallet?.wallet === "Metamask"
+        ? WalletMetamaskAva
+        : WalletTrustWalletAva,
     referals_balance: "125",
   };
 
   const [show, setShow] = useState(false);
-
 
   return (
     <div className={`${styles.wallet}`}>
@@ -36,8 +43,6 @@ export default function wallet() {
         <WalletIcon className={styles.wallet_icon} width="25" height="25" />
       </div>
 
-      
-
       {show && (
         <ClickAwayListener onClickAway={() => setShow(false)}>
           <div className={styles.wallet_menu}>
@@ -45,22 +50,25 @@ export default function wallet() {
               <div className={styles.wallet_title}>{data.title}</div>
             </div>
             <div className={styles.wallet_body}>
-              
-              {<div className={styles.wallet_ps}>
-                <Image
-                  className={styles.wallet_ps_img}
-                  src={WalletAva}
-                  alt={data.wallet}
-                  width="36"
-                  height="36"
-                ></Image>
-                <div className={styles.wallet_ps_title}>{data.wallet}</div>
-              </div>}
+              {newWallet.length > 0 && (
+                <>
+                  <div className={styles.wallet_ps}>
+                    <Image
+                      className={styles.wallet_ps_img}
+                      src={data.wallet_ava}
+                      alt={data.wallet}
+                      width="36"
+                      height="36"
+                    ></Image>
+                    <div className={styles.wallet_ps_title}>{data.wallet}</div>
+                  </div>
 
-              {<div className={styles.wallet_row}>
-                <div className={styles.wallet_label}>ID</div>
-                <div className={styles.wallet_id}>{data.wallet_id}</div>
-              </div>}
+                  <div className={styles.wallet_row}>
+                    <div className={styles.wallet_label}>ID</div>
+                    <div className={styles.wallet_id}>{data.wallet_id}</div>
+                  </div>
+                </>
+              )}
 
               <div className={styles.wallet_row}>
                 <div className={styles.wallet_label}>Referals</div>

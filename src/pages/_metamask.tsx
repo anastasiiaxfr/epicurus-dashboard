@@ -40,7 +40,7 @@ const Metamask = ({ children }) => {
 
   return (
     <>
-    <MetamaskContext.Provider value={{hasProvider, handleConnect, wallet}}>
+    <MetamaskContext.Provider value={{handleConnect, getWallet}}>
         {children}
     </MetamaskContext.Provider>
     </>

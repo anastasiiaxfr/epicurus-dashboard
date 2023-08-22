@@ -1,14 +1,13 @@
 import { useState, useContext } from "react";
-import { ref, database, set } from "../../../pages/_firebase";
-import { AuthContext } from "../../../pages/_auth.tsx";
-
-import { MetamaskContext } from "../../../pages/_metamask";
+import Link from 'next/link';
+import { AuthContext } from "../../../pages/_auth";
+import { ProductContext } from "../../../pages/_products";
 
 import ClickAwayListener from "@mui/base/ClickAwayListener";
 import Image from "next/image";
 
 import Btn from "../../Form/Btn";
-import ModalWalletError from "../../../components/Modal/ModalAuthError";
+import ModalWalletError from "../ModalAuthError";
 
 import twIcon from "../../../assets/img/wallet/tw.png";
 import metamaskIcon from "../../../assets/img/wallet/metamask.png";
@@ -24,94 +23,48 @@ const modalWalletError = {
 export default function ModalWallet({
   openModal,
   setModalOpen,
-  newWallet,
   toggleModal,
 }: any) {
   const { currentUser } = useContext(AuthContext);
   const userID = currentUser.uid;
 
-  const { handleConnect, getWallet } = useContext(MetamaskContext);
+  const { newWallet } = useContext(ProductContext);
 
   const [openModalAddWalletError, setOpenModalAddWalletError] = useState(false);
-
-  const [selected, setSelected] = useState(false);
 
   const handleOpenModalError = () => {
     setOpenModalAddWalletError(true);
   };
 
-  const [walletSelected, setWalletSelected] = useState({});
+  const [walletSelected, setWalletSelected] = useState({
+    id: 0,
+    title: newWallet[0]?.wallet,
+    wallet_id: newWallet[0]?.wallet_id,
+  });
 
-  const isPrimary = newWallet?.some(
-    (item: any) => item.wallet_status === "Primary"
-  );
-
-  handleConnect();
-
-  const handleWalletSelected = (a: any, b: any) => {
-    setSelected(true);
-
-    //alert(getWallet);
-
-    (!getWallet || getWallet === 0) && handleOpenModalError();
-
-    if (getWallet.length > 0 && getWallet !== 0) {
-      setWalletSelected({
-        id: a,
-        title: b,
-        wallet_id: b === "Metamask" ? getWallet : "777",
-        status: isPrimary ? "Secondary" : "Primary",
-      });
-    }
+  const handleWalletSelected = (val: any, k: number) => {
+    setWalletSelected({
+      id: k,
+      title: val.wallet,
+      wallet_id: val.wallet === "Metamask" ? val.wallet_id : "777",
+    });
   };
 
   const handleClose = () => {
     setModalOpen(false);
-    setSelected(false);
   };
 
   const handleSubmit = () => {
-    if (selected) {
-      if (toggleModal) {
-        toggleModal(walletSelected);
-      } else {
-        sendToFB(walletSelected);
-      }
-      setModalOpen(false);
-      setSelected(false);
+    if (toggleModal) {
+      toggleModal(walletSelected);
+    } else {
     }
-  };
-
-  const sendToFB = (wallet: any) => {
-    set(
-      ref(
-        database,
-        "wallet/" +
-          userID +
-          "/" +
-          wallet.title.toLowerCase().replaceAll(" ", "-")
-      ),
-      {
-        wallet: wallet.title,
-        wallet_id: wallet.wallet_id,
-        wallet_status: wallet.status,
-      }
-    );
+    setModalOpen(false);
   };
 
   const props = {
     title: "Connect Wallet",
     text: "Start by connecting with one of the wallets below. Be sure to store your private keys or seed phrase securely. Never share them with anyone.",
-    wallets: [
-      {
-        title: `Metamask`,
-        icon: metamaskIcon,
-      },
-      {
-        title: "Trust Wallet",
-        icon: twIcon,
-      },
-    ],
     btns: [
       {
         label: "Decline",
@@ -125,10 +78,6 @@ export default function ModalWallet({
       },
     ],
   };
-
-  const activeWallets = props.wallets.filter(
-    (wallet) => !newWallet?.some((i: any) => i.wallet === wallet.title)
-  );
 
   return (
     openModal && (
@@ -145,31 +94,31 @@ export default function ModalWallet({
                 <div className={styles.modal_heading}>{props.title}</div>
                 <div className={styles.modal_text}>{props.text}</div>
                 <div className={styles.modal_wallets_wrap}>
-                  {activeWallets.map((i, k) => (
+                  {newWallet.length === 0 && <Link href="/payments">Please connect your wallet</Link>}
+                  {newWallet.map((i: any, k: number) => (
                     <figure
                       key={k}
                       className={`${styles.modal_wallets} ${
                         walletSelected.id === k ? styles.active : ""
                       }`}
                       onClick={() => {
-                        handleWalletSelected(k, i.title);
+                        handleWalletSelected(i, k);
                       }}
                     >
                       <div className={styles.modal_wallets_img}>
-                        <Image src={i.icon} alt={i.title} />
+                        <Image
+                          src={i.wallet === "Metamask" ? metamaskIcon : twIcon}
+                          alt={i.wallet}
+                        />
                       </div>
                       <div className={styles.modal_wallets_title}>
-                        {i.title}
+                        {i.wallet}
                       </div>
                     </figure>
                   ))}
                 </div>
 
-                {!selected && (
-                  <div className={styles.modal_note}>Please choose one!</div>
-                )}
-
-                <div className={styles.modal_cta}>
+                {newWallet.length !== 0  && <div className={styles.modal_cta}>
                   {props.btns.map((i, k) => (
                     <Btn
                       label={i.label}
@@ -178,7 +127,7 @@ export default function ModalWallet({
                       key={k}
                     />
                   ))}
-                </div>
+                </div>}
               </div>
             </div>
           </ClickAwayListener>

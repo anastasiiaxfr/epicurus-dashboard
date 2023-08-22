@@ -20,7 +20,7 @@ export default function Hero() {
     title: "Connect your Backup wallet if you need it",
     text: `Press “Add Wallet” to connect a Backup Wallet and start
     working with it`,
-    info: "4 steps to complete left",
+    info: "1 steps to complete left",
     btn: {
       label: "Add Wallet",
       on_click: handleOpenModal,
@@ -35,9 +35,9 @@ export default function Hero() {
         newWallet={newWallet}
       />
 
-      {newWallet.length < 2 && <HeroGroup hero={hero} />}
+      {newWallet.length < 1 && <HeroGroup hero={hero} />}
 
-      {newWallet.length !== 0 && <TableWallets props={newWallet} />}
+      {newWallet.length !== 0 && <TableWallets props={newWallet} toggleModal={handleOpenModal} />}
     </>
   );
 }
