@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 
 import { ref, database, remove } from "../../_firebase";
-import { AuthContext } from "../../_auth.tsx";
+import { AuthContext } from "../../../pages/_auth";
 import { ProductContext } from "../../_products";
 import nextId from "react-id-generator";
 
@@ -18,9 +18,9 @@ export default function ApiKeyList({
 }: any) {
   const htmlId = nextId("all-deposit-");
 
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser }: any = useContext(AuthContext);
   const userID = currentUser.uid;
-  const { newRoboticTrading, newApiKey } = useContext(ProductContext);
+  const { newRoboticTrading, newApiKey }: any = useContext(ProductContext);
 
   const [apiKeyName, setApiKeyName] = useState("");
   const [apiKeyId, setApiKeyId] = useState(null);

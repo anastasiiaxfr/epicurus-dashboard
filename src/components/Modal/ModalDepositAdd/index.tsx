@@ -13,7 +13,7 @@ export default function ModalDeposit({
   toggleModal,
   props,
   data,
-}) {
+}: any) {
   const { title, text, btnText, btnText2 } = props;
   const reg_sum = /^[0-9]+(\.[0-9]+)?$/;
 
@@ -27,12 +27,12 @@ export default function ModalDeposit({
     setModalOpen(false);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     setSubmit((prev) => !prev);
     if (form.current) {
-      const deposit_sum = form.current.add_deposit_sum.value;
-      const deposit_key = form.current.add_deposit_key.value;
+      const deposit_sum = (form.current as any).add_deposit_sum.value;
+      const deposit_key = (form.current as any).add_deposit_key.value;
 
       if (!disabled && validation) {
         if (deposit_sum < 50) {
@@ -40,7 +40,7 @@ export default function ModalDeposit({
         } else {
             toggleModal(false, deposit_sum);
             setModalOpen(false);
-            form.current.reset();
+            (form.current as any).reset();
             setReset((prev) => !prev);
         }
       }
@@ -64,7 +64,7 @@ export default function ModalDeposit({
               <div className={styles.modal_form}>
                 <form
                   action="/"
-                  methord="POST"
+                  method="POST"
                   noValidate
                   name="FormAddDeposit"
                   id="FormAddDeposit"

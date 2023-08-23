@@ -11,7 +11,7 @@ import ModalConfirmation from "../../components/Modal/ModalConfirmation";
 function TrustManagementPage() {
   const [showForm, setShowForm] = useState(false);
 
-  const { newTrustManagement } = useContext(ProductContext);
+  const { newTrustManagement }: any = useContext(ProductContext);
 
   const totalSteps = 5;
   const [steps, setSteps] = useState(totalSteps);

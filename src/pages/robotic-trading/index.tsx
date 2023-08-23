@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { ref, database, set } from "../_firebase";
-import { AuthContext } from "../_auth.tsx";
+import { AuthContext } from "../../pages/_auth";
 import nextId from "react-id-generator";
 
 import { ProductContext } from "../_products";
@@ -22,10 +22,10 @@ import styles from "./styles.module.sass";
 
 function RoboticTradingPage() {
   const htmlId = nextId("rt-");
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser }: any = useContext(AuthContext);
   const userID = currentUser.uid;
 
-  const { newRoboticTrading } = useContext(ProductContext);
+  const { newRoboticTrading }: any = useContext(ProductContext);
 
   const [show, setShow] = useState(true);
   const [showForm, setShowForm] = useState(false);
@@ -43,7 +43,10 @@ function RoboticTradingPage() {
   const [fieldHash, setFieldHash] = useState(false);
   const [fieldNetwork, setFieldNetwork] = useState(false);
   const [subscription, setSubscription] = useState(false);
-  const [choosenSubscription, choosenSetSubscription] = useState();
+  const [choosenSubscription, choosenSetSubscription] = useState<{
+    subscription_type: string;
+    subscription_sum: number;
+  } | undefined>(undefined);
 
   const [step1, setStep1] = useState(false);
   const [step2, setStep2] = useState(false);
@@ -54,7 +57,21 @@ function RoboticTradingPage() {
   const [openModalDeposit, setOpenModalDeposit] = useState(false);
   const [openModalDepositError, setOpenModalDepositError] = useState(false);
 
-  const [fbData, setFbData] = useState();
+  const [fbData, setFbData] = useState({
+    rt_name: "",
+    rt_start_date: "",
+    rt_sum: "",
+    rt_sum_first: "",
+    api_key_name: "",
+    api_key_id: "",
+    subscription: "",
+    subscription_sum: 0,
+    subscription_period: "",
+    subscription_type: "",
+    payment_network: "",
+    payment_sum: "",
+    hash_code: "",
+  });
 
   useEffect(() => {
     const trueFieldCount = [fieldPolicy, fieldApi, fieldSum, fieldName].filter(
@@ -102,7 +119,6 @@ function RoboticTradingPage() {
     setStep3(false);
     setStep4(false);
     setSubmit(false);
-    setFbData();
   }, [showForm]);
 
   useEffect(() => {
@@ -221,7 +237,7 @@ function RoboticTradingPage() {
         props={modalDepositAdded}
         theme="success"
       />
-     
+
       {!show && (
         <>
           <Banner />
@@ -252,11 +268,11 @@ function RoboticTradingPage() {
                   getDataFB={setFbData}
                   show={
                     newRoboticTrading.length !== 0
-                      ? (val) => {
+                      ? (val: any) => {
                           setShowForm(val);
                           setSubmit(val);
                         }
-                      : (val) => {
+                      : (val: any) => {
                           setShow(val);
                           setSubmit(val);
                         }
@@ -266,10 +282,10 @@ function RoboticTradingPage() {
               {step1 && !step2 && (
                 <>
                   <FormChooseSubscription
-                    getDataFB={(data) =>
+                    getDataFB={(data: any) =>
                       setFbData((prevData) => ({ ...prevData, ...data }))
                     }
-                    show={(val) => {
+                    show={(val: any) => {
                       setShowForm(val);
                       setSubmit(val);
                     }}
@@ -280,10 +296,10 @@ function RoboticTradingPage() {
               {step2 && !step3 && (
                 <>
                   <FormPayment
-                    getDataFB={(data) =>
+                    getDataFB={(data: any) =>
                       setFbData((prevData) => ({ ...prevData, ...data }))
                     }
-                    show={(val) => {
+                    show={(val: any) => {
                       setShowForm(val);
                       setSubmit(val);
                     }}
@@ -296,10 +312,10 @@ function RoboticTradingPage() {
               {step3 && (
                 <>
                   <FormPaymentTransaction
-                    getDataFB={(data) =>
+                    getDataFB={(data: any) =>
                       setFbData((prevData) => ({ ...prevData, ...data }))
                     }
-                    show={(val) => {
+                    show={(val: any) => {
                       setShowForm(val);
                     }}
                     setFieldHash={setFieldHash}

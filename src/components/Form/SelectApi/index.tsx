@@ -12,11 +12,11 @@ export default function SelectApi({
   reset
 }: any) {
 
-  const { newApiKey } = useContext(ProductContext);
+  const { newApiKey }: any = useContext(ProductContext);
 
   const period = ["Choose API Key"];
   if(newApiKey.length !== 0){
-    period.push(...newApiKey.map(apiKey => ({ id: apiKey.id, name: apiKey.api_name })));
+    period.push(...newApiKey.map((apiKey: any) => ({ id: apiKey.id, name: apiKey.api_name })));
   }
 
   return (

@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { ref, database, update } from "../../_firebase";
-import { AuthContext } from "../../_auth.tsx";
+import { AuthContext } from "../../../pages/_auth";
 import { ProductContext } from "../../_products";
 
 import nextId from "react-id-generator";
@@ -31,13 +31,13 @@ export default function Hero({
   subscriptionSuccess,
 }: any) {
   const htmlId = nextId("all-deposit-");
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser }: any = useContext(AuthContext);
   const userID = currentUser.uid;
-  const { newApiKey } = useContext(ProductContext);
+  const { newApiKey }: any = useContext(ProductContext);
 
   const { name, key, sum, start_date, period, id } = data;
 
-  const targetKey = newApiKey.find((j) => j.id === key);
+  const targetKey = newApiKey.find((j: any) => j.id === key);
   const apiName = targetKey ? targetKey.api_name : "";
 
   const [showPush, setShowPush] = useState(false);

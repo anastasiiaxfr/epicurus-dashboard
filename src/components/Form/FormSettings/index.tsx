@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useContext } from "react";
-import { AuthContext } from "../../../pages/_auth.tsx";
+import { AuthContext } from "../../../pages/_auth";
 import ClickAwayListener from "@mui/base/ClickAwayListener";
 
 import {
@@ -25,7 +25,7 @@ import CopyIcon from "../../../assets/icons/copy.svg";
 import styles from "./styles.module.sass";
 
 export default function Settings() {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser }: any = useContext(AuthContext);
   const userID = currentUser.uid;
 
   const form = useRef(null);
@@ -36,8 +36,8 @@ export default function Settings() {
   const [reset, setReset] = useState(false);
   const [resetSelect, setResetSelect] = useState(false);
 
-  const [imgPhoto, setImgPhoto] = useState(null);
-  const [imgPhotoURL, setImgPhotoURL] = useState([]);
+  const [imgPhoto, setImgPhoto] = useState<any | null>(null);
+  const [imgPhotoURL, setImgPhotoURL] = useState<any | null>(null);
 
   const refferal = "bY2t8YgKQygNnWpQVGeVOiwdv";
   const gender = ["Choose gender", "Male", "Female", "Alien"];
@@ -58,16 +58,17 @@ export default function Settings() {
   };
 
   const getImgUrl = () => {
-    const storageRef = refStorage(
-      storage,
-      `images/${userID}/photo-${imgPhoto?.name}`
-    );
-
+   
     if (imgPhoto !== undefined && imgPhoto !== null) {
+      const storageRef = refStorage(
+        storage,
+        `images/${userID}/photo-${imgPhoto?.name}`
+      );
+  
       uploadBytes(storageRef, imgPhoto).then((snapshot) => {
         getDownloadURL(snapshot.ref)
           .then((url) => {
-            setImgPhotoURL((prev) => [...prev, url]);
+            setImgPhotoURL((prev: any) => [...prev, url]);
           })
           .catch((error) => {
             console.error("Error uploading file:", error);
@@ -83,7 +84,7 @@ export default function Settings() {
   }, [form.current, imgPhoto]);
 
   const handleReset = () => {
-    form.current.reset();
+    (form.current as any).reset();
     setReset((prev) => !prev);
     setValidation(false);
     setResetSelect((prev) => !prev);
@@ -94,12 +95,12 @@ export default function Settings() {
     setSubmit((prev) => !prev);
 
     if (form.current) {
-      const settings_user_name = form.current.settings_username.value;
-      const settings_user_referral = form.current.settings_referral.value;
-      const settings_user_country = form.current.settings_country.value;
-      const settings_user_email = form.current.settings_email.value;
-      const settings_user_birth = form.current.settings_user_birth.value;
-      const settings_user_gender = form.current.settings_user_sex.value;
+      const settings_user_name = (form.current as any).settings_username.value;
+      const settings_user_referral = (form.current as any).settings_referral.value;
+      const settings_user_country = (form.current as any).settings_country.value;
+      const settings_user_email = (form.current as any).settings_email.value;
+      const settings_user_birth = (form.current as any).settings_user_birth.value;
+      const settings_user_gender = (form.current as any).settings_user_sex.value;
 
       if (validation && validationSelect && imgPhotoURL.length > 0) {
         // alert(imgPhotoURL);
@@ -116,7 +117,7 @@ export default function Settings() {
 
         //alert(imgPhotoURL);
 
-        form.current.reset();
+        (form.current as any).reset();
         setReset((prev) => !prev);
         setResetSelect((prev) => !prev);
       }

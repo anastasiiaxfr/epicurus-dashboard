@@ -23,7 +23,7 @@ export default function Card({ props, k, active, onClick }: any) {
       </div>
       {cols && <div className={styles.card_footer}>
         <div className={styles.card_cols}>
-          {cols?.map((i, k) => (
+          {cols?.map((i: any, k: number) => (
             <div key={k} className={styles.card_cols_col}>
               <div>
                 <div className={styles.card_cols_title}>{i.title}</div>

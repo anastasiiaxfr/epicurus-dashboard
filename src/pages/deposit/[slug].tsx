@@ -12,11 +12,11 @@ function DepositSinglePage() {
   const currentURL = router.asPath;
   const currentID = currentURL.replace("/deposit/", "").trim() 
 
-  const { newDeposit } = useContext(ProductContext);
+  const { newDeposit }: any = useContext(ProductContext);
   //console.log(newDeposit)
 
   const filterDeposit = newDeposit.filter(
-    (i) => i.id === currentID 
+    (i: any) => i.id === currentID 
   );
   //console.log(filterDeposit[0])
 

@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 
 import { ref, database, remove } from "../../_firebase";
-import { AuthContext } from "../../_auth.tsx";
+import { AuthContext } from "../../_auth";
 import { ProductContext } from "../../_products";
 
 import Btn from "../../../components/Form/Btn";
@@ -14,10 +14,10 @@ import DelIcon from "../../../assets/icons/del.svg";
 import styles from "./style.module.sass";
 
 export default function ApiKeyList() {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser }: any = useContext(AuthContext);
   const userID = currentUser.uid;
 
-  const { newPayments } = useContext(ProductContext);
+  const { newPayments }: any = useContext(ProductContext);
 
   const [payments, setPayments] = useState("");
   const [paymentsId, setPaymentsId] = useState(null);

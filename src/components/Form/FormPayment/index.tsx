@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useContext } from "react";
-import { AuthContext } from "../../../pages/_auth.tsx";
+import { AuthContext } from "../../../pages/_auth";
 import nextId from "react-id-generator";
 
 import SelectNetwork from "../SelectNetwork";
@@ -44,7 +44,7 @@ const modalTerms = {
 
 export default function FormPayment({ show, setFieldNetwork, setFieldPolicy, getDataFB, payment }: any) {
   const htmlId = nextId("deposit-");
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser }: any = useContext(AuthContext);
   const userID = currentUser.uid;
 
   const form = useRef(null);
@@ -117,26 +117,26 @@ export default function FormPayment({ show, setFieldNetwork, setFieldPolicy, get
   const current_payment_type = payment?.subscription_type;
   
   
-  const onAddKey = (e) => {
+  const onAddKey = (e: any) => {
     e.preventDefault();
     setSubmit((prev) => !prev);
     if (form.current) {
       const payment_sum = current_payment_sum;
-      const payment_network = form.current.payment_network.value;
+      const payment_network = (form.current as any).payment_network.value;
 
       if (validationCheckbox && validationSelect) {
         getDataFB({payment_sum: payment_sum, payment_network: payment_network});
         show(true);
         setResetCheckbox((prev) => !prev);
         setResetSelect((prev) => !prev);
-        form.current.reset();
+        (form.current as any).reset();
         setReset((prev) => !prev);
       }
     }
   };
 
   const onResetFrom = () => {
-    form.current.reset();
+    (form.current as any).reset();
     show(false);
     setReset((prev) => !prev);
     setResetCheckbox(false);
@@ -174,7 +174,7 @@ export default function FormPayment({ show, setFieldNetwork, setFieldPolicy, get
 
       <form
         action="/"
-        methord="POST"
+        method="POST"
         noValidate
         name="FormPayment"
         id="FormPayment"

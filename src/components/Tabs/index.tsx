@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState, useContext } from "react";
-import { AuthContext } from "../../pages/_auth.tsx";
+import { AuthContext } from "../../pages/_auth";
 
 import Tabs from "@mui/base/Tabs";
 import TabsList from "@mui/base/TabsList";
@@ -12,7 +12,7 @@ import Btn from "../Form/Btn";
 import styles from "./tabs.module.sass";
 
 export default function BasicTabs({ props }: any) {
-  const { auth } = useContext(AuthContext);
+  const { auth }: any = useContext(AuthContext);
 
   return (
     <Tabs defaultValue={0} orientation="vertical" className={styles.tabs}>

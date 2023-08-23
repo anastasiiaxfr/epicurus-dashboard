@@ -11,7 +11,7 @@ import stylesCard from "../Card/card.module.sass";
 import IconArr from "../../assets/icons/arr-t-rt.svg";
 
 export default function Hero() {
-  const { allDepositSum, totalDeposit: balanceDeposit, totalTMBalance: balanceTM, totalRTBalance: balanceRT} = useContext(ProductContext);
+  const { allDepositSum, totalDeposit: balanceDeposit, totalTMBalance: balanceTM, totalRTBalance: balanceRT}: any = useContext(ProductContext);
 
   const [totalDeposit, setTotalDeposit] = useState(0);
   const [totalRT, setTotalRT] = useState(0);

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useContext } from "react";
 import { ref, database, set } from "../../../pages/_firebase";
-import { AuthContext } from "../../../pages/_auth.tsx";
+import { AuthContext } from "../../../pages/_auth";
 import nextId from "react-id-generator";
 
 import Input from "../Input";
@@ -59,7 +59,7 @@ export default function FormAddDeposit({
   const [disabled, setDisabled] = useState(false);
 
   const htmlId = nextId("deposit-");
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser }: any = useContext(AuthContext);
   const userID = currentUser.uid;
 
   const form = useRef(null);
@@ -130,13 +130,13 @@ export default function FormAddDeposit({
     e.preventDefault();
     setSubmit((prev) => !prev);
     if (form.current) {
-      const deposit_sum = form.current.deposit_sum.value;
+      const deposit_sum = (form.current as any).deposit_sum.value;
       const deposit_type = deposit.type;
       const deposit_percent = deposit.val;
       const deposit_wallet = wallet.title;
       const deposit_wallet_id = wallet.wallet_id;
-      const deposit_period = form.current.deposit_period.value;
-      const deposit_network = form.current.deposit_network.value;
+      const deposit_period = (form.current as any).deposit_period.value;
+      const deposit_network = (form.current as any).deposit_network.value;
 
 
       if (!disabled && validation && validationCheckbox && validationSelect) {
@@ -155,22 +155,22 @@ export default function FormAddDeposit({
         sendToFBTotalDeposit(deposit_sum);
         toggleModal(true);
         show(false);
-        form.current.reset();
-        setReset((prev) => !prev);
-        setResetCheckbox((prev) => !prev);
-        setResetSelect((prev) => !prev);
-        setFieldPolicy((prev) => !prev);
+        (form.current as any).reset();
+        setReset((prev: any) => !prev);
+        setResetCheckbox((prev: any) => !prev);
+        setResetSelect((prev: any) => !prev);
+        setFieldPolicy((prev: any) => !prev);
       }
     }
   };
 
   const onResetFrom = () => {
-    form.current.reset();
+    (form.current as any).reset();
     show(false);
     setReset((prev) => !prev);
-    setResetCheckbox((prev) => !prev);
-    setResetSelect((prev) => !prev);
-    setFieldPolicy((prev) => !prev);
+    setResetCheckbox((prev: any) => !prev);
+    setResetSelect((prev: any) => !prev);
+    setFieldPolicy((prev: any) => !prev);
   };
 
   const sendToFB = (
@@ -225,7 +225,7 @@ export default function FormAddDeposit({
 
       <form
         action="/"
-        methord="POST"
+        method="POST"
         noValidate
         name="FormAddDeposit"
         id="FormAddDeposit"

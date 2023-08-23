@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 
 import { ref, database, remove } from "../../_firebase";
-import { AuthContext } from "../../_auth.tsx";
+import { AuthContext } from "../../_auth";
 
 import ModalConfirmation from "../../../components/Modal/ModalConfirmation";
 import ModalError from "../../../components/Modal/ModalAuthError";
@@ -12,7 +12,7 @@ import DelIcon from "../../../assets/icons/del.svg";
 import styles from "./style.module.sass";
 
 export default function ApiKeyList({ deposits }: any) {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser }: any = useContext(AuthContext);
   const userID = currentUser.uid;
 
   const [depositName, setDepositName] = useState("");

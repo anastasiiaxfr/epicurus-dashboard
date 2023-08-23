@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 
 import { ref, database, remove } from "../../_firebase";
-import { AuthContext } from "../../_auth.tsx";
+import { AuthContext } from "../../../pages/_auth";
 import { ProductContext } from "../../_products";
 
 import ModalConfirmation from "../../../components/Modal/ModalConfirmation";
@@ -14,10 +14,10 @@ import DelIcon from "../../../assets/icons/del.svg";
 import styles from "./style.module.sass";
 
 export default function ApiKeyList() {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser }: any = useContext(AuthContext);
   const userID = currentUser.uid;
 
-  const { newApiKey } = useContext(ProductContext);
+  const { newApiKey }: any = useContext(ProductContext);
 
   const [apiKeyName, setApiKeyName] = useState("");
   const [apiKeyId, setApiKeyId] = useState(null);

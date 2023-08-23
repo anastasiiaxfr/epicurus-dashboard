@@ -1,5 +1,5 @@
 //GET KEY
-function getSPKey(type, SPdata) {
+function getSPKey(type: any, SPdata: any) {
   const accessData = {
     "grant_type": "client_credentials",
     "client_id": process.env.SENDPULSE_ID,
@@ -45,7 +45,7 @@ const addressBook = process.env.SENDPULSE_ADDRESS_BOOK_ID;
 const apiUrl = `https://api.sendpulse.com/addressbooks/${addressBook}/emails`;
 
 //ADD_USER_SENDPULSE
-function addUserToSP(emailData, access_token) {
+function addUserToSP(emailData: any, access_token: any) {
   fetch(apiUrl, {
     method: "POST",
     headers: {
@@ -66,7 +66,7 @@ function addUserToSP(emailData, access_token) {
 }
 
 //CHANGE_VARIABLE_BY_EMAIL_SENDPULSE
-function changeVarSP(variableData, access_token){
+function changeVarSP(variableData: any, access_token: any){
   fetch(`https://api.sendpulse.com/addressbooks/${addressBook}/emails/variable`, {
     method: 'POST',
     headers: {
@@ -93,7 +93,7 @@ const subject = 'New Bot Withdrawal';
 
 const smtpUrl = 'https://api.sendpulse.com/smtp/emails';
 
-function sendEmail(SPdata, token) {
+function sendEmail(SPdata: any, token: any) {
   const message = `User want Withdrawal:
   user_id: ${SPdata.user_id}
   user_email: ${SPdata.user_email}

@@ -68,7 +68,6 @@ export default function CheckboxField({
         className={`${styles.checkbox} ${
           checked ? styles.checked : "" || showError ? styles.error : ""
         }`}
-        checked
         onChange={onChange}
       />
       <label htmlFor={id} className={styles.label} onClick={onClick}>

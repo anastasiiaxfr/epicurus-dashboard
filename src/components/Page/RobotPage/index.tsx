@@ -2,9 +2,9 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 import Banner from '../../assets/img/banner.jpg'
-import Input from '../Form/Input'
-import Checkbox from '../Form/Checkbox'
-import Btn from '../Form/Btn'
+import Input from '../../Form/Input'
+import Checkbox from '../../Form/Checkbox'
+import Btn from '../../Form/Btn'
 
 import styles from './styles.module.sass'
 

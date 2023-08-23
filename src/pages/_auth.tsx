@@ -5,19 +5,20 @@ import * as fb from "./_firebase";
 import LoadingModal from "../components/Loading/Modal";
 import Preloader from "../components/Preloader";
 
-export const AuthContext = createContext();
+export const AuthContext = createContext({});
 
-export default function AuthProvider({ children }) {
+type FirebaseObject = {
+  auth: any; 
+  onAuthStateChanged: any; 
+  onIdTokenChanged: any; 
+};
+
+
+export default function AuthProvider({ children }: any) {
   // const [user] = useAuthState(auth)
   // const userID = user?.uid
 
-  const {
-    auth,
-    onAuthStateChanged,
-    onIdTokenChanged,
-    signOut,
-    signInWithCustomToken,
-  } = fb;
+  const { auth, onAuthStateChanged, onIdTokenChanged }: FirebaseObject = fb;
 
   const [currentUser, setCurrentUser] = useState(true);
   const [pending, setPending] = useState(true);
@@ -44,7 +45,7 @@ export default function AuthProvider({ children }) {
   // }, [token]);
 
   useEffect(() => {
-    onAuthStateChanged(auth, async (user) => {
+    onAuthStateChanged(auth, async (user: any) => {
       //if(user){alert(user)}
 
       if (user) {
@@ -57,7 +58,7 @@ export default function AuthProvider({ children }) {
         setPending(true);
       }
     });
-    onIdTokenChanged(auth, async (user) => {
+    onIdTokenChanged(auth, async (user: any) => {
       if (user) {
         try {
           const token = await user.getIdToken(true);

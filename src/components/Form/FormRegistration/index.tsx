@@ -64,9 +64,9 @@ export default function FormRegistration({ toggleModalLogin, setOpenRegister }: 
 
         if (form.current) {
 
-            const reg_email = form.current.reg_email.value
-            const reg_password = form.current.reg_password.value
-            const reg_name = form.current.reg_name.value
+            const reg_email = (form.current as any).reg_email.value
+            const reg_password = (form.current as any).reg_password.value
+            const reg_name = (form.current as any).reg_name.value
 
             if (!disabled && validation === true) {
                 try {
@@ -100,8 +100,8 @@ export default function FormRegistration({ toggleModalLogin, setOpenRegister }: 
 
                 } catch (error) {
                     //alert('Error Register')
-                    console.error('Error registering user:', error)
-                    form.current.reset()
+                    console.error('Error registering user:', error);
+                    (form.current as any).reset()
                     setOpenModalError(true)
                     
                 }
@@ -123,7 +123,7 @@ export default function FormRegistration({ toggleModalLogin, setOpenRegister }: 
                     Sign Up
                 </h1>
 
-                <form action="/" methord="POST" noValidate name="FormRegistration" id="FormRegistration" className={styles.form} ref={form} autoComplete='off'>
+                <form action="/" method="POST" noValidate name="FormRegistration" id="FormRegistration" className={styles.form} ref={form} autoComplete='off'>
 
                     <div className={styles.form_row}>
                         <Input type='text' label='Name*' placeholder='' id='reg_name' error='Required. Only Latin letters.' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} maxLength={16} pattern={reg_name} setDisabled={setDisabled}/>

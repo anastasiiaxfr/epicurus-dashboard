@@ -1,10 +1,24 @@
 import { useState, useEffect, useContext, createContext } from "react";
 import detectEthereumProvider from "@metamask/detect-provider";
 
-export const MetamaskContext = createContext();
+export const MetamaskContext = createContext({});
 
-const Metamask = ({ children }) => {
-  const [hasProvider, setHasProvider] = useState<boolean | null>(null);
+declare global {
+  interface Window {
+    ethereum?: any;
+  }
+}
+if (typeof window !== "undefined") {
+  let injectedProvider = false;
+  if (typeof window.ethereum !== "undefined") {
+    injectedProvider = true;
+    console.log(window.ethereum);
+  }
+  const isMetaMask = injectedProvider ? window.ethereum.isMetaMask : false;
+}
+
+const Metamask = ({ children }: any) => {
+  const [hasProvider, setHasProvider] = useState(Boolean);
   const initialState = { accounts: [] }; /* New */
   const [wallet, setWallet] = useState(initialState); /* New */
 
@@ -25,12 +39,21 @@ const Metamask = ({ children }) => {
   }; /* New */
 
   const handleConnect = async () => {
-    /* New */
-    let accounts = await window.ethereum.request({
-      /* New */ method: "eth_requestAccounts" /* New */,
-    }); /* New */
-    updateWallet(accounts); /* New */
-  }; /* New */
+    if (typeof window !== 'undefined' && window.ethereum) {
+      try {
+        let accounts = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
+        updateWallet(accounts);
+      } catch (error) {
+        console.error("Error connecting to Ethereum:", error);
+      }
+    } else {
+      console.error(
+        "Ethereum provider not found. Make sure MetaMask or a similar wallet is installed."
+      );
+    }
+  };
 
   useEffect(() => {
     wallet.accounts.length > 0 && setGetWallet(wallet.accounts[0]);
@@ -40,9 +63,9 @@ const Metamask = ({ children }) => {
 
   return (
     <>
-    <MetamaskContext.Provider value={{handleConnect, getWallet}}>
+      <MetamaskContext.Provider value={{ handleConnect, getWallet }}>
         {children}
-    </MetamaskContext.Provider>
+      </MetamaskContext.Provider>
     </>
   );
 };

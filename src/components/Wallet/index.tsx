@@ -12,7 +12,7 @@ import WalletTrustWalletAva from "../../assets/img/wallet/tw.png";
 import styles from "./styles.module.sass";
 
 export default function wallet() {
-  const { newWallet } = useContext(ProductContext);
+  const { newWallet }: any = useContext(ProductContext);
 
   const primaryWallet = newWallet.find(
     (item: any) => item.wallet_status === "Primary"

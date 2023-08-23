@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { ref, database, set } from "../../../pages/_firebase";
-import { AuthContext } from "../../../pages/_auth.tsx";
+import { AuthContext } from "../../../pages/_auth";
 
 import { MetamaskContext } from "../../../pages/_metamask";
 
@@ -27,10 +27,10 @@ export default function ModalWallet({
   newWallet,
   toggleModal,
 }: any) {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser }: any = useContext(AuthContext);
   const userID = currentUser.uid;
 
-  const { handleConnect, getWallet } = useContext(MetamaskContext);
+  const { handleConnect, getWallet }: any = useContext(MetamaskContext);
 
   const [openModalAddWalletError, setOpenModalAddWalletError] = useState(false);
 
@@ -39,8 +39,9 @@ export default function ModalWallet({
   const handleOpenModalError = () => {
     setOpenModalAddWalletError(true);
   };
+  
 
-  const [walletSelected, setWalletSelected] = useState({});
+  const [walletSelected, setWalletSelected] = useState({ id: '',  title: '', wallet_id: 0, status: '' }); 
 
   const isPrimary = newWallet?.some(
     (item: any) => item.wallet_status === "Primary"
@@ -149,7 +150,7 @@ export default function ModalWallet({
                     <figure
                       key={k}
                       className={`${styles.modal_wallets} ${
-                        walletSelected.id === k ? styles.active : ""
+                        Number(walletSelected.id) === k ? styles.active : ""
                       }`}
                       onClick={() => {
                         handleWalletSelected(k, i.title);

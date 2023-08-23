@@ -60,15 +60,15 @@ export default function FormAddRT({
     setResetCheckbox((prev) => !prev);
   };
 
-  const onAddRT = (e) => {
+  const onAddRT = (e: any) => {
     e.preventDefault();
     setSubmit((prev) => !prev);
     if (form.current) {
-      const rt_name = form.current.rt_name.value.replaceAll(" ", "-");
+      const rt_name = (form.current as any).rt_name.value.replaceAll(" ", "-");
       const rt_start_date = Date.now();
-      const rt_sum = form.current.rt_sum.value;
-      const api_key_name = form.current.rt_api.value;
-      const api_key_id = form.current.rt_api.getAttribute("name");
+      const rt_sum = (form.current as any).rt_sum.value;
+      const api_key_name = (form.current as any).rt_api.value;
+      const api_key_id = (form.current as any).rt_api.getAttribute("name");
 
       if (!disabled && validation && validationCheckbox && validationSelect) {
         getDataFB({
@@ -80,7 +80,7 @@ export default function FormAddRT({
   };
 
   const onResetFrom = () => {
-    form.current.reset();
+    (form.current as any).reset();
     show(false);
     setReset((prev) => !prev);
     setResetCheckbox((prev) => !prev);
@@ -99,7 +99,7 @@ export default function FormAddRT({
 
       <form
         action="/"
-        methord="POST"
+        method="POST"
         noValidate
         name="FormAddRT"
         id="FormAddRT"
@@ -161,7 +161,7 @@ export default function FormAddRT({
           <Checkbox
             label={
               <div>
-                I have read the{" "}
+                I have read the
                 <strong onClick={handlePolicyClick}>Usage Policy</strong>
               </div>
             }

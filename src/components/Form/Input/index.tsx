@@ -34,7 +34,7 @@ export default function InputField({
   const [fileAttached, setFileAttached] = useState(false);
   const [completed, setCompleted] = useState(false);
 
-  const input = useRef(null);
+  const input = useRef<any | null>(null);
 
   const onChange = () => {
     const currentInput = input.current;
@@ -82,7 +82,8 @@ export default function InputField({
     if (type === "file") {
       if (
         currentInput?.files[0] &&
-        (currentInput?.files[0].size / 1024 / 1024)?.toFixed(1) > 1
+        parseFloat((currentInput?.files[0].size / 1024 / 1024)?.toFixed(1)) > 1
+
       ) {
         setShowError(true);
         setFileAttached(false);

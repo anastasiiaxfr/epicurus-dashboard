@@ -11,7 +11,7 @@ import Btn from "../Form/Btn";
 import styles from "./styles.module.sass";
 
 export default function Steps({setToggleDashboard}: any) {
-  const { newApiKey, newTrustManagement, newRoboticTrading } = useContext(
+  const { newApiKey, newTrustManagement, newRoboticTrading }: any = useContext(
     ProductContext
   );
 

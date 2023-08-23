@@ -32,7 +32,7 @@ export default function Calculator({}) {
   const [period, setPeriod] = useState(1);
 
   const [invest, setInvest] = useState(1000);
-  const [apy, setApy] = useState(deposits[0].val);
+  const [apy, setApy] = useState(Number(deposits[0].val));
   const [receive, setReceive] = useState(0);
 
   const MAX_WIDTH = "(max-width: 640px)";
@@ -73,11 +73,11 @@ export default function Calculator({}) {
   };
 
   const handleInputFocus = () => {
-    setInvest("");
+    setInvest(0);
   };
 
   useEffect(() => {
-    const newReceive = (apy * period/(100 * 12)  + 1) * invest;
+    const newReceive: number = (apy * period / (100 * 12) + 1) * invest;
     isNaN(newReceive) ? 0 : setReceive(Number(newReceive.toFixed(2)));
   }, [apy, invest, period]);
 

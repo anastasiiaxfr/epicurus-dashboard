@@ -25,10 +25,10 @@ export default function ModalWallet({
   setModalOpen,
   toggleModal,
 }: any) {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser }: any = useContext(AuthContext);
   const userID = currentUser.uid;
 
-  const { newWallet } = useContext(ProductContext);
+  const { newWallet }: any = useContext(ProductContext);
 
   const [openModalAddWalletError, setOpenModalAddWalletError] = useState(false);
 

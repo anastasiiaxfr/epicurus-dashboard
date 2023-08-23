@@ -91,7 +91,7 @@ export default function ModalWithdrawal({ openModal, setModalOpen, toggleModal, 
 
         if (bot_withdrawal.replace(',', '.') >= totalBalance) {
             delBot()
-            setDelBot(prev => !prev)
+            setDelBot((prev: any) => !prev)
             setWithdrawal(0)
         }
     }
@@ -104,8 +104,8 @@ export default function ModalWithdrawal({ openModal, setModalOpen, toggleModal, 
         setSubmitPressed(true)
 
         if (form.current) {
-            const withdrawal_wallet = form.current.withdrawal_wallet.value.trim().replaceAll(/\s+/g, ' ')
-            const withdrawal_sum = form.current.withdrawal_sum.value
+            const withdrawal_wallet = (form.current as any).withdrawal_wallet.value.trim().replaceAll(/\s+/g, ' ')
+            const withdrawal_sum = (form.current as any).withdrawal_sum.value
 
             if (withdrawal_sum > totalBalance) {
                 setValidation(false)
@@ -135,9 +135,9 @@ export default function ModalWithdrawal({ openModal, setModalOpen, toggleModal, 
                 }
                 // getSPKey('withdrawal', SPdata)
 
-                saveMessages(withdrawal_sum, totalBalance, withdrawal_wallet)
+                saveMessages(withdrawal_sum, totalBalance, withdrawal_wallet);
 
-                form.current.reset()
+                (form.current as any).reset()
                 setModalOpen(false)
             }
         }
@@ -154,7 +154,7 @@ export default function ModalWithdrawal({ openModal, setModalOpen, toggleModal, 
                         Our terms allow for withdrawal of earned funds once a month. This means that you can request a withdrawal of funds earned on our platform once during each calendar month.
                     </div>
 
-                    <form action="/" methord="POST" noValidate name="FormWithdrawal" id="FormWithdrawal" className={styles.form} ref={form} autoComplete='off'>
+                    <form action="/" method="POST" noValidate name="FormWithdrawal" id="FormWithdrawal" className={styles.form} ref={form} autoComplete='off'>
                         <div className={styles.form__row}>
                             <Input type='text' label='TRC20 Wallet Address*' placeholder='' id='withdrawal_wallet' error='Обязательное поле' required={true} reset={reset} setReset={setReset} submit={submit} setSubmit={setSubmit} validate={setValidation} />
                         </div>

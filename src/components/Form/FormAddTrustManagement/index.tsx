@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useContext } from "react";
 import { ref, database, set } from "../../../pages/_firebase";
-import { AuthContext } from "../../../pages/_auth.tsx";
+import { AuthContext } from "../../../pages/_auth";
 import nextId from "react-id-generator";
 
 import ModalPolicy from "../../Modal/ModalPolicy";
@@ -41,10 +41,10 @@ export default function FormAddTrustManagement({
   setFieldSum,
   setFieldPolicy,
   toggleModal
-}) {
+}: any) {
 
   const htmlId = nextId("tm-key-");
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser }: any = useContext(AuthContext);
   const userID = currentUser.uid;
 
   const reg_sum = /^[0-9]+(\.[0-9]+)?$/;
@@ -64,17 +64,17 @@ export default function FormAddTrustManagement({
 
   const [openModalPolicy, setOpenModalPolicy] = useState(false);
 
-  const onAddTM = (e) => {
+  const onAddTM = (e: any) => {
     e.preventDefault();
     setSubmit((prev) => !prev);
     if (form.current) {
-      const tm_name = form.current.tm_name.value;
-      const tm_sum = form.current.tm_sum.value;
-      const tm_sum_first = form.current.tm_sum.value;
-      const tm_period = form.current.tm_period.value;
+      const tm_name = (form.current as any).tm_name.value;
+      const tm_sum = (form.current as any).tm_sum.value;
+      const tm_sum_first = (form.current as any).tm_sum.value;
+      const tm_period = (form.current as any).tm_period.value;
       const tm_start_date = Date.now();
-      const api_key_name = form.current.tm_api.value;
-      const api_key_id = form.current.tm_api.getAttribute("name");
+      const api_key_name = (form.current as any).tm_api.value;
+      const api_key_id = (form.current as any).tm_api.getAttribute("name");
 
       if (!disabled && validation && validationCheckbox && validationSelect) {
         setResetCheckbox((prev) => !prev);
@@ -82,9 +82,9 @@ export default function FormAddTrustManagement({
         sendToFB(tm_name, tm_period, tm_start_date, tm_sum, tm_sum_first, api_key_name, api_key_id);
         toggleModal(true);
         show(false);
-        form.current.reset();
+        (form.current as any).reset();
         setReset((prev) => !prev);
-        setFieldPolicy((prev) => !prev);
+        setFieldPolicy((prev: any) => !prev);
       }
     }
   };
@@ -94,7 +94,7 @@ export default function FormAddTrustManagement({
   }, [validationCheckbox])
 
   const onResetFrom = () => {
-    form.current.reset();
+    (form.current as any).reset();
     show(false);
     setReset((prev) => !prev);
     setResetCheckbox((prev) => !prev);
@@ -130,7 +130,7 @@ export default function FormAddTrustManagement({
       />
       <form
         action="/"
-        methord="POST"
+        method="POST"
         noValidate
         name="FormAddTrustManagement"
         id="FormAddTrustManagement"

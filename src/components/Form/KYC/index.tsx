@@ -37,15 +37,15 @@ export default function KYC() {
 
     const [validation, setValidation] = useState(false)
     const [submit, setSubmit] = useState(false)
-    const [submitPressed, setSubmitPressed] = useState(false)
+    const [submitPressed, setSubmitPressed] = useState<any>(false)
     const [reset, setReset] = useState(true)
-    const [send, setSend] = useState(false)
+    const [send, setSend] = useState<boolean>(false)
     const formSend = localStorage.getItem('kyc_form_send')
 
-    const [imgPasport, setImgPasport] = useState(null)
-    const [imgPhoto, setImgPhoto] = useState(null)
-    const [imgPasportURL, setImgPasportURL] = useState([])
-    const [imgPhotoURL, setImgPhotoURL] = useState([])
+    const [imgPasport, setImgPasport] = useState<File | null>(null)
+    const [imgPhoto, setImgPhoto] = useState<File | null>(null)
+    const [imgPasportURL, setImgPasportURL] = useState<string[]>([])
+    const [imgPhotoURL, setImgPhotoURL] = useState<string[]>([])
 
     const { push } = useRouter()
 
@@ -56,20 +56,22 @@ export default function KYC() {
     const getImgUrl = (val: any) => {
         const storageRef1 = refStorage(storage, `images/${val}/pasport-${imgPasport?.name}`)
         const storageRef2 = refStorage(storage, `images/${val}/photo-${imgPhoto?.name}`)
-
+        if (imgPasport !== null) {
         uploadBytes(storageRef1, imgPasport).then((snapshot) => {
             getDownloadURL(snapshot.ref).then((url) => {
                 //alert(url)
                 setImgPasportURL((prev) => [...prev, url])
             })
         })
-
+    }
+    if (imgPhoto !== null) {
         uploadBytes(storageRef2, imgPhoto).then((snapshot) => {
             getDownloadURL(snapshot.ref).then((url) => {
                 //alert(url)
                 setImgPhotoURL((prev) => [...prev, url])
             })
         })
+    }
     }
 
     useEffect(() => {
@@ -90,11 +92,11 @@ export default function KYC() {
 
         if (form.current) {
             
-            const kyc_first_name = form.current.kyc_first_name.value
-            const kyc_last_name = form.current.kyc_last_name.value
-            const kyc_dbirth = form.current.kyc_dbirth.value
-            const kyc_gender = form.current.kyc_gender.value
-            const kyc_policy = form.current.kyc_policy.checked
+            const kyc_first_name = (form.current as any).kyc_first_name.value
+            const kyc_last_name = (form.current as any).kyc_last_name.value
+            const kyc_dbirth = (form.current as any).kyc_dbirth.value
+            const kyc_gender = (form.current as any).kyc_gender.value
+            const kyc_policy = (form.current as any).kyc_policy.checked
 
             if (!formSend && validation && imgPasportURL.length > 0 && imgPhotoURL.length > 0){
                 saveMessages(userID, kyc_first_name, kyc_last_name, userEmail, kyc_dbirth, kyc_gender, imgPasportURL, imgPhotoURL)
@@ -102,7 +104,7 @@ export default function KYC() {
             }  
             
             if(send === true){
-                form.current.reset()
+                (form.current as any).reset()
                 setReset(true)
                 submitPressed(true)
             }
@@ -125,11 +127,11 @@ export default function KYC() {
     useEffect(() => {
         if (send === true) {
             push('/robotic-trading')
-            localStorage.setItem('kyc_form_send', true)
+            localStorage.setItem('kyc_form_send', send.toString())
         }
     }, [send])
 
-    const saveMessages = (userID: any, kyc_first_name: any, kyc_last_name: any, userEmail: any, kyc_dbirth: any, kyc_gender: any, imgPasportURL: any, imgPhotoURL) => {
+    const saveMessages = (userID: any, kyc_first_name: any, kyc_last_name: any, userEmail: any, kyc_dbirth: any, kyc_gender: any, imgPasportURL: any, imgPhotoURL: any) => {
 
 
         set(ref(database, 'kycForm/' + userID), {

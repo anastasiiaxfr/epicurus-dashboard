@@ -19,7 +19,7 @@ const data = [
     { title: 'CryptoBot', time: '10:34AM', date: '2 Nov 2023', crypto: '0.02 BTC', hash: '0056 GJ57 K7H5 8HG4 648K', status: 'Declined', info: '...' },
 ]
 
-export default function Table() {
+export default function Table({setHeading, setData}: any) {
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         setTimeout(() => setLoading(false), 1500);

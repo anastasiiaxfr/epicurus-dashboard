@@ -100,14 +100,14 @@ export default function AddBot({setNewBot}: any) {
         setSubmit(prev => !prev)
         setSubmitPressed(true)
 
-        if (form.current) {
-            const add_bot_name = form.current.add_bot_name.value.trim().replaceAll(/\s+/g, ' ')
-            const add_bot_sum = form.current.add_bot_amount.value
-            const add_bot_hash = form.current.add_bot_hash.value
+        if (form.current !== null) {
+            const add_bot_name = (form.current as any).add_bot_name.value.trim().replaceAll(/\s+/g, ' ')
+            const add_bot_sum = (form.current as any).add_bot_amount.value
+            const add_bot_hash = (form.current as any).add_bot_hash.value
             if (validation) {
                 saveMessages(userID, add_bot_name, add_bot_sum, add_bot_hash, userEmail)
 
-                setNewBot(prev => !prev)
+                setNewBot((prev: boolean) => !prev)
                 
                 addBotToFirestore({
                     user_id: userID,
@@ -130,7 +130,7 @@ export default function AddBot({setNewBot}: any) {
                 getSPKey('new-bot', variableData)
             }
 
-            form.current.reset()
+            (form.current as any).reset()
 
             if (validation === false) {
                 setSubmitPressed(false)

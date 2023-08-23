@@ -14,8 +14,7 @@ export default function Banner({ toggleShow }: any) {
         toggleShow === false ? setShow(false) : setShow(true)
     }, [toggleShow]);
 
-  return (
-    show && <figure className={styles.banner}>
+  return show ? (<figure className={styles.banner}>
       <Image
         src={BannerImg}
         alt="Robotic Trading"
@@ -34,6 +33,5 @@ export default function Banner({ toggleShow }: any) {
           <Btn className={styles.banner_btn} label="Watch Video" theme="grad" />
         </div>
       </div>
-    </figure>
-  );
+    </figure>) : null
 }

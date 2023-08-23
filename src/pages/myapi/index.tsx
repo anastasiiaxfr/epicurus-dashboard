@@ -11,7 +11,7 @@ import ModalConfirmation from "../../components/Modal/ModalConfirmation";
 
 function MyApiPage() {
   const [showForm, setShowForm] = useState(false);
-  const { newApiKey } = useContext(ProductContext);
+  const { newApiKey }: any = useContext(ProductContext);
 
   const totalSteps = 4;
   const [steps, setSteps] = useState(totalSteps);

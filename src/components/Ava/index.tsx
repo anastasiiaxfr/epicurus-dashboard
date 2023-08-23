@@ -1,13 +1,14 @@
 import { useContext } from 'react'
-import { AuthContext } from "../../pages/_auth.tsx"
+import { AuthContext } from "../../pages/_auth"
 
 // import Link from "next/link";
 import Image from "next/image";
 
 import styles from "./ava.module.sass";
 
+
 export default function Ava({ name, img }: any) {
-  const { auth } = useContext(AuthContext)
+  const { auth }: any = useContext(AuthContext)
 
   return (
       <div className={styles.ava} onClick={() => auth.signOut()}>

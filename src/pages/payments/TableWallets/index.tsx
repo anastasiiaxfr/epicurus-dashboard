@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 
 import { ref, database, remove } from "../../_firebase";
-import { AuthContext } from "../../_auth.tsx";
+import { AuthContext } from "../../_auth";
 
 import Image from "next/image";
 
@@ -18,7 +18,7 @@ import metamaskIcon from "../../../assets/img/wallet/metamask.png";
 import styles from "./style.module.sass";
 
 export default function WalletsList({ props, toggleModal }: any) {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser }: any = useContext(AuthContext);
   const userID = currentUser.uid;
 
   const [payments, setPayments] = useState("");

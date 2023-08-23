@@ -1,4 +1,3 @@
-import { useState, useEffect, useContext } from "react"
 import { useRouter } from "next/router"
 import Image from "next/image"
 import Link from "next/link"
@@ -81,7 +80,7 @@ const items = [
 function WikiSinglePage() {
   const router = useRouter();
   const currentURL = router.asPath;
-  const findTitleByURL = (url) => {
+  const findTitleByURL = (url: any) => {
     for (const item of links) {
         if (item.url === url || item.url !== '/support' && currentURL.includes(item.url)) {
           return item.title;

@@ -39,7 +39,7 @@ export default function Sidebar({ links, currentURL, urlParent }: any) {
       <div className="pg__sidebar-inner">
         <div className="pg__sidebar-content">
           <div className="pg__sidebar-logo">
-            <Logo onToggleMenu={() => onToggleMenu("Dashboard")} />
+            <Logo onToggleMenu={() => onToggleMenu()} />
           </div>
 
           {links.map((i: any, k: number) => (

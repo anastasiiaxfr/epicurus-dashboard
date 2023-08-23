@@ -44,7 +44,7 @@ export default function FormLogin({
       //console.log(result.user)
       setOpenLogin(false);
       // Handle successful sign-in
-    } catch (error) {
+    } catch (error: any) {
       // Handle sign-in error
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -62,8 +62,8 @@ export default function FormLogin({
     setSubmit((prev) => !prev);
 
     if (form.current) {
-      const login_email = form.current.login_email.value;
-      const login_password = form.current.login_password.value;
+      const login_email = (form.current as any).login_email.value;
+      const login_password = (form.current as any).login_password.value;
 
       if (validation) {
         setReset(prev => !prev);
@@ -93,7 +93,7 @@ export default function FormLogin({
             //     });
           });
 
-        form.current.reset();
+          (form.current as any).reset();
       }
     }
   };
@@ -112,7 +112,7 @@ export default function FormLogin({
 
           <form
             action="/"
-            methord="POST"
+            method="POST"
             noValidate
             name="FormLogin"
             id="FormLogin"

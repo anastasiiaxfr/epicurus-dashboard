@@ -21,7 +21,7 @@ export default function KYC() {
   const [showError, setShowError] = useState(false);
 
   const handleReset = () => {
-    form.current.reset();
+    (form.current as any).reset();
     setReset((prev) => !prev);
     setValidation(false);
   };
@@ -30,24 +30,23 @@ export default function KYC() {
     setSubmit((prev) => !prev);
 
     if (form.current) {
-      const password_current = form.current.settings_passwrod_current.value;
-      const password_new = form.current.settings_passwrod_new.value;
-      const password_new_repeat = form.current.settings_passwrod_repeat.value;
+      const password_current = (form.current as any).settings_passwrod_current.value;
+      const password_new = (form.current as any).settings_passwrod_new.value;
+      const password_new_repeat = (form.current as any).settings_passwrod_repeat.value;
 
       if (password_new !== password_new_repeat) {
         setShowError(true);
       }
       if (validation && password_new === password_new_repeat) {
-        alert("send");
         saveMessages(userID, password_current, password_new);
 
-        form.current.reset();
+        (form.current as any).reset();
         setReset(true);
       }
     }
   };
 
-  const saveMessages = (userID, password_current, password_new) => {
+  const saveMessages = (userID: any, password_current: any, password_new: any) => {
     // set(ref(database, "kycForm/" + userID), {
     //   kyc_first_name: kyc_first_name,
     // });

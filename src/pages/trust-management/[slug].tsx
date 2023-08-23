@@ -19,10 +19,12 @@ function DepositSinglePage() {
   const router = useRouter();
   const currentURL = router.asPath;
   const currentID = currentURL.replace("/trust-management/", "").trim();
-  const { newTrustManagement } = useContext(ProductContext);
-  const filterTM = newTrustManagement.filter((i) => currentID.includes(i.id));
+  const { newTrustManagement }: any = useContext(ProductContext);
+  const filterTM = newTrustManagement.filter((i: any) => currentID.includes(i.id));
 
-  const [data, setData] = useState({});
+  const [data, setData] = useState({
+    name: '', api_name: '', key: '', sum: '', id: '', tm_start_date: '', tm_period: ''
+  });
   const [deposit, setDeposit] = useState(0);
   const [depositAddedSuccess, setDepositAddedSuccess] = useState(false);
 
@@ -87,7 +89,7 @@ function DepositSinglePage() {
   const [openModalDepositError, setOpenModalDepositError] = useState(false);
   const [openModalSuccess, setOpenModalSuccess] = useState(false);
 
-  const hangleModalDepositForm = (state, val) => {
+  const hangleModalDepositForm = (state: any, val: any) => {
     setOpenModalDepositError(state);
     setDeposit(val);
     val && setDepositAddedSuccess(prev => !prev);

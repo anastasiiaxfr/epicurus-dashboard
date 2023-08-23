@@ -8,7 +8,7 @@ export default function BtnField({ type, label, link, onClick, disabled, theme, 
         type === 'submit' ? (
             <Input type='submit' className={styles.btn} value={label} onClick={onClick} disabled={disabled}/>
         ) : type === 'link' ?
-            <Link href={link} className={`${styles.btn} ${styles[theme]}`} disabled={disabled}>{label}</Link> : type === 'reset' ? <Input type='button' className={styles.btn_link} value={label} /> : <Input type='button' className={`${styles.btn} ${styles[theme]}`} value={label} onClick={onClick} disabled={disabled} startAdornment={icon}/>
+            <Link href={link} className={`${styles.btn} ${styles[theme]} ${disabled ? styles.disabled : ''}`}>{label}</Link> : type === 'reset' ? <Input type='button' className={styles.btn_link} value={label} /> : <Input type='button' className={`${styles.btn} ${styles[theme]}`} value={label} onClick={onClick} disabled={disabled} startAdornment={icon}/>
 
     )
 }

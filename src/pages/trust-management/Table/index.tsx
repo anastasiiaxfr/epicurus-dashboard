@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 
 import { ref, database, remove } from "../../_firebase";
-import { AuthContext } from "../../_auth.tsx";
+import { AuthContext } from "../../../pages/_auth";
 import { ProductContext } from "../../_products";
 
 import Btn from "../../../components/Form/Btn";
@@ -14,10 +14,10 @@ import DelIcon from "../../../assets/icons/del.svg";
 import styles from "./style.module.sass";
 
 export default function TMList() {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser }: any = useContext(AuthContext);
   const userID = currentUser.uid;
 
-  const { newTrustManagement, newApiKey } = useContext(ProductContext);
+  const { newTrustManagement, newApiKey }: any = useContext(ProductContext);
 
   const [apiKeyName, setApiKeyName] = useState("");
   const [apiKeyId, setApiKeyId] = useState(null);
@@ -120,7 +120,7 @@ export default function TMList() {
       />
 
       {newTrustManagement?.map((i: any, k: number) => {
-        const targetKey = newApiKey.find((j) => j.id === i.api_key_id);
+        const targetKey = newApiKey.find((j: any) => j.id === i.api_key_id);
         const apiName = targetKey ? targetKey.api_name : "";
         const date = new Date(i.tm_start_date);
         const period = +i.tm_period.replace("Month", "").trim();

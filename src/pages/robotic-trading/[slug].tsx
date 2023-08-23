@@ -21,9 +21,11 @@ function DepositSinglePage() {
   const currentURL = router.asPath;
   const currentID = currentURL.replace("/robotic-trading/", "").trim();
 
-  const { newRoboticTrading } = useContext(ProductContext);
+  const { newRoboticTrading }: any = useContext(ProductContext);
   const filterTM = newRoboticTrading.filter((i: any) => currentID.includes(i.id));
-  const [data, setData] = useState({});
+  const [data, setData] = useState({
+    sum: '', key: '', name: '', start_date: '', period: '', id: ''
+  });
   const [deposit, setDeposit] = useState(0);
   const [depositAddedSuccess, setDepositAddedSuccess] = useState(false);
   const [openModalDeposit, setOpenModalDeposit] = useState(false);

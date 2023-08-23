@@ -22,9 +22,12 @@ export default function ModalPopup({
     }
   };
 
+
   const onSubmit = () => {
-   handleClose(true); 
-   if(on_click){on_click(true)}
+    handleClose(); 
+    if (on_click) {
+      on_click();
+    }
   };
 
   return (

@@ -13,10 +13,15 @@ export default function FormPayment({ show, setSubscription, getDataFB }: any) {
   const [reset, setReset] = useState(false);
 
   const [choosen, setChoosen] = useState();
+  const [selected, setSelected] = useState({
+    title: '',
+    sum: '',
+    period: ''
+  });
 
   const onResetFrom = () => {
     show(false);
-    setReset((prev) => !prev);
+    setReset((prev: any) => !prev);
   };
 
   const cards = [
@@ -75,7 +80,6 @@ export default function FormPayment({ show, setSubscription, getDataFB }: any) {
     sum: cards[1].price_current,
     period: cards[1].period
   }
-  const [selected, setSelected] = useState();
 
 
   const [openModalError, setOpenModalError] = useState(false);
@@ -87,7 +91,7 @@ export default function FormPayment({ show, setSubscription, getDataFB }: any) {
 
   const onSubmit = (e: any) => {
     e.preventDefault();
-    setSubmit((prev) => !prev);
+    setSubmit((prev: any) => !prev);
     
     if(selected){
       getDataFB &&

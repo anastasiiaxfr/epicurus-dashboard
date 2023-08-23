@@ -7,7 +7,7 @@ import HeroGroup from "../../../components/HeroCta";
 
 
 export default function Hero() {
-  const { newWallet } = useContext(ProductContext);
+  const { newWallet }: any = useContext(ProductContext);
 
   const [openModal, setOpenModal] = useState(false);
 

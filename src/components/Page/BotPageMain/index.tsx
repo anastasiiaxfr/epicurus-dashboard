@@ -4,16 +4,14 @@ import { auth } from '../../../pages/_firebase'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
 
-import Link from 'next/link'
 
 //import FormPeriod from '../../Form/FormPeriod'
 
-import Table from '../../Tables/_transaction'
+import Table from '../../Tables'
 import Btn from '../../Form/Btn'
 import ModalWithdrawal from '../../Modal/ModalWithdrawal'
 
 
-import DownloadIcon from '../../../assets/icons/download.svg'
 import InfoIcon from '../../../assets/icons/info.svg'
 
 import styles from './styles.module.sass'
@@ -27,7 +25,7 @@ export default function BotPageMain({ bot_id, bot_balance, setDelBot }: any) {
 
     const url = process.env.DB
 
-    const [tableData, setTableData] = useState([])
+    const [tableData, setTableData] = useState<any[]>([])
     const [botApy, setBotApy] = useState(0)
     const [botIncome, setBotIncome] = useState(0)
     const [botTotalBalance, setBotTotalBalance] = useState(botBalance)
@@ -54,7 +52,11 @@ export default function BotPageMain({ bot_id, bot_balance, setDelBot }: any) {
                 bot_id: botID
             }
 
-            const queryParams = new URLSearchParams(payload).toString();
+            const queryParams = new URLSearchParams({
+                uid: payload.uid || '', 
+                bot_id: payload.bot_id || '', 
+            }).toString();
+
             const newUrl = `${url}?${queryParams}`
 
             fetch(newUrl)
@@ -158,7 +160,7 @@ export default function BotPageMain({ bot_id, bot_balance, setDelBot }: any) {
                         </div> */}
 
                     </div>
-                    <Table heading={heading} data={tableData}/>
+                    <Table setHeading={heading} setData={tableData}/>
                 </section> :
                 <div className={styles.pg__footer}>
                     <div className="tooltip tooltip--danger">

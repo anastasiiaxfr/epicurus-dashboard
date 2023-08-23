@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useContext } from "react";
 import { ref, database, set } from "../../../pages/_firebase";
-import { AuthContext } from "../../../pages/_auth.tsx";
+import { AuthContext } from "../../../pages/_auth";
 import nextId from "react-id-generator";
 
 import Input from "../../Form/Input";
@@ -30,7 +30,7 @@ export default function FormAddApiKey({ show, toggleModal, setFieldPolicy, setFi
   const reg_name = /^[0-9a-zA-Z\s-]+$/;
   
   const htmlId = nextId("api-key-");
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser }: any = useContext(AuthContext);
   const userID = currentUser.uid;
 
   const form = useRef(null);
@@ -54,29 +54,29 @@ export default function FormAddApiKey({ show, toggleModal, setFieldPolicy, setFi
     e.preventDefault();
     setSubmit((prev) => !prev);
     if (form.current) {
-      const api_name = form.current.api_name.value.replaceAll(" ", "-");
-      const api_key = form.current.api_key.value;
-      const api_secret = form.current.api_secret.value;
+      const api_name = (form.current as any).api_name.value.replaceAll(" ", "-");
+      const api_key = (form.current as any).api_key.value;
+      const api_secret = (form.current as any).api_secret.value;
       const api_start_date = Date.now();
 
 
       if (!disabled && validation && validationCheckbox) {
-        setFieldPolicy((prev) => !prev);
-        setResetCheckbox((prev) => !prev);
+        setFieldPolicy((prev: any) => !prev);
+        setResetCheckbox((prev: any) => !prev);
         sendToFB(api_name, api_key, api_secret, api_start_date);
         toggleModal(true);
         show(false);
-        form.current.reset();
-        setReset((prev) => !prev);
+        (form.current as any).reset();
+        setReset((prev: any) => !prev);
       }
     }
   };
 
   const onResetFrom = () => {
-    form.current.reset();
+    (form.current as any).reset();
     show(false);
-    setReset((prev) => !prev);
-    setResetCheckbox((prev) => !prev);
+    setReset((prev: any) => !prev);
+    setResetCheckbox((prev: any) => !prev);
   };
 
   const sendToFB = (api_name: any, api_key: any, api_secret: any, api_start_date: any) => {
@@ -107,7 +107,7 @@ export default function FormAddApiKey({ show, toggleModal, setFieldPolicy, setFi
 
       <form
         action="/"
-        methord="POST"
+        method="POST"
         noValidate
         name="FormAddApiKey"
         id="FormAddApiKey"
@@ -174,7 +174,7 @@ export default function FormAddApiKey({ show, toggleModal, setFieldPolicy, setFi
           <Checkbox
             label={
               <div>
-                I have read the{" "}
+                I have read the
                 <strong onClick={handlePolicyClick}>Usage Policy</strong>
               </div>
             }

@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useContext } from "react";
 import { ref, database, set } from '../../../pages/_firebase';
-import { AuthContext } from "../../../pages/_auth.tsx";
+import { AuthContext } from "../../../pages/_auth";
 
 import Input from "../Input";
 import Btn from "../Btn";
@@ -9,7 +9,7 @@ import styles from "./styles.module.sass";
 
 
 export default function FormAddApiKeyEdit({api_key_id, close_modal}: any) {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser }: any = useContext(AuthContext);
   const userID = currentUser.uid;
   const reg_name = /^[0-9a-zA-Z\s-]+$/;
   const formEdit = useRef(null);
@@ -25,13 +25,13 @@ export default function FormAddApiKeyEdit({api_key_id, close_modal}: any) {
     e.preventDefault();
     setSubmit((prev) => !prev);
     if (formEdit.current) {
-      const api_name = formEdit.current.api_edit_name.value.replaceAll(" ", "-");
-      const api_key = formEdit.current.api_edit_key.value;
-      const api_secret = formEdit.current.api_edit_secret.value;
+      const api_name = (formEdit.current as any).api_edit_name.value.replaceAll(" ", "-");
+      const api_key = (formEdit.current as any).api_edit_key.value;
+      const api_secret = (formEdit.current as any).api_edit_secret.value;
 
       if (!disabled && (api_name.length > 0 && api_key.length > 0 && api_secret.length > 0)) {
         sendToFB(api_name, api_key, api_secret);
-        formEdit.current.reset();  
+        (formEdit.current as any).reset();  
         setReset(prev => !prev);  
         close_modal();
       }
@@ -54,7 +54,7 @@ export default function FormAddApiKeyEdit({api_key_id, close_modal}: any) {
 
       <form
         action="/"
-        methord="POST"
+        method="POST"
         noValidate
         name="FormEditApiKey"
         id="FormEditApiKey"

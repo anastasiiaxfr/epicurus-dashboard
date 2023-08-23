@@ -5,7 +5,7 @@ import CloseIcon from "../../../assets/icons/close.svg";
 
 import styles from "./styles.module.sass";
 
-export default function ModalPopup({ openModal, setModalOpen, props }) {
+export default function ModalPopup({ openModal, setModalOpen, props }: any) {
   const {api_key_id, api_key_name } = props;
   const handleClose = () => {
     setModalOpen(false);

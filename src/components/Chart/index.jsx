@@ -18,7 +18,7 @@ export const data = {
 const options = {
   plugins: {
     legend: {
-      order: 2,
+      position: "bottom",
     },
   },
 };

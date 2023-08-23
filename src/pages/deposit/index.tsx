@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import MetamaskProvider from "../../pages/_metamask";
+import MetamaskProvider from "../_metamask";
 import { ProductContext } from "../_products";
 
 import Card from "./Card";
@@ -16,7 +16,7 @@ import ModalConfirmation from "../../components/Modal/ModalConfirmation";
 import FormDeposit from "../../components/Form/FormAddDeposit";
 
 function DepositPage() {
-  const { newDeposit } = useContext(ProductContext);
+  const { newDeposit }: any = useContext(ProductContext);
 
   const [show, setShow] = useState(false);
   const [showForm, setShowForm] = useState(false);

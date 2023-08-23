@@ -1,5 +1,5 @@
 import { useState } from "react";
-import MetamaskProvider from "../../pages/_metamask";
+import MetamaskProvider from "../_metamask";
 
 import Table from '../../components/Tables';
 import Card from "../../components/Card2";

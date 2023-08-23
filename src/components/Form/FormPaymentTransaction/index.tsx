@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useContext } from "react";
-import { AuthContext } from "../../../pages/_auth.tsx";
+import { AuthContext } from "../../../pages/_auth";
 
 import Image from "next/image";
 import Btn from "../Btn";
@@ -12,7 +12,7 @@ import CopyIcon from '../../../assets/icons/copy.svg';
 import styles from "./styles.module.sass";
 
 export default function FormPayment({ show, setFieldHash, toggleModal, getDataFB }: any) {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser }: any = useContext(AuthContext);
   const userID = currentUser.uid;
 
   const form = useRef(null);
@@ -28,7 +28,7 @@ export default function FormPayment({ show, setFieldHash, toggleModal, getDataFB
     e.preventDefault();
     setSubmit((prev) => !prev);
     if (form.current) {
-      const hash_code = form.current.transaction_hash.value;
+      const hash_code = (form.current as any).transaction_hash.value;
       if (validation) {
         getDataFB && getDataFB({hash_code: hash_code});
         show(false);
@@ -39,7 +39,7 @@ export default function FormPayment({ show, setFieldHash, toggleModal, getDataFB
 
   const onResetFrom = () => {
     show(false);
-    form.current.reset();
+    (form.current as any).reset();
     setReset((prev) => !prev);
   };
 
@@ -74,7 +74,7 @@ export default function FormPayment({ show, setFieldHash, toggleModal, getDataFB
 
       <form
         action="/"
-        methord="POST"
+        method="POST"
         noValidate
         name="FormPaymentTransaction"
         id="FormPaymentTransaction"

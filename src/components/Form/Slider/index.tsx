@@ -6,9 +6,10 @@ import styles from "./styles.module.sass";
 export default function SliderField({ getSliderVal }: any) {
   const [val, setVal] = useState(0);
 
-  function valuetext(value: any) {
+  function valuetext(value: number) {
     setVal(value);
     getSliderVal(value);
+    return value.toString()
   }
   
   function SliderValueLabel({ children }: any) {

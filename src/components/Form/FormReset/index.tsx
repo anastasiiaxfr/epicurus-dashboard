@@ -27,7 +27,7 @@ const modalInfo = {
 export default function FormReset({
   toggleModalRegistration,
   toggleModalLogin,
-}) {
+}: any) {
   const reg_email = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const form = useRef(null);
@@ -38,7 +38,7 @@ export default function FormReset({
   const [openModalError, setOpenModalError] = useState(false);
   const [openModalReset, setOpenModalReset] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     //onInputField(e)
 
@@ -46,7 +46,7 @@ export default function FormReset({
     setSubmitPressed(true);
 
     if (form.current) {
-      const reset_email = form.current.reset_email.value;
+      const reset_email = (form.current as any).reset_email.value;
       if (validation) {
         sendPasswordResetEmail(auth, reset_email)
           .then(() => {
@@ -56,7 +56,7 @@ export default function FormReset({
           .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
-            form.current.reset();
+            (form.current as any).reset();
             setOpenModalError(true);
           });
       }
@@ -82,7 +82,7 @@ export default function FormReset({
 
         <form
           action="/"
-          methord="POST"
+          method="POST"
           noValidate
           name="FormReset"
           id="FormReset"
