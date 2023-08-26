@@ -15,7 +15,7 @@ export default function Header({ title }: any) {
       {currentUser && (
         <div className="pg__header-cta">
           <Wallet />
-          <Notification />
+          {/* <Notification /> */}
           <Ava img={currentUser?.photoURL} name={currentUser?.displayName} />
         </div>
       )}

@@ -17,7 +17,9 @@ import metamaskIcon from "../../../assets/img/wallet/metamask.png";
 
 import styles from "./style.module.sass";
 
-export default function WalletsList({ props, toggleModal }: any) {
+export default function WalletsList({ props, changeWallet, delWallet }: any) {
+
+
   const { currentUser }: any = useContext(AuthContext);
   const userID = currentUser.uid;
 
@@ -40,7 +42,7 @@ export default function WalletsList({ props, toggleModal }: any) {
   const toggleModalConfirmation = (t: any) => {
     setOpenModalDelConfirm(false);
 
-    const wallets = ref(database, "wallet/" + userID + "/" + payments.toLowerCase().replaceAll(" ", "-"));
+    const wallets = ref(database, "wallet/" + userID + "/" + props[0].id);
     //alert(e.target.getAttribute("data-key"));
     remove(wallets)
       .then(() => {
@@ -55,6 +57,7 @@ export default function WalletsList({ props, toggleModal }: any) {
   const onDelWallet = (name: any) => {
     setPayments(name);
     setOpenModalDelConfirm(true);
+    delWallet(false);
   };
 
   //console.log('newApiKey', newApiKey);
@@ -98,7 +101,7 @@ export default function WalletsList({ props, toggleModal }: any) {
             <div className={styles.table_content}>
               <div className={styles.table_body}>
                 <div className={styles.table_img}>
-                  <Image src={i.wallet === 'Metamask' ? metamaskIcon : twIcon} alt={i.wallet} />
+                  <Image src={i.wallet === 'MetaMask' ? metamaskIcon : twIcon} alt={i.wallet} />
                 </div>
                 <div className={styles.table_col}>
                   <div className={styles.table_label}>Wallet ID</div>
@@ -117,9 +120,9 @@ export default function WalletsList({ props, toggleModal }: any) {
                   </div>
                 </div>
               </div>
-              <div className={styles.table_btn}>
-                <Btn theme="grad" label="Change Wallet" onClick={toggleModal}/>
-              </div>
+              {/* <div className={styles.table_btn}>
+                <Btn theme="grad" label="Change Wallet" onClick={changeWallet}/>
+              </div> */}
             </div>
           </div>
        

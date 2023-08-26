@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from "react";
-import MetamaskProvider from "../_metamask";
 import { ProductContext } from "../_products";
 
 import Card from "./Card";
@@ -42,7 +41,6 @@ function DepositPage() {
     btnText: "Accept",
     btnUrl: "#",
   };
-
 
   useEffect(() => {
     const trueFieldCount = [
@@ -114,7 +112,8 @@ function DepositPage() {
       type: "Deposit Classic",
       about: {
         title: "About the Deposit",
-        text: "DCA (Dollar Cost Averaging) бот - это программа, разработанная для автоматического выполнения стратегии долларового усреднения при инвестировании. Он основан на алгоритмах искусственного интеллекта и предназначен для помощи инвесторам в автоматическом распределении их инвестиций в течение определенного периода времени.",
+        text:
+          "DCA (Dollar Cost Averaging) бот - это программа, разработанная для автоматического выполнения стратегии долларового усреднения при инвестировании. Он основан на алгоритмах искусственного интеллекта и предназначен для помощи инвесторам в автоматическом распределении их инвестиций в течение определенного периода времени.",
       },
       offer: {
         title: "Percentage",
@@ -133,7 +132,8 @@ function DepositPage() {
       type: "Deposit Premium",
       about: {
         title: "About the Deposit",
-        text: "DCA (Dollar Cost Averaging) бот - это программа, разработанная для автоматического выполнения стратегии долларового усреднения при инвестировании. Он основан на алгоритмах искусственного интеллекта и предназначен для помощи инвесторам в автоматическом распределении их инвестиций в течение определенного периода времени.",
+        text:
+          "DCA (Dollar Cost Averaging) бот - это программа, разработанная для автоматического выполнения стратегии долларового усреднения при инвестировании. Он основан на алгоритмах искусственного интеллекта и предназначен для помощи инвесторам в автоматическом распределении их инвестиций в течение определенного периода времени.",
       },
       offer: {
         title: "Percentage",
@@ -152,7 +152,8 @@ function DepositPage() {
       type: "Deposit VIP",
       about: {
         title: "About the Deposit",
-        text: "DCA (Dollar Cost Averaging) бот - это программа, разработанная для автоматического выполнения стратегии долларового усреднения при инвестировании. Он основан на алгоритмах искусственного интеллекта и предназначен для помощи инвесторам в автоматическом распределении их инвестиций в течение определенного периода времени.",
+        text:
+          "DCA (Dollar Cost Averaging) бот - это программа, разработанная для автоматического выполнения стратегии долларового усреднения при инвестировании. Он основан на алгоритмах искусственного интеллекта и предназначен для помощи инвесторам в автоматическом распределении их инвестиций в течение определенного периода времени.",
       },
       offer: {
         title: "Percentage",
@@ -171,13 +172,11 @@ function DepositPage() {
 
   return (
     <>
-      <MetamaskProvider>
-        <ModalWallet
-          openModal={openModalAddWallet}
-          setModalOpen={setOpenModalAddWallet}
-          toggleModal={handleOpenModalForm}
-        />
-      </MetamaskProvider>
+      <ModalWallet
+        openModal={openModalAddWallet}
+        setModalOpen={setOpenModalAddWallet}
+        toggleModal={handleOpenModalForm}
+      />
 
       <ModalDeposit
         openModal={openModal}

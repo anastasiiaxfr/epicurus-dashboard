@@ -69,6 +69,7 @@ function HomePage() {
 
           <Steps setToggleDashboard={setToggleDashboard} />
 
+
           {/* TRANSACTION */}
           <Hgroup props={hgroup} />
 

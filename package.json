@@ -14,6 +14,8 @@
   "dependencies": {
     "@metamask/detect-provider": "^2.0.0",
     "@mui/base": "^5.0.0-beta.1",
+    "@web3modal/ethereum": "^2.7.1",
+    "@web3modal/react": "^2.7.1",
     "chart.js": "^4.3.3",
     "crypto-js": "^4.1.1",
     "firebase": "^9.22.0",
@@ -26,7 +28,9 @@
     "react-firebase-hooks": "^5.1.1",
     "react-id-generator": "^3.0.2",
     "reactfire": "^4.2.3",
-    "sass": "^1.62.1"
+    "sass": "^1.62.1",
+    "viem": "^1.7.0",
+    "wagmi": "^1.3.10"
   },
   "devDependencies": {
     "@svgr/webpack": "^7.0.0",

@@ -24,7 +24,7 @@ export default function wallet() {
     wallet: primaryWallet?.wallet,
     wallet_id: primaryWallet?.wallet_id,
     wallet_ava:
-      primaryWallet?.wallet === "Metamask"
+      primaryWallet?.wallet === "MetaMask"
         ? WalletMetamaskAva
         : WalletTrustWalletAva,
     referals_balance: "125",
@@ -53,24 +53,24 @@ export default function wallet() {
               {newWallet.length > 0 && (
                 <>
                   <div className={styles.wallet_ps}>
-                    <Image
+                    {/* <Image
                       className={styles.wallet_ps_img}
                       src={data.wallet_ava}
                       alt={data.wallet}
                       width="36"
                       height="36"
-                    ></Image>
+                    ></Image> */}
                     <div className={styles.wallet_ps_title}>{data.wallet}</div>
                   </div>
 
                   <div className={styles.wallet_row}>
-                    <div className={styles.wallet_label}>ID</div>
+                    {/* <div className={styles.wallet_label}>ID</div> */}
                     <div className={styles.wallet_id}>{data.wallet_id}</div>
                   </div>
                 </>
               )}
 
-              <div className={styles.wallet_row}>
+              {/* <div className={styles.wallet_row}>
                 <div className={styles.wallet_label}>Referals</div>
                 <div className={styles.wallet_balance}>
                   <WalletCoins width="20" height="20" />
@@ -78,7 +78,7 @@ export default function wallet() {
                     {data.referals_balance}
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </ClickAwayListener>

@@ -2,8 +2,6 @@ import { useState, useContext } from "react";
 import { ref, database, set } from "../../../pages/_firebase";
 import { AuthContext } from "../../../pages/_auth";
 
-import { MetamaskContext } from "../../../pages/_metamask";
-
 import ClickAwayListener from "@mui/base/ClickAwayListener";
 import Image from "next/image";
 
@@ -30,8 +28,6 @@ export default function ModalWallet({
   const { currentUser }: any = useContext(AuthContext);
   const userID = currentUser.uid;
 
-  const { handleConnect, getWallet }: any = useContext(MetamaskContext);
-
   const [openModalAddWalletError, setOpenModalAddWalletError] = useState(false);
 
   const [selected, setSelected] = useState(false);
@@ -39,31 +35,31 @@ export default function ModalWallet({
   const handleOpenModalError = () => {
     setOpenModalAddWalletError(true);
   };
-  
 
-  const [walletSelected, setWalletSelected] = useState({ id: '',  title: '', wallet_id: 0, status: '' }); 
+  const [walletSelected, setWalletSelected] = useState({
+    id: "",
+    title: "",
+    wallet_id: "",
+    status: "",
+  });
 
   const isPrimary = newWallet?.some(
     (item: any) => item.wallet_status === "Primary"
   );
-
-  handleConnect();
 
   const handleWalletSelected = (a: any, b: any) => {
     setSelected(true);
 
     //alert(getWallet);
 
-    (!getWallet || getWallet === 0) && handleOpenModalError();
+    //handleOpenModalError();
 
-    if (getWallet.length > 0 && getWallet !== 0) {
-      setWalletSelected({
-        id: a,
-        title: b,
-        wallet_id: b === "Metamask" ? getWallet : "777",
-        status: isPrimary ? "Secondary" : "Primary",
-      });
-    }
+    setWalletSelected({
+      id: a,
+      title: b,
+      wallet_id: b === "Metamask" ? "888" : "777",
+      status: isPrimary ? "Secondary" : "Primary",
+    });
   };
 
   const handleClose = () => {
@@ -102,7 +98,8 @@ export default function ModalWallet({
 
   const props = {
     title: "Connect Wallet",
-    text: "Start by connecting with one of the wallets below. Be sure to store your private keys or seed phrase securely. Never share them with anyone.",
+    text:
+      "Start by connecting with one of the wallets below. Be sure to store your private keys or seed phrase securely. Never share them with anyone.",
     wallets: [
       {
         title: `Metamask`,

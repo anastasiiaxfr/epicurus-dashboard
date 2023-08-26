@@ -46,7 +46,7 @@ export default function ModalWallet({
     setWalletSelected({
       id: k,
       title: val.wallet,
-      wallet_id: val.wallet === "Metamask" ? val.wallet_id : "777",
+      wallet_id: val.wallet === "MetaMask" ? val.wallet_id : "777",
     });
   };
 
@@ -107,7 +107,7 @@ export default function ModalWallet({
                     >
                       <div className={styles.modal_wallets_img}>
                         <Image
-                          src={i.wallet === "Metamask" ? metamaskIcon : twIcon}
+                          src={i.wallet === "MetaMask" ? metamaskIcon : twIcon}
                           alt={i.wallet}
                         />
                       </div>

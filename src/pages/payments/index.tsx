@@ -1,5 +1,4 @@
 import { useState } from "react";
-import MetamaskProvider from "../_metamask";
 
 import Table from '../../components/Tables';
 import Card from "../../components/Card2";
@@ -33,7 +32,6 @@ function PaymentsPage() {
 
     return (
         <>
-            <MetamaskProvider>
             
             <section className={styles.cards}>
                 {tabs.map((i, k) => (
@@ -46,7 +44,6 @@ function PaymentsPage() {
                 {active === 1  && <CardPayments />}
                 {active === 2  && <Table />}
             </section>
-            </MetamaskProvider>
         </>
     )
 }

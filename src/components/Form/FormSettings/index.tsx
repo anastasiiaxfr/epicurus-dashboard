@@ -37,7 +37,7 @@ export default function Settings() {
   const [resetSelect, setResetSelect] = useState(false);
 
   const [imgPhoto, setImgPhoto] = useState<any | null>(null);
-  const [imgPhotoURL, setImgPhotoURL] = useState<any | null>(null);
+  const [imgPhotoURL, setImgPhotoURL] = useState<any | null>([]);
 
   const refferal = "bY2t8YgKQygNnWpQVGeVOiwdv";
   const gender = ["Choose gender", "Male", "Female", "Alien"];
