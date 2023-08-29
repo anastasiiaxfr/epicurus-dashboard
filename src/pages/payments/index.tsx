@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-import Table from '../../components/Tables';
-import Card from "../../components/Card2";
+import Table from '../../framework/presentation/components/modules/Tables';
+import Card from "../../framework/presentation/components/modules/Card2";
+import Banner from "../../framework/presentation/components/modules/Banner";
 import CardPayments from "./Table";
 import Hero from "./Hero";
-import Banner from "../../components/Banner";
 
 import styles from "./styles.module.sass";
 

@@ -1,7 +1,7 @@
-import Tabs from '../../components/Tabs'
+import Tabs from '../../framework/presentation/components/modules/Tabs'
 
-import FormSettings from '../../components/Form/FormSettings'
-import FormSettingsPassword from '../../components/Form/FormSettingsPassword'
+import FormSettings from '../../framework/presentation/components/modules/Form/FormSettings'
+import FormSettingsPassword from '../../framework/presentation/components/modules/Form/FormSettingsPassword'
 
 const tabsItems = [
     { list: "General", item: <FormSettings /> },

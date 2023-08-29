@@ -1,0 +1,16 @@
+@import '../../../assets/styles/vars.sass'
+
+.formPeriod
+    +flex(flex, flex-start, flex-start, wrap)
+    gap: 15px
+
+    &__date, &__note
+        width: 100%
+
+    :global([class*='date_input'])
+        background: rgba($black, 0.4)
+        width: 100%
+
+    :global([class*='btn']), :global([class*='btn']>input)
+        width: 100%
+        max-width: 100%

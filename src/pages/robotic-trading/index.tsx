@@ -5,16 +5,16 @@ import nextId from "react-id-generator";
 
 import { ProductContext } from "../_products";
 
-import Banner from "../../components/Banner";
-import Card from "../../components/Card2";
-import Hgroup from "../../components/Hgroup";
-import HeroGroup from "../../components/HeroCta";
-import FormAddRT from "../../components/Form/FormAddRT";
-import FormChooseSubscription from "../../components/Form/FormChooseSubscription";
-import FormPayment from "../../components/Form/FormPayment";
-import FormPaymentTransaction from "../../components/Form/FormPaymentTransaction";
+import Banner from "../../framework/presentation/components/modules/Banner";
+import Card from "../../framework/presentation/components/modules/Card2";
+import Hgroup from "../../framework/presentation/components/modules/Hgroup";
+import HeroGroup from "../../framework/presentation/components/modules/HeroCta";
+import FormAddRT from "../../framework/presentation/components/modules/Form/FormAddRT";
+import FormChooseSubscription from "../../framework/presentation/components/modules/Form/FormChooseSubscription";
+import FormPayment from "../../framework/presentation/components/modules/Form/FormPayment";
+import FormPaymentTransaction from "../../framework/presentation/components/modules/Form/FormPaymentTransaction";
 
-import ModalConfirmation from "../../components/Modal/ModalConfirmation";
+import ModalConfirmation from "../../framework/presentation/components/modules/Modal/ModalConfirmation";
 
 import Table from "./Table";
 

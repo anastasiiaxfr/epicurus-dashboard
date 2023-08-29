@@ -1,0 +1,31 @@
+@import '../../../assets/styles/vars.sass'
+@import '../modal.module'
+
+.modal
+    &_inner
+        gap: var(--gapLg)
+
+    &_heading
+        width: 100%
+        text-align: center
+
+    &_row
+        width: 100%
+        +flex(flex, center, center, wrap)
+        gap: var(--gapLg)
+        row-gap: var(--gap)
+        margin: 0
+
+    &_col
+        text-align: center
+        &.active
+            & *
+                color: $main
+            
+                
+
+    &_val
+        +ft(52, 52, 900)
+        color: $green
+
+    

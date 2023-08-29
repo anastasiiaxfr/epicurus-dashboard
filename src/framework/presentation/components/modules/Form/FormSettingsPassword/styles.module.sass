@@ -1,0 +1,60 @@
+@import '../../../assets/styles/vars.sass'
+
+.form
+    &_row
+        display: grid
+        grid-template-columns: 1fr 1fr
+        align-items: center
+        gap: var(--gap)
+        padding: var(--gapLg) 0
+        border: 1px solid rgba($white, 0.04)
+        border-width: 1px 0
+
+        &:first-child
+            border-top: 0
+        &:last-child
+            border-bottom: 0
+        &:nth-last-child(2)
+            border-bottom: 0
+
+        input
+            border-color: $dark11
+
+    &_cta
+        +flex(flex, center, flex-end, wrap)
+        gap: var(--gap)
+
+    &_label
+        +ft(22, 22, 700)
+        letter-spacing: 0.02em
+        color: $white
+        b
+            display: block
+            margin-top: var(--gapXs)
+            +ft(14, 14*1.4, 500)
+            color: $text_10
+
+    +maw($md)
+        &_cta
+            justify-content: flex-start
+           
+        &_row
+            grid-template-columns: 1fr
+
+    +miw($sm)
+        &_cta_btm
+            display: none
+
+    +maw($sm)
+        &_cta
+            & *
+                width: 100%
+        &_label
+            +ft(14, 14*1.4, 700)
+
+        &_row
+            &:first-child
+                padding-top: 0
+                border-top: 0
+            .form_cta
+                display: none

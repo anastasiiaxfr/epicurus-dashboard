@@ -4,12 +4,12 @@ import { ref, database, remove } from "../../_firebase";
 import { AuthContext } from "../../_auth";
 import { ProductContext } from "../../_products";
 
-import Btn from "../../../components/Form/Btn";
+import Btn from "../../../framework/presentation/components/modules/Form/Btn";
 
-import ModalConfirmation from "../../../components/Modal/ModalConfirmation";
-import ModalError from "../../../components/Modal/ModalAuthError";
+import ModalConfirmation from "../../../framework/presentation/components/modules/Modal/ModalConfirmation";
+import ModalError from "../../../framework/presentation/components/modules/Modal/ModalAuthError";
 
-import DelIcon from "../../../assets/icons/del.svg";
+import DelIcon from "../../../framework/presentation/components/assets/icons/del.svg";
 
 import styles from "./style.module.sass";
 

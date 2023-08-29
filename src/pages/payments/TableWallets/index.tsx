@@ -5,15 +5,15 @@ import { AuthContext } from "../../_auth";
 
 import Image from "next/image";
 
-import Btn from "../../../components/Form/Btn";
+import Btn from "../../../framework/presentation/components/modules/Form/Btn";
 
-import ModalConfirmation from "../../../components/Modal/ModalConfirmation";
-import ModalError from "../../../components/Modal/ModalAuthError";
+import ModalConfirmation from "../../../framework/presentation/components/modules/Modal/ModalConfirmation";
+import ModalError from "../../../framework/presentation/components/modules/Modal/ModalAuthError";
 
-import DelIcon from "../../../assets/icons/del.svg";
-import CoinsIcon from "../../../assets/icons/wallet-coins.svg";
-import twIcon from "../../../assets/img/wallet/tw.png";
-import metamaskIcon from "../../../assets/img/wallet/metamask.png";
+import DelIcon from "../../../framework/presentation/components/assets/icons/del.svg";
+import CoinsIcon from "../../../framework/presentation/components/assets/icons/wallet-coins.svg";
+import twIcon from "../../../framework/presentation/components/assets/img/wallet/tw.png";
+import metamaskIcon from "../../../framework/presentation/components/assets/img/wallet/metamask.png";
 
 import styles from "./style.module.sass";
 

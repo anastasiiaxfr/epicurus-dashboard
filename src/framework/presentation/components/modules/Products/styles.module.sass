@@ -1,0 +1,58 @@
+@import '../../assets/styles/vars.sass'
+
+.products
+    +flex(flex, flex-end, space-between, nowrap)
+    width: 100%
+    margin: 0
+    @extend %banner
+    background: transparent
+    box-shadow: none
+    //border: 2px solid $main
+
+    &::before
+        padding-top: 50%
+
+    &::after
+        background: $grad18, $grad19
+
+    &:hover
+        box-shadow: $bxsd9
+
+    &_cards
+        display: grid
+        grid-template-columns: 1fr 1fr
+        gap: var(--gap)
+        width: 100%
+
+    &_content
+        position: relative
+        padding: var(--gapLg)
+        z-index: 1
+        +sz(100%, 100%)
+        backdrop-filter: blur(1px)
+        background-color: rgba($white, 0.02)
+
+    &_img
+        +ps(absolute, (b, 0), (r, 0))
+        +sz(100%, 100%)
+        object-fit: cover
+        z-index: -1
+        //opacity: 0.8
+        filter: contrast(1.25)
+       
+    &_title
+        letter-spacing: 0.05em
+        text-transform: uppercase
+
+    +maw($sm)
+        &_cards
+            grid-template-columns: 1fr
+
+    +maw($xs)
+        border-radius: var(--brsXs)
+
+        &_content
+            padding: 20px
+
+        &_title
+            +ft(12, 12, 600)

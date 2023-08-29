@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 
 
-import Btn from "../../../components/Form/Btn";
-import SliderField from "../../../components/Form/Slider";
-import InfoIcon from "../../../assets/icons/info.svg";
+import Btn from "../../../framework/presentation/components/modules/Form/Btn";
+import SliderField from "../../../framework/presentation/components/modules/Form/Slider";
+import InfoIcon from "../../../framework/presentation/components/assets/icons/info.svg";
 
 import styles from "./styles.module.sass";
 

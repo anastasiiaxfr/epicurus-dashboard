@@ -4,8 +4,8 @@ import Image from "next/image"
 import Link from "next/link"
 import Sidebar from "./sidebar"
 
-import LogoIcon from '../../assets/img/logo-sm.svg'
-import AuthorIcon from '../../assets/img/ava.png'
+import LogoIcon from '../../framework/presentation/components/assets/img/logo-sm.svg'
+import AuthorIcon from '../../framework/presentation/components/assets/img/ava.png'
 
 import styles from "./styles.module.sass"
 

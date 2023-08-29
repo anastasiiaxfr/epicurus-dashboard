@@ -4,12 +4,12 @@ import { ref, database, remove } from "../../_firebase";
 import { AuthContext } from "../../../pages/_auth";
 import { ProductContext } from "../../_products";
 
-import ModalConfirmation from "../../../components/Modal/ModalConfirmation";
-import ModalError from "../../../components/Modal/ModalAuthError";
-import ModalAddApiKey from "../../../components/Modal/ModaEditApiKey";
+import ModalConfirmation from "../../../framework/presentation/components/modules/Modal/ModalConfirmation";
+import ModalError from "../../../framework/presentation/components/modules/Modal/ModalAuthError";
+import ModalAddApiKey from "../../../framework/presentation/components/modules/Modal/ModaEditApiKey";
 
-import EditIcon from "../../../assets/icons/edit.svg";
-import DelIcon from "../../../assets/icons/del.svg";
+import EditIcon from "../../../framework/presentation/components/assets/icons/edit.svg";
+import DelIcon from "../../../framework/presentation/components/assets/icons/del.svg";
 
 import styles from "./style.module.sass";
 

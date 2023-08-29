@@ -5,11 +5,11 @@ import { AuthContext } from "../../../pages/_auth";
 import { ProductContext } from "../../_products";
 import nextId from "react-id-generator";
 
-import ModalConfirmation from "../../../components/Modal/ModalConfirmation";
-import ModalError from "../../../components/Modal/ModalAuthError";
-import Btn from "../../../components/Form/Btn";
+import ModalConfirmation from "../../../framework/presentation/components/modules/Modal/ModalConfirmation";
+import ModalError from "../../../framework/presentation/components/modules/Modal/ModalAuthError";
+import Btn from "../../../framework/presentation/components/modules/Form/Btn";
 
-import DelIcon from "../../../assets/icons/del.svg";
+import DelIcon from "../../../framework/presentation/components/assets/icons/del.svg";
 
 import styles from "./style.module.sass";
 

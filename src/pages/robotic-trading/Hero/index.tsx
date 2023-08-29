@@ -5,8 +5,8 @@ import { ProductContext } from "../../_products";
 
 import nextId from "react-id-generator";
 
-import Btn from "../../../components/Form/Btn";
-import Push from "../../../components/Push";
+import Btn from "../../../framework/presentation/components/modules/Form/Btn";
+import Push from "../../../framework/presentation/components/modules/Push";
 
 import styles from "./hero.module.sass";
 

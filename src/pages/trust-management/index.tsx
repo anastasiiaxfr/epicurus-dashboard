@@ -2,11 +2,11 @@ import { useState, useEffect, useContext } from "react";
 import { ProductContext } from "../../pages/_products";
 
 import Table from "./Table";
-import Banner from "../../components/Banner";
-import Hgroup from "../../components/Hgroup";
-import HeroGroup from "../../components/HeroCta";
-import FormAddTrustManagement from "../../components/Form/FormAddTrustManagement";
-import ModalConfirmation from "../../components/Modal/ModalConfirmation";
+import Banner from "../../framework/presentation/components/modules/Banner";
+import Hgroup from "../../framework/presentation/components/modules/Hgroup";
+import HeroGroup from "../../framework/presentation/components/modules/HeroCta";
+import FormAddTrustManagement from "../../framework/presentation/components/modules/Form/FormAddTrustManagement";
+import ModalConfirmation from "../../framework/presentation/components/modules/Modal/ModalConfirmation";
 
 function TrustManagementPage() {
   const [showForm, setShowForm] = useState(false);

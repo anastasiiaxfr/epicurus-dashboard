@@ -1,9 +1,9 @@
 import { useState } from "react";
 import Link from "next/link";
 
-import Btn from "../../../components/Form/Btn";
-import ArrowIcon from "../../../assets/icons/arr-rt.svg";
-import ArrowBtmIcon from "../../../assets/icons/arr-btm-0.svg";
+import Btn from "../../../framework/presentation/components/modules/Form/Btn";
+import ArrowIcon from "../../../framework/presentation/components/assets/icons/arr-rt.svg";
+import ArrowBtmIcon from "../../../framework/presentation/components/assets/icons/arr-btm-0.svg";
 
 import styles from "./styles.module.sass";
 

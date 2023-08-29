@@ -3,18 +3,18 @@ import { useRouter } from "next/router";
 
 import { ProductContext } from "../_products";
 
-import HeroGroup from "../../components/HeroCta";
-import Hgroup from "../../components/Hgroup";
-import Table from "../../components/Tables";
+import HeroGroup from "../../framework/presentation/components/modules/HeroCta";
+import Hgroup from "../../framework/presentation/components/modules/Hgroup";
+import Table from "../../framework/presentation/components/modules/Tables";
 import Hero from "./Hero";
 
-import ModalDepositAdd from "../../components/Modal/ModalDepositAdd";
-import ModalError from "../../components/Modal/ModalAuthError";
-import ModalSuccess from "../../components/Modal/ModalConfirmation";
+import ModalDepositAdd from "../../framework/presentation/components/modules/Modal/ModalDepositAdd";
+import ModalError from "../../framework/presentation/components/modules/Modal/ModalAuthError";
+import ModalSuccess from "../../framework/presentation/components/modules/Modal/ModalConfirmation";
 
-import FormPayment from "../../components/Form/FormPayment";
-import FormPaymentTransaction from "../../components/Form/FormPaymentTransaction";
-import Banner from "../../components/Banner";
+import FormPayment from "../../framework/presentation/components/modules/Form/FormPayment";
+import FormPaymentTransaction from "../../framework/presentation/components/modules/Form/FormPaymentTransaction";
+import Banner from "../../framework/presentation/components/modules/Banner";
 
 function DepositSinglePage() {
   const router = useRouter();

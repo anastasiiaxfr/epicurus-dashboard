@@ -4,15 +4,15 @@ import { ProductContext } from "../_products";
 import Card from "./Card";
 import Calculator from "./Calculator";
 import Table from "./Table";
-import Hgroup from "../../components/Hgroup";
-import HeroGroup from "../../components/HeroCta";
-import Banner from "../../components/Banner";
+import Hgroup from "../../framework/presentation/components/modules/Hgroup";
+import HeroGroup from "../../framework/presentation/components/modules/HeroCta";
+import Banner from "../../framework/presentation/components/modules/Banner";
 
-import ModalWallet from "../../components/Modal/ModalWalletChoose";
-import ModalDeposit from "../../components/Modal/ModalDeposit";
-import ModalConfirmation from "../../components/Modal/ModalConfirmation";
+import ModalWallet from "../../framework/presentation/components/modules/Modal/ModalWalletChoose";
+import ModalDeposit from "../../framework/presentation/components/modules/Modal/ModalDeposit";
+import ModalConfirmation from "../../framework/presentation/components/modules/Modal/ModalConfirmation";
 
-import FormDeposit from "../../components/Form/FormAddDeposit";
+import FormDeposit from "../../framework/presentation/components/modules/Form/FormAddDeposit";
 
 function DepositPage() {
   const { newDeposit }: any = useContext(ProductContext);

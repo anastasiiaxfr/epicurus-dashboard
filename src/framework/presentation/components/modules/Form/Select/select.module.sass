@@ -1,0 +1,120 @@
+@import '../../../assets/styles/vars.sass'
+
+
+.select
+    position: relative
+    height: 50px
+    border: 1px solid transparent
+    border: $bd4
+    background-color: $dark11
+    border-radius: var(--brsXs)
+    transition: $trs
+
+    &:focus, &:active, &:focus-visible
+        color: $white
+
+    &:hover
+        border-color: $main
+
+    &.selected
+        border-color: $green
+        input
+            color: $white
+
+    &.error
+        border-color: $red
+
+    input, &__options
+        position: relative
+        width: 100%
+        min-height: 45px
+        padding: 12px 20px
+        +ft(14, 17, 400, $ffText)
+        text-align: left
+        color: $text_1
+
+    input
+        position: relative
+        z-index: 1
+        background-color: transparent
+        border: none
+        cursor: pointer
+        &:focus-visible, &:focus, &:active
+            cursor: pointer
+
+    &__icon
+        display: block
+        +ps(absolute, (r, 15px), (t, 0), (b, 0))
+        z-index: 1
+        margin: auto
+        color: $text_1
+        &.active
+            transform: rotate(180deg)
+
+    &__label
+        +flex(flex, center, flex-start, wrap)
+        gap: var(--gap)
+        margin-bottom: 8px
+        +ft(18, 18, 600) 
+        letter-spacing: 0.04em 
+        color: inherit 
+        +maw($xs)
+            flex-wrap: wrap
+            +ft(14, 14, 600)
+
+    &__wrapper
+        position: relative
+
+    &__options
+        +ps(absolute, (l, 0))
+        z-index: 100
+        +flex(flex, flex-start, flex-start, nowrap, column)
+        gap: 10px
+        margin-top: 15px
+        padding: 15px 20px
+        list-style-type: none
+        user-select: none
+        border: 1px solid transparent
+        border-radius: var(--brsXs)
+        background-color: $dark11
+
+        &_wrap
+            +flex(flex, flex-start, flex-start, nowrap, column)
+            gap: 10px
+            width: 100%
+            max-height: 125px
+            overflow: hidden
+            overflow-y: scroll
+            @extend %scroll
+
+            &::-webkit-scrollbar-track
+                background-color: $black
+        
+        li
+            width: 100%
+            cursor: pointer
+            user-select: none
+
+            a
+                color: $main
+
+            &::first-letter
+                text-transform: uppercase
+
+            
+      
+.info
+    justify-content: start
+    svg
+        display: none
+    & > div 
+        +flex(flex, center, flex-start, nowrap)
+        gap: var(--gapSm)
+        &::before
+            content: '|'
+            color: rgba($white, 0.06)
+            +maw($xs)
+                display: none
+    +maw($xs)
+        width: 100%
+        flex: 1 0 auto

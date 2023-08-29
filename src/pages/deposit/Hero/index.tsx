@@ -1,5 +1,5 @@
-import Chart from "../../../components/Chart";
-import ChartArea from "../../../components/ChartArea";
+import Chart from "../../../framework/presentation/components/modules/Chart";
+import ChartArea from "../../../framework/presentation/components/modules/ChartArea";
 
 import styles from "./hero.module.sass";
 

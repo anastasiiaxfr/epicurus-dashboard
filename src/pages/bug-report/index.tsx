@@ -1,5 +1,5 @@
 // import Link from 'next/link'
-import Hero from '../../components/Hero'
+import Hero from '../../framework/presentation/components/modules/Hero'
 // import Table from '../../components/Tables'
 // import DownloadIcon from '../../assets/icons/download.svg'
 

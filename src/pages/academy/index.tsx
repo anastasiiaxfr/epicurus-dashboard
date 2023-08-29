@@ -1,7 +1,7 @@
-import Push from '../../components/Push'
-import Hero from '../../components/Hero'
-import Table from '../../components/Tables'
-import Hgroup from "../../components/Hgroup";
+import Push from '../../framework/presentation/components/modules/Push'
+import Hero from '../../framework/presentation/components/modules/Hero'
+import Table from '../../framework/presentation/components/modules/Tables'
+import Hgroup from "../../framework/presentation/components/modules/Hgroup";
 
 
 function AcademyPage() {

@@ -1,0 +1,41 @@
+@import '../../../assets/styles/vars.sass'
+@import '../modal.module'
+
+.modal
+    &__content
+        position: relative
+        padding-top: 40px
+
+    &__title
+        +ft(28, 42, 600)
+
+    &__text
+        margin-bottom: 20px
+        margin-top: 20px
+        +ft(14, 18, 400)
+    
+    &__note
+        margin-bottom: 20px
+        margin-top: 20px
+        +ft(12, 12*1.4, 400)
+
+    &__close
+        +ps(absolute, (t, 20px), (r, 20px))
+        +sz(20px, 20px)
+
+    +maw($xs)
+        &__title
+            +ft(18, 18, 600)
+
+.form
+    margin-top: 30px
+    label
+        +ft(14, 14, 600)
+
+    &__row
+        &:not(:last-child)
+            margin-bottom: 20px
+
+    &__note
+        +ft(13, 13, 400)
+        text-align: center

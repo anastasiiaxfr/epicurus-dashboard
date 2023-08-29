@@ -1,0 +1,123 @@
+@import '../../assets/styles/vars.sass'
+
+.steps
+    width: 100%
+    padding: var(--gapLg)
+    background-color: $dark5
+    border-radius: var(--brsLg)
+    box-shadow: $bxsd11
+
+    &_header
+        +flex(flex, center, space-between, wrap)
+        gap: var(--gap)
+        padding-bottom: var(--gapLg)
+
+    &_container
+        position: relative
+        display: grid
+        grid-template-columns: repeat(3, 1fr)
+        gap: var(--gap)
+
+        &::after
+            content: ''
+            +ps(absolute, (t, 0), (b, 0), (l, 0))
+            margin: auto
+            +sz(100%, 0px)
+            border-top: 2px dashed $stroke7
+            border-radius: inherit
+
+    &_title
+        +ft(22, 22, 700)
+        letter-spacing: 0.02em
+        color: $main
+
+    &_link
+        +ft(16, 16, 500)
+        color: $magenta2
+
+    &_icon
+        +flex(flex, center, center, nowrap)
+        +sz(60px, 60px)
+        padding: 16px
+        border-radius: 50%
+        background-color: $green
+        background: $grad15
+        box-shadow: $bxsd6
+
+    &_content
+        flex: 1
+        +flex(flex, center, center, nowrap, column)
+        gap: var(--gapMd)
+        text-align: center
+        +ft(18, 18*1.4, 700)
+
+    &_item
+        +flex(flex, flex-start, space-between, nowrap, column)
+        width: 100%
+        margin: 0
+        padding: 20px
+        //background-color: rgba($white, 0.06)
+        @extend %card3
+        //border: $bd5
+        border: $bd4
+
+        // &:not([class*=active])
+        //     &::before
+        //         display: none
+
+        &.active
+            //box-shadow: $bxsd1
+            border-color: $main
+
+        &.completed
+            border-color: $green
+
+        &_header
+            margin-bottom: var(--gapXs)
+            +ft(22, 22, 700)
+            letter-spacing: 0.02em
+            color: $main
+        
+        &_text
+            margin-bottom: var(--gapLg)
+            +ft(16, 16*1.4, 600)
+            color: $text_16
+
+        &_cta
+            margin-top: auto
+            [class*=secondary]
+                background: darken($dark, 1.5)
+
+    
+    +maw($md)
+        &_container
+            grid-template-columns: 1fr 1fr
+
+            &::after
+                display: none
+
+    +maw($sm)
+        padding: var(--gap)
+
+        &_container
+            grid-template-columns: 1fr
+
+        &_content
+            +ft(16, 16*1.4, 600)
+
+        &_item
+            &_header
+                +ft(16, 16*1.4, 700)
+                text-transform: uppercase
+            &_text
+                margin-bottom: var(--gap)
+                +ft(14, 14*1.4, 600)
+
+            &_cta
+                width: 100%
+
+    +maw($xs)
+        &_header
+            justify-content: center
+            text-align: center
+            padding-bottom: var(--gap)

@@ -1,15 +1,15 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 
 import { ref, database, remove } from "../../_firebase";
 import { AuthContext } from "../../../pages/_auth";
 import { ProductContext } from "../../_products";
 
-import Btn from "../../../components/Form/Btn";
-import ModalConfirmation from "../../../components/Modal/ModalConfirmation";
-import ModalError from "../../../components/Modal/ModalAuthError";
-import ModalAddApiKey from "../../../components/Modal/ModaEditApiKey";
+import Btn from "../../../framework/presentation/components/modules/Form/Btn";
+import ModalConfirmation from "../../../framework/presentation/components/modules/Modal/ModalConfirmation";
+import ModalError from "../../../framework/presentation/components/modules/Modal/ModalAuthError";
+import ModalAddApiKey from "../../../framework/presentation/components/modules/Modal/ModaEditApiKey";
 
-import DelIcon from "../../../assets/icons/del.svg";
+import DelIcon from "../../../framework/presentation/components/assets/icons/del.svg";
 
 import styles from "./style.module.sass";
 

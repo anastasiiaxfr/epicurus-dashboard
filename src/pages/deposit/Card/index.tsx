@@ -1,4 +1,4 @@
-import Btn from "../../../components/Form/Btn";
+import Btn from "../../../framework/presentation/components/modules/Form/Btn";
 import styles from "./card.module.sass";
 
 export default function Card({ deposits }: any) {

@@ -1,0 +1,64 @@
+@import '../../assets/styles/vars.sass'
+
+.modal
+    +ps(fixed, (t, 0), (b, 0), (l, 0), (r, 0))
+    z-index: 1300
+    +flex(flex, center, center, nowrap, column)
+    gap: var(--gap)
+    background: rgba($black, 0.5)
+    backdrop-filter: blur(2px)
+
+    &_content
+        +flex(flex, center, center, nowrap, column)
+        gap: var(--gapLg)
+        position: relative
+        max-width: 500px
+        width: 90%
+        margin-left: auto
+        margin-right: auto
+        padding: 30px
+        border-radius: var(--brsLg)
+        background-color: $dark8
+        box-shadow: $bxsd1
+        animation: slideInUp 0.75s ease-in-out
+
+    &_row
+        +flex(flex, center, center, nowrap)
+        gap: var(--gap)
+
+    &_inner
+        +flex(flex, flex-start, flex-start, nowrap, column)
+        gap: var(--gap)
+  
+    &_heading
+        +ft(24, 24*1.4, 700)
+        color: $main
+
+    &_title
+        +ft(24, 24*1.2, 700)
+        //margin-bottom: var(--gapMd)
+
+    &_text
+        +ft(14, 18, 400)
+        color: $text_6
+        white-space: pre-wrap
+
+    &_close
+        +sz(30px, 30px)
+
+    &_icon
+        +flex(flex, center, center, nowrap)
+        margin: 0 auto 
+        +sz(80px, 80px)
+        border-radius: 50%
+        background-image: $grad11
+        box-shadow: $bxsd4
+
+    &_cta
+        +flex(flex, center, center, nowrap)
+        gap: var(--gap)
+        width: 100%
+
+    +maw($xs)
+        &_title
+            +ft(18, 18, 600)

@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 
-import FormAddApiKey from "../../../components/Form/FormAddApiKey";
-import Btn from "../../../components/Form/Btn";
+import FormAddApiKey from "../../../framework/presentation/components/modules/Form/FormAddApiKey";
+import Btn from "../../../framework/presentation/components/modules/Form/Btn";
 
-import RocketIcon from "../../../assets/icons/rocket.svg";
-import PlusIcon from "../../../assets/icons/plus-md.svg";
+import RocketIcon from "../../../framework/presentation/components/assets/icons/rocket.svg";
+import PlusIcon from "../../../framework/presentation/components/assets/icons/plus-md.svg";
 
 
 import styles from "./hero.module.sass";

@@ -2,17 +2,16 @@ import React, { useEffect, useState, createContext } from "react";
 import * as fb from "./_firebase";
 // import { useAuthState } from 'react-firebase-hooks/auth'
 
-import LoadingModal from "../components/Loading/Modal";
-import Preloader from "../components/Preloader";
+import LoadingModal from "../framework/presentation/components/modules/Loading/Modal";
+import Preloader from "../framework/presentation/components/modules/Preloader";
 
 export const AuthContext = createContext({});
 
 type FirebaseObject = {
-  auth: any; 
-  onAuthStateChanged: any; 
-  onIdTokenChanged: any; 
+  auth: any;
+  onAuthStateChanged: any;
+  onIdTokenChanged: any;
 };
-
 
 export default function AuthProvider({ children }: any) {
   // const [user] = useAuthState(auth)

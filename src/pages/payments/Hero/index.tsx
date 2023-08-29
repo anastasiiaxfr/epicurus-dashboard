@@ -9,7 +9,7 @@ import { useWeb3Modal } from "@web3modal/react";
 import { useAccount, useDisconnect } from "wagmi";
 
 import TableWallets from "../TableWallets";
-import HeroGroup from "../../../components/HeroCta";
+import HeroGroup from "../../../framework/presentation/components/modules/HeroCta";
 
 export default function Hero() {
   const htmlId = nextId("wallet-");
