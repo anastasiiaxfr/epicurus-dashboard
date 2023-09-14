@@ -7,6 +7,7 @@ import Input from "../../Form/Input";
 import Btn from "../../Form/Btn";
 import Checkbox from "../../Form/Checkbox";
 import ModalPolicy from "../../Modal/ModalPolicy";
+import ModalError from "../../Modal/ModalAuthError";
 
 import styles from "./styles.module.sass";
 
@@ -26,9 +27,16 @@ const modalPolicy = {
   btnText2: "Cansel",
 };
 
-export default function FormAddApiKey({ show, toggleModal, setFieldPolicy, setFieldName, setFieldKey, setFieldSecret }: any) {
+export default function FormAddApiKey({
+  show,
+  toggleModal,
+  setFieldPolicy,
+  setFieldName,
+  setFieldKey,
+  setFieldSecret,
+}: any) {
   const reg_name = /^[0-9a-zA-Z\s-]+$/;
-  
+
   const htmlId = nextId("api-key-");
   const { currentUser }: any = useContext(AuthContext);
   const userID = currentUser.uid;
@@ -38,12 +46,21 @@ export default function FormAddApiKey({ show, toggleModal, setFieldPolicy, setFi
   const [validation, setValidation] = useState(false);
   const [validationCheckbox, setValidationCheckbox] = useState(false);
 
+  const [formSend, setFormSend] = useState(false);
+
+
   const [submit, setSubmit] = useState(false);
   const [reset, setReset] = useState(false);
   const [resetCheckbox, setResetCheckbox] = useState(false);
   const [checkedCheckbox, setCheckedCheckbox] = useState(false);
 
   const [openModalPolicy, setOpenModalPolicy] = useState(false);
+
+  const [openModalError, setOpenModalError] = useState(false);
+  const modalError = {
+    title: "Please Try Again",
+    btnText: "Accept",
+  };
 
   const handlePolicyClick = () => {
     setOpenModalPolicy(true);
@@ -54,23 +71,24 @@ export default function FormAddApiKey({ show, toggleModal, setFieldPolicy, setFi
     e.preventDefault();
     setSubmit((prev) => !prev);
     if (form.current) {
-      const api_name = (form.current as any).api_name.value.replaceAll(" ", "-");
+      const api_name = (form.current as any).api_name.value.replaceAll(
+        " ",
+        "-"
+      );
       const api_key = (form.current as any).api_key.value;
       const api_secret = (form.current as any).api_secret.value;
       const api_start_date = Date.now();
 
-
-      if (!disabled && validation && validationCheckbox) {
+      if (!disabled && validation && validationCheckbox){
         setFieldPolicy((prev: any) => !prev);
         setResetCheckbox((prev: any) => !prev);
-        sendToFB(api_name, api_key, api_secret, api_start_date);
-        toggleModal(true);
-        show(false);
-        (form.current as any).reset();
-        setReset((prev: any) => !prev);
+        sendToFB(api_name, api_key, api_secret, form);
       }
+
     }
   };
+
+
 
   const onResetFrom = () => {
     (form.current as any).reset();
@@ -79,21 +97,45 @@ export default function FormAddApiKey({ show, toggleModal, setFieldPolicy, setFi
     setResetCheckbox((prev: any) => !prev);
   };
 
-  const sendToFB = (api_name: any, api_key: any, api_secret: any, api_start_date: any) => {
-    set(ref(database, "apiKey/" + userID + "/" + htmlId), {
-      api_enable: true,
-      api_status: 'enable',
-      api_name: api_name,
+  async function sendToFB(
+    api_name: any,
+    api_key: any,
+    api_secret: any,
+    form: any
+    ){
+    const data = {
+      title: api_name,
       api_key: api_key,
-      api_secret: api_secret,
-      api_start_date: api_start_date
-    });
-  }; 
+      secret_key: api_secret,
+      vendor: "Binance",
+    };
+    //https://f2ce-62-216-37-74.ngrok-free.app/v1/key/create/
+    let res = await fetch("https://f2ce-62-216-37-74.ngrok-free.app/v1/key/create/", {
+      method: "POST",
+      body: JSON.stringify({
+        data,
+      }),
+      headers: {
+        "content-type": "application/json",
+      },
+    }).then(response => {
+      if (!response.ok){
+        console.log(response.status);
+        setOpenModalError(true);
+        (form.current as any).reset();
+        //onResetFrom();
+        setReset(true);
+        
+      } else {
+        toggleModal(true);
+        setFormSend(true);
+      }
+    })
+  };
 
   useEffect(() => {
     validationCheckbox ? setFieldPolicy(true) : setFieldPolicy(false);
   }, [validationCheckbox]);
-
 
   return (
     <>
@@ -104,7 +146,12 @@ export default function FormAddApiKey({ show, toggleModal, setFieldPolicy, setFi
         theme="success"
         toggleCheckbox={setCheckedCheckbox}
       />
-
+      <ModalError
+        openModal={openModalError}
+        setModalOpen={setOpenModalError}
+        props={modalError}
+        theme="error"
+      />
       <form
         action="/"
         method="POST"
@@ -190,7 +237,7 @@ export default function FormAddApiKey({ show, toggleModal, setFieldPolicy, setFi
         </div>
 
         <div className={styles.form_cta}>
-          <Btn label="Create Key" onClick={onAddKey} disabled={disabled}/>
+          <Btn label="Create Key" onClick={onAddKey} disabled={disabled} />
           <Btn label="Reset form" onClick={onResetFrom} theme="secondary" />
         </div>
       </form>

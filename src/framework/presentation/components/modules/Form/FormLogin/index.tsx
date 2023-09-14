@@ -160,12 +160,12 @@ export default function FormLogin({
             />
           </form>
 
-          <div
+          {/* <div
             onClick={() => toggleModalReset()}
             className={styles.form_reset}
           >
             Reset <b>password</b>
-          </div>
+          </div> */}
 
           <div className={styles.form_cta}>
             <div onClick={signInGoogle} className={styles.btn_cta}>

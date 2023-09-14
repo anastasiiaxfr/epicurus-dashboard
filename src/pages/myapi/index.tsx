@@ -21,8 +21,10 @@ function MyApiPage() {
   const [fieldPolicy, setFieldPolicy] = useState(false);
 
   useEffect(() => {
+   
     const successSteps = [fieldPolicy, fieldKey, fieldSecret, fieldName].filter(Boolean).length;
-    setSteps(totalSteps - successSteps)
+      setSteps(totalSteps - successSteps)
+   
   }, [fieldPolicy, fieldKey, fieldSecret, fieldName]);
 
   useEffect(() => {

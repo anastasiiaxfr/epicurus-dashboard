@@ -20,6 +20,7 @@ export default function AuthProvider({ children }: any) {
   const { auth, onAuthStateChanged, onIdTokenChanged }: FirebaseObject = fb;
 
   const [currentUser, setCurrentUser] = useState(true);
+  const [currentToken, setCurrentToken] = useState(null);
   const [pending, setPending] = useState(true);
 
   // const queryParams = new URLSearchParams(window.location.search);
@@ -46,11 +47,11 @@ export default function AuthProvider({ children }: any) {
   useEffect(() => {
     onAuthStateChanged(auth, async (user: any) => {
       //if(user){alert(user)}
-
       if (user) {
         // User is signed in.
         const uid = user.uid;
         setCurrentUser(user);
+        setCurrentToken(uid);
         setPending(false);
       } else {
         setCurrentUser(false);
@@ -79,6 +80,7 @@ export default function AuthProvider({ children }: any) {
         value={{
           auth,
           currentUser,
+          currentToken
         }}
       >
         {!currentUser && <LoadingModal />}
@@ -93,6 +95,7 @@ export default function AuthProvider({ children }: any) {
         value={{
           auth,
           currentUser,
+          currentToken
         }}
       >
         {children}

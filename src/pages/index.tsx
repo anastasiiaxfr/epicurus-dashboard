@@ -28,14 +28,14 @@ function HomePage() {
       title: "Trust Management",
       text: "",
       img: ProductImg1,
-      url: "/trust-management",
+      url: "/",
     },
 
     {
       title: "Robotic Trading",
       text: "",
       img: ProductImg2,
-      url: "/robotic-trading",
+      url: "/",
     },
 
     {
@@ -49,7 +49,7 @@ function HomePage() {
       title: "Academy",
       text: "",
       img: ProductImg4,
-      url: "/academy",
+      url: "/",
     },
   ];
 
