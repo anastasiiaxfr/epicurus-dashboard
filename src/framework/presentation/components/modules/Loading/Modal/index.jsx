@@ -8,7 +8,7 @@ import FormReset from '../../Form/FormReset'
 
 import styles from './styles.module.sass'
 
-export default function LoadingModal() {
+export default function LoadingModal({setUserToken}) {
     const { auth, currentUser } = useContext(AuthContext)
 
     const [show, setShow] = useState(false)
@@ -53,23 +53,24 @@ export default function LoadingModal() {
     useEffect(() => {
         if (currentUser) {
             //alert(user.displayName)
-            setOpenLogin(false)
+            //setOpenLogin(false)
             setShow(true)
             setBlockModalHide(false)
         } else {
-            setOpenLogin(true)
+            //setOpenLogin(true)
             signOut()
         }
     }, [currentUser])
 
     return (
         <div className={styles.loading_modal}> 
-           <Modal openModal={openLogin} setModalOpen={setOpenLogin} blockModalHide={blockModalHide}>
-                <FormLogin toggleModal={handleToggleRegistration} setOpenLogin={setOpenLogin} toggleModalReset={handleModalReset} />
+           <Modal openModal={openLogin} setModalOpen={setOpenLogin} blockModalHide={blockModalHide} setUserToken={setUserToken}>
+                <FormLogin toggleModal={handleToggleRegistration} setOpenLogin={setOpenLogin} 
+                setUserToken={setUserToken} toggleModalReset={handleModalReset} />
             </Modal>
 
             <Modal openModal={openRegister} setModalOpen={setOpenRegister} blockModalHide={blockModalHide}>
-                <FormRegistration toggleModalReset={handleModalRegistration} toggleModalLogin={handleModalLogin} setOpenRegister={setOpenRegister} />
+                <FormRegistration toggleModalReset={handleModalRegistration} toggleModalLogin={handleModalLogin} setOpenRegister={setOpenRegister} setUserToken={setUserToken} />
             </Modal>
 
             <Modal openModal={openReset} setModalOpen={setOpenReset} blockModalHide={blockModalHide}>

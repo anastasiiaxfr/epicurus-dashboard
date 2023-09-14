@@ -1,4 +1,6 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext, useEffect } from "react";
+import { AuthContext } from "../../../../../../pages/_auth";
+import ModalError from "../../Modal/ModalAuthError";
 
 import {
   signInWithPopup,
@@ -27,12 +29,20 @@ export default function FormLogin({
   toggleModal,
   setOpenLogin,
   toggleModalReset,
+  setUserToken
 }: any) {
+ 
+  
+
   const reg_email = /^[^\s@#$%]+@[^\s@#$%]+\.[^\s@#$%]+$/;
 
   const form = useRef(null);
 
   const [openModalError, setOpenModalError] = useState(false);
+  const modalError = {
+    title: "Please Try Again",
+    btnText: "Accept",
+  };
 
   initFirebase();
   const provider = new GoogleAuthProvider();
@@ -49,7 +59,6 @@ export default function FormLogin({
       const errorCode = error.code;
       const errorMessage = error.message;
       const email = error.email;
-      setOpenModalError(true);
     }
   };
 
@@ -57,6 +66,23 @@ export default function FormLogin({
   const [submit, setSubmit] = useState(false);
   const [reset, setReset] = useState(false);
 
+  const { currentToken }: any = useContext(AuthContext);
+  useEffect(() => {
+    fetch("https://f2ce-62-216-37-74.ngrok-free.app/v1/auth/login/firebase", {
+      method: "POST",
+      headers: {Authentication: `Bearer ${currentToken}`},
+      mode: 'no-cors'
+    }).then(response => {
+      if (!response.ok){
+        console.log(response.status);
+        currentToken && setOpenModalError(true);
+      } else {
+        setUserToken(true);
+        alert('send')
+      }
+    });
+  }, [currentToken, submit])
+  
   const signIn = (e: any) => {
     e.preventDefault();
     setSubmit((prev) => !prev);
@@ -73,14 +99,11 @@ export default function FormLogin({
             const user = userCredential.user;
             //alert(user.accessToken);
             //setOpenLogin(false);
-            
-
             // ...
           })
           .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
-            setOpenModalError(true);
             
             // login_email &&
             //   sendPasswordResetEmail(auth, login_email)
@@ -105,6 +128,12 @@ export default function FormLogin({
           openModal={openModalError}
           setModalOpen={setOpenModalError}
           props={modalInfo}
+        />
+        <ModalError
+        openModal={openModalError}
+        setModalOpen={setOpenModalError}
+        props={modalError}
+        theme="error"
         />
 
         <div className={styles.form_wrap}>
@@ -168,10 +197,10 @@ export default function FormLogin({
           </div> */}
 
           <div className={styles.form_cta}>
-            <div onClick={signInGoogle} className={styles.btn_cta}>
+            {/* <div onClick={signInGoogle} className={styles.btn_cta}>
               <b>Login with</b> Google
             </div>
-            <span>OR</span>
+            <span>OR</span> */}
             <div onClick={() => toggleModal()} className={styles.btn_cta}>
               Sign Up
             </div>

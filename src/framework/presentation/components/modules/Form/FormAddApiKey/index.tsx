@@ -88,8 +88,6 @@ export default function FormAddApiKey({
     }
   };
 
-
-
   const onResetFrom = () => {
     (form.current as any).reset();
     show(false);

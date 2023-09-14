@@ -21,13 +21,19 @@ export default function AuthProvider({ children }: any) {
 
   const [currentUser, setCurrentUser] = useState(true);
   const [currentToken, setCurrentToken] = useState(null);
+  const [userToken, setUserToken] = useState(null);
+
   const [pending, setPending] = useState(true);
+
+
 
   // const queryParams = new URLSearchParams(window.location.search);
   // const token = queryParams.get("token");
 
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
+    //alert(`test ${userToken}`);
     setTimeout(() => setLoading(false), 1500);
   }, []);
 
@@ -51,13 +57,14 @@ export default function AuthProvider({ children }: any) {
         // User is signed in.
         const uid = user.uid;
         setCurrentUser(user);
-        setCurrentToken(uid);
+        setCurrentToken(user.accessToken);
         setPending(false);
       } else {
         setCurrentUser(false);
         setPending(true);
       }
     });
+
     onIdTokenChanged(auth, async (user: any) => {
       if (user) {
         try {
@@ -74,24 +81,24 @@ export default function AuthProvider({ children }: any) {
     });
   }, []);
 
-  if (pending) {
-    return (
-      <AuthContext.Provider
+ 
+  console.log('userToken', userToken)
+
+  return (
+    <>
+      {loading && <Preloader />}
+
+      {userToken === null && <AuthContext.Provider
         value={{
           auth,
           currentUser,
           currentToken
         }}
       >
-        {!currentUser && <LoadingModal />}
-      </AuthContext.Provider>
-    );
-  }
+      <LoadingModal setUserToken={setUserToken} />
+      </AuthContext.Provider>}
 
-  return (
-    <>
-      {loading && <Preloader />}
-      <AuthContext.Provider
+      {userToken !== null && <AuthContext.Provider
         value={{
           auth,
           currentUser,
@@ -100,6 +107,7 @@ export default function AuthProvider({ children }: any) {
       >
         {children}
       </AuthContext.Provider>
+      }
     </>
   );
 }
