@@ -38,7 +38,7 @@ export default function FormAddApiKey({
   const reg_name = /^[0-9a-zA-Z\s-]+$/;
 
   const htmlId = nextId("api-key-");
-  const { currentUser }: any = useContext(AuthContext);
+  const { currentUser, userToken }: any = useContext(AuthContext);
   const userID = currentUser.uid;
 
   const form = useRef(null);
@@ -47,7 +47,6 @@ export default function FormAddApiKey({
   const [validationCheckbox, setValidationCheckbox] = useState(false);
 
   const [formSend, setFormSend] = useState(false);
-
 
   const [submit, setSubmit] = useState(false);
   const [reset, setReset] = useState(false);
@@ -79,18 +78,17 @@ export default function FormAddApiKey({
       const api_secret = (form.current as any).api_secret.value;
       const api_start_date = Date.now();
 
-      if (!disabled && validation && validationCheckbox){
-        setFieldPolicy((prev: any) => !prev);
-        setResetCheckbox((prev: any) => !prev);
+      if (!disabled && validation && validationCheckbox) {
+        //setFieldPolicy((prev: any) => !prev);
+        //setResetCheckbox((prev: any) => !prev);
         sendToFB(api_name, api_key, api_secret, form);
       }
-
     }
   };
 
   const onResetFrom = () => {
-    (form.current as any).reset();
     show(false);
+    (form.current as any).reset();
     setReset((prev: any) => !prev);
     setResetCheckbox((prev: any) => !prev);
   };
@@ -100,36 +98,35 @@ export default function FormAddApiKey({
     api_key: any,
     api_secret: any,
     form: any
-    ){
-    const data = {
-      title: api_name,
-      api_key: api_key,
-      secret_key: api_secret,
-      vendor: "Binance",
-    };
-    //https://f2ce-62-216-37-74.ngrok-free.app/v1/key/create/
-    let res = await fetch("https://f2ce-62-216-37-74.ngrok-free.app/v1/key/create/", {
-      method: "POST",
-      body: JSON.stringify({
-        data,
-      }),
-      headers: {
-        "content-type": "application/json",
-      },
-    }).then(response => {
-      if (!response.ok){
-        console.log(response.status);
-        setOpenModalError(true);
-        (form.current as any).reset();
-        //onResetFrom();
-        setReset(true);
-        
-      } else {
-        toggleModal(true);
-        setFormSend(true);
+  ) {
+    let res = fetch(
+      "https://6054-176-36-35-141.ngrok-free.app/v1/key/create/",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          title: api_name,
+          secret_key: api_secret,
+          api_key: api_key,
+          vendor: "Binance",
+        }),
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${userToken}`,
+        },
       }
-    })
-  };
+    ).then((response) => {
+      if (!response.ok) {
+        console.log(response.status);
+        (form.current as any).reset();
+        setReset(true);
+        setOpenModalError(true);
+        //onResetFrom();
+      } else {
+        onResetFrom();
+        toggleModal(true);
+      }
+    });
+  }
 
   useEffect(() => {
     validationCheckbox ? setFieldPolicy(true) : setFieldPolicy(false);

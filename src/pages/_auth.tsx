@@ -36,7 +36,6 @@ export default function AuthProvider({ children }: any) {
     //alert(`test ${userToken}`);
     setTimeout(() => setLoading(false), 1500);
   }, []);
-
   // useEffect(() => {
   //   if(token){
   //       signInWithCustomToken(auth, token)
@@ -81,14 +80,13 @@ export default function AuthProvider({ children }: any) {
     });
   }, []);
 
- 
-  console.log('userToken', userToken)
+  //alert(userToken)
 
   return (
     <>
       {loading && <Preloader />}
 
-      {userToken === null && <AuthContext.Provider
+      {(userToken === null || userToken === undefined) || !currentUser ? <AuthContext.Provider
         value={{
           auth,
           currentUser,
@@ -96,18 +94,18 @@ export default function AuthProvider({ children }: any) {
         }}
       >
       <LoadingModal setUserToken={setUserToken} />
-      </AuthContext.Provider>}
-
-      {userToken !== null && <AuthContext.Provider
+      </AuthContext.Provider> :
+      <AuthContext.Provider
         value={{
           auth,
           currentUser,
-          currentToken
+          currentToken,
+          userToken
         }}
       >
         {children}
-      </AuthContext.Provider>
-      }
+      </AuthContext.Provider>}
+      
     </>
   );
 }

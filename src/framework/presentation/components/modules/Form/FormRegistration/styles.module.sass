@@ -3,6 +3,23 @@
 
 .form
     margin-top: 25px
+    
+    &_reset
+        +flex(flex, center, center, nowrap)
+        gap: var(--gapXs)
+        position: relative
+        margin-top: var(--gapLg)
+        text-align: center
+        color: $main
+        +ft(14, 14, 500)
+        cursor: pointer
+        b
+            font-weight: inherit
+        &::before, &::after
+            content: ''
+            display: block
+            +sz(10%, 2px)
+            background-color: $main
 
     &_cta
         +flex(flex, center, flex-start, wrap)
@@ -59,7 +76,7 @@
 
 
 .btn_cta 
-    +sz(auto, 40px)
+    +sz(auto, 45px)
     flex: 1
     +flex(flex, center, center, nowrap)
     padding: 10px 20px

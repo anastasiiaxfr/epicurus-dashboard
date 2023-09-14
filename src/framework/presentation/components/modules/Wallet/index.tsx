@@ -30,14 +30,14 @@ export default function wallet() {
 
   return (
     <div className={`${styles.wallet}`}>
-      <div
+      {data.wallet && <div
         className={`${styles.wallet_icon_wrap} ${show ? styles.active : ""}`}
         onClick={() => {
           setShow((prev) => !prev);
         }}
       >
         <WalletIcon className={styles.wallet_icon} width="25" height="25" />
-      </div>
+      </div>}
 
       {show && (
         <ClickAwayListener onClickAway={() => setShow(false)}>

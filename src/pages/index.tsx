@@ -63,7 +63,7 @@ function HomePage() {
             url="#"
             theme="default"
             type="Welcome!"
-            text={`We are very pleased to present to you Epicurus, ${userName}!`}
+            text={`We are very pleased to present to you Epicurus, ${userName ? userName : 'friend'}!`}
             close={false}
           />
 

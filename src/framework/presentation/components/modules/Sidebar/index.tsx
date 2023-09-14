@@ -15,17 +15,18 @@ export default function Sidebar({ links, currentURL, urlParent }: any) {
   };
 
   const MAX_WIDTH_SIDEBAR = "(max-width: 1120px)";
-  const smallWindow = window.matchMedia(MAX_WIDTH_SIDEBAR);
+  //@ts-ignore
+  //const smallWindow = window.matchMedia(MAX_WIDTH_SIDEBAR);
 
   const onMenuItemClick = () => {
-    smallWindow.matches && setShowMenu(true);
+    //smallWindow.matches && setShowMenu(true);
   };
 
   useEffect(() => {
     const onAwaySidebarClick = (event: any) => {
       const sidebarElement = document.querySelector(".pg__sidebar");
       if (sidebarElement && !sidebarElement.contains(event.target)) {
-        smallWindow.matches && setShowMenu(true);
+        //smallWindow.matches && setShowMenu(true);
       }
     };
     document.addEventListener("click", onAwaySidebarClick);

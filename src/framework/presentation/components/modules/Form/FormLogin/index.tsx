@@ -25,6 +25,11 @@ const modalInfo = {
   btnUrl: "#",
 };
 
+const modalError = {
+  title: "Please Try Again",
+  btnText: "Accept",
+};
+
 export default function FormLogin({
   toggleModal,
   setOpenLogin,
@@ -32,17 +37,12 @@ export default function FormLogin({
   setUserToken
 }: any) {
  
-  
-
   const reg_email = /^[^\s@#$%]+@[^\s@#$%]+\.[^\s@#$%]+$/;
 
   const form = useRef(null);
-
   const [openModalError, setOpenModalError] = useState(false);
-  const modalError = {
-    title: "Please Try Again",
-    btnText: "Accept",
-  };
+
+  const [openModalErrorDB, setOpenModalErrorDB] = useState(false);
 
   initFirebase();
   const provider = new GoogleAuthProvider();
@@ -59,6 +59,7 @@ export default function FormLogin({
       const errorCode = error.code;
       const errorMessage = error.message;
       const email = error.email;
+      setOpenModalError(true);
     }
   };
 
@@ -68,20 +69,31 @@ export default function FormLogin({
 
   const { currentToken }: any = useContext(AuthContext);
   useEffect(() => {
-    fetch("https://f2ce-62-216-37-74.ngrok-free.app/v1/auth/login/firebase", {
-      method: "POST",
-      headers: {Authentication: `Bearer ${currentToken}`},
-      mode: 'no-cors'
-    }).then(response => {
-      if (!response.ok){
-        console.log(response.status);
-        currentToken && setOpenModalError(true);
-      } else {
-        setUserToken(true);
-        alert('send')
-      }
-    });
-  }, [currentToken, submit])
+    //console.log(currentToken)
+    const URL = 'https://6054-176-36-35-141.ngrok-free.app/v1';
+    if (currentToken !== undefined) {
+      fetch(`${URL}/auth/login/firebase`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${currentToken}` }
+      }).then(response => {
+        if (!response.ok) {
+          console.log(response.status);
+          setOpenModalErrorDB(true);
+        } else {
+          response.json().then(res => {
+            //console.log('res', res)
+            const jwtToken = res?.JWTITGToken; 
+            if (jwtToken !== undefined) {
+              setUserToken(jwtToken);
+              console.log('res.JWTITGToken', jwtToken);
+            } else {
+              //console.log('JWTITGToken is undefined');
+            }
+          });
+        }
+      });
+    }
+  }, [currentToken]);
   
   const signIn = (e: any) => {
     e.preventDefault();
@@ -104,7 +116,7 @@ export default function FormLogin({
           .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
-            
+            setOpenModalError(true);
             // login_email &&
             //   sendPasswordResetEmail(auth, login_email)
             //     .then(() => {
@@ -130,8 +142,8 @@ export default function FormLogin({
           props={modalInfo}
         />
         <ModalError
-        openModal={openModalError}
-        setModalOpen={setOpenModalError}
+        openModal={openModalErrorDB}
+        setModalOpen={setOpenModalErrorDB}
         props={modalError}
         theme="error"
         />
@@ -196,11 +208,15 @@ export default function FormLogin({
             Reset <b>password</b>
           </div> */}
 
+          <div className={styles.form_reset}>
+            OR
+          </div>
+
           <div className={styles.form_cta}>
             {/* <div onClick={signInGoogle} className={styles.btn_cta}>
               <b>Login with</b> Google
-            </div>
-            <span>OR</span> */}
+            </div>*/}
+            
             <div onClick={() => toggleModal()} className={styles.btn_cta}>
               Sign Up
             </div>

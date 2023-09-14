@@ -8,7 +8,7 @@ export const ProductContext = createContext({});
 export default function ProductProvider({ children }: any) {
   const { ref, database, onValue } = fb;
 
-  const { currentUser }: any = useContext(AuthContext);
+  const { currentUser, userToken }: any = useContext(AuthContext);
   const userID = currentUser.uid;
 
   const [newApiKey, setNewApiKey] = useState<any[]>([]);
@@ -22,32 +22,68 @@ export default function ProductProvider({ children }: any) {
     console.error("Error reading data:", error);
   };
 
+  // useEffect(() => {
+  //   if (currentUser) {
+  //     //alert(userID)
+
+  //     const dbApiKeys = ref(database, "apiKey/" + userID);
+
+  //     const handleDataChangeApiKeys = (snapshot: any) => {
+  //       const data = snapshot.val();
+  //       if (data !== null && data !== undefined) {
+  //         //console.log('apiKey', data);
+  //         const items = Object?.entries(data).map(([id, item]) => ({
+  //           id,
+  //           api_name: (item as any).api_name,
+  //           api_key: (item as any).api_key,
+  //           api_secret: (item as any).api_secret,
+  //           api_start_date: (item as any)?.api_start_date,
+  //           api_status: (item as any).api_status,
+  //           api_enable: (item as any).api_enable
+  //         }));
+  //         setNewApiKey(items);
+  //       } else {
+  //         setNewApiKey([]);
+  //       }
+  //     };
+
+  //     onValue(dbApiKeys, handleDataChangeApiKeys, handleError);
+  //   }
+  // }, [currentUser]);
+
   useEffect(() => {
-    if (currentUser) {
+    if (currentUser !== undefined) {
       //alert(userID)
 
-      const dbApiKeys = ref(database, "apiKey/" + userID);
-
-      const handleDataChangeApiKeys = (snapshot: any) => {
-        const data = snapshot.val();
-        if (data !== null && data !== undefined) {
-          //console.log('apiKey', data);
-          const items = Object?.entries(data).map(([id, item]) => ({
-            id,
-            api_name: (item as any).api_name,
-            api_key: (item as any).api_key,
-            api_secret: (item as any).api_secret,
-            api_start_date: (item as any)?.api_start_date,
-            api_status: (item as any).api_status,
-            api_enable: (item as any).api_enable
-          }));
-          setNewApiKey(items);
-        } else {
-          setNewApiKey([]);
-        }
-      };
-
-      onValue(dbApiKeys, handleDataChangeApiKeys, handleError);
+      const URL = 'https://6054-176-36-35-141.ngrok-free.app/v1';
+      //alert(userToken);
+      if (userToken !== undefined) {
+        fetch(`${URL}/key/list`, {
+          method: "GET",
+          headers: { Authorization: `Bearer ${userToken}` }
+        }).then(response => {
+          if (!response.ok) {
+            console.log(`Request failed with status: ${response.status}`);
+          } else {
+            response.json().then(res => {
+              console.log('Response data:', res);
+              // Handle the response data as needed.
+            //   const items = res.response.map(([id, item]: any) => ({
+            //     id,
+            //     api_name: (item as any).title,
+            //     api_key: (item as any).key,
+            //     api_secret: (item as any).secret,
+            //     api_start_date: (item as any)?.expired_at,
+            //     api_status: (item as any).is_active,
+            //     api_enable: (item as any).is_active
+            //  }));
+            //  setNewApiKey(items);
+            });
+          }
+        }).catch(error => {
+          console.error('Fetch error:', error);
+        });
+      }
     }
   }, [currentUser]);
 
