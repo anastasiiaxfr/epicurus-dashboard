@@ -174,8 +174,7 @@ export default function FormAddApiKey({ show, toggleModal, setFieldPolicy, setFi
           <Checkbox
             label={
               <div>
-                I have read the
-                <strong onClick={handlePolicyClick}>Usage Policy</strong>
+                I have read the <strong onClick={handlePolicyClick}>Usage Policy</strong>
               </div>
             }
             id="api_policy"

@@ -53,7 +53,7 @@ export default function Sidebar({ links, currentURL, urlParent }: any) {
                     <li key={k}>
                       {j.url ? (
                         <Link
-                          className={j.url === currentURL || j.url !== '/' && urlParent.includes(j.url) ? styles.active : ""}
+                          className={""}
                           href={j.url}
                           onClick={onMenuItemClick}
                         >

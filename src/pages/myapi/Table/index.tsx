@@ -136,10 +136,10 @@ export default function ApiKeyList() {
               </div>
 
               <div className={styles.table_cta}>
-                <DelIcon
+                {/* <DelIcon
                   className={styles.table_del}
                   onClick={() => onDelApiKey(i.id, i.api_name)}
-                />
+                /> */}
                 <EditIcon
                   className={styles.table_edit}
                   onClick={() => toggleModalEdit(i.id, i.api_name)}
