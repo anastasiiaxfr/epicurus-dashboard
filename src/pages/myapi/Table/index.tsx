@@ -79,17 +79,7 @@ export default function ApiKeyList() {
 
   //console.log('newApiKey', newApiKey);
 
-  const getDateTime = (val: any) => {
-    const timestamp = val;
-    const date = new Date(timestamp);
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear() % 100;
-    const formattedDate = `${day < 10 ? `0${day}` : day}.${
-      month < 10 ? `0${month}` : month
-    }.${year}`;
-    return formattedDate;
-  };
+
 
   return (
     <>
@@ -115,9 +105,6 @@ export default function ApiKeyList() {
       />
 
       {newApiKey?.map((i: any, k: number) => {
-        const date = new Date(i.api_start_date);
-        const api_end_date = i.api_start_date ? getDateTime(date.setMonth(date.getMonth() + 1)) : '01.09.23';
-
         return (
           <div className={styles.table} key={i.id}>
             <div className={styles.table_header}>
@@ -126,20 +113,20 @@ export default function ApiKeyList() {
 
                 <div className={styles.table_info}>
                   <span>Status:</span>
-                  <b>Active</b>
+                  <b>{i.api_status}</b>
                 </div>
 
                 <div className={styles.table_info}>
                   <span>Сonnected to</span>
-                  <b>Cryptobot</b>
+                  <b>{i.api_vendor}</b>
                 </div>
               </div>
 
               <div className={styles.table_cta}>
-                <DelIcon
+                {/* <DelIcon
                   className={styles.table_del}
                   onClick={() => onDelApiKey(i.id, i.api_name)}
-                />
+                /> */}
                 <EditIcon
                   className={styles.table_edit}
                   onClick={() => toggleModalEdit(i.id, i.api_name)}
@@ -157,7 +144,7 @@ export default function ApiKeyList() {
               <div className={styles.table_col}>
                 <div className={styles.table_label}>Balance</div>
                 <div className={styles.table_val}>
-                  <b>$ 3642</b>
+                  <b>${i.api_balance}</b>
                 </div>
               </div>
 
@@ -165,7 +152,7 @@ export default function ApiKeyList() {
                 <div className={styles.table_col}>
                   <div className={styles.table_label}>Start Date</div>
                   <div className={styles.table_val}>
-                    <span>{getDateTime(i.api_start_date)}</span>
+                    <span>{i.api_start_date}</span>
                   </div>
                 </div>
               )}
@@ -173,7 +160,7 @@ export default function ApiKeyList() {
               <div className={styles.table_col}>
                 <div className={styles.table_label}>End Date</div>
                 <div className={styles.table_val}>
-                  <span>{api_end_date}</span>
+                  <span>{i.api_end_date}</span>
                 </div>
               </div>
             </div>

@@ -1,6 +1,6 @@
 import { useState, useRef, useContext } from "react";
-import { ref, database, set } from "../../../../../../pages/_firebase";
 import { AuthContext } from "../../../../../../pages/_auth";
+import { ProductContext } from "../../../../../../pages/_products";
 
 import Input from "../Input";
 import Btn from "../Btn";
@@ -9,8 +9,9 @@ import styles from "./styles.module.sass";
 
 
 export default function FormAddApiKeyEdit({api_key_id, close_modal}: any) {
-  const { currentUser }: any = useContext(AuthContext);
-  const userID = currentUser.uid;
+  const { userToken }: any = useContext(AuthContext);
+  const { setNewApiKeyUpdated }: any = useContext(ProductContext);
+
   const reg_name = /^[0-9a-zA-Z\s-]+$/;
   const formEdit = useRef(null);
   const [validation, setValidation] = useState(false);
@@ -30,7 +31,7 @@ export default function FormAddApiKeyEdit({api_key_id, close_modal}: any) {
       const api_secret = (formEdit.current as any).api_edit_secret.value;
 
       if (!disabled && (api_name.length > 0 && api_key.length > 0 && api_secret.length > 0)) {
-        sendToFB(api_name, api_key, api_secret);
+        sendToFB(api_name, api_key, api_secret, api_key_id, formEdit);
         (formEdit.current as any).reset();  
         setReset(prev => !prev);  
         close_modal();
@@ -38,20 +39,41 @@ export default function FormAddApiKeyEdit({api_key_id, close_modal}: any) {
     }
   };
 
-
-  const sendToFB = (api_name: any, api_key: any, api_secret: any) => {
-    if(userID){
-      set(ref(database, 'apiKey/' + userID + '/' + api_key_id), {
-        api_name: api_name,
-        api_key: api_key,
-        api_secret: api_secret,
-      });
-    }
+  const URL = "https://epicurus-railway-production.up.railway.app/v1";
+  async function sendToFB(
+    api_name: any,
+    api_key: any,
+    api_secret: any,
+    api_key_id: any,
+    formEdit: any
+  ) {
+    let res = fetch(
+      `${URL}/key/update/${api_key_id}`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          key_id: api_key_id,
+          title: api_name,
+          secret_key: api_secret,
+          api_key: api_key
+        }),
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${userToken}`,
+        },
+      }
+    ).then((response) => {
+      if (!response.ok) {
+        console.log(response.status);
+      } else {
+        console.log('res', response)
+        setNewApiKeyUpdated((prev: any) => !prev);
+      }
+    });
   };
 
   return (
     <>
-
       <form
         action="/"
         method="POST"

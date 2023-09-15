@@ -34,9 +34,11 @@
         letter-spacing: 0.02em
 
     &_val
-        +ft(20, 20, 500)
+        max-width: 600px
+        +ft(20, 20*1.4, 500)
         letter-spacing: 0.02em
-        word-break: break-word
+        word-break: break-all
+        white-space: pre-wrap
         b
             color: $green
 

@@ -61,10 +61,10 @@ export default function FormRegistration({
   const [openModalSuccess, setOpenModalSuccess] = useState(false);
   const [openModalErrorDB, setOpenModalErrorDB] = useState(false);
 
-  const { currentToken }: any = useContext(AuthContext);
+  const { currentToken, currentUser }: any = useContext(AuthContext);
   useEffect(() => {
     //console.log(currentToken)
-    const URL = 'https://6054-176-36-35-141.ngrok-free.app/v1';
+    const URL = "https://epicurus-railway-production.up.railway.app/v1";
     if (currentToken !== undefined) {
       fetch(
         `${URL}/auth/signup/firebase`,
@@ -81,7 +81,7 @@ export default function FormRegistration({
             //console.log('res', res)
             const jwtToken = res?.JWTITGToken;
             if (jwtToken !== undefined) {
-              setUserToken(jwtToken);
+              currentUser && setUserToken(jwtToken);
               //console.log('res.JWTITGToken', jwtToken);
             } else {
               //console.log("JWTITGToken is undefined");

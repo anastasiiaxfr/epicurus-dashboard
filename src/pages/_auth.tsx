@@ -19,13 +19,11 @@ export default function AuthProvider({ children }: any) {
 
   const { auth, onAuthStateChanged, onIdTokenChanged }: FirebaseObject = fb;
 
-  const [currentUser, setCurrentUser] = useState(true);
+  const [currentUser, setCurrentUser] = useState(false);
   const [currentToken, setCurrentToken] = useState(null);
   const [userToken, setUserToken] = useState(null);
 
   const [pending, setPending] = useState(true);
-
-
 
   // const queryParams = new URLSearchParams(window.location.search);
   // const token = queryParams.get("token");
@@ -80,32 +78,43 @@ export default function AuthProvider({ children }: any) {
     });
   }, []);
 
-  //alert(userToken)
+  console.log(userToken);
+  //console.log(currentUser)
+  //if(currentUser){alert(`currentUser ${currentUser}`)}
+
+  useEffect(() => {
+    currentUser === false ? setUserToken(null) : null;
+  }, [currentUser]);
+  //if(userToken){ alert(userToken) }
 
   return (
     <>
       {loading && <Preloader />}
 
-      {(userToken === null || userToken === undefined) || !currentUser ? <AuthContext.Provider
-        value={{
-          auth,
-          currentUser,
-          currentToken
-        }}
-      >
-      <LoadingModal setUserToken={setUserToken} />
-      </AuthContext.Provider> :
-      <AuthContext.Provider
-        value={{
-          auth,
-          currentUser,
-          currentToken,
-          userToken
-        }}
-      >
-        {children}
-      </AuthContext.Provider>}
-      
+      {userToken === null ||
+      userToken === undefined ||
+      currentUser === false ? (
+        <AuthContext.Provider
+          value={{
+            auth,
+            currentUser,
+            currentToken,
+          }}
+        >
+          <LoadingModal setUserToken={setUserToken} />
+        </AuthContext.Provider>
+      ) : (
+        <AuthContext.Provider
+          value={{
+            auth,
+            currentUser,
+            currentToken,
+            userToken,
+          }}
+        >
+          {children}
+        </AuthContext.Provider>
+      )}
     </>
   );
 }

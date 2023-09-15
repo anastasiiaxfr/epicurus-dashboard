@@ -16,7 +16,7 @@ export default function ProductProvider({ children }: any) {
   const [newRoboticTrading, setNewRoboticTrading] = useState<any[]>([]);
   const [newWallet, setNewWallet] = useState<any[]>([]);
   const [newDeposit, setNewDeposit] = useState<any[]>([]);
-
+  const [newApiKeyUpdated, setNewApiKeyUpdated] = useState(false);
 
   const handleError = (error: any) => {
     console.error("Error reading data:", error);
@@ -55,7 +55,7 @@ export default function ProductProvider({ children }: any) {
     if (currentUser !== undefined) {
       //alert(userID)
 
-      const URL = 'https://6054-176-36-35-141.ngrok-free.app/v1';
+      const URL = 'https://epicurus-railway-production.up.railway.app/v1';
       //alert(userToken);
       if (userToken !== undefined) {
         fetch(`${URL}/key/list`, {
@@ -63,21 +63,23 @@ export default function ProductProvider({ children }: any) {
           headers: { Authorization: `Bearer ${userToken}` }
         }).then(response => {
           if (!response.ok) {
-            console.log(`Request failed with status: ${response.status}`);
+            //console.log(`Request failed with status: ${response.status}`);
           } else {
             response.json().then(res => {
-              console.log('Response data:', res);
+             console.log('Response data:', res);
               // Handle the response data as needed.
-            //   const items = res.response.map(([id, item]: any) => ({
-            //     id,
-            //     api_name: (item as any).title,
-            //     api_key: (item as any).key,
-            //     api_secret: (item as any).secret,
-            //     api_start_date: (item as any)?.expired_at,
-            //     api_status: (item as any).is_active,
-            //     api_enable: (item as any).is_active
-            //  }));
-            //  setNewApiKey(items);
+              const items = res.map((item: any) => ({
+                id: item.id,
+                api_name: item.title,
+                api_key: item.key,
+                api_secret: item.secret,
+                api_start_date: item.created_at.split(' ')[0],
+                api_end_date: item.expired_at.split(' ')[0],
+                api_status: item.is_active ? 'Enable' : 'Disable',
+                api_vendor: item.vendor,
+                api_balance: item.balance,
+             }));
+             setNewApiKey(items);
             });
           }
         }).catch(error => {
@@ -85,7 +87,7 @@ export default function ProductProvider({ children }: any) {
         });
       }
     }
-  }, [currentUser]);
+  }, [currentUser, newApiKeyUpdated]);
 
   useEffect(() => {
     if (currentUser) {
@@ -235,7 +237,8 @@ export default function ProductProvider({ children }: any) {
           allDepositSum,
           totalDepositBalance,
           totalTMBalance,
-          totalRTBalance
+          totalRTBalance,
+          setNewApiKeyUpdated
         }}
       >
         {children}

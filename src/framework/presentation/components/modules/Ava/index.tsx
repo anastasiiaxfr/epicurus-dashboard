@@ -12,11 +12,9 @@ export default function Ava({ name, img }: any) {
 
   return (
       <div className={styles.ava} onClick={() => auth.signOut()}>
-        
           <div className={styles.ava_logo}>
             {img ? <Image src={img} alt={name} width="75" height="75" /> : name && name.charAt(0)}
           </div>
-        
       </div>
   );
 }

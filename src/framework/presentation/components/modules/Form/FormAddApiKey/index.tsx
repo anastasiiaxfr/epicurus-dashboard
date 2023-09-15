@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useContext } from "react";
 import nextId from "react-id-generator";
 import { ref, database, set } from "../../../../../../pages/_firebase";
 import { AuthContext } from "../../../../../../pages/_auth";
+import { ProductContext } from "../../../../../../pages/_products";
 
 import Input from "../../Form/Input";
 import Btn from "../../Form/Btn";
@@ -39,6 +40,8 @@ export default function FormAddApiKey({
 
   const htmlId = nextId("api-key-");
   const { currentUser, userToken }: any = useContext(AuthContext);
+  const { setNewApiKeyUpdated }: any = useContext(ProductContext);
+
   const userID = currentUser.uid;
 
   const form = useRef(null);
@@ -93,14 +96,16 @@ export default function FormAddApiKey({
     setResetCheckbox((prev: any) => !prev);
   };
 
+  const URL = "https://epicurus-railway-production.up.railway.app/v1";
   async function sendToFB(
     api_name: any,
     api_key: any,
     api_secret: any,
     form: any
   ) {
+    //alert(userToken);
     let res = fetch(
-      "https://6054-176-36-35-141.ngrok-free.app/v1/key/create/",
+      `${URL}/key/create/`,
       {
         method: "POST",
         body: JSON.stringify({
@@ -122,6 +127,7 @@ export default function FormAddApiKey({
         setOpenModalError(true);
         //onResetFrom();
       } else {
+        setNewApiKeyUpdated((prev: any) => !prev);
         onResetFrom();
         toggleModal(true);
       }

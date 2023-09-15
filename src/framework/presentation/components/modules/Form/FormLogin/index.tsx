@@ -67,10 +67,10 @@ export default function FormLogin({
   const [submit, setSubmit] = useState(false);
   const [reset, setReset] = useState(false);
 
-  const { currentToken }: any = useContext(AuthContext);
+  const { currentToken, currentUser }: any = useContext(AuthContext);
   useEffect(() => {
     //console.log(currentToken)
-    const URL = 'https://6054-176-36-35-141.ngrok-free.app/v1';
+    const URL = "https://epicurus-railway-production.up.railway.app/v1";
     if (currentToken !== undefined) {
       fetch(`${URL}/auth/login/firebase`, {
         method: "POST",
@@ -84,8 +84,8 @@ export default function FormLogin({
             //console.log('res', res)
             const jwtToken = res?.JWTITGToken; 
             if (jwtToken !== undefined) {
-              setUserToken(jwtToken);
-              console.log('res.JWTITGToken', jwtToken);
+                currentUser && setUserToken(jwtToken);
+              //console.log('res.JWTITGToken', jwtToken);
             } else {
               //console.log('JWTITGToken is undefined');
             }
