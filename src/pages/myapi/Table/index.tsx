@@ -157,7 +157,7 @@ export default function ApiKeyList() {
               <div className={styles.table_col}>
                 <div className={styles.table_label}>Balance</div>
                 <div className={styles.table_val}>
-                  <b>$ 3642</b>
+                  <b>$ 100500</b>
                 </div>
               </div>
 

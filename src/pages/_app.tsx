@@ -73,8 +73,6 @@ export default function App({ Component, pageProps }: any) {
 
   const currentURL = router.asPath;
 
-  let baseURL = `/`;
-
   const links = [
     {
       group: "Products",
@@ -83,31 +81,31 @@ export default function App({ Component, pageProps }: any) {
           enable: true,
           title: "Dashboard",
           icon: <Icon1 with="16" height="16" />,
-          url: baseURL,
+          url: "/",
         },
         {
           enable: true,
           title: "Robotic Trading",
           icon: <Icon2 with="16" height="16" />,
-          url: "/",
+          url: "/robotic-trading",
         },
         {
           enable: true,
           title: "Trust Management",
           icon: <Icon3 with="16" height="16" />,
-          url: "/",
+          url: "/trust-management",
         },
         {
           enable: true,
           title: "Deposit",
           icon: <Icon4 with="16" height="16" />,
-          url: "/",
+          url: "/deposit",
         },
         {
           enable: false,
           title: "Academy",
           icon: <Icon5 with="16" height="16" />,
-          url: "/",
+          url: "/academy",
         },
       ],
     },
@@ -118,7 +116,7 @@ export default function App({ Component, pageProps }: any) {
           enable: true,
           title: "Payments",
           icon: <Icon6 with="16" height="16" />,
-          url: "/",
+          url: "/payments",
         },
         {
           enable: true,
@@ -135,19 +133,19 @@ export default function App({ Component, pageProps }: any) {
           enable: true,
           title: "Support & Wiki",
           icon: <Icon9 with="16" height="16" />,
-          url: "/",
+          url: "/support",
         },
         {
           enable: false,
           title: "Bug Report",
           icon: <Icon10 with="16" height="16" />,
-          url: "/",
+          url: "/bug-report",
         },
         {
           enable: true,
           title: "Settings",
           icon: <Icon11 with="16" height="16" />,
-          url: "/",
+          url: "/settings",
         },
         {
           enable: false,
@@ -156,7 +154,7 @@ export default function App({ Component, pageProps }: any) {
         },
       ],
     },
-  ];
+  ];;
 
   const urlParent = '/' + currentURL.split('/')[1]
 

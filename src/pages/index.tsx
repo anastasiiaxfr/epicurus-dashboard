@@ -28,14 +28,14 @@ function HomePage() {
       title: "Trust Management",
       text: "",
       img: ProductImg1,
-      url: "/",
+      url: "/trust-management",
     },
 
     {
       title: "Robotic Trading",
       text: "",
       img: ProductImg2,
-      url: "/",
+      url: "/robotic-trading",
     },
 
     {
