@@ -14,6 +14,7 @@
 
     &::after
         background: $grad18, $grad19
+        z-index: 0
 
     &:hover
         box-shadow: $bxsd9
@@ -36,13 +37,15 @@
         +ps(absolute, (b, 0), (r, 0))
         +sz(100%, 100%)
         object-fit: cover
-        z-index: -1
+        //z-index: -1
         //opacity: 0.8
-        filter: contrast(1.25)
+        //filter: contrast(1.25)
        
     &_title
+        +ft(18, 18, 900)
         letter-spacing: 0.05em
-        text-transform: uppercase
+        @extend %text-gradient
+        //text-transform: uppercase
 
     +maw($sm)
         &_cards

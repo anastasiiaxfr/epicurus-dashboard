@@ -7,10 +7,10 @@ import HomeDashboard from "../framework/presentation/components/modules/Page/Hom
 
 import { AuthContext } from "./_auth";
 
-import ProductImg1 from "../framework/presentation/components/assets/img/solutions-1.png";
-import ProductImg2 from "../framework/presentation/components/assets/img/solutions-2.png";
-import ProductImg3 from "../framework/presentation/components/assets/img/solutions-3.png";
-import ProductImg4 from "../framework/presentation/components/assets/img/solutions-4.png";
+import ProductImg1 from "../framework/presentation/components/assets/img/banners/rt.png";
+import ProductImg2 from "../framework/presentation/components/assets/img/banners/tm.png";
+import ProductImg3 from "../framework/presentation/components/assets/img/banners/deposit.png";
+import ProductImg4 from "../framework/presentation/components/assets/img/banners/academy.png";
 
 
 function HomePage() {
