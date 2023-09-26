@@ -8,7 +8,9 @@ import {
   doc,
   setDoc,
 } from "../../../../../../pages/_firebase";
+
 import { AuthContext } from "../../../../../../pages/_auth";
+import ReCAPTCHA from "react-google-recaptcha";
 
 import { getSPKey } from "../../../../../../pages/_send-pulse";
 
@@ -18,21 +20,20 @@ import ModalError from "../../Modal/ModalAuthError";
 
 import Input from "../Input";
 import Btn from "../Btn";
+import Nottification from "../Nottifications";
 
 import styles from "./styles.module.sass";
 
 const modalInfo = {
   title: "Something Wrong",
-  text:
-    "It seems you have already been registered OR email is invalid. Please try to log in",
+  text: "It seems you have already been registered OR email is invalid. Please try to log in",
   btnText: "Okay",
   btnUrl: "#",
 };
 
 const modalInfoSuccess = {
   title: "The data send",
-  text:
-    "To confirm your registration, please follow the link that has been sent to the email address you provided.",
+  text: "To confirm your registration, please follow the link that has been sent to the email address you provided.",
   btnText: "Okay",
   btnUrl: "#",
 };
@@ -57,22 +58,23 @@ export default function FormRegistration({
   const [submitPressed, setSubmitPressed] = useState(false);
   const [reset, setReset] = useState(false);
 
+  const [captchaError, setCaptchaError] = useState(false);
+
   const [openModalError, setOpenModalError] = useState(false);
   const [openModalSuccess, setOpenModalSuccess] = useState(false);
   const [openModalErrorDB, setOpenModalErrorDB] = useState(false);
+
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   const { currentToken, currentUser }: any = useContext(AuthContext);
   useEffect(() => {
     //console.log(currentToken)
     const URL = "https://epicurus-railway-production.up.railway.app/v1";
     if (currentToken !== undefined) {
-      fetch(
-        `${URL}/auth/signup/firebase`,
-        {
-          method: "POST",
-          headers: { Authorization: `Bearer ${currentToken}` },
-        }
-      ).then((response) => {
+      fetch(`${URL}/auth/signup/firebase`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${currentToken}` },
+      }).then((response) => {
         if (!response.ok) {
           console.log(response.status);
           setOpenModalErrorDB(true);
@@ -117,8 +119,17 @@ export default function FormRegistration({
       const reg_email = (form.current as any).reg_email.value;
       const reg_password = (form.current as any).reg_password.value;
       const reg_name = (form.current as any).reg_name.value;
+      const recaptchaValue = recaptchaRef.current
+        ? recaptchaRef.current.getValue()
+        : null;
 
-      if (!disabled && validation === true) {
+      //alert(recaptchaValue.length);
+
+      recaptchaValue?.length === 0
+        ? setCaptchaError(true)
+        : setCaptchaError(false);
+
+      if (!disabled && validation === true && recaptchaValue?.length !== 0) {
         try {
           const userCredential = await createUserWithEmailAndPassword(
             auth,
@@ -158,11 +169,17 @@ export default function FormRegistration({
           //alert('Error Register')
           console.error("Error registering user:", error);
           (form.current as any).reset();
+          (recaptchaRef as any).current.reset();
           setOpenModalError(true);
         }
       }
     }
   };
+
+  function onChangeCaptcha(value: any) {
+    //console.log("Captcha value:", value);
+    value.length !== 0 && setCaptchaError(false);
+  }
 
   return (
     <>
@@ -250,6 +267,18 @@ export default function FormRegistration({
               maxLength={128}
             />
           </div>
+          <div className={`${styles.form_row} ${styles.form_row_center}`}>
+            <ReCAPTCHA
+              sitekey={process.env.RECAPTCHA_SITE_KEY || "100500"}
+              ref={recaptchaRef}
+              theme="dark"
+              onChange={onChangeCaptcha}
+            />
+            {captchaError && (
+              <Nottification label={"Please check it!"} type="error" />
+            )}
+          </div>
+
           <Btn label="Send" onClick={handleSubmit} disabled={disabled} />
         </form>
         <div className={styles.form_reset}>OR</div>

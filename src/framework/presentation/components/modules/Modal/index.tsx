@@ -18,10 +18,10 @@ export default function ModalPopup({
     openModal && (
       <section className={styles.modal}>
         <ClickAwayListener onClickAway={handleClose}>
-          <>
+          <div className={styles.modal_wrap}>
             <Logo />
             <div className={styles.modal_content}>{children}</div>
-          </>
+          </div>
         </ClickAwayListener>
       </section>
     )

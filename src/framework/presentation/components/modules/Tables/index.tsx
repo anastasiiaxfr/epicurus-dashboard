@@ -21,9 +21,9 @@ const data = [
 
 export default function Table({setHeading, setData}: any) {
     const [loading, setLoading] = useState(true);
-    useEffect(() => {
-        setTimeout(() => setLoading(false), 1500);
-      }, []);
+    // useEffect(() => {
+    //     setTimeout(() => setLoading(false), 1500);
+    //   }, []);
     return (
         <div className={styles.table_wrap}>
 

@@ -47,7 +47,7 @@ export default function Steps({setToggleDashboard}: any) {
       btn: {
         title: "Select",
         type: "link",
-        url: "#products",
+        url: "/",
       },
     },
     {
@@ -60,7 +60,7 @@ export default function Steps({setToggleDashboard}: any) {
       btn: {
         title: "My Dashboard",
         type: "button",
-        url: "",
+        url: "/",
         on_click: onDashboardToggle
       },
     },

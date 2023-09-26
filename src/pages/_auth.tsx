@@ -68,6 +68,7 @@ export default function AuthProvider({ children }: any) {
           const token = await user.getIdToken(true);
           // Use the refreshed token for API calls or update it in your app's state.
           setCurrentUser(user);
+          setCurrentToken(user.accessToken);
           setPending(false);
         } catch (error) {
           // Handle the token refresh error.
@@ -78,7 +79,7 @@ export default function AuthProvider({ children }: any) {
     });
   }, []);
 
-  console.log(userToken);
+  //console.log(userToken);
   //console.log(currentUser)
   //if(currentUser){alert(`currentUser ${currentUser}`)}
 
@@ -92,8 +93,7 @@ export default function AuthProvider({ children }: any) {
       {loading && <Preloader />}
 
       {userToken === null ||
-      userToken === undefined ||
-      currentUser === false ? (
+      userToken === undefined || currentUser === false ? (
         <AuthContext.Provider
           value={{
             auth,

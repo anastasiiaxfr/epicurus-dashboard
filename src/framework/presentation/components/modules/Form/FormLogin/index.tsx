@@ -52,7 +52,9 @@ export default function FormLogin({
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       //console.log(result.user)
-      setOpenLogin(false);
+      //alert(result.user)
+
+      //setOpenLogin(false);
       // Handle successful sign-in
     } catch (error: any) {
       // Handle sign-in error
@@ -69,7 +71,9 @@ export default function FormLogin({
 
   const { currentToken, currentUser }: any = useContext(AuthContext);
   useEffect(() => {
-    //console.log(currentToken)
+    //alert(currentToken)
+    //console.log('currentToken', currentToken);
+    //console.log('currentUser', currentUser);
     const URL = "https://epicurus-railway-production.up.railway.app/v1";
     if (currentToken !== undefined) {
       fetch(`${URL}/auth/login/firebase`, {
@@ -94,6 +98,9 @@ export default function FormLogin({
       });
     }
   }, [currentToken]);
+
+
+ 
   
   const signIn = (e: any) => {
     e.preventDefault();
@@ -201,21 +208,17 @@ export default function FormLogin({
             />
           </form>
 
-          {/* <div
+          <div
             onClick={() => toggleModalReset()}
             className={styles.form_reset}
           >
             Reset <b>password</b>
-          </div> */}
-
-          <div className={styles.form_reset}>
-            OR
           </div>
 
           <div className={styles.form_cta}>
-            {/* <div onClick={signInGoogle} className={styles.btn_cta}>
+            <div onClick={signInGoogle} className={styles.btn_cta}>
               <b>Login with</b> Google
-            </div>*/}
+            </div>
             
             <div onClick={() => toggleModal()} className={styles.btn_cta}>
               Sign Up

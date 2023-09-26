@@ -96,6 +96,7 @@ export default function FormAddApiKey({
     setResetCheckbox((prev: any) => !prev);
   };
 
+  console.log(userToken);
   const URL = "https://epicurus-railway-production.up.railway.app/v1";
   async function sendToFB(
     api_name: any,
@@ -103,7 +104,6 @@ export default function FormAddApiKey({
     api_secret: any,
     form: any
   ) {
-    //alert(userToken);
     let res = fetch(
       `${URL}/key/create/`,
       {

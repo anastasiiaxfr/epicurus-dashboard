@@ -15,9 +15,14 @@ module.exports = {
     REFFERAL: process.env.REFFERAL,
     DB: process.env.DB,
     JWT_SECRET: process.env.JWT_SECRET,
+    RECAPTCHA_SITE_KEY: process.env.RECAPTCHA_SITE_KEY,
+    RECAPTCHA_SECRET_KEY: process.env.RECAPTCHA_SECRET_KEY
   },
   images: {
     domains: ["lh3.googleusercontent.com"],
+  },
+  experimental: {
+    serverActions: true,
   },
 
   webpack: (config, { isServer }) => {

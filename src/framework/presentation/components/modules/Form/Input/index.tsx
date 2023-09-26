@@ -51,7 +51,7 @@ export default function InputField({
     }
 
     if (currentInput?.disabled !== true) {
-      if (currentInput?.value?.length === 0 || currentInput?.value?.length > maxLength || currentInput?.value?.length > 32) {
+      if (currentInput?.value?.length === 0 || currentInput?.value?.length > maxLength || currentInput?.value?.length > 65) {
         setShowError(true);
       } else if (type !== "email" && pattern) {
         if (currentInput.value.match(pattern)) {
@@ -163,7 +163,7 @@ export default function InputField({
           slotProps={{
             input: {
               pattern: pattern,
-              maxLength: maxLength || 32,
+              maxLength: maxLength || 65,
               ref: input,
               ...(type === "file" && { accept: "image/jpeg, image/png" }),
             },

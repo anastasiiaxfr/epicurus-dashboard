@@ -14,6 +14,7 @@ export default function ModalPopup({ openModal, setModalOpen, props, toggleModal
   return (
     openModal && (
       <section className={styles.modal}>
+        <div className={styles.modal_wrap}>
         <ClickAwayListener onClickAway={handleClose}>
           <div className={styles.modal_content}>
             <div className={styles.modal_icon}>
@@ -34,6 +35,7 @@ export default function ModalPopup({ openModal, setModalOpen, props, toggleModal
            
           </div>
         </ClickAwayListener>
+        </div>
       </section>
     )
   );

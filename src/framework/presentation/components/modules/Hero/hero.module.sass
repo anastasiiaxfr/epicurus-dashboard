@@ -1,9 +1,11 @@
 @import '../../assets/styles/vars.sass'
 @import '../../assets/styles/text.sass'
 
+$sidebar: 380px
+
 .hero
     display: grid
-    grid-template-columns: 2fr var(--hero-sidebar-width)
+    grid-template-columns: 2fr $sidebar
     gap: var(--gap)
     width: 100%
     
@@ -29,8 +31,14 @@
     .sidebar
         @extend %card
         +flex(flex, center, center, nowrap, column)
-        max-width: var(--hero-sidebar-width)
+        max-width: $sidebar
         margin: 0
+
+        img
+            +sz(100%, auto)
+            object-fit: contain
+            border-radius: var(--brsMd)
+
         &_card
             width: 100%
             flex: 1

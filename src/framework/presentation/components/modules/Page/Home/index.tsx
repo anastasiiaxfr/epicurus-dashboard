@@ -15,7 +15,7 @@ function HomePage() {
 
     return (
         <>
-            <Push url="#" theme="default" type="Reminder" text="You Successfully Updated your Subscription  |  Ends at 11.07.23" close={false} />
+            {/* <Push url="#" theme="default" type="Reminder" text="You Successfully Updated your Subscription  |  Ends at 11.07.23" close={false} /> */}
 
             <Hero />
             

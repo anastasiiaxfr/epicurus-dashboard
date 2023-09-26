@@ -3,10 +3,19 @@
 .modal
     +ps(fixed, (t, 0), (b, 0), (l, 0), (r, 0))
     z-index: 1300
-    +flex(flex, center, center, nowrap, column)
-    gap: var(--gap)
+    
     background: rgba($black, 0.5)
     backdrop-filter: blur(2px)
+    overflow: hidden
+    overflow-y: scroll
+    @extend %scroll
+
+    &_wrap
+        +flex(flex, center, center, nowrap, column)
+        gap: var(--gap)
+        padding: 32px 5%
+        padding-right: calc(5% - 10px)
+        min-height: 100%
 
     &_content
         +flex(flex, center, center, nowrap, column)

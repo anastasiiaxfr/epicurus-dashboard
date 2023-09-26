@@ -9,7 +9,7 @@ import FormReset from '../../Form/FormReset'
 import styles from './styles.module.sass'
 
 export default function LoadingModal({setUserToken}) {
-    const { auth, currentUser } = useContext(AuthContext)
+    const { auth, } = useContext(AuthContext)
 
     const [show, setShow] = useState(false)
     const [openLogin, setOpenLogin] = useState(true)
@@ -50,17 +50,17 @@ export default function LoadingModal({setUserToken}) {
         auth.signOut()
     }
 
-    useEffect(() => {
-        if (currentUser) {
-            //alert(user.displayName)
-            //setOpenLogin(false)
-            setShow(true)
-            setBlockModalHide(false)
-        } else {
-            //setOpenLogin(true)
-            signOut()
-        }
-    }, [currentUser])
+    // useEffect(() => {
+    //     if (currentUser) {
+    //         //alert(user.displayName)
+    //         //setOpenLogin(false)
+    //         setShow(true)
+    //         setBlockModalHide(false)
+    //     } else {
+    //         //setOpenLogin(true)
+    //         signOut()
+    //     }
+    // }, [currentUser])
 
     return (
         <div className={styles.loading_modal}> 

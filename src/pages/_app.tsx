@@ -133,9 +133,9 @@ export default function App({ Component, pageProps }: any) {
       items: [
         {
           enable: true,
-          title: "Support & Wiki",
+          title: "Support",
           icon: <Icon9 with="16" height="16" />,
-          url: "/",
+          url: "/support",
         },
         {
           enable: false,
@@ -144,7 +144,7 @@ export default function App({ Component, pageProps }: any) {
           url: "/",
         },
         {
-          enable: true,
+          enable: false,
           title: "Settings",
           icon: <Icon11 with="16" height="16" />,
           url: "/",

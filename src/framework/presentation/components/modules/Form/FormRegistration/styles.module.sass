@@ -20,6 +20,8 @@
             display: block
             +sz(10%, 2px)
             background-color: $main
+        @media only screen and (max-height: 728px)
+            display: none
 
     &_cta
         +flex(flex, center, flex-start, wrap)
@@ -49,12 +51,33 @@
         &:last-child
             margin-bottom: 0
 
+        &_center
+            & div
+                text-align: center
+                justify-content: center
+                margin-left: auto
+                margin-right: auto
+
+            :global([class*=select_nottification])
+                margin-top: var(--gap)
+                justify-content: center
+
+            iframe
+                +maw($xs)
+                    transform: scale(0.75)
+                    transform-origin: 0 0
+
     &_note
         margin-top: 25px
         text-align: center
         text-transform: uppercase
         +ft(13, 13, 600)
         cursor: pointer
+
+    &_error
+        margin-top: var(--gap)
+        +ft(13, 13, 600)
+        color: $red
 
     label
         +ft(14, 14, 500)    
@@ -99,3 +122,6 @@
         b
             display: none
 
+
+    
+      
