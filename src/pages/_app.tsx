@@ -7,6 +7,8 @@ import Seo from "../framework/presentation/components/modules/Seo";
 import Header from "../framework/presentation/components/modules/Header";
 import Sidebar from "../framework/presentation/components/modules/Sidebar";
 
+import Support from "../framework/presentation/components/modules/Support";
+
 
 import Icon1 from "../framework/presentation/components/assets/icons/i1.svg";
 import Icon2 from "../framework/presentation/components/assets/icons/i2.svg";
@@ -190,6 +192,7 @@ export default function App({ Component, pageProps }: any) {
               <Sidebar links={links} currentURL={currentURL} urlParent={urlParent}/>
               <main className="pg__container">
                 <Header title={currentTitle} />
+                <Support />
                 <article className="pg__content">
                   <Component {...pageProps} />
                 </article>

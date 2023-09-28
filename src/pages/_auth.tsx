@@ -79,7 +79,7 @@ export default function AuthProvider({ children }: any) {
     });
   }, []);
 
-  //console.log(userToken);
+  console.log(userToken);
   //console.log(currentUser)
   //if(currentUser){alert(`currentUser ${currentUser}`)}
 

@@ -8,7 +8,7 @@ import PlusIcon from "../../assets/icons/plus-md.svg";
 import styles from "./hero.module.sass";
 
 export default function Hero({ hero, show, children, steps, totalSteps, hideSidebar }: any) {
-  const { heading, title, text, info, btn } = hero;
+  const { heading, title, text, info, btn, str } = hero;
 
   let stepsArr = [];
   for (let i = 0; i < totalSteps; i++) {
@@ -65,7 +65,7 @@ export default function Hero({ hero, show, children, steps, totalSteps, hideSide
               {!hideSidebar && <aside className={styles.sidebar}>
                 <div className={styles.sidebar_card}>
                   <div className={styles.sidebar_card_overlay}>
-                    <div></div>
+                    <div dangerouslySetInnerHTML={{ __html: str }}></div>
                   </div>
                 </div>
               </aside>}

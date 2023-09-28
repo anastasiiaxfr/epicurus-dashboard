@@ -139,7 +139,7 @@ $cardH: 638px
         position: relative
         z-index: 1
         height: 100%
-        //min-height: $cardH
+        min-height: 350px
         border: $bd4
         border-radius: var(--brsLg)
         overflow: hidden
@@ -159,6 +159,21 @@ $cardH: 638px
             //backdrop-filter: blur(260px)
             backdrop-filter: blur(75px)
             background-color: rgba($white, 0.06)
+            overflow: hidden
+            border-radius: var(--brsLg)
+
+            +ft(14, 14*1.6, 400)
+           
+            p
+                color: rgba($white, 0.75)
+
+            div 
+                height: 100%
+                @extend %scroll
+                overflow: hidden
+                overflow-y: scroll
+                & > *:first-child
+                    margin-top: 0
 
         &::after
             +ps(absolute, (b, var(--gapLg)), (l, var(--gapLg)))
