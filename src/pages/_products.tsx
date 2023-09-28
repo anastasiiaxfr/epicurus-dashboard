@@ -74,7 +74,7 @@ export default function ProductProvider({ children }: any) {
                 api_key: item.key,
                 api_secret: item.secret,
                 api_start_date: item.created_at.split(' ')[0],
-                api_end_date: item.expired_at.split(' ')[0],
+                api_end_date: item?.expired_at?.split(' ')[0],
                 api_status: item.is_active ? 'Enable' : 'Disable',
                 api_vendor: item.vendor,
                 api_balance: item.balance,

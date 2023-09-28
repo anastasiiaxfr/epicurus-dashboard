@@ -135,7 +135,7 @@ export default function App({ Component, pageProps }: any) {
           enable: true,
           title: "Support",
           icon: <Icon9 with="16" height="16" />,
-          url: "/",
+          url: "/support",
         },
         {
           enable: false,

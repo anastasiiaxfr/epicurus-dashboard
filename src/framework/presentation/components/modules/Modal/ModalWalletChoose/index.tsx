@@ -83,6 +83,7 @@ export default function ModalWallet({
     openModal && (
       <>
         <section className={styles.modal}>
+            <div className={styles.modal_wrap}>
           <ModalWalletError
             openModal={openModalAddWalletError}
             setModalOpen={setOpenModalAddWalletError}
@@ -131,6 +132,7 @@ export default function ModalWallet({
               </div>
             </div>
           </ClickAwayListener>
+          </div>
         </section>
       </>
     )

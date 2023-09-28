@@ -33,6 +33,7 @@ export default function ModalPopup({
   return (
     openModal && (
       <section className={styles.modal}>
+        <div className={styles.modal_wrap}>
         <ClickAwayListener onClickAway={handleClose}>
           <div className={styles.modal_content}>
             <div className={styles.modal_icon}>
@@ -44,6 +45,7 @@ export default function ModalPopup({
             <Btn label={btnText} theme={theme} onClick={onSubmit} />
           </div>
         </ClickAwayListener>
+        </div>
       </section>
     )
   );

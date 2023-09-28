@@ -144,7 +144,7 @@ export default function ApiKeyList() {
               <div className={styles.table_col}>
                 <div className={styles.table_label}>Balance</div>
                 <div className={styles.table_val}>
-                  <b>${i.api_balance}</b>
+                  <b>${i.api_balance.toFixed(2)}</b>
                 </div>
               </div>
 
@@ -157,12 +157,12 @@ export default function ApiKeyList() {
                 </div>
               )}
 
-              <div className={styles.table_col}>
+              {i.api_end_date ? <div className={styles.table_col}>
                 <div className={styles.table_label}>End Date</div>
                 <div className={styles.table_val}>
                   <span>{i.api_end_date}</span>
                 </div>
-              </div>
+              </div> : null}
             </div>
           </div>
         );
