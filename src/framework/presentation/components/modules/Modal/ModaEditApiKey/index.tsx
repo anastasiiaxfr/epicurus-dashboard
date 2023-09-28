@@ -14,7 +14,6 @@ export default function ModalPopup({ openModal, setModalOpen, props }: any) {
   return (
     openModal && (
       <section className={styles.modal}>
-        <div className={styles.modal_wrap}>
         <ClickAwayListener onClickAway={handleClose}>
           <div className={styles.modal_content}>
             <div className={styles.modal_header}>
@@ -29,7 +28,6 @@ export default function ModalPopup({ openModal, setModalOpen, props }: any) {
             <FormAddApiKeyEdit api_key_id={api_key_id} close_modal={handleClose}/>
           </div>
         </ClickAwayListener>
-        </div>
       </section>
     )
   );

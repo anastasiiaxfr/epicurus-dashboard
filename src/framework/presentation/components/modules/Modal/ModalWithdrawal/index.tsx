@@ -145,7 +145,6 @@ export default function ModalWithdrawal({ openModal, setModalOpen, toggleModal, 
 
     return (
         openModal && <section className={styles.modal}>
-            <div className={styles.modal_wrap}>
             <ClickAwayListener onClickAway={handleClose}>
                 <div className={styles.modal__content}>
 
@@ -174,7 +173,6 @@ export default function ModalWithdrawal({ openModal, setModalOpen, toggleModal, 
                     </form>
                 </div>
             </ClickAwayListener>
-            </div>
         </section>
 
     )

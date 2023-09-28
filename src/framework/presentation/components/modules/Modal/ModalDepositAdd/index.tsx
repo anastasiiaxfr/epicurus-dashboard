@@ -50,7 +50,6 @@ export default function ModalDeposit({
   return (
     openModal && (
       <section className={styles.modal}>
-        <div className={styles.modal_wrap}>
         <ClickAwayListener onClickAway={handleClose}>
           <div className={styles.modal_content}>
             <div className={styles.modal_inner}>
@@ -112,7 +111,6 @@ export default function ModalDeposit({
             </div>
           </div>
         </ClickAwayListener>
-        </div>
       </section>
     )
   );
