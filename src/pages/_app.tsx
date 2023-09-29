@@ -192,7 +192,7 @@ export default function App({ Component, pageProps }: any) {
               <Sidebar links={links} currentURL={currentURL} urlParent={urlParent}/>
               <main className="pg__container">
                 <Header title={currentTitle} />
-                <Support />
+                {/* <Support /> */}
                 <article className="pg__content">
                   <Component {...pageProps} />
                 </article>
@@ -200,6 +200,8 @@ export default function App({ Component, pageProps }: any) {
             </div>
             </ProductProvider>
           </AuthProvider>
+          <script src="https://cdn.pulse.is/livechat/loader.js" data-live-chat-id="651576acd32739aebf0a7b9e" async></script>
+
         </>
       
     </>
