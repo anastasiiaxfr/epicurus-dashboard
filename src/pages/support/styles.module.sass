@@ -32,15 +32,19 @@
     margin: 0
     @extend %card2
     border-radius: var(--brsXs)
-    padding: var(--gapMd)
+    padding: 0
+
+    &_header
+        padding: var(--gapMd)
 
     &_content
         display: none
-        margin-top: var(--gapMd)
+        padding: var(--gapMd)
+        padding-top: 0
+        margin: 0
         //+ft(18, 18*1.4, 500)
         +ft(15, 15*1.4, 500)
         color: $text_7
-        border-top: $bd1
 
         h1, h2, h3, h4, h5, h6
             +ft(20, 20*1.4, 700)
@@ -50,6 +54,9 @@
         p
             &:last-child
                 margin-bottom: 0
+
+        div > :first-child
+            margin-top: 0
 
         &.show
             display: block
@@ -96,6 +103,7 @@
                     +ft(14, 14*1.4, 700)
 
             &_header
+                padding: var(--gap)
                 +ft(13, 13*1.4, 700)
 
             &_footer

@@ -74,6 +74,12 @@ function HomePage() {
           <Hgroup props={hgroup} />
 
           {products && <Products products={products} />}
+
+          <script
+            src="https://cdn.pulse.is/livechat/loader.js"
+            data-live-chat-id="651576acd32739aebf0a7b9e"
+            async
+          ></script>
         </>
       )}
     </>

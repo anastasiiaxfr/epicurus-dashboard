@@ -193,6 +193,7 @@ function SupportPage() {
           ))}
         </article>
       </div>
+      
     </>
   );
 }

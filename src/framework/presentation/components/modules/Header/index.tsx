@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../../../../../pages/_auth";
 
-
 import Btn from "../Form/Btn";
 
 import Ava from "../Ava";
@@ -16,16 +15,17 @@ export default function Header({ title }: any) {
       <h1 className="pg__header-title">{title}</h1>
 
       {currentUser && (
-        <div className="pg__header-cta">
-          <Wallet />
-          {/* <Notification /> */}
-          {/* <Ava img={currentUser?.photoURL} name={currentUser?.displayName} />
-           */}
-          <span className="pg__header-info">{currentUser?.email}</span>
-          <Btn label="Log Out" onClick={() => auth.signOut()} />
-        </div>
+        <>
+          <div className="pg__header-cta">
+            <Wallet />
+            {/* <Notification /> */}
+            {/* <Ava img={currentUser?.photoURL} name={currentUser?.displayName} />
+             */}
+            <span className="pg__header-info">{currentUser?.email}</span>
+            <Btn label="Log Out" onClick={() => auth.signOut()} />
+          </div>
+        </>
       )}
-
     </header>
   );
 }

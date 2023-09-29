@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "author": "ansatasiia_berest",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "@metamask/detect-provider": "^2.0.0",

@@ -239,7 +239,7 @@ export default function FormAddApiKey({
 
         <div className={styles.form_cta}>
           <Btn label="Create Key" onClick={onAddKey} disabled={disabled} />
-          <Btn label="Reset form" onClick={onResetFrom} theme="secondary" />
+          <Btn label="Close Form" onClick={onResetFrom} theme="secondary" />
         </div>
       </form>
     </>

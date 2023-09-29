@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../../../../../pages/_auth";
 import { ProductContext } from "../../../../../pages/_products";
 
 import Link from "next/link";
@@ -13,28 +14,35 @@ import IconArr from "../../assets/icons/arr-t-rt.svg";
 import DashboardBanner from "../../assets/img/banners/dashboard_banner.png";
 
 export default function Hero() {
-  const { allDepositSum, totalDeposit: balanceDeposit, totalTMBalance: balanceTM, totalRTBalance: balanceRT}: any = useContext(ProductContext);
+  const { currentUser, userToken }: any = useContext(AuthContext);
 
-  const [totalDeposit, setTotalDeposit] = useState(0);
-  const [totalRT, setTotalRT] = useState(0);
-  const [totalTM, setTotalTM] = useState(0);
-
+  const {
+    depositAllSum,
+    depositTotalPnl,
+    depositTotalStatus,
+    tmAllSum,
+    tmTmTotalPnl,
+    tmTotalStatus,
+    rtAllSum,
+    rtTotalPnl, 
+    rtTotalStatus
+  }: any = useContext(ProductContext);
 
 
   const cards = [
     {
-      enable: Number(allDepositSum) === 0 ? false : true,
+      enable: depositTotalStatus,
       title: "Deposit",
-      status: "",
+      status: depositTotalStatus ? "Enabled" : "Disabled",
       url: "/deposit",
       cols: [
         {
           title: "Balance",
-          val: `$ ${allDepositSum}`,
+          val: `$ ${depositAllSum}`,
         },
         {
           title: "Total PNL",
-          val: `${totalDeposit.toFixed(2)} $`,
+          val: `${depositTotalPnl} $`,
         },
       ],
       cta: {
@@ -44,18 +52,39 @@ export default function Hero() {
       },
     },
     {
-      enable: Number(balanceRT) === 0 ? false : true,
+      enable: tmTotalStatus,
+      title: "Trust Management",
+      status: tmTotalStatus ? "Enabled" : "Disabled",
+      url: "/trust-management",
+      cols: [
+        {
+          title: "Balance",
+          val: `$ ${tmAllSum}`,
+        },
+        {
+          title: "Total PNL",
+          val: `${tmTmTotalPnl} $`,
+        },
+      ],
+      cta: {
+        enable: true,
+        title: "Take It",
+        url: "/trust-management",
+      },
+    },
+    {
+      enable: rtTotalStatus,
       title: "Robotic Trading",
-      status: "Active",
+      status: rtTotalStatus ? "Enabled" : "Disabled",
       url: "/robotic-trading",
       cols: [
         {
           title: "Balance",
-          val: `$ ${balanceRT}`,
+          val: `$ ${rtAllSum}`,
         },
         {
           title: "Total PNL",
-          val: `${totalRT.toFixed(2)} $`,
+          val: `${rtTotalPnl} $`,
         },
         {
           title: "PNL за день",
@@ -68,32 +97,8 @@ export default function Hero() {
         url: "/robotic-trading",
       },
     },
-    {
-      enable: Number(balanceTM) === 0 ? false : true,
-      title: "Trust Management",
-      status: "Active",
-      url: "/trust-management",
-      cols: [
-        {
-          title: "Balance",
-          val: `$ ${balanceTM}`,
-        },
-        {
-          title: "Total PNL",
-          val: `${totalTM.toFixed(2)} $`,
-        },
-        {
-            title: "PNL за день",
-            val: "0,00 $",
-          },
-      ],
-      cta: {
-        enable: true,
-        title: "Take It",
-        url: "/trust-management",
-      },
-    },
   ];
+
 
   return (
     <div className={styles.hero}>
@@ -115,7 +120,11 @@ export default function Hero() {
               </Link>
             </div>
             <div className={stylesCard.card_body}>
-              <div className={`${stylesCard.card_row} ${!i.enable ? stylesCard.card_row_disabled : null}`}>
+              <div
+                className={`${stylesCard.card_row} ${
+                  !i.enable ? stylesCard.card_row_disabled : null
+                }`}
+              >
                 {i.cols.map((j: any, key: number) => (
                   <div
                     className={stylesCard.card_col}
@@ -129,7 +138,7 @@ export default function Hero() {
 
               {!i.enable && (
                 <div className={stylesCard.card_cta}>
-                  <Link href={i.cta.url}>{ i.cta.title }</Link>
+                  <Link href={i.cta.url}>{i.cta.title}</Link>
                 </div>
               )}
             </div>
@@ -138,7 +147,7 @@ export default function Hero() {
       </div>
 
       <aside className={styles.sidebar}>
-        <Image src={DashboardBanner} alt="Epicurus.io"/>
+        <Image src={DashboardBanner} alt="Epicurus.io" />
         {/* <div className={styles.sidebar_card}>
           <div className={styles.sidebar_title}>Total Sum</div>
           <span className={styles.sidebar_chart_val}>

@@ -8,6 +8,7 @@ import FormReset from '../../Form/FormReset'
 
 import styles from './styles.module.sass'
 
+
 export default function LoadingModal({setUserToken}) {
     const { auth, } = useContext(AuthContext)
 
@@ -63,6 +64,7 @@ export default function LoadingModal({setUserToken}) {
     // }, [currentUser])
 
     return (
+        
         <div className={styles.loading_modal}> 
            <Modal openModal={openLogin} setModalOpen={setOpenLogin} blockModalHide={blockModalHide} setUserToken={setUserToken}>
                 <FormLogin toggleModal={handleToggleRegistration} setOpenLogin={setOpenLogin} 

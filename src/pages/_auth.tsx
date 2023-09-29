@@ -93,7 +93,8 @@ export default function AuthProvider({ children }: any) {
       {loading && <Preloader />}
 
       {userToken === null ||
-      userToken === undefined || currentUser === false ? (
+      userToken === undefined ||
+      currentUser === false ? (
         <AuthContext.Provider
           value={{
             auth,
@@ -102,18 +103,21 @@ export default function AuthProvider({ children }: any) {
           }}
         >
           <LoadingModal setUserToken={setUserToken} />
+          
         </AuthContext.Provider>
       ) : (
-        <AuthContext.Provider
-          value={{
-            auth,
-            currentUser,
-            currentToken,
-            userToken,
-          }}
-        >
-          {children}
-        </AuthContext.Provider>
+        <>
+          <AuthContext.Provider
+            value={{
+              auth,
+              currentUser,
+              currentToken,
+              userToken,
+            }}
+          >
+            {children}
+          </AuthContext.Provider>
+        </>
       )}
     </>
   );

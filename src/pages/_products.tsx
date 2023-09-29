@@ -63,7 +63,7 @@ export default function ProductProvider({ children }: any) {
           headers: { Authorization: `Bearer ${userToken}` }
         }).then(response => {
           if (!response.ok) {
-            //console.log(`Request failed with status: ${response.status}`);
+            console.log(`Request failed with status: ${response.status}`);
           } else {
             response.json().then(res => {
              console.log('Response data:', res);
@@ -73,10 +73,8 @@ export default function ProductProvider({ children }: any) {
                 api_name: item.title,
                 api_key: item.key,
                 api_secret: item.secret,
-                api_start_date: item.created_at.split(' ')[0],
                 api_end_date: item?.expired_at?.split(' ')[0],
                 api_status: item.is_active ? 'Enable' : 'Disable',
-                api_vendor: item.vendor,
                 api_balance: item.balance,
              }));
              setNewApiKey(items);
@@ -214,16 +212,61 @@ export default function ProductProvider({ children }: any) {
   }, [currentUser]);
 
 
+  const [depositAllSum, setDepositAllSum] = useState(0);
+  const [depositTotalPnl, setDepositTotalPnl] = useState(0);
+  const [depositTotalStatus, setDepositTotalStatus] = useState(false);
+  const [rtAllSum, setRtAllSum] = useState(0);
+  const [rtTotalPnl, setRtTotalPnl] = useState(0);
+  const [rtTotalStatus, setRtTotalStatus] = useState(false);
+  const [tmAllSum, setTmAllSum] = useState(0);
+  const [tmTmTotalPnl, setTmTotalPnl] = useState(0);
+  const [tmTotalStatus, setTmTotalStatus] = useState(false);
+
+  useEffect(() => {
+    if (currentUser) {
+      //alert(userID)
+
+      const URL = "https://epicurus-railway-production.up.railway.app/v1";
+      //alert(userToken);
+      if (userToken !== undefined) {
+        fetch(`${URL}/dashboard/test`, {
+          method: "GET",
+          headers: { Authorization: `Bearer ${userToken}` },
+        })
+          .then((response) => {
+            if (!response.ok) {
+              console.log(`Request failed with status: ${response.status}`);
+            } else {
+              response.json().then((res) => {
+                // Handle the response data as needed.
+                const deposit_all_sum = res[0].deposit.balance.toFixed(2) || 0;
+                setDepositAllSum(deposit_all_sum);
+                const deposit_total_pnl = res[0].deposit.total_pnl.toFixed(2) || 0;
+                setDepositTotalPnl(deposit_total_pnl);
+                const deposit_status = res[0].deposit?.is_active || "Disabled";
+                setDepositTotalStatus(deposit_status);
+                const tm_balance = res[0].trust.balance.toFixed(2) || 0;
+                setRtAllSum(tm_balance);
+                const tm_total_pnl = res[0].trust.total_pnl.toFixed(2) || 0;
+                setRtTotalPnl(tm_total_pnl);
+                const tm_status = res[0].trust?.is_active || "Disabled";
+                setRtTotalStatus(tm_status);
+                const rt_balance = res[0].robot.balance.toFixed(2) || 0;
+                setTmAllSum(rt_balance);
+                const rt_total_pnl = res[0].robot.total_pnl.toFixed(2) || 0;
+                setTmTotalPnl(rt_total_pnl);
+                const rt_status = res[0].robot?.is_active || "Disabled";
+                setTmTotalStatus(rt_status);
+              });
+            }
+          })
+          .catch((error) => {
+            console.error("Fetch error:", error);
+          });
+      }
+    }
+  }, [currentUser]);
   
-  const totalDepositBalance = newDeposit.reduce((sum, item) => sum + +item.deposit_sum, 0);
-
-  const allDepositSum = (totalDepositBalance || 0).toFixed(2);
-
-  const totalTMBalanceSum = newTrustManagement.reduce((sum, item) => +sum + +item.tm_sum, 0);
-  const totalTMBalance = (totalTMBalanceSum.toFixed(2));
-
-  const totalRTBalanceSum = newRoboticTrading.reduce((sum, item) => +sum + +item.rt_sum, 0);
-  const totalRTBalance = (totalRTBalanceSum.toFixed(2));
 
   return (
     <>
@@ -234,10 +277,15 @@ export default function ProductProvider({ children }: any) {
           newRoboticTrading,
           newWallet,
           newDeposit,
-          allDepositSum,
-          totalDepositBalance,
-          totalTMBalance,
-          totalRTBalance,
+          depositAllSum,
+          depositTotalPnl,
+          depositTotalStatus,
+          tmAllSum,
+          tmTmTotalPnl,
+          tmTotalStatus,
+          rtAllSum,
+          rtTotalPnl, 
+          rtTotalStatus,
           setNewApiKeyUpdated
         }}
       >

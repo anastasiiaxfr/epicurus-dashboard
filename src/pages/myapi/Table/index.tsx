@@ -116,10 +116,10 @@ export default function ApiKeyList() {
                   <b>{i.api_status}</b>
                 </div>
 
-                <div className={styles.table_info}>
+                {/* <div className={styles.table_info}>
                   <span>Сonnected to</span>
                   <b>{i.api_vendor}</b>
-                </div>
+                </div> */}
               </div>
 
               <div className={styles.table_cta}>
@@ -147,15 +147,6 @@ export default function ApiKeyList() {
                   <b>${i.api_balance.toFixed(2)}</b>
                 </div>
               </div>
-
-              {i.api_start_date && (
-                <div className={styles.table_col}>
-                  <div className={styles.table_label}>Start Date</div>
-                  <div className={styles.table_val}>
-                    <span>{i.api_start_date}</span>
-                  </div>
-                </div>
-              )}
 
               {i.api_end_date ? <div className={styles.table_col}>
                 <div className={styles.table_label}>End Date</div>

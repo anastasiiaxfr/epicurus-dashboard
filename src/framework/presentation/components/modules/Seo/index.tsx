@@ -1,8 +1,6 @@
-import Head from "next/head";
-
 export default function Seo({ seo }: any) {
   return (
-    <Head>
+    <>
       {/* Fav base (needed advanced) */}
       <link href="fav/favicon.ico" rel="shortcut icon" type="image/x-icon" />
       <link href="fav/favicon.ico" rel="icon" type="image/x-icon" />
@@ -97,6 +95,6 @@ export default function Seo({ seo }: any) {
         key="og:image:height"
         content={seo.metaImgHeight}
       />
-    </Head>
+    </>
   );
 }

@@ -1,14 +1,12 @@
 import { useRouter } from "next/router";
 
-import AuthProvider from "./_auth";
+import AuthProvider, { AuthContext } from "./_auth";
 import ProductProvider from "./_products";
 
-import Seo from "../framework/presentation/components/modules/Seo";
 import Header from "../framework/presentation/components/modules/Header";
 import Sidebar from "../framework/presentation/components/modules/Sidebar";
 
 import Support from "../framework/presentation/components/modules/Support";
-
 
 import Icon1 from "../framework/presentation/components/assets/icons/i1.svg";
 import Icon2 from "../framework/presentation/components/assets/icons/i2.svg";
@@ -22,53 +20,7 @@ import Icon10 from "../framework/presentation/components/assets/icons/i10.svg";
 import Icon11 from "../framework/presentation/components/assets/icons/i11.svg";
 import Icon12 from "../framework/presentation/components/assets/icons/i12.svg";
 
-
 import "../framework/presentation/components/assets/styles/main.sass";
-
-const seo = {
-  metaHeading: "Epicurus | 💙💛",
-  metaDescription: "Epicurus Description",
-  metaSiteName: "Epicurus",
-  metaLocale: "en",
-  metaURL: `${process.env.NEXT_PUBLIC_HOST}`,
-  //metaImg: `${process.env.NEXT_PUBLIC_HOST}/og.jpg`,
-  metaImg: "og.jpg",
-  metaImgWidth: "600",
-  metaImgHeight: "314",
-};
-
-const schema = {
-  "@context": "http://schema.org/",
-  "@type": "Organization",
-  name: "Epicurus",
-  brand: "Epicurus",
-  alternateName: "Epicurus",
-  url: process.env.NEXT_PUBLIC_HOST,
-  logo: `${process.env.NEXT_PUBLIC_HOST}/ua/logo.svg`,
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "SOHO The Strand, Fawwara Building, Triq L-Imsida",
-    addressLocality: "Gzira",
-    postalCode: "GZR 1362",
-    addressCountry: "Malta",
-  },
-  contactPoint: [
-    {
-      "@type": "ContactPoint",
-      telephone: "380505635807",
-      email: "info@epicurus.com",
-      contactType: "customer support",
-      areaServed: "US",
-      availableLanguage: ["English"],
-    },
-  ],
-  sameAs: [
-    "https://www.facebook.com/epicurus",
-    "https://twitter.com/epicurus",
-    "https://www.linkedin.com/company/epicurus",
-    "https://www.instagram.com/epicurus",
-  ],
-};
 
 export default function App({ Component, pageProps }: any) {
   const router = useRouter();
@@ -131,11 +83,11 @@ export default function App({ Component, pageProps }: any) {
       ],
     },
     {
-      group: "Help and Settings",
+      group: "Frequently Asked Questions",
       items: [
         {
           enable: true,
-          title: "Support",
+          title: "FAQ",
           icon: <Icon9 with="16" height="16" />,
           url: "/support",
         },
@@ -160,51 +112,44 @@ export default function App({ Component, pageProps }: any) {
     },
   ];
 
-  const urlParent = '/' + currentURL.split('/')[1]
+  const urlParent = "/" + currentURL.split("/")[1];
 
   const findTitleByURL = (url: any) => {
     for (const group of links) {
       for (const item of group.items) {
-        if (item.url === url || item.url && item.url !== '/' && urlParent.includes(item.url)) {
+        if (
+          item.url === url ||
+          (item.url && item.url !== "/" && urlParent.includes(item.url))
+        ) {
           return item.title;
         }
       }
     }
-    return null; 
+    return null;
   };
 
   const currentTitle = findTitleByURL(currentURL) || "Home";
 
-
   return (
     <>
-      <Seo seo={seo} />
-      
-        <>
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-          ></script>
-
-          <AuthProvider>
-            <ProductProvider>
-            <div className="pg__wrap">
-              <Sidebar links={links} currentURL={currentURL} urlParent={urlParent}/>
-              <main className="pg__container">
-                <Header title={currentTitle} />
-                {/* <Support /> */}
-                <article className="pg__content">
-                  <Component {...pageProps} />
-                </article>
-              </main>
-            </div>
-            </ProductProvider>
-          </AuthProvider>
-          <script src="https://cdn.pulse.is/livechat/loader.js" data-live-chat-id="651576acd32739aebf0a7b9e" async></script>
-
-        </>
-      
+      <AuthProvider>
+        <ProductProvider>
+          <div className="pg__wrap">
+            <Sidebar
+              links={links}
+              currentURL={currentURL}
+              urlParent={urlParent}
+            />
+            <main className="pg__container">
+              <Header title={currentTitle} />
+              {/* <Support /> */}
+              <article className="pg__content">
+                <Component {...pageProps} />
+              </article>
+            </main>
+          </div>
+        </ProductProvider>
+      </AuthProvider>
     </>
   );
 }
-

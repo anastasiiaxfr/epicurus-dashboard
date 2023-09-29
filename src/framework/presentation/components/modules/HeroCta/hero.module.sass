@@ -127,7 +127,7 @@
             padding: 12px
             border-radius: 8px
             background-color: $main
-            background: $grad7
+            //background: $grad7
 
     &_title
         +ft(22, 22, 700)
@@ -198,6 +198,7 @@ $cardH: 638px
         &_title
             text-transform: uppercase
 
+
 +maw($xs)
     .hero
         &_title
@@ -205,5 +206,12 @@ $cardH: 638px
 
         &_container_icon
             display: none
-            
+
+    .sidebar
+        &_card
+            border: none
+            &_overlay
+                padding: var(--gap)
+                +ft(12, 12*1.4, 400)
+   
        

@@ -15,18 +15,17 @@ export default function Sidebar({ links, currentURL, urlParent }: any) {
   };
 
   const MAX_WIDTH_SIDEBAR = "(max-width: 1120px)";
-  //@ts-ignore
-  //const smallWindow = window.matchMedia(MAX_WIDTH_SIDEBAR);
+  const smallWindow = window.matchMedia(MAX_WIDTH_SIDEBAR);
 
   const onMenuItemClick = () => {
-    //smallWindow.matches && setShowMenu(true);
+    smallWindow.matches && setShowMenu(true);
   };
 
   useEffect(() => {
     const onAwaySidebarClick = (event: any) => {
       const sidebarElement = document.querySelector(".pg__sidebar");
       if (sidebarElement && !sidebarElement.contains(event.target)) {
-        //smallWindow.matches && setShowMenu(true);
+        smallWindow.matches && setShowMenu(true);
       }
     };
     document.addEventListener("click", onAwaySidebarClick);
@@ -43,8 +42,8 @@ export default function Sidebar({ links, currentURL, urlParent }: any) {
             <Logo onToggleMenu={() => onToggleMenu()} />
           </div>
 
-          {links.map((i: any, isKey: number) => (
-            <ul className={styles.sidebar_nav} key={isKey}>
+          {links.map((i: any, k: number) => (
+            <ul className={styles.sidebar_nav} key={k}>
               <li className={styles.sidebar_nav_caption}>
                 <span>{i.group}</span>
               </li>
@@ -54,7 +53,6 @@ export default function Sidebar({ links, currentURL, urlParent }: any) {
                     <li key={k}>
                       {j.url ? (
                         <Link
-                          className={''}
                           href={j.url}
                           onClick={onMenuItemClick}
                         >

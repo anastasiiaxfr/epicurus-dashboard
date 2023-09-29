@@ -69,7 +69,7 @@ function MyApiPage() {
     str: `
     <h3>How to Connect the API Key to EPICURUS</h3>
     
-    <p>To get started with EPICURUS, you first need to add the first API with the required settings. You can learn how to create an API Key on Binance [here].</p>
+    <p>To get started with EPICURUS, you first need to add the first API with the required settings. You can learn how to create an API Key on Binance.</p>
 
     <p>In your EPICURUS personal account, go to the “My API” tab (Payments section in the left menu bar) and click the "Add API Key". Fill in all required fields.</p>
 

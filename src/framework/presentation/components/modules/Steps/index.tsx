@@ -16,7 +16,7 @@ export default function Steps({setToggleDashboard}: any) {
   );
 
   const onDashboardToggle = () => {
-    setToggleDashboard(true);
+    //setToggleDashboard(true);
   }
 
   const steps = [
@@ -51,7 +51,7 @@ export default function Steps({setToggleDashboard}: any) {
       },
     },
     {
-      active: newTrustManagement.length > 0 || newRoboticTrading.length > 0 ? true : false,
+      active: false,
       completed: false,
       num: "3.",
       title: "Enjoy our Products",
