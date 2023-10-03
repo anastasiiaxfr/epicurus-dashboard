@@ -169,11 +169,21 @@ $cardH: 638px
 
             div 
                 height: 100%
+                padding-right: 10px
                 @extend %scroll
                 overflow: hidden
                 overflow-y: scroll
                 & > *:first-child
                     margin-top: 0
+                &::-webkit-scrollbar-thumb
+                    background-color: $dark
+
+            ul, ol
+                margin: 0
+                padding-left: var(--gap) 
+
+            li
+                margin: var(--gapXs) 0
 
         &::after
             +ps(absolute, (b, var(--gapLg)), (l, var(--gapLg)))

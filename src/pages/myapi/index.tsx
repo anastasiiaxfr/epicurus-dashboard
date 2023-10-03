@@ -69,11 +69,19 @@ function MyApiPage() {
     str: `
     <h3>How to Connect the API Key to EPICURUS</h3>
     
-    <p>To get started with EPICURUS, you first need to add the first API with the required settings. You can learn how to create an API Key on Binance.</p>
-
-    <p>In your EPICURUS personal account, go to the “My API” tab (Payments section in the left menu bar) and click the "Add API Key". Fill in all required fields.</p>
-
-    <p>Confirm the creation of the Key with the "Create Key" button. It will be displayed in the general list, where you will see the key management data.</p>`
+    <ol>
+      <li>Log in to Binance and go to “API Management” section in your profile.
+      </li>
+      <li>Click “Create API”. In the “Choose API Key type” window that opens, select “System generated” and click “Next”. Create a label for the API key and click “Next” again.
+      </li>
+      <li>You must confirm the request using your two-factor authentication device to generate an API key.
+      </li>
+      <li>Binance will generate an API key and a corresponding API secret key. After that, uncheck the “Manage Security” checkbox. Complete the request using your device for two-factor authentication.</li>
+      <li>Check the boxes next to the “Enable futures” and “Allow universal operations” settings, and leave the API access restriction “Unrestricted”.
+      </li>
+      <li>Copy the API Key and Secret Key. Paste them into the appropriate fields on this page.</li>
+    </ol>
+    `
   };
 
   return (
