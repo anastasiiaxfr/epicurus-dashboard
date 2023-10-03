@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import Script from 'next/script';
 
 import AuthProvider, { AuthContext } from "./_auth";
 import ProductProvider from "./_products";
@@ -148,6 +149,9 @@ export default function App({ Component, pageProps }: any) {
               </article>
             </main>
           </div>
+          <Script src="https://cdn.pulse.is/livechat/loader.js"
+            data-live-chat-id="651576acd32739aebf0a7b9e"
+            async strategy="afterInteractive" />
         </ProductProvider>
       </AuthProvider>
     </>

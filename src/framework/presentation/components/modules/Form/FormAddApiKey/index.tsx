@@ -63,7 +63,7 @@ export default function FormAddApiKey({
   const [openModalError, setOpenModalError] = useState(false);
   const modalError = {
     title: "Please Try Again",
-    text: "Key is not available or wrong key format.",
+    text: "Key is not available or wrong key format",
     btnText: "Accept",
   };
 
