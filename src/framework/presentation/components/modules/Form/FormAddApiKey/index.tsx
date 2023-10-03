@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef, useContext } from "react";
 import nextId from "react-id-generator";
-import { ref, database, set } from "../../../../../../pages/_firebase";
 import { AuthContext } from "../../../../../../pages/_auth";
 import { ProductContext } from "../../../../../../pages/_products";
 
@@ -9,6 +8,7 @@ import Btn from "../../Form/Btn";
 import Checkbox from "../../Form/Checkbox";
 import ModalPolicy from "../../Modal/ModalPolicy";
 import ModalError from "../../Modal/ModalAuthError";
+import Preloader from "../../Loader";
 
 import styles from "./styles.module.sass";
 
@@ -36,6 +36,8 @@ export default function FormAddApiKey({
   setFieldKey,
   setFieldSecret,
 }: any) {
+  const [loading, setLoading] = useState(false); 
+
   const reg_name = /^[0-9a-zA-Z\s-]+$/;
 
   const htmlId = nextId("api-key-");
@@ -61,6 +63,7 @@ export default function FormAddApiKey({
   const [openModalError, setOpenModalError] = useState(false);
   const modalError = {
     title: "Please Try Again",
+    text: "Key is not available or wrong key format.",
     btnText: "Accept",
   };
 
@@ -96,6 +99,8 @@ export default function FormAddApiKey({
     setResetCheckbox((prev: any) => !prev);
   };
 
+
+
   const URL = "https://epicurus-railway-production.up.railway.app/v1";
   async function sendToFB(
     api_name: any,
@@ -104,6 +109,7 @@ export default function FormAddApiKey({
     form: any
   ) {
     console.log(userToken);
+    setLoading(true);
     let res = fetch(
       `${URL}/key/create/`,
       {
@@ -120,9 +126,9 @@ export default function FormAddApiKey({
         },
       }
     ).then((response) => {
+      setLoading(false);
       if (!response.ok) {
         console.log(response.status);
-        (form.current as any).reset();
         setReset(true);
         setOpenModalError(true);
         //onResetFrom();
@@ -153,7 +159,9 @@ export default function FormAddApiKey({
         props={modalError}
         theme="error"
       />
-      <form
+              {loading && <Preloader />}
+
+      {!loading && <form
         action="/"
         method="POST"
         noValidate
@@ -241,7 +249,7 @@ export default function FormAddApiKey({
           <Btn label="Create Key" onClick={onAddKey} disabled={disabled} />
           <Btn label="Close Form" onClick={onResetFrom} theme="secondary" />
         </div>
-      </form>
+      </form>}
     </>
   );
 }

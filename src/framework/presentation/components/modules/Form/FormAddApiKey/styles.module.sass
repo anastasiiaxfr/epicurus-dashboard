@@ -3,6 +3,7 @@
 $h: 45px
 
 .form
+    position: relative
     width: 100%
     &_cta
         +flex(flex, center, flex-start, wrap)
@@ -18,6 +19,16 @@ $h: 45px
 
     label
         color: $text_1
+
+.preloader
+    +ps(absolute, (t, -2%), (l, -2%))
+    z-index: 10
+    +sz(104%, 104%)
+    +flex(flex, center, center, nowrap)
+    background: rgba($dark, 0.5)
+    backdrop-filter: blur(50px)
+    border-radius: var(--brsLg)
+    overflow: hidden
 
  
 
