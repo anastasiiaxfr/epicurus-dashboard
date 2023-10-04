@@ -218,6 +218,7 @@ export default function ProductProvider({ children }: any) {
   const [rtAllSum, setRtAllSum] = useState(0);
   const [rtTotalPnl, setRtTotalPnl] = useState(0);
   const [rtTotalStatus, setRtTotalStatus] = useState(false);
+  const [rtPnlPerDay, setRtPnlPerDay] = useState(0);
   const [tmAllSum, setTmAllSum] = useState(0);
   const [tmTmTotalPnl, setTmTotalPnl] = useState(0);
   const [tmTotalStatus, setTmTotalStatus] = useState(false);
@@ -243,20 +244,22 @@ export default function ProductProvider({ children }: any) {
                 setDepositAllSum(deposit_all_sum);
                 const deposit_total_pnl = res[0].deposit.total_pnl.toFixed(2) || 0;
                 setDepositTotalPnl(deposit_total_pnl);
-                const deposit_status = res[0].deposit?.is_active || "Disabled";
+                const deposit_status = res[0].deposit?.is_active;
                 setDepositTotalStatus(deposit_status);
                 const tm_balance = res[0].trust.balance.toFixed(2) || 0;
-                setRtAllSum(tm_balance);
+                setTmAllSum(tm_balance);
                 const tm_total_pnl = res[0].trust.total_pnl.toFixed(2) || 0;
-                setRtTotalPnl(tm_total_pnl);
-                const tm_status = res[0].trust?.is_active || "Disabled";
-                setRtTotalStatus(tm_status);
+                setTmTotalPnl(tm_total_pnl);
+                const tm_status = res[0].trust?.is_active;
+                setTmTotalStatus(tm_status);
                 const rt_balance = res[0].robot.balance.toFixed(2) || 0;
-                setTmAllSum(rt_balance);
+                setRtAllSum(rt_balance);
                 const rt_total_pnl = res[0].robot.total_pnl.toFixed(2) || 0;
-                setTmTotalPnl(rt_total_pnl);
-                const rt_status = res[0].robot?.is_active || "Disabled";
-                setTmTotalStatus(rt_status);
+                setRtTotalPnl(rt_total_pnl);
+                const rt_status = res[0].robot?.is_active;
+                setRtTotalStatus(rt_status);
+                const rt_pnl_day = res[0].robot.pnl_per_day.toFixed(2);
+                setRtPnlPerDay(rt_pnl_day);
               });
             }
           })
@@ -286,6 +289,7 @@ export default function ProductProvider({ children }: any) {
           rtAllSum,
           rtTotalPnl, 
           rtTotalStatus,
+          rtPnlPerDay,
           setNewApiKeyUpdated
         }}
       >

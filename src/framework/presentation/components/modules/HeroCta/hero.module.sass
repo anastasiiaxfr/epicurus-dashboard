@@ -139,7 +139,6 @@ $cardH: 638px
         position: relative
         z-index: 1
         height: 100%
-        min-height: 350px
         border: $bd4
         border-radius: var(--brsLg)
         overflow: hidden
@@ -153,7 +152,6 @@ $cardH: 638px
             background-color: $blue
 
         &_overlay
-            +ps(absolute, (t, 0), (l, 0))
             +sz(100%, 100%)
             padding: var(--gapLg)
             //backdrop-filter: blur(260px)
@@ -170,8 +168,8 @@ $cardH: 638px
             div 
                 position: relative
                 height: 100%
-                padding-right: 15px
                 @extend %scroll
+                padding-right: var(--gap)
                 overflow: hidden
                 overflow-y: scroll
 
@@ -183,11 +181,21 @@ $cardH: 638px
 
             ul, ol
                 margin: 0
-                padding-left: var(--gap) 
+                padding: 0
+                counter-reset: list
 
             li
-                margin: var(--gapXs) 0
+                position: relative
+                margin: var(--gapSm) 0
                 +ft(14, 14*1.4, 400)
+                text-align: justify
+                display: flex
+                gap: var(--gap)
+
+                &::before
+                    counter-increment: list
+                    content: counter(list)'.' 
+
 
         &::after
             +ps(absolute, (b, var(--gapLg)), (l, var(--gapLg)))
@@ -198,6 +206,11 @@ $cardH: 638px
 
 
 +maw($sm)
+    .sidebar
+        &_card
+            &_overlay
+                position: relative
+
     .hero
         &_header
             flex-wrap: wrap
@@ -227,5 +240,8 @@ $cardH: 638px
             &_overlay
                 padding: var(--gap)
                 +ft(12, 12*1.4, 400)
+
+                li
+                    text-align: left
    
        

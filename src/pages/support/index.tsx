@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext, } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 import Sidebar from "./sidebar";
+
+
 
 import LogoIcon from "../../framework/presentation/components/assets/img/logo-sm.svg";
 import AuthorIcon from "../../framework/presentation/components/assets/img/ava.png";
@@ -193,7 +195,6 @@ function SupportPage() {
           ))}
         </article>
       </div>
-      
     </>
   );
 }

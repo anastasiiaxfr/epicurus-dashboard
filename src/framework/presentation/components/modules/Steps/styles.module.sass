@@ -45,6 +45,7 @@
         box-shadow: $bxsd6
 
     &_content
+        width: 100%
         flex: 1
         +flex(flex, center, center, nowrap, column)
         gap: var(--gapMd)
@@ -60,6 +61,11 @@
         @extend %card3
         //border: $bd5
         border: $bd4
+        background-color: $dark18
+
+        &::before, &::after
+            display: none
+            
 
         // &:not([class*=active])
         //     &::before
@@ -68,9 +74,13 @@
         &.active
             //box-shadow: $bxsd1
             border-color: $main
+            background-color: $magenta4
+
+            .steps_item_text
+                color: $white
 
         &.completed
-            border-color: $green
+            border-color: $green3
 
         &_header
             margin-bottom: var(--gapXs)
@@ -108,7 +118,6 @@
         &_item
             &_header
                 +ft(16, 16*1.4, 700)
-                text-transform: uppercase
             &_text
                 margin-bottom: var(--gap)
                 +ft(14, 14*1.4, 600)
@@ -118,6 +127,25 @@
 
     +maw($xs)
         &_header
-            justify-content: center
+            justify-content: space-between
             text-align: center
             padding-bottom: var(--gap)
+            +ft(16, 19, 600)
+
+        &_title
+            +ft(16, 19, 700)
+        
+        &_link
+            +ft(10, 12, 500)
+
+        :global([class*=btn])
+            width: auto
+
+        &_item
+            &_text
+                +ft(16, 22, 500)
+
+
+    +maw($exs)
+        &_header
+            justify-content: center

@@ -4,6 +4,7 @@ import * as fb from "./_firebase";
 
 import LoadingModal from "../framework/presentation/components/modules/Loading/Modal";
 import Preloader from "../framework/presentation/components/modules/Preloader";
+import Script from "next/script";
 
 export const AuthContext = createContext({});
 
@@ -79,18 +80,28 @@ export default function AuthProvider({ children }: any) {
     });
   }, []);
 
-  console.log(userToken);
+  console.log("userToken", userToken);
   //console.log(currentUser)
   //if(currentUser){alert(`currentUser ${currentUser}`)}
 
   useEffect(() => {
     currentUser === false ? setUserToken(null) : null;
   }, [currentUser]);
+
   //if(userToken){ alert(userToken) }
 
   return (
     <>
       {loading && <Preloader />}
+
+      {userToken !== null && (
+        <Script
+          src="https://cdn.pulse.is/livechat/loader.js"
+          data-live-chat-id="651576acd32739aebf0a7b9e"
+          async
+          strategy="afterInteractive"
+        />
+      )}
 
       {userToken === null ||
       userToken === undefined ||
@@ -103,7 +114,6 @@ export default function AuthProvider({ children }: any) {
           }}
         >
           <LoadingModal setUserToken={setUserToken} />
-          
         </AuthContext.Provider>
       ) : (
         <>

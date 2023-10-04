@@ -25,7 +25,8 @@ export default function Hero() {
     tmTotalStatus,
     rtAllSum,
     rtTotalPnl, 
-    rtTotalStatus
+    rtTotalStatus,
+    rtPnlPerDay
   }: any = useContext(ProductContext);
 
 
@@ -33,7 +34,7 @@ export default function Hero() {
     {
       enable: depositTotalStatus,
       title: "Deposit",
-      status: depositTotalStatus ? "Enabled" : "Disabled",
+      status: depositTotalStatus ? "Activated" : "Deactivated",
       url: "/deposit",
       cols: [
         {
@@ -54,7 +55,7 @@ export default function Hero() {
     {
       enable: tmTotalStatus,
       title: "Trust Management",
-      status: tmTotalStatus ? "Enabled" : "Disabled",
+      status: tmTotalStatus ? "Activated" : "Deactivated",
       url: "/trust-management",
       cols: [
         {
@@ -75,7 +76,7 @@ export default function Hero() {
     {
       enable: rtTotalStatus,
       title: "Robotic Trading",
-      status: rtTotalStatus ? "Enabled" : "Disabled",
+      status: rtTotalStatus ? "Activated" : "Deactivated",
       url: "/robotic-trading",
       cols: [
         {
@@ -88,7 +89,7 @@ export default function Hero() {
         },
         {
           title: "PNL за день",
-          val: "0,00 $",
+          val: `${rtPnlPerDay} $`,
         },
       ],
       cta: {
@@ -109,7 +110,7 @@ export default function Hero() {
               <div className={stylesCard.card_hgroup}>
                 <div className={stylesCard.card_title}>{i.title}</div>
                 {i.status && (
-                  <div className={stylesCard.card_status}>
+                  <div className={`${stylesCard.card_status} ${stylesCard[i.status.toLowerCase()]}`}>
                     Status:
                     <span>{i.status}</span>
                   </div>

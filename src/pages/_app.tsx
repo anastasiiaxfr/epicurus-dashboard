@@ -1,11 +1,11 @@
 import { useRouter } from "next/router";
-import Script from 'next/script';
 
 import AuthProvider, { AuthContext } from "./_auth";
 import ProductProvider from "./_products";
 
 import Header from "../framework/presentation/components/modules/Header";
 import Sidebar from "../framework/presentation/components/modules/Sidebar";
+
 
 import Support from "../framework/presentation/components/modules/Support";
 
@@ -84,7 +84,7 @@ export default function App({ Component, pageProps }: any) {
       ],
     },
     {
-      group: "Frequently Asked Questions",
+      group: "Support",
       items: [
         {
           enable: true,
@@ -144,14 +144,13 @@ export default function App({ Component, pageProps }: any) {
             <main className="pg__container">
               <Header title={currentTitle} />
               {/* <Support /> */}
+              
               <article className="pg__content">
                 <Component {...pageProps} />
               </article>
             </main>
           </div>
-          <Script src="https://cdn.pulse.is/livechat/loader.js"
-            data-live-chat-id="651576acd32739aebf0a7b9e"
-            async strategy="afterInteractive" />
+         
         </ProductProvider>
       </AuthProvider>
     </>

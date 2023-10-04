@@ -1,11 +1,13 @@
 @import '../../assets/styles/vars.sass';
 
 .preloader {
-    @include sz(100%, 100%);
+    @include ps(absolute, (t, -2%), (l, -2%));
+    z-index: 10;
+    @include sz(104%, 104%);
     @include flex(flex, center, center, nowrap);
-    // background: rgba($dark, 0.5);
-    // backdrop-filter: blur(50px);
-    // border-radius: var(--brsLg);
+    background: rgba($dark, 0.5);
+    backdrop-filter: blur(100px);
+    border-radius: var(--brsLg);
     overflow: hidden;
 }
 

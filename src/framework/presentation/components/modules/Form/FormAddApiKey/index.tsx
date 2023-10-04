@@ -129,8 +129,10 @@ export default function FormAddApiKey({
       setLoading(false);
       if (!response.ok) {
         console.log(response.status);
-        setReset(true);
         setOpenModalError(true);
+        (form.current as any).reset();
+        setReset((prev: any) => !prev);
+        setResetCheckbox((prev: any) => !prev);
         //onResetFrom();
       } else {
         setNewApiKeyUpdated((prev: any) => !prev);
@@ -159,9 +161,9 @@ export default function FormAddApiKey({
         props={modalError}
         theme="error"
       />
-              {loading && <Preloader />}
+            
 
-      {!loading && <form
+      {<form
         action="/"
         method="POST"
         noValidate
@@ -249,6 +251,7 @@ export default function FormAddApiKey({
           <Btn label="Create Key" onClick={onAddKey} disabled={disabled} />
           <Btn label="Close Form" onClick={onResetFrom} theme="secondary" />
         </div>
+        {loading && <Preloader />}
       </form>}
     </>
   );

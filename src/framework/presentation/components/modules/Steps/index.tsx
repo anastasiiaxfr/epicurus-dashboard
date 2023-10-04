@@ -16,7 +16,7 @@ export default function Steps({setToggleDashboard}: any) {
   );
 
   const onDashboardToggle = () => {
-    //setToggleDashboard(true);
+    setToggleDashboard(true);
   }
 
   const steps = [

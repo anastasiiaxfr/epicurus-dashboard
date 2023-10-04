@@ -9,6 +9,8 @@ import Logo from "../Logo";
 export default function Sidebar({ links, currentURL, urlParent }: any) {
 
   const [showMenu, setShowMenu] = useState(true);
+  const [showSidebar, setShowSidebar] = useState(true);
+
 
   const onToggleMenu = () => {
     setShowMenu((prev) => !prev);
@@ -18,8 +20,10 @@ export default function Sidebar({ links, currentURL, urlParent }: any) {
   const smallWindow = window.matchMedia(MAX_WIDTH_SIDEBAR);
 
   const onMenuItemClick = () => {
-    smallWindow.matches && setShowMenu(true);
+    if(smallWindow.matches){ setShowMenu(true); }
   };
+
+
 
   useEffect(() => {
     const onAwaySidebarClick = (event: any) => {
@@ -35,6 +39,7 @@ export default function Sidebar({ links, currentURL, urlParent }: any) {
   }, []);
 
   return (
+   <>
     <aside className={`pg__sidebar ${showMenu ? "" : "active"}`}>
       <div className="pg__sidebar-inner">
         <div className="pg__sidebar-content">
@@ -73,5 +78,6 @@ export default function Sidebar({ links, currentURL, urlParent }: any) {
         </div>
       </div>
     </aside>
+    </>
   );
 }
