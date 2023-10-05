@@ -48,7 +48,7 @@ export default function Hero() {
       ],
       cta: {
         enable: true,
-        title: "Take It",
+        title: "Activate",
         url: "/deposit",
       },
     },
@@ -69,7 +69,7 @@ export default function Hero() {
       ],
       cta: {
         enable: true,
-        title: "Take It",
+        title: "Activate",
         url: "/trust-management",
       },
     },
@@ -94,7 +94,7 @@ export default function Hero() {
       ],
       cta: {
         enable: true,
-        title: "Take It",
+        title: "Activate",
         url: "/robotic-trading",
       },
     },
