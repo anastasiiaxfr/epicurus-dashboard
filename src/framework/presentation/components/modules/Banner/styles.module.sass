@@ -15,7 +15,7 @@
         display: block
         +sz(100%, 100%)
         margin: auto
-        object-fit: contain
+        object-fit: cover
 
     &_divider
         max-width: 144px
@@ -66,8 +66,8 @@
             flex-wrap: wrap
             &_text
                 width: 100%
-        &_img
-            opacity: 0.1
+                color: $white
+      
     
     +maw($xs)
         border-radius: var(--brsXs)
@@ -77,3 +77,5 @@
             display: none
         &_title
             +ft(20, 20*1.2, 900)
+        &_img
+            opacity: 0.1

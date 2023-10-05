@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { ref, database, set } from "../_firebase";
 import { AuthContext } from "../../pages/_auth";
 import nextId from "react-id-generator";
+import RtImage from "../../framework/presentation/components/assets/img/banners/rt.jpg"
 
 import { ProductContext } from "../_products";
 
@@ -219,6 +220,14 @@ function RoboticTradingPage() {
     },
   };
 
+  const banner = {
+    title: "Robotic Trading",
+    sub_title: "What is",
+    text: "Service for automated digital assets trading on centralised or decentralised exchanges. Robotic Trading allows an investor to subscribe to one or more bots that autonomously, without investor participation, trade based on algorithmic strategies. ",
+    img: RtImage
+  };
+
+
   const toggleModalSuccess = () => {
     setOpenModalSuccess(true);
   };
@@ -240,7 +249,7 @@ function RoboticTradingPage() {
 
       {!show && (
         <>
-          <Banner />
+          <Banner data={banner}/>
           <Hgroup props={hgroup} />
           <div className={styles.cards}>
             {cards.map((i, k) => (

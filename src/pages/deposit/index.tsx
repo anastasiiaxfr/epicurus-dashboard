@@ -14,6 +14,9 @@ import ModalConfirmation from "../../framework/presentation/components/modules/M
 
 import FormDeposit from "../../framework/presentation/components/modules/Form/FormAddDeposit";
 
+import DepositImage from "../../framework/presentation/components/assets/img/banners/deposit.jpg";
+
+
 function DepositPage() {
   const { newDeposit }: any = useContext(ProductContext);
 
@@ -170,6 +173,13 @@ function DepositPage() {
     },
   ];
 
+  const banner = {
+    title: "Deposits",
+    sub_title: "What is",
+    text: "A cryptocurrency deposit is an analogue of a traditional bank deposit in cryptocurrency. The investor transfers digital assets to the investment service provider, International Trade Group, for a certain period. The company regularly pays fixed interest.",
+    img: DepositImage
+  };
+
   return (
     <>
       <ModalWallet
@@ -195,6 +205,7 @@ function DepositPage() {
 
       {show && (
         <>
+          <Banner data={banner} />
           <Calculator />
           <Hgroup props={hgroup} />
           <Card deposits={deposits} />
@@ -235,7 +246,7 @@ function DepositPage() {
             </>
           )}
 
-          {newDeposit.length <= 4 && <Banner />}
+          {newDeposit.length <= 4 && <Banner data={banner} />}
         </>
       )}
     </>

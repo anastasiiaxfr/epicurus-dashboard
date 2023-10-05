@@ -7,6 +7,7 @@ import Hgroup from "../../framework/presentation/components/modules/Hgroup";
 import HeroGroup from "../../framework/presentation/components/modules/HeroCta";
 import FormAddTrustManagement from "../../framework/presentation/components/modules/Form/FormAddTrustManagement";
 import ModalConfirmation from "../../framework/presentation/components/modules/Modal/ModalConfirmation";
+import TmImage from "../../framework/presentation/components/assets/img/banners/tm.jpg"
 
 function TrustManagementPage() {
   const [showForm, setShowForm] = useState(false);
@@ -69,6 +70,13 @@ function TrustManagementPage() {
     },
   };
 
+  const banner = {
+    title: "Trust Management",
+    sub_title: "What is",
+    text: "The investor transfers his assets to the trust management of the investment service provider, International Trade Group. The client's personal investment advisor trades on digital asset markets from the investor's account. All assets received remain the investor's property.",
+    img: TmImage
+  };
+
   return (
     <>
       <ModalConfirmation
@@ -107,7 +115,7 @@ function TrustManagementPage() {
         </>
       )}
 
-      {newTrustManagement.length <= 4 && <Banner />}
+      {newTrustManagement.length <= 4 && <Banner data={banner}/>}
     </>
   );
 }
