@@ -1,20 +1,19 @@
 @import '../../assets/styles/vars.sass'
 
 .products
-    +flex(flex, flex-end, space-between, nowrap)
+    +flex(flex, flex-end, space-between, nowrap, column)
     width: 100%
     margin: 0
     @extend %banner
-    background: transparent
+    background: $dark2
     box-shadow: none
-    //border: 2px solid $main
+    border: 2px solid $main
 
     &::before
-        padding-top: 50%
+        display: none
 
     &::after
-        background: linear-gradient(270deg, transparent, rgba(0, 0, 0, 0.9)), linear-gradient(180deg, transparent 80%, rgba(0, 0, 0, 0.9))
-        z-index: 0
+        display: none
 
     &:hover
         box-shadow: $bxsd9
@@ -28,11 +27,16 @@
     &_content
         position: relative
         padding: var(--gapLg)
+        padding-top: 0
         z-index: 1
         +sz(100%, 100%)
         //backdrop-filter: blur(1px)
-        background-color: rgba($white, 0.02)
-        filter: contrast(1.5)
+
+    &_label
+        +ps(absolute, (b, 0), (l, 0))
+        +sz(100%, 100%)
+        transform: scale(1.1) 
+        object-fit: cover
 
     &_img
         +ps(absolute, (b, 0), (r, 0))
@@ -40,13 +44,41 @@
         object-fit: cover
         //z-index: -1
         //opacity: 0.8
-        //filter: contrast(1.25)
+        filter: contrast(1.01)
+        &_wrap
+            position: relative
+            width: 100%
+            padding-top: calc(322/530)*100%
+
+            &.disabled
+                filter: blur(2px)
+
+            &::after
+                content: ''
+                +ps(absolute, (t, 0), (l, 0))
+                display: block
+                +sz(100%, 100%)
+                background: linear-gradient(180deg, transparent 50%, $dark2)
+                z-index: 1
+
+   
        
     &_title
-        +ft(18, 18, 900)
+        margin-top: -24px
+        margin-bottom: 4px
+        +ft(40, 48, 700)
         letter-spacing: 0.05em
         @extend %text-gradient
         //text-transform: uppercase
+
+    &_subtitle
+        +ft(24, 34, 700)
+
+    &_text
+        margin-top: var(--gap)
+        +ft(14, 20, 500)
+        letter-spacing: 0.05em
+        color: $dark19
 
     +maw($sm)
         &_cards
@@ -58,7 +90,4 @@
         &_content
             padding: 20px
 
-        &_title
-            +ft(12, 12, 600)
-            text-transform: uppercase
-            color: $white
+       
