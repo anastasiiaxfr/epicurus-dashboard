@@ -1,6 +1,7 @@
 
 - CRUD with RTDB Firebase
 - JWT auth with Firebase
+- email notification with SendPulse API
 
 
 ---
