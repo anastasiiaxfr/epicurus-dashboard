@@ -1,4 +1,9 @@
 
+- CRUD with RTDB Firebase
+- JWT auth with Firebase
+
+
+---
 1. npm i
 2. next dev/build
 
